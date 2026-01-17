@@ -139,11 +139,11 @@ export default function Home() {
               ✨ Yazı Stilleri
             </Link>
             <nav className="nav">
-              <Link href="/" className="nav-link">
-                Ana Sayfa
-              </Link>
               <Link href="/insta-yazi-tipi" className="nav-link">
                 Insta Yazı Tipi
+              </Link>
+              <Link href="/sekilli-semboller" className="nav-link">
+                Şekilli Semboller
               </Link>
               <button 
                 className="dark-mode-toggle"
