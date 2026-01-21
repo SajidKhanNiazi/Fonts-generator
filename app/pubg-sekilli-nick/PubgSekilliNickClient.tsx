@@ -222,7 +222,7 @@ export default function PubgSekilliNickClient() {
   const scrollToCategory = (categoryId: string) => {
     setSelectedCategory(categoryId)
     setTimeout(() => {
-      const categoryElement = document.querySelector(`[data-category="${categoryId}"]`)
+      const categoryElement = document.querySelector(`[data-category="${categoryId}"]`) as HTMLElement | null
       if (categoryElement) {
         const headerOffset = 140
         const elementPosition = categoryElement.getBoundingClientRect().top
@@ -235,7 +235,7 @@ export default function PubgSekilliNickClient() {
   // Scroll to section
   const scrollToSection = (sectionId: string) => {
     setTimeout(() => {
-      const sectionElement = document.getElementById(sectionId)
+      const sectionElement = document.getElementById(sectionId) as HTMLElement | null
       if (sectionElement) {
         const headerOffset = 140
         const elementPosition = sectionElement.getBoundingClientRect().top
@@ -395,15 +395,17 @@ export default function PubgSekilliNickClient() {
                   overflow: 'hidden',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.6)'
-                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
-                  e.currentTarget.style.boxShadow = '0 20px 25px rgba(99, 102, 241, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1)'
+                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  const target = e.currentTarget as HTMLButtonElement
+                  target.style.borderColor = 'rgba(99, 102, 241, 0.6)'
+                  target.style.transform = 'translateY(-8px) scale(1.02)'
+                  target.style.boxShadow = '0 20px 25px rgba(99, 102, 241, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1)'
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.3)'
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)'
-                  e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
+                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  const target = e.currentTarget as HTMLButtonElement
+                  target.style.borderColor = 'rgba(99, 102, 241, 0.3)'
+                  target.style.transform = 'translateY(0) scale(1)'
+                  target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
                 }}
               >
                 {/* Decorative background element */}
@@ -494,19 +496,25 @@ export default function PubgSekilliNickClient() {
                   overflow: 'hidden',
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.6)'
-                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)'
-                  e.currentTarget.style.boxShadow = '0 20px 25px rgba(251, 191, 36, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1)'
-                  const arrow = e.currentTarget.querySelector('.arrow-icon')
-                  if (arrow) arrow.style.transform = 'translateX(4px)'
+                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  const target = e.currentTarget as HTMLButtonElement
+                  target.style.borderColor = 'rgba(251, 191, 36, 0.6)'
+                  target.style.transform = 'translateY(-8px) scale(1.02)'
+                  target.style.boxShadow = '0 20px 25px rgba(251, 191, 36, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1)'
+                  const arrow = target.querySelector('.arrow-icon') as HTMLElement | null
+                  if (arrow) {
+                    arrow.style.transform = 'translateX(4px)'
+                  }
                 }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(251, 191, 36, 0.3)'
-                  e.currentTarget.style.transform = 'translateY(0) scale(1)'
-                  e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
-                  const arrow = e.currentTarget.querySelector('.arrow-icon')
-                  if (arrow) arrow.style.transform = 'translateX(0)'
+                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  const target = e.currentTarget as HTMLButtonElement
+                  target.style.borderColor = 'rgba(251, 191, 36, 0.3)'
+                  target.style.transform = 'translateY(0) scale(1)'
+                  target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
+                  const arrow = target.querySelector('.arrow-icon') as HTMLElement | null
+                  if (arrow) {
+                    arrow.style.transform = 'translateX(0)'
+                  }
                 }}
               >
                 {/* Decorative background element */}
@@ -825,44 +833,6 @@ export default function PubgSekilliNickClient() {
               </div>
             )}
           </div>
-
-          {/* Remove old guide text and section titles that are now redundant */}
-          {inputText.trim() && generateDynamicNicks.length > 0 && (
-            <div className="category-section" data-category="dynamic">
-              <h2 className="category-header">
-                {inputText} İçin PUBG Şekilli Nickler
-                <span className="category-count">{generateDynamicNicks.length}</span>
-              </h2>
-              
-              <div className="font-grid">
-                {generateDynamicNicks.map(({ nick, label }, index) => {
-                  const isCopied = copiedNick === nick
-                  const uniqueId = `dynamic-${index}`
-
-                  return (
-                    <div key={uniqueId} className="font-card glass-card">
-                      <div className="font-card-header">
-                        <div className="font-card-title">
-                          <div className="font-name">
-                            {label}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="font-preview">{nick}</div>
-                      <button
-                        className={`copy-button ${isCopied ? 'copied' : ''}`}
-                        onClick={() => handleCopy(nick)}
-                      >
-                        {isCopied ? '✓ Kopyalandı!' : '📋 Kopyala'}
-                      </button>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          )}
-
 
           {/* ============ COMPREHENSIVE SEO CONTENT ============ */}
           
