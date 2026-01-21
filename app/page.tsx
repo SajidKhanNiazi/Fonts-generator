@@ -145,6 +145,9 @@ export default function Home() {
               <Link href="/sekilli-semboller" className="nav-link">
                 Şekilli Semboller
               </Link>
+              <Link href="/pubg-sekilli-nick" className="nav-link">
+                PUBG Şekilli Nick
+              </Link>
               <button 
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
@@ -905,6 +908,12 @@ export default function Home() {
               </Link>
               <Link href="/insta-yazi-tipi" className="footer-link">
                 Insta Yazı Tipi
+              </Link>
+              <Link href="/sekilli-semboller" className="footer-link">
+                Şekilli Semboller
+              </Link>
+              <Link href="/pubg-sekilli-nick" className="footer-link">
+                PUBG Şekilli Nick
               </Link>
             </div>
             <div className="footer-text">
