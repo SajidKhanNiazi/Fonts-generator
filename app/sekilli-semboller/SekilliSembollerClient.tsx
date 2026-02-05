@@ -144,6 +144,29 @@ export default function SekilliSembollerClient() {
     }
   }, [darkMode, mounted])
 
+  // Scroll reveal animation
+  useEffect(() => {
+    if (!mounted) return
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active')
+        }
+      })
+    }, observerOptions)
+
+    const revealElements = document.querySelectorAll('.reveal')
+    revealElements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [mounted])
+
   // Handle copy to clipboard
   const handleCopy = async (symbol: string) => {
     try {
@@ -226,7 +249,7 @@ export default function SekilliSembollerClient() {
               <Link href="/pubg-sekilli-nick" className="nav-link">
                 PUBG Şekilli Nick
               </Link>
-              <button 
+              <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
                 aria-label="Karanlık mod"
@@ -241,7 +264,7 @@ export default function SekilliSembollerClient() {
       {/* Main Content */}
       <main className="main">
         <div className="container">
-          
+
           {/* Hero Section */}
           <div className="hero-section">
             {/* Animated Background */}
@@ -268,17 +291,17 @@ export default function SekilliSembollerClient() {
                 <span className="badge-icon">🎨</span>
                 <span>Tek Tıkla Kopyala</span>
               </div>
-              
+
               <h1 className="hero-title">
                 <span className="title-line">
-                  <span className="title-word">Şekilli</span>
-                  <span className="title-word highlight">Semboller</span>
+                  <span className="title-word">Cool</span>
+                  <span className="title-word highlight">Symbols</span>
                 </span>
               </h1>
-              
+
               <p className="hero-description">
-                <span className="text-gradient">Süslü</span>, <span className="text-gradient">özel</span> ve <span className="text-gradient">estetik</span> sembolleri 
-                tek tıkla kopyala. Instagram bio, WhatsApp durumu ve oyun isimleri için mükemmel!
+                <span className="text-gradient">Fancy</span>, <span className="text-gradient">special</span>, and <span className="text-gradient">aesthetic</span> symbols to
+                copy with one click. Perfect for Instagram bio, WhatsApp status, and game names!
               </p>
 
               {/* Stats */}
@@ -332,7 +355,7 @@ export default function SekilliSembollerClient() {
                 {category.icon} {category.name}
                 <span className="category-count">{category.symbols.length}</span>
               </h2>
-              
+
               <div className="symbol-grid">
                 {category.symbols.map((symbol, index) => {
                   const isCopied = copiedSymbol === symbol
@@ -356,18 +379,17 @@ export default function SekilliSembollerClient() {
           ))}
 
           {/* ============ COMPREHENSIVE SEO CONTENT ============ */}
-          
-          {/* SECTION 1: What are Şekilli Semboller */}
-          <div className="info-section">
-            <h2 className="section-main-title">Şekilli Semboller Nedir?</h2>
-            
+
+          {/* SECTION 1: Havalı ve Şık Semboller Nedir */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Havalı ve Şık Semboller Nedir?</h2>
+
             <div className="content-intro">
               <p className="intro-text">
-                <strong>Şekilli semboller</strong>, sosyal medya platformlarında, oyun isimlerinde ve mesajlaşma 
-                uygulamalarında kullanabileceğiniz özel karakterler ve işaretlerdir. Bu <strong>süslü semboller</strong> sayesinde 
-                metinlerinizi dikkat çekici hale getirebilir, profilinizi özelleştirebilir ve mesajlarınıza 
-                estetik bir dokunuş katabilirsiniz. Kalp, yıldız, ok ve çiçek gibi <strong>özel semboller</strong> tek 
-                tıkla kopyalanıp yapıştırılabilir.
+                <strong>Havalı semboller</strong>, sosyal medya platformlarında, oyun isimlerinde ve mesajlaşma uygulamalarında
+                kullanabileceğiniz özel karakterler ve işaretlerdir. Bu <strong>şık semboller</strong>, metninizi göz alıcı hale
+                getirmenize, profilinizi özelleştirmenize ve mesajlarınıza estetik bir dokunuş eklemenize yardımcı olur.
+                Kalpler, yıldızlar, oklar ve çiçekler gibi <strong>özel semboller</strong> tek tıkla kopyalanıp yapıştırılabilir.
               </p>
             </div>
 
@@ -376,8 +398,8 @@ export default function SekilliSembollerClient() {
                 <div className="feature-card-icon">❤️</div>
                 <h3>Zengin Sembol Koleksiyonu</h3>
                 <p>
-                  Kalp, yıldız, ok, çerçeve, çiçek ve daha fazlası! {totalSymbols}+ farklı <strong>şekilli sembol</strong> ile 
-                  metinlerinizi süsleyin ve profilinizi öne çıkarın.
+                  Kalpler, yıldızlar, oklar, çerçeveler, çiçekler ve daha fazlası! {totalSymbols}+ farklı <strong>şık sembol</strong> ile
+                  metninizi süsleyin ve profilinizi öne çıkarın.
                 </p>
               </div>
 
@@ -385,8 +407,8 @@ export default function SekilliSembollerClient() {
                 <div className="feature-card-icon">📋</div>
                 <h3>Tek Tıkla Kopyala</h3>
                 <p>
-                  İstediğiniz sembole tıklayın, anında kopyalansın! <strong>Şekilli semboller kopyala</strong> özelliği ile 
-                  saniyeler içinde her yere yapıştırın.
+                  İstediğiniz sembole tıklayın ve anında kopyalansın! <strong>Sembol kopyalama</strong> özelliğimizle
+                  saniyeler içinde istediğiniz yere yapıştırın.
                 </p>
               </div>
 
@@ -394,8 +416,8 @@ export default function SekilliSembollerClient() {
                 <div className="feature-card-icon">📱</div>
                 <h3>Tüm Platformlarda Çalışır</h3>
                 <p>
-                  Instagram, WhatsApp, TikTok, Discord ve daha fazlası! <strong>Sembol işaretleri</strong> Unicode 
-                  tabanlı olduğu için tüm cihazlarda görüntülenir.
+                  Instagram, WhatsApp, TikTok, Discord ve daha fazlası! <strong>Sembol işaretleri</strong> Unicode tabanlıdır,
+                  bu yüzden tüm cihazlarda doğru şekilde görünür.
                 </p>
               </div>
 
@@ -403,24 +425,24 @@ export default function SekilliSembollerClient() {
                 <div className="feature-card-icon">🎮</div>
                 <h3>Oyun İsimleri İçin</h3>
                 <p>
-                  Oyunlarda havalı kullanıcı adları oluşturun! <strong>Şekilli işaretler</strong> ile klan etiketleri 
-                  ve oyuncu isimleri için süslü görünüm.
+                  Oyunlarınız için havalı kullanıcı adları oluşturun! <strong>Özel işaretler</strong> ile
+                  klan etiketleri ve oyuncu isimleri için şık bir görünüm.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* SECTION 2: Most Popular Symbols */}
-          <div className="info-section">
-            <h2 className="section-main-title">En Popüler Şekilli Semboller</h2>
-            
+          {/* SECTION 2: En Popüler Semboller */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">En Popüler Havalı Semboller</h2>
+
             <div className="categories-showcase">
               <div className="category-card">
                 <div className="category-header-card">
                   <span className="category-emoji">❤️</span>
                   <h3>Kalp Sembolleri</h3>
                 </div>
-                <p>Aşk ve sevgi ifadesi için en çok kullanılan semboller. Instagram bio ve mesajlar için ideal.</p>
+                <p>Sevgi ve şefkat ifade etmek için en çok kullanılan semboller. Instagram bio ve mesajlar için ideal.</p>
                 <div className="category-examples">
                   <span className="example-text">♥</span>
                   <span className="example-text">❤</span>
@@ -434,7 +456,7 @@ export default function SekilliSembollerClient() {
                   <span className="category-emoji">⭐</span>
                   <h3>Yıldız Sembolleri</h3>
                 </div>
-                <p>Parlaklık ve önem ifadesi için kullanılır. Dikkat çekici profiller için mükemmel.</p>
+                <p>Parlaklık ve önem ifade etmek için kullanılır. Göz alıcı profiller için mükemmel.</p>
                 <div className="category-examples">
                   <span className="example-text">★</span>
                   <span className="example-text">☆</span>
@@ -448,7 +470,7 @@ export default function SekilliSembollerClient() {
                   <span className="category-emoji">🌸</span>
                   <h3>Çiçek Sembolleri</h3>
                 </div>
-                <p>Doğa ve güzellik temalı dekorasyonlar. Estetik görünüm için popüler seçim.</p>
+                <p>Doğa ve güzellik temalı süslemeler. Estetik bir görünüm için popüler bir seçim.</p>
                 <div className="category-examples">
                   <span className="example-text">❀</span>
                   <span className="example-text">✿</span>
@@ -460,9 +482,9 @@ export default function SekilliSembollerClient() {
               <div className="category-card">
                 <div className="category-header-card">
                   <span className="category-emoji">🎮</span>
-                  <h3>Oyuncu Sembolleri</h3>
+                  <h3>Oyun Sembolleri</h3>
                 </div>
-                <p>Oyun isimleri ve klan etiketleri için havalı semboller. Pro gamer görünümü.</p>
+                <p>Oyun isimleri ve klan etiketleri için havalı semboller. Profesyonel oyuncu görünümü.</p>
                 <div className="category-examples">
                   <span className="example-text">『</span>
                   <span className="example-text">』</span>
@@ -490,7 +512,7 @@ export default function SekilliSembollerClient() {
                   <span className="category-emoji">✨</span>
                   <h3>Dekoratif</h3>
                 </div>
-                <p>Metin süslemek için özel dekoratif semboller. Göz alıcı tasarımlar için.</p>
+                <p>Metin süslemesi için özel dekoratif semboller. Göz alıcı tasarımlar için.</p>
                 <div className="category-examples">
                   <span className="example-text">✦</span>
                   <span className="example-text">❖</span>
@@ -501,20 +523,20 @@ export default function SekilliSembollerClient() {
             </div>
           </div>
 
-          {/* SECTION 3: Where to Use */}
-          <div className="info-section">
-            <h2 className="section-main-title">Kategoriye Göre Semboller</h2>
+          {/* SECTION 3: Kategorilere Göre Semboller */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Kategorilere Göre Şık Semboller</h2>
             <p className="section-subtitle">
               Her kategori farklı kullanım alanları için optimize edilmiştir. İhtiyacınıza uygun sembolleri seçin.
             </p>
-            
+
             <div className="platforms-detailed">
               <div className="platform-detailed-card">
                 <div className="platform-icon-large">❤️</div>
                 <div className="platform-info">
                   <h3>Kalp & Aşk</h3>
                   <p>
-                    Sevgi ifadesi için en popüler <strong>süslü semboller</strong>. Instagram bio, WhatsApp durumu 
+                    Sevgi ifade etmek için en popüler <strong>şık semboller</strong>. Instagram bio, WhatsApp durumu
                     ve romantik mesajlar için mükemmel kalp sembolleri.
                   </p>
                   <div className="platform-uses">
@@ -528,15 +550,15 @@ export default function SekilliSembollerClient() {
               <div className="platform-detailed-card">
                 <div className="platform-icon-large">⭐</div>
                 <div className="platform-info">
-                  <h3>Yıldız & Parlama</h3>
+                  <h3>Yıldız & Parıltı</h3>
                   <p>
-                    Dikkat çekici profiller için yıldız sembolleri. Highlight başlıkları ve önemli 
-                    metinleri vurgulamak için idealdir.
+                    Göz alıcı profiller için yıldız sembolleri. Başlıkları ve önemli metinleri
+                    vurgulamak için ideal.
                   </p>
                   <div className="platform-uses">
-                    <span>Highlight</span>
+                    <span>Vurgu</span>
                     <span>Başlık</span>
-                    <span>Vurgulama</span>
+                    <span>Öne Çıkarma</span>
                   </div>
                 </div>
               </div>
@@ -546,11 +568,11 @@ export default function SekilliSembollerClient() {
                 <div className="platform-info">
                   <h3>Oyun & E-Spor</h3>
                   <p>
-                    Oyun isimleri, klan etiketleri ve Discord sunucuları için <strong>şekilli işaretler</strong>. 
-                    Pro gamer görünümü sağlayan özel karakterler.
+                    Oyun isimleri, klan etiketleri ve Discord sunucuları için <strong>özel karakterler</strong>.
+                    Profesyonel oyuncu görünümü sağlayan benzersiz işaretler.
                   </p>
                   <div className="platform-uses">
-                    <span>Oyun Adı</span>
+                    <span>Oyun İsmi</span>
                     <span>Klan</span>
                     <span>Discord</span>
                   </div>
@@ -562,8 +584,8 @@ export default function SekilliSembollerClient() {
                 <div className="platform-info">
                   <h3>Sosyal Medya</h3>
                   <p>
-                    Instagram, TikTok ve Twitter için trend <strong>özel semboller</strong>. Bio, caption 
-                    ve hikaye metinlerinde kullanın.
+                    Instagram, TikTok ve Twitter için trend <strong>özel semboller</strong>.
+                    Bio, altyazılar ve story metinlerinde kullanın.
                   </p>
                   <div className="platform-uses">
                     <span>Instagram</span>
@@ -578,8 +600,8 @@ export default function SekilliSembollerClient() {
                 <div className="platform-info">
                   <h3>Mesajlaşma</h3>
                   <p>
-                    WhatsApp, Telegram ve mesajlaşma uygulamaları için semboller. Mesajlarınızı 
-                    eğlenceli ve renkli hale getirin.
+                    WhatsApp, Telegram ve diğer mesajlaşma uygulamaları için semboller.
+                    Mesajlarınızı eğlenceli ve renkli hale getirin.
                   </p>
                   <div className="platform-uses">
                     <span>WhatsApp</span>
@@ -594,7 +616,7 @@ export default function SekilliSembollerClient() {
                 <div className="platform-info">
                   <h3>Dekorasyon</h3>
                   <p>
-                    Çiçek, doğa ve dekoratif <strong>sembol işaretleri</strong>. Estetik profiller ve 
+                    Çiçek, doğa ve dekoratif <strong>sembol işaretleri</strong>. Estetik profiller ve
                     güzel görünümlü metinler için.
                   </p>
                   <div className="platform-uses">
@@ -607,10 +629,10 @@ export default function SekilliSembollerClient() {
             </div>
           </div>
 
-          {/* SECTION 4: How to Use */}
-          <div className="info-section">
-            <h2 className="section-main-title">Şekilli Semboller Nerelerde Kullanılır?</h2>
-            
+          {/* SECTION 4: Semboller Nerede Kullanılır */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Havalı Semboller Nerede Kullanılır?</h2>
+
             <div className="detailed-steps">
               <div className="detailed-step">
                 <div className="step-visual">
@@ -620,13 +642,13 @@ export default function SekilliSembollerClient() {
                 <div className="step-details">
                   <h3>Instagram</h3>
                   <p>
-                    Instagram bio, gönderi açıklamaları, hikaye metinleri ve yorumlarda <strong>şekilli semboller</strong> 
-                    kullanarak profilinizi öne çıkarın. Kalp, yıldız ve çiçek sembolleri en popüler seçeneklerdir.
+                    Instagram bio, gönderi altyazıları, hikayeler ve yorumlarda <strong>havalı semboller</strong> ile öne çıkın.
+                    Kalp, yıldız ve çiçek sembolleri en popüler seçimlerdir.
                   </p>
                   <ul className="step-tips">
-                    <li>Bio'da maksimum 150 karakter olduğunu unutmayın</li>
-                    <li>Highlight kapak isimlerinde kullanın</li>
-                    <li>Caption'larda dikkat çekici görünüm sağlar</li>
+                    <li>Bio'da 150 karakter sınırını unutmayın</li>
+                    <li>Öne çıkan kapak başlıklarında kullanın</li>
+                    <li>Altyazılarda göz alıcı bir görünüm sağlar</li>
                   </ul>
                 </div>
               </div>
@@ -639,13 +661,13 @@ export default function SekilliSembollerClient() {
                 <div className="step-details">
                   <h3>WhatsApp & Mesajlaşma</h3>
                   <p>
-                    WhatsApp durum mesajları, grup isimleri ve kişisel mesajlarınızda <strong>süslü semboller</strong> 
-                    kullanarak iletişiminizi renklendirin.
+                    WhatsApp durum güncellemelerinde, grup isimlerinde ve kişisel mesajlarda <strong>şık semboller</strong> ile
+                    iletişiminizi canlandırın.
                   </p>
                   <ul className="step-tips">
                     <li>Durum mesajlarını süsleyin</li>
                     <li>Grup isimlerini özelleştirin</li>
-                    <li>Mesajlarınıza eğlenceli dokunuş katın</li>
+                    <li>Mesajlarınıza eğlenceli bir dokunuu015f ekleyin</li>
                   </ul>
                 </div>
               </div>
@@ -656,31 +678,31 @@ export default function SekilliSembollerClient() {
                   <div className="step-icon-circle">🎮</div>
                 </div>
                 <div className="step-details">
-                  <h3>Oyunlar & Discord</h3>
+                  <h3>Oyun & Discord</h3>
                   <p>
-                    Oyun karakteri isimleri, klan etiketleri ve Discord sunucu/kanal isimlerinde <strong>şekilli işaretler</strong> 
-                    kullanarak profesyonel ve dikkat çekici bir görünüm elde edin.
+                    Oyun karakter isimlerinde, klan etiketlerinde ve Discord sunucu/kanal isimlerinde <strong>özel işaretler</strong>
+                    kullanarak profesyonel ve göz alıcı bir görünüm elde edin.
                   </p>
                   <ul className="step-tips">
                     <li>Çerçeve sembolleri klan isimleri için mükemmel</li>
-                    <li>Yıldız ve ok sembolleri ile oyuncu adı oluşturun</li>
-                    <li>Discord rolleri ve kanal isimlerinde kullanın</li>
+                    <li>Yıldız ve ok sembolleriyle oyuncu isimleri oluşturun</li>
+                    <li>Discord rollerinde ve kanal isimlerinde kullanın</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* SECTION 5: Tips */}
-          <div className="info-section">
+          {/* SECTION 5: Kullanım İpuçları */}
+          <div className="info-box reveal">
             <h2 className="section-main-title">Kullanım İpuçları</h2>
-            
+
             <div className="tips-grid">
               <div className="tip-card">
                 <div className="tip-number">01</div>
                 <h3>Aşırıya Kaçmayın</h3>
                 <p>
-                  Çok fazla sembol kullanmak okunabilirliği azaltır. Vurgulamak istediğiniz 
+                  Çok fazla sembol kullanmak okunabilirliği azaltır. Vurgulamak istediğiniz
                   yerlerde kullanın.
                 </p>
               </div>
@@ -689,8 +711,8 @@ export default function SekilliSembollerClient() {
                 <div className="tip-number">02</div>
                 <h3>Uyumlu Semboller Seçin</h3>
                 <p>
-                  Aynı tema veya stildeki sembolleri bir arada kullanın. Kalpler kalpler ile, 
-                  yıldızlar yıldızlar ile.
+                  Aynı tema veya stildeki sembolleri birlikte kullanın. Kalpler kalple, yıldızlar
+                  yıldızla.
                 </p>
               </div>
 
@@ -698,7 +720,7 @@ export default function SekilliSembollerClient() {
                 <div className="tip-number">03</div>
                 <h3>Platform Uyumluluğu</h3>
                 <p>
-                  Bazı semboller bazı platformlarda farklı görünebilir. Paylaşmadan önce 
+                  Bazı semboller bazı platformlarda farklı görünebilir. Paylaşmadan önce
                   test edin.
                 </p>
               </div>
@@ -707,16 +729,16 @@ export default function SekilliSembollerClient() {
                 <div className="tip-number">04</div>
                 <h3>Simetrik Kullanım</h3>
                 <p>
-                  Metnin başına ve sonuna aynı sembolleri koyarak simetrik ve estetik 
-                  görünüm sağlayın.
+                  Metnin başına ve sonuna aynı sembolleri koyarak simetrik ve estetik bir
+                  görünüm elde edin.
                 </p>
               </div>
 
               <div className="tip-card">
                 <div className="tip-number">05</div>
-                <h3>Favorileri Kaydedin</h3>
+                <h3>Favorilerinizi Kaydedin</h3>
                 <p>
-                  Sık kullandığınız sembolleri bir not defterine kaydedin, her seferinde 
+                  Sık kullandığınız sembolleri bir not defterine kaydedin, her seferinde
                   aramak zorunda kalmayın.
                 </p>
               </div>
@@ -725,29 +747,28 @@ export default function SekilliSembollerClient() {
                 <div className="tip-number">06</div>
                 <h3>Kombinasyonlar Deneyin</h3>
                 <p>
-                  Farklı sembol kombinasyonları oluşturarak benzersiz dekoratif çerçeveler 
-                  yaratın.
+                  Farklı sembolleri birleştirerek benzersiz dekoratif çerçeveler oluşturun.
                 </p>
               </div>
             </div>
           </div>
 
           {/* SECTION 6: FAQ */}
-          <div className="info-section">
-            <h2 className="section-main-title">Sık Sorulan Sorular</h2>
-            
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Sıkça Sorulan Sorular</h2>
+
             <div className="faq-accordion">
               <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
                 <div className="faq-question">
                   <span className="faq-icon">❓</span>
-                  <h3>Şekilli semboller tüm cihazlarda çalışır mı?</h3>
+                  <h3>Şık semboller tüm cihazlarda çalışır mı?</h3>
                   <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
                 </div>
                 <div className="faq-answer">
                   <p>
-                    Evet! <strong>Şekilli semboller</strong> Unicode karakter setini kullandığı için iPhone, Android, 
-                    Windows ve Mac dahil tüm modern cihazlarda görüntülenir. Ancak bazı eski cihazlarda bazı 
-                    emojiler farklı görünebilir.
+                    Evet! <strong>Şık semboller</strong> Unicode karakter setini kullanır, bu yüzden iPhone, Android,
+                    Windows ve Mac dahil tüm modern cihazlarda görüntülenir. Ancak bazı emojiler eski
+                    cihazlarda farklı görünebilir.
                   </p>
                 </div>
               </div>
@@ -760,8 +781,8 @@ export default function SekilliSembollerClient() {
                 </div>
                 <div className="faq-answer">
                   <p>
-                    Çok basit! İstediğiniz sembole tıklayın, otomatik olarak panonuza kopyalanır. 
-                    "Kopyalandı" bildirimi gördüğünüzde artık istediğiniz yere yapıştırabilirsiniz. 
+                    Çok basit! İstediğiniz sembole tıklayın ve otomatik olarak panonuza kopyalanacaktır.
+                    "Kopyalandı" bildirimini gördüğünüzde, istediğiniz yere yapıştırabilirsiniz.
                     Mobil ve masaüstünde aynı şekilde çalışır.
                   </p>
                 </div>
@@ -770,14 +791,14 @@ export default function SekilliSembollerClient() {
               <div className={`faq-item ${expandedFaq === 2 ? 'expanded' : ''}`} onClick={() => toggleFaq(2)}>
                 <div className="faq-question">
                   <span className="faq-icon">📷</span>
-                  <h3>Instagram'da semboller kullanabilir miyim?</h3>
+                  <h3>Sembolleri Instagram'da kullanabilir miyim?</h3>
                   <span className="faq-toggle">{expandedFaq === 2 ? '−' : '+'}</span>
                 </div>
                 <div className="faq-answer">
                   <p>
-                    Kesinlikle! <strong>Süslü semboller</strong> Instagram bio, gönderi açıklamaları, hikaye metinleri 
-                    ve yorumlarda sorunsuz çalışır. Profilinizi öne çıkarmak için kalp, yıldız ve çiçek 
-                    sembolleri harika seçeneklerdir.
+                    Kesinlikle! <strong>Şık semboller</strong> Instagram bio, gönderi altyazıları,
+                    hikaye metinleri ve yorumlarda mükemmel çalışır. Kalp, yıldız ve çiçek sembolleri
+                    profilinizi öne çıkarmak için harika seçimlerdir.
                   </p>
                 </div>
               </div>
@@ -790,9 +811,9 @@ export default function SekilliSembollerClient() {
                 </div>
                 <div className="faq-answer">
                   <p>
-                    Evet, ancak oyuna göre değişir. Çoğu oyun Unicode karakterleri destekler ve 
-                    <strong> şekilli işaretler</strong> kullanmanıza izin verir. Özellikle 【】『』 gibi çerçeve 
-                    sembolleri klan isimleri için çok popülerdir. Oyununuzun karakter sınırlamalarını kontrol edin.
+                    Evet, ancak oyuna bağlıdır. Çoğu oyun Unicode karakterleri destekler ve
+                    <strong>özel işaretler</strong> kullanmanıza izin verir. 【】『』 gibi çerçeve sembolleri
+                    klan isimleri için özellikle popülerdir. Oyununuzun karakter sınırlamalarını kontrol edin.
                   </p>
                 </div>
               </div>
@@ -805,8 +826,8 @@ export default function SekilliSembollerClient() {
                 </div>
                 <div className="faq-answer">
                   <p>
-                    Evet, <strong>şekilli semboller kopyala</strong> aracımız tamamen ücretsizdir. Kayıt veya giriş 
-                    gerektirmez. Tüm {totalSymbols}+ sembol sınırsız ve ücretsiz olarak kullanımınıza sunulmuştur.
+                    Evet, <strong>sembol kopyalama</strong> aracımız tamamen ücretsizdir. Kayıt veya
+                    giriş gerekmez. Tüm {totalSymbols}+ sembol sınırsız ve ücretsiz kullanıma açıktır.
                   </p>
                 </div>
               </div>
@@ -819,8 +840,8 @@ export default function SekilliSembollerClient() {
                 </div>
                 <div className="faq-answer">
                   <p>
-                    Evet, %100 güvenlidir. Tüm işlemler tarayıcınızda gerçekleşir, hiçbir veri sunucumuza 
-                    gönderilmez. <strong>Özel semboller</strong> sadece kopyala-yapıştır işlemi yapar, 
+                    Evet, %100 güvenlidir. Tüm işlemler tarayıcınızda gerçekleşir; sunucularımıza hiçbir veri
+                    gönderilmez. <strong>Özel semboller</strong> yalnızca kopyala-yapıştır işlemi yapar ve
                     cihazınıza veya hesaplarınıza erişmez.
                   </p>
                 </div>
@@ -835,7 +856,7 @@ export default function SekilliSembollerClient() {
                 <div className="feature-banner-icon">🚀</div>
                 <div className="feature-banner-content">
                   <h3>Ücretsiz ve Hızlı</h3>
-                  <p>Kayıt gerektirmez, tek tıkla kopyala ve kullan!</p>
+                  <p>Kayıt gerekmez, tek tıkla sembolleri kopyalayın ve kullanın!</p>
                 </div>
               </div>
 
@@ -843,7 +864,7 @@ export default function SekilliSembollerClient() {
                 <div className="feature-banner-icon">🔒</div>
                 <div className="feature-banner-content">
                   <h3>%100 Güvenli</h3>
-                  <p>Tüm işlemler tarayıcınızda, verileriniz sizde kalır.</p>
+                  <p>Tüm işlemler tarayıcınızda gerçekleşir; verileriniz sizde kalır.</p>
                 </div>
               </div>
 
@@ -851,7 +872,7 @@ export default function SekilliSembollerClient() {
                 <div className="feature-banner-icon">📱</div>
                 <div className="feature-banner-content">
                   <h3>Mobil Uyumlu</h3>
-                  <p>Telefonunuzdan kolayca sembol kopyalayın.</p>
+                  <p>Telefonunuzdan kolayca sembolleri kopyalayın.</p>
                 </div>
               </div>
             </div>
@@ -860,15 +881,15 @@ export default function SekilliSembollerClient() {
           {/* Internal Links Section */}
           <div className="back-link-section">
             <p>
-              Yazı fontları mı arıyorsunuz? 
+              Yazı stilleri mi arıyorsunuz?
               <Link href="/" className="homepage-link">
-                Yazı Stilleri
+                Ana Sayfa
               </Link>
               {' '}veya{' '}
               <Link href="/insta-yazi-tipi" className="homepage-link">
-                Insta Yazı Tipi
+                Instagram Yazı Tipi
               </Link>
-              {' '}sayfalarımıza göz atın.
+              {' '}sayfalarını ziyaret edin.
             </p>
           </div>
 

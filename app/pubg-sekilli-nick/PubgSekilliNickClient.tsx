@@ -186,6 +186,29 @@ export default function PubgSekilliNickClient() {
     }
   }, [darkMode, mounted])
 
+  // Scroll reveal animation
+  useEffect(() => {
+    if (!mounted) return
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active')
+        }
+      })
+    }, observerOptions)
+
+    const revealElements = document.querySelectorAll('.reveal')
+    revealElements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [mounted])
+
   // Handle copy to clipboard
   const handleCopy = async (nick: string) => {
     try {
@@ -202,11 +225,11 @@ export default function PubgSekilliNickClient() {
   // Generate dynamic nicknames based on input
   const generateDynamicNicks = useMemo(() => {
     if (!inputText.trim()) return []
-    
+
     const baseName = inputText.trim()
     const baseNameUpper = baseName.toUpperCase()
     const dynamicNicks: Array<{ nick: string; label: string }> = []
-    
+
     // Generate nicknames using all patterns
     pubgPatterns.forEach(({ pattern, label }) => {
       const nick = pattern
@@ -214,7 +237,7 @@ export default function PubgSekilliNickClient() {
         .replace(/{name_upper}/g, baseNameUpper)
       dynamicNicks.push({ nick, label })
     })
-    
+
     return dynamicNicks
   }, [inputText])
 
@@ -302,7 +325,7 @@ export default function PubgSekilliNickClient() {
               <Link href="/pubg-sekilli-nick" className="nav-link active">
                 PUBG Şekilli Nick
               </Link>
-              <button 
+              <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
                 aria-label="Karanlık mod"
@@ -317,7 +340,7 @@ export default function PubgSekilliNickClient() {
       {/* Main Content */}
       <main className="main">
         <div className="container">
-          
+
           {/* Hero Section */}
           <div className="hero-section">
             {/* Animated Background */}
@@ -344,16 +367,16 @@ export default function PubgSekilliNickClient() {
                 <span className="badge-icon">🎮</span>
                 <span>PUBG İçin Özel</span>
               </div>
-              
+
               <h1 className="hero-title">
                 <span className="title-line">
                   <span className="title-word">PUBG</span>
                   <span className="title-word highlight">Şekilli Nick</span>
                 </span>
               </h1>
-              
+
               <p className="hero-description">
-                İstersen <span className="text-gradient">kendi adınla</span> PUBG nick oluştur, istersen <span className="text-gradient">hazır PUBG nicklerini</span> 
+                İstersen <span className="text-gradient">kendi adınla</span> PUBG nick oluştur, istersen <span className="text-gradient">hazır PUBG nicklerini</span>
                 <strong> tek tıkla kopyala</strong> ve oyunda kullan.
               </p>
 
@@ -383,7 +406,7 @@ export default function PubgSekilliNickClient() {
               {/* Ready-made Option Card */}
               <button
                 onClick={() => scrollToSection('ready-made-nicks')}
-                style={{ 
+                style={{
                   cursor: 'pointer',
                   background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
                   border: '2px solid rgba(99, 102, 241, 0.3)',
@@ -419,7 +442,7 @@ export default function PubgSekilliNickClient() {
                   borderRadius: '50%',
                   pointerEvents: 'none'
                 }} />
-                
+
                 {/* Icon */}
                 <div style={{
                   width: '56px',
@@ -467,7 +490,7 @@ export default function PubgSekilliNickClient() {
                 </div>
 
                 {/* CTA */}
-                <div style={{ 
+                <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
@@ -484,7 +507,7 @@ export default function PubgSekilliNickClient() {
               {/* Generator Option Card */}
               <button
                 onClick={() => scrollToSection('nick-generator')}
-                style={{ 
+                style={{
                   cursor: 'pointer',
                   background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%)',
                   border: '2px solid rgba(251, 191, 36, 0.3)',
@@ -528,7 +551,7 @@ export default function PubgSekilliNickClient() {
                   borderRadius: '50%',
                   pointerEvents: 'none'
                 }} />
-                
+
                 {/* Icon */}
                 <div style={{
                   width: '56px',
@@ -576,7 +599,7 @@ export default function PubgSekilliNickClient() {
                 </div>
 
                 {/* CTA */}
-                <div style={{ 
+                <div style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
@@ -661,7 +684,7 @@ export default function PubgSekilliNickClient() {
                   {category.icon} {category.name}
                   <span className="category-count">{category.nicknames.length}</span>
                 </h2>
-                
+
                 <div className="font-grid">
                   {category.nicknames.map((nick, index) => {
                     const isCopied = copiedNick === nick
@@ -676,7 +699,7 @@ export default function PubgSekilliNickClient() {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="font-preview">{nick}</div>
                         <button
                           className={`copy-button ${isCopied ? 'copied' : ''}`}
@@ -726,9 +749,9 @@ export default function PubgSekilliNickClient() {
                 <div className="input-header-modern">
                   <div className="input-icon-modern">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>
                   <div className="input-header-text">
@@ -736,7 +759,7 @@ export default function PubgSekilliNickClient() {
                     <p>PUBG uyumlu şekilli nickler otomatik oluşturulur ✨</p>
                   </div>
                 </div>
-                
+
                 <div className="input-field-wrapper">
                   <textarea
                     id="text-input"
@@ -748,7 +771,7 @@ export default function PubgSekilliNickClient() {
                     maxLength={20}
                   />
                   <div className="input-actions">
-                    <button 
+                    <button
                       className="clear-input-btn"
                       onClick={() => setInputText('')}
                       style={{ opacity: inputText ? 1 : 0 }}
@@ -771,19 +794,19 @@ export default function PubgSekilliNickClient() {
                   </div>
                   <div className={`char-counter ${inputText.length > 15 ? 'warning' : ''} ${inputText.length > 18 ? 'danger' : ''}`}>
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                      <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                      <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                     <span>{inputText.length}</span>
                     <span className="counter-max">/ 20</span>
                   </div>
                 </div>
               </div>
-              
+
               {/* Helper text below input */}
-              <div style={{ 
-                textAlign: 'center', 
-                marginTop: '1.5rem', 
+              <div style={{
+                textAlign: 'center',
+                marginTop: '1.5rem',
                 padding: '1rem',
                 color: 'var(--text-primary)',
                 fontSize: '0.9375rem',
@@ -803,7 +826,7 @@ export default function PubgSekilliNickClient() {
                   {inputText} İçin PUBG Şekilli Nickler
                   <span className="category-count">{generateDynamicNicks.length}</span>
                 </h2>
-                
+
                 <div className="font-grid">
                   {generateDynamicNicks.map(({ nick, label }, index) => {
                     const isCopied = copiedNick === nick
@@ -818,7 +841,7 @@ export default function PubgSekilliNickClient() {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="font-preview">{nick}</div>
                         <button
                           className={`copy-button ${isCopied ? 'copied' : ''}`}
@@ -835,17 +858,17 @@ export default function PubgSekilliNickClient() {
           </div>
 
           {/* ============ COMPREHENSIVE SEO CONTENT ============ */}
-          
+
           {/* SECTION 1: What is PUBG Şekilli Nick */}
-          <div className="info-section">
+          <div className="info-box reveal">
             <h2 className="section-main-title">PUBG Şekilli Nick Nedir?</h2>
-            
+
             <div className="content-intro">
               <p className="intro-text">
-                <strong>PUBG şekilli nick</strong>, PUBG ve PUBG Mobile oyunlarında kullanabileceğiniz 
-                özel semboller, emojiler ve Unicode karakterlerle süslenmiş oyuncu isimleridir. 
-                Bu <strong>havalı PUBG nickleri</strong> sayesinde oyunda dikkat çekici ve benzersiz 
-                bir kimlik oluşturabilirsiniz. Şekilli nickler, normal karakterlerin yanı sıra 
+                <strong>PUBG şekilli nick</strong>, PUBG ve PUBG Mobile oyunlarında kullanabileceğiniz
+                özel semboller, emojiler ve Unicode karakterlerle süslenmiş oyuncu isimleridir.
+                Bu <strong>havalı PUBG nickleri</strong> sayesinde oyunda dikkat çekici ve benzersiz
+                bir kimlik oluşturabilirsiniz. Şekilli nickler, normal karakterlerin yanı sıra
                 yıldız, kalp, ok, çerçeve ve daha birçok özel sembol içerir.
               </p>
             </div>
@@ -855,8 +878,8 @@ export default function PubgSekilliNickClient() {
                 <div className="feature-card-icon">🎮</div>
                 <h3>PUBG & PUBG Mobile Uyumlu</h3>
                 <p>
-                  Tüm <strong>PUBG şekilli nickler</strong> PUBG ve PUBG Mobile oyunlarında 
-                  sorunsuz çalışır. Kopyala-yapıştır ile saniyeler içinde oyunda kullanabilirsiniz. 
+                  Tüm <strong>PUBG şekilli nickler</strong> PUBG ve PUBG Mobile oyunlarında
+                  sorunsuz çalışır. Kopyala-yapıştır ile saniyeler içinde oyunda kullanabilirsiniz.
                   Unicode karakterler sayesinde ekstra uygulama yüklemenize gerek yoktur.
                 </p>
               </div>
@@ -865,8 +888,8 @@ export default function PubgSekilliNickClient() {
                 <div className="feature-card-icon">🔥</div>
                 <h3>Havalı ve Agresif Nickler</h3>
                 <p>
-                  Oyunda güçlü bir izlenim bırakmak için <strong>havalı PUBG nickleri</strong> 
-                  kullanın. Agresif, savaşçı ve korkutucu temalı nickler ile rakiplerinizi 
+                  Oyunda güçlü bir izlenim bırakmak için <strong>havalı PUBG nickleri</strong>
+                  kullanın. Agresif, savaşçı ve korkutucu temalı nickler ile rakiplerinizi
                   etkileyin ve oyun deneyiminizi zenginleştirin.
                 </p>
               </div>
@@ -875,8 +898,8 @@ export default function PubgSekilliNickClient() {
                 <div className="feature-card-icon">⚔️</div>
                 <h3>Clan ve Team Nickleri</h3>
                 <p>
-                  Takım oyunu için <strong>PUBG clan nickleri</strong> oluşturun. Aynı takımda 
-                  oynayan arkadaşlarınızla uyumlu nickler seçerek takım kimliğinizi güçlendirin. 
+                  Takım oyunu için <strong>PUBG clan nickleri</strong> oluşturun. Aynı takımda
+                  oynayan arkadaşlarınızla uyumlu nickler seçerek takım kimliğinizi güçlendirin.
                   Prefix ve suffix'li hazır nickler mevcuttur.
                 </p>
               </div>
@@ -885,7 +908,7 @@ export default function PubgSekilliNickClient() {
                 <div className="feature-card-icon">🇹🇷</div>
                 <h3>Tam Türkçe Desteği</h3>
                 <p>
-                  Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) tüm PUBG nicklerinde mükemmel çalışır. 
+                  Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) tüm PUBG nicklerinde mükemmel çalışır.
                   Türkçe isimleriniz bozulmadan, okunabilir şekilde şekilli nicklere dönüştürülür.
                 </p>
               </div>
@@ -893,9 +916,9 @@ export default function PubgSekilliNickClient() {
           </div>
 
           {/* SECTION 2: Popular PUBG Nicknames */}
-          <div className="info-section">
+          <div className="info-box reveal">
             <h2 className="section-main-title">En Popüler PUBG Şekilli Nickler</h2>
-            
+
             <div className="categories-showcase">
               <div className="category-card">
                 <div className="category-header-card">
@@ -951,7 +974,7 @@ export default function PubgSekilliNickClient() {
                   <span className="category-emoji">💀</span>
                   <h3>Agresif / Savaşçı</h3>
                 </div>
-                <p>Karanlık, savaşçı ve ölüm temalı agresif PUBG nickleri. Korkutucu görünüm.</p>
+                <p>Karanlık, savaşçı and ölüm temalı agresif PUBG nickleri. Korkutucu görünüm.</p>
                 <div className="category-examples">
                   <span className="example-text">💀Killer💀</span>
                   <span className="example-text">☠️Death☠️</span>
@@ -964,297 +987,150 @@ export default function PubgSekilliNickClient() {
                   <h3>Özel İsimler</h3>
                 </div>
                 <p>Kendi isminize özel şekilli PUBG nickleri oluşturun. Yukarıdaki input alanını kullanın.</p>
-                <div className="category-examples">
-                  <span className="example-text">🔥İsminiz🔥</span>
-                  <span className="example-text">⚡İsminiz⚡</span>
-                </div>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* SECTION 3: How to Use */}
-          <div className="info-section">
-            <h2 className="section-main-title">PUBG Nick Nasıl Değiştirilir?</h2>
-            
-            <div className="detailed-steps">
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">1</div>
-                  <div className="step-icon-circle">📋</div>
-                </div>
-                <div className="step-details">
-                  <h3>Nickname Seçin ve Kopyalayın</h3>
-                  <p>
-                    Bu sayfadaki kategorilerden beğendiğiniz <strong>PUBG şekilli nick</strong>i seçin 
-                    ve "Kopyala" butonuna tıklayın. Metin otomatik olarak panonuza kopyalanır. 
-                    "Kopyalandı!" bildirimi ile işlemi onaylayın.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Beğendiğiniz nickin üzerine tıklayarak önizleyebilirsiniz</li>
-                    <li>Kopyalama işlemi tüm cihazlarda çalışır</li>
-                    <li>Mobil ve masaüstünde aynı şekilde kullanabilirsiniz</li>
-                  </ul>
-                </div>
+        {/* ============ COMPREHENSIVE SEO CONTENT FOR PUBG ============ */}
+
+        {/* SECTION 1: How to change name in PUBG? */}
+        <div className="info-box reveal">
+          <h2 className="section-main-title">How to change name in PUBG?</h2>
+          <div className="detailed-steps">
+            <div className="detailed-step">
+              <div className="step-visual">
+                <div className="step-number-large">1</div>
+                <div className="step-icon-circle">📋</div>
               </div>
-
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">2</div>
-                  <div className="step-icon-circle">🎮</div>
-                </div>
-                <div className="step-details">
-                  <h3>PUBG Uygulamasını Açın</h3>
-                  <p>
-                    PUBG veya PUBG Mobile uygulamasını açın. Ana menüden "Profil" veya "Ayarlar" 
-                    bölümüne gidin. "Nickname Değiştir" veya "İsim Değiştir" seçeneğini bulun.
-                  </p>
-                  <ul className="step-tips">
-                    <li>PUBG Mobile'da: Profil → Ayarlar → Nickname Değiştir</li>
-                    <li>PUBG PC'de: Ayarlar → Hesap → Nickname Değiştir</li>
-                    <li>Bazı durumlarda nickname değiştirmek ücretli olabilir</li>
-                  </ul>
-                </div>
+              <div className="step-details">
+                <h3>Copy Nickname</h3>
+                <p>Choose your favorite stylish nickname from our list or generate one with your name and click the copy button.</p>
               </div>
+            </div>
 
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">3</div>
-                  <div className="step-icon-circle">✨</div>
-                </div>
-                <div className="step-details">
-                  <h3>Yapıştırın ve Kaydedin</h3>
-                  <p>
-                    Kopyaladığınız <strong>havalı PUBG nick</strong>i yapıştır alanına yapıştırın 
-                    (Ctrl+V veya uzun basıp yapıştır). Nickname'in doğru göründüğünden emin olun 
-                    ve "Kaydet" veya "Onayla" butonuna tıklayın.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Nickname karakter sınırı genellikle 12-16 karakterdir</li>
-                    <li>Bazı özel karakterler PUBG'de görünmeyebilir, test edin</li>
-                    <li>Nickname değiştirme hakkınız sınırlı olabilir</li>
-                  </ul>
-                </div>
+            <div className="detailed-step">
+              <div className="step-visual">
+                <div className="step-number-large">2</div>
+                <div className="step-icon-circle">🎮</div>
+              </div>
+              <div className="step-details">
+                <h3>Open PUBG</h3>
+                <p>Launch PUBG or PUBG Mobile, go to your profile or inventory, and find the "Rename Card" to change your nickname.</p>
+              </div>
+            </div>
+
+            <div className="detailed-step">
+              <div className="step-visual">
+                <div className="step-number-large">3</div>
+                <div className="step-icon-circle">✨</div>
+              </div>
+              <div className="step-details">
+                <h3>Paste and Save</h3>
+                <p>Paste your new stylish nickname in the change name box and click save to apply your new look.</p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* SECTION 4: Category Guide */}
-          <div className="info-section">
-            <h2 className="section-main-title">Kategoriye Göre PUBG Nickleri</h2>
-            
-            <div className="tips-grid">
-              <div className="tip-card">
-                <div className="tip-number">01</div>
-                <h3>Havalı PUBG Nickleri</h3>
-                <p>
-                  Agresif, korkutucu ve dikkat çekici <strong>havalı PUBG nickleri</strong>. 
-                  Emoji ve sembollerle süslenmiş, oyunda güçlü bir izlenim bırakan nickler. 
-                  Killer, Death, Shadow gibi temalar içerir.
-                </p>
+        {/* SECTION 2: Popular PUBG Nickname Categories */}
+        <div className="info-box reveal">
+          <h2 className="section-main-title">Popular PUBG Nickname Categories</h2>
+          <div className="tips-grid">
+            <div className="tip-card">
+              <div className="tip-number">01</div>
+              <h3>Cool and stylish nicknames for PUBG</h3>
+              <p>Standing out in PUBG is not just about your gameplay, it’s also about your name. A cool nickname helps you build a unique identity and gain confidence. Our generator provides different unique and eye-catching names that make you more famous among players. Whether you like aggressive, aesthetic, or funny names, you can find them all here.</p>
+            </div>
+            <div className="tip-card">
+              <div className="tip-number">02</div>
+              <h3>Professional and SHORT Nicknames</h3>
+              <p>Many professional players and streamers use short and impactful names. Our tool offers hundreds of pro-level names that are short, clear, and easy to remember for your fans and rivals. Short nicknames are perfect for quick recognition on the leaderboard.</p>
+            </div>
+            <div className="tip-card">
+              <div className="tip-number">03</div>
+              <h3>PUBG Clan Nicknames</h3>
+              <p>If you are playing with a team or running a clan, having a consistent nickname style is great for team spirit and recognition. You can create names with special tags and prefixes that show your squad’s power and unity.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION 3: FAQ */}
+        <div className="info-box reveal">
+          <h2 className="section-main-title">Frequently Asked Questions</h2>
+          <div className="faq-accordion">
+            <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
+              <div className="faq-question">
+                <span className="faq-icon">❓</span>
+                <h3>Can I use symbols in my PUBG nickname?</h3>
+                <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
               </div>
-
-              <div className="tip-card">
-                <div className="tip-number">02</div>
-                <h3>Şekilli & Sembollü Nickler</h3>
-                <p>
-                  Özel çerçeveler (꧁, 【】, 『』) ve sembollerle süslenmiş <strong>PUBG şekilli isimler</strong>. 
-                  Estetik görünüm için idealdir. Unicode karakterler kullanılarak oluşturulmuştur.
-                </p>
+              <div className="faq-answer">
+                <p>Yes, PUBG supports many Unicode symbols. Our generator uses symbols that are known to work on most mobile and PC versions.</p>
               </div>
+            </div>
 
-              <div className="tip-card">
-                <div className="tip-number">03</div>
-                <h3>Pro & Kısa Nickler</h3>
-                <p>
-                  2-5 karakter arası kısa ve profesyonel <strong>PUBG mobile nick</strong>ler. 
-                  Esports tarzı, temiz görünüm. PRO, ELITE, KING gibi güçlü kelimeler içerir.
-                </p>
+            <div className={`faq-item ${expandedFaq === 1 ? 'expanded' : ''}`} onClick={() => toggleFaq(1)}>
+              <div className="faq-question">
+                <span className="faq-icon">❓</span>
+                <h3>How many characters can a PUBG name have?</h3>
+                <span className="faq-toggle">{expandedFaq === 1 ? '−' : '+'}</span>
               </div>
-
-              <div className="tip-card">
-                <div className="tip-number">04</div>
-                <h3>Clan / Team Nickleri</h3>
-                <p>
-                  Takım oyunu için hazırlanmış <strong>PUBG clan nickleri</strong>. 
-                  【CLAN】, 【TEAM】, 【SQUAD】 gibi prefix'lerle başlar. Squad kimliği için mükemmel.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">05</div>
-                <h3>Agresif / Savaşçı Nickler</h3>
-                <p>
-                  Karanlık, savaşçı ve ölüm temalı <strong>agresif PUBG nickleri</strong>. 
-                  💀, ☠️ gibi sembollerle süslenmiş, korkutucu görünüm. Warrior, Killer temaları.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">06</div>
-                <h3>Özel İsimler</h3>
-                <p>
-                  Kendi isminize özel <strong>estetik PUBG nick</strong>ler oluşturun. 
-                  Sayfanın üstündeki input alanına isminizi yazın, anında özel nickler oluşturulur.
-                </p>
+              <div className="faq-answer">
+                <p>Typically, PUBG Mobile names have a limit of 14 characters. Make sure your chosen style fits within this limit.</p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* SECTION 5: FAQ */}
-          <div className="info-section">
-            <h2 className="section-main-title">Sık Sorulan Sorular</h2>
-            
-            <div className="faq-accordion">
-              <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🎮</span>
-                  <h3>PUBG'de şekilli nick kullanabilir miyim?</h3>
-                  <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet! <strong>PUBG şekilli nick</strong>ler Unicode karakterler kullandığı için 
-                    PUBG ve PUBG Mobile'da çalışır. Ancak bazı özel karakterler oyunda görünmeyebilir 
-                    veya farklı görünebilir. Kullanmadan önce test etmenizi öneririz. Nickname değiştirme 
-                    hakkınız sınırlı olabilir, bu yüzden dikkatli seçin.
-                  </p>
-                </div>
+        {/* SECTION 6: Feature Banners */}
+        <div className="info-section">
+          <div className="feature-banners-grid">
+            <div className="feature-banner gradient-success">
+              <div className="feature-banner-icon">🚀</div>
+              <div className="feature-banner-content">
+                <h3>Free and Instant</h3>
+                <p>No registration required, copy ready-made PUBG nicknames instantly!</p>
               </div>
+            </div>
 
-              <div className={`faq-item ${expandedFaq === 1 ? 'expanded' : ''}`} onClick={() => toggleFaq(1)}>
-                <div className="faq-question">
-                  <span className="faq-icon">💰</span>
-                  <h3>PUBG'de nickname değiştirmek ücretli mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 1 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    PUBG'de nickname değiştirmek genellikle ücretlidir. İlk nickname değişikliği 
-                    ücretsiz olabilir, ancak sonraki değişiklikler için UC (Unknown Cash) veya 
-                    gerçek para gerekebilir. PUBG Mobile'da genellikle 100-200 UC maliyeti vardır. 
-                    Bu yüzden <strong>havalı PUBG nick</strong>inizi dikkatli seçin.
-                  </p>
-                </div>
+            <div className="feature-banner gradient-security">
+              <div className="feature-banner-icon">🔒</div>
+              <div className="feature-banner-content">
+                <h3>100% Safe</h3>
+                <p>Your names are not sent to any server; they are processed in your browser.</p>
               </div>
+            </div>
 
-              <div className={`faq-item ${expandedFaq === 2 ? 'expanded' : ''}`} onClick={() => toggleFaq(2)}>
-                <div className="faq-question">
-                  <span className="faq-icon">📏</span>
-                  <h3>PUBG nickname karakter sınırı nedir?</h3>
-                  <span className="faq-toggle">{expandedFaq === 2 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    PUBG nickname karakter sınırı genellikle 12-16 karakter arasındadır. 
-                    Bazı özel karakterler (emoji, sembol) daha fazla karakter sayabilir. 
-                    <strong>PUBG şekilli isimler</strong> kullanırken karakter sayısına dikkat edin. 
-                    Çok uzun nickler kabul edilmeyebilir.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 3 ? 'expanded' : ''}`} onClick={() => toggleFaq(3)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🇹🇷</span>
-                  <h3>Türkçe karakterler PUBG'de çalışıyor mu?</h3>
-                  <span className="faq-toggle">{expandedFaq === 3 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) PUBG'de çalışır. 
-                    Ancak bazı özel <strong>PUBG estetik nick</strong> stillerinde Türkçe karakterler 
-                    dönüştürülmeyebilir. Bu durumda normal karakterler kullanmanız gerekebilir. 
-                    Test ederek kullanmanızı öneririz.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 4 ? 'expanded' : ''}`} onClick={() => toggleFaq(4)}>
-                <div className="faq-question">
-                  <span className="faq-icon">⚔️</span>
-                  <h3>Clan nickname'i nasıl oluşturulur?</h3>
-                  <span className="faq-toggle">{expandedFaq === 4 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    <strong>PUBG clan nickleri</strong> için sayfamızdaki "Clan / Team Nickleri" 
-                    kategorisini kullanabilirsiniz. 【CLAN】, 【TEAM】, 【SQUAD】 gibi prefix'lerle 
-                    başlayan nickler mevcuttur. Aynı takımda oynayan arkadaşlarınızla aynı prefix'i 
-                    kullanarak takım kimliği oluşturabilirsiniz.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 5 ? 'expanded' : ''}`} onClick={() => toggleFaq(5)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🔒</span>
-                  <h3>Bu araç ücretsiz mi ve güvenli mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 5 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, <strong>PUBG şekilli nick</strong> aracımız tamamen ücretsizdir. 
-                    Kayıt veya giriş gerektirmez. Ayrıca %100 güvenlidir - yazdığınız isimler 
-                    sunucumuza gönderilmez, tüm işlemler tarayıcınızda gerçekleşir. 
-                    Verileriniz sadece sizin cihazınızda kalır.
-                  </p>
-                </div>
+            <div className="feature-banner gradient-mobile">
+              <div className="feature-banner-icon">📱</div>
+              <div className="feature-banner-content">
+                <h3>Mobile Friendly</h3>
+                <p>Use it easily from your phone and paste instantly into PUBG.</p>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* SECTION 6: Feature Banners */}
-          <div className="info-section">
-            <div className="feature-banners-grid">
-              <div className="feature-banner gradient-success">
-                <div className="feature-banner-icon">🚀</div>
-                <div className="feature-banner-content">
-                  <h3>Ücretsiz ve Anında</h3>
-                  <p>Kayıt gerektirmez, hazır PUBG nicklerini hemen kopyalayın!</p>
-                </div>
-              </div>
-
-              <div className="feature-banner gradient-security">
-                <div className="feature-banner-icon">🔒</div>
-                <div className="feature-banner-content">
-                  <h3>%100 Güvenli</h3>
-                  <p>İsimleriniz sunucuya gönderilmez, tarayıcınızda işlenir.</p>
-                </div>
-              </div>
-
-              <div className="feature-banner gradient-mobile">
-                <div className="feature-banner-icon">📱</div>
-                <div className="feature-banner-content">
-                  <h3>Mobil Uyumlu</h3>
-                  <p>Telefonunuzdan kolayca kullanın, PUBG'ye anında yapıştırın.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Link back to other pages */}
-          <div className="back-link-section">
-            <p>
-              Daha fazla yazı stili mi arıyorsunuz? 
-              <Link href="/" className="homepage-link">
-                Yazı Stilleri Ana Sayfa
-              </Link>
-              , 
-              <Link href="/insta-yazi-tipi" className="homepage-link">
-                Insta Yazı Tipi
-              </Link>
-              {' '}ve{' '}
-              <Link href="/sekilli-semboller" className="homepage-link">
-                Şekilli Semboller
-              </Link>
-              {' '}sayfalarımızı ziyaret edin.
-            </p>
-          </div>
-
+        {/* Link back to other pages */}
+        <div className="back-link-section">
+          <p>
+            Looking for more font styles? Visit our
+            <Link href="/" className="homepage-link">
+              Homepage
+            </Link>
+            ,
+            <Link href="/insta-yazi-tipi" className="homepage-link">
+              Instagram Font
+            </Link>
+            {' '}and{' '}
+            <Link href="/sekilli-semboller" className="homepage-link">
+              Fancy Symbols
+            </Link>
+            {' '}pages.
+          </p>
         </div>
       </main>
-
-      {/* Toast Notification */}
       {showToast && (
         <div className="toast">
           <span className="toast-icon">✓</span>

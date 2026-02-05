@@ -441,6 +441,29 @@ export default function InstaYaziTipiClient() {
     }
   }, [darkMode, mounted])
 
+  // Scroll reveal animation
+  useEffect(() => {
+    if (!mounted) return
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active')
+        }
+      })
+    }, observerOptions)
+
+    const revealElements = document.querySelectorAll('.reveal')
+    revealElements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [mounted])
+
   // Handle copy to clipboard
   const handleCopy = async (text: string, id: string) => {
     try {
@@ -506,7 +529,7 @@ export default function InstaYaziTipiClient() {
               <Link href="/pubg-sekilli-nick" className="nav-link">
                 PUBG Şekilli Nick
               </Link>
-              <button 
+              <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
                 aria-label="Karanlık mod"
@@ -521,7 +544,7 @@ export default function InstaYaziTipiClient() {
       {/* Main Content */}
       <main className="main">
         <div className="container">
-          
+
           {/* Hero Section */}
           <div className="hero-section">
             {/* Animated Background */}
@@ -548,16 +571,16 @@ export default function InstaYaziTipiClient() {
                 <span className="badge-icon">📸</span>
                 <span>Instagram İçin Özel</span>
               </div>
-              
+
               <h1 className="hero-title">
                 <span className="title-line">
                   <span className="title-word">Instagram</span>
                   <span className="title-word highlight">Yazı Tipi</span>
                 </span>
               </h1>
-              
+
               <p className="hero-description">
-                Instagram <span className="text-gradient">bio</span>, <span className="text-gradient">gönderi</span> ve <span className="text-gradient">hikayeler</span> için 
+                Instagram <span className="text-gradient">bio</span>, <span className="text-gradient">gönderi</span> ve <span className="text-gradient">hikayeler</span> için
                 <strong> havalı insta yazı tipi</strong> fontlarını anında oluştur.
               </p>
 
@@ -568,9 +591,9 @@ export default function InstaYaziTipiClient() {
                   <div className="input-header-modern">
                     <div className="input-icon-modern">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                     <div className="input-header-text">
@@ -578,7 +601,7 @@ export default function InstaYaziTipiClient() {
                       <p>Anında {instagramFonts.length}+ stile dönüştürün ✨</p>
                     </div>
                   </div>
-                  
+
                   <div className="input-field-wrapper">
                     <textarea
                       id="text-input"
@@ -590,7 +613,7 @@ export default function InstaYaziTipiClient() {
                       maxLength={150}
                     />
                     <div className="input-actions">
-                      <button 
+                      <button
                         className="clear-input-btn"
                         onClick={() => setInputText('')}
                         style={{ opacity: inputText ? 1 : 0 }}
@@ -613,8 +636,8 @@ export default function InstaYaziTipiClient() {
                     </div>
                     <div className={`char-counter ${inputText.length > 120 ? 'warning' : ''} ${inputText.length > 140 ? 'danger' : ''}`}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                       </svg>
                       <span>{inputText.length}</span>
                       <span className="counter-max">/ 150</span>
@@ -649,7 +672,7 @@ export default function InstaYaziTipiClient() {
               Instagram İçin En Popüler Yazı Tipleri
               <span className="category-count">{instagramFonts.length}</span>
             </h2>
-            
+
             <div className="font-grid">
               {instagramFonts.map((font) => {
                 const transformedText = font.transform(inputText)
@@ -665,7 +688,7 @@ export default function InstaYaziTipiClient() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="font-preview">{transformedText || 'Örnek metin'}</div>
                     <button
                       className={`copy-button ${isCopied ? 'copied' : ''}`}
@@ -680,138 +703,34 @@ export default function InstaYaziTipiClient() {
           </div>
 
           {/* ============ COMPREHENSIVE SEO CONTENT FOR INSTAGRAM ============ */}
-          
-          {/* SECTION 1: What is Instagram Font */}
-          <div className="info-section">
-            <h2 className="section-main-title">Instagram Yazı Tipi Nedir?</h2>
-            
+
+          {/* SECTION 1: Profilinizi daha etkileyici yapın */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Profilinizi daha etkileyici yapın</h2>
             <div className="content-intro">
               <p className="intro-text">
-                <strong>Instagram yazı tipi</strong> (insta yazı tipi), normal metinlerinizi özel Unicode 
-                karakterlere dönüştürerek Instagram profilinizde, gönderilerinizde ve hikayelerinizde 
-                dikkat çekici ve benzersiz görünmesini sağlayan özel font stilleridir. Bu <strong>instagram fontları</strong> sayesinde 
-                bio'nuzdan caption'larınıza kadar her yerde havalı ve şekilli yazılar kullanabilirsiniz.
+                Profiliniz insanların ilk gördüğü şeydir. <strong>Instagram fontları</strong> kullanarak bio'nuzu çekici ve okunabilir hale getirebilirsiniz.
+                İster iş ister kişisel bir hesap olsun, iyi bir font seçimi kişiliğinizi ve tarzınızı gösterir.
+                Becerilerinizi ve ilgi alanlarınızı veya herhangi bir harekete geçirici mesajı vurgulamaya yardımcı olur. Profilinize yaratıcı bir görünüm ekleyin ve herkesten öne çıkın.
               </p>
             </div>
+          </div>
 
-            <div className="feature-cards-grid">
-              <div className="feature-card gradient-purple">
-                <div className="feature-card-icon">📱</div>
-                <h3>Instagram Bio İçin Mükemmel</h3>
-                <p>
-                  Instagram bio bölümünüz profilinizin vitrinidir. Özel <strong>insta bio yazı tipi</strong> stilleri 
-                  kullanarak profilinizi öne çıkarın ve takipçilerinizin dikkatini çekin. Kopyala-yapıştır 
-                  ile saniyeler içinde bio'nuza ekleyin.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-pink">
-                <div className="feature-card-icon">✨</div>
-                <h3>Havalı Instagram Yazıları</h3>
-                <p>
-                  Standart klavyenizle yazamayacağınız <strong>havalı instagram yazıları</strong> oluşturun. 
-                  El yazısı, estetik, gotik, süslü ve daha birçok stil ile gönderilerinizi 
-                  benzersiz kılın.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-blue">
-                <div className="feature-card-icon">📝</div>
-                <h3>Caption ve Hikayeler</h3>
-                <p>
-                  Gönderi açıklamalarınızı ve hikaye metinlerinizi <strong>instagram şekilli yazı</strong> stilleri 
-                  ile zenginleştirin. Etkileşim oranınızı artırmak için dikkat çekici fontlar kullanın.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-green">
-                <div className="feature-card-icon">🇹🇷</div>
-                <h3>Tam Türkçe Desteği</h3>
-                <p>
-                  Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) tüm yazı stillerinde mükemmel çalışır. 
-                  Türkçe metinleriniz bozulmadan, okunabilir şekilde dönüştürülür.
-                </p>
-              </div>
+          {/* SECTION 2: Instagram Bio Yazı Tipleri */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Instagram Bio Yazı Tipleri</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                Instagram profiliniz için doğru fontu seçmek önemlidir. Aracımız, Instagram'da mükemmel şekilde çalışan ve desteklenen
+                bio'nuz için birçok şık font sağlar. Takipçileriniz ve profil ziyaretçileriniz için etkileyici bir ilk izlenim oluşturmak için
+                bu stilleri kullanın.
+              </p>
             </div>
           </div>
 
-          {/* SECTION 2: Popular Instagram Fonts */}
-          <div className="info-section">
-            <h2 className="section-main-title">Instagram İçin En Popüler Yazı Tipleri</h2>
-            
-            <div className="categories-showcase">
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">𝓔</span>
-                  <h3>El Yazısı (Script)</h3>
-                </div>
-                <p>Zarif ve romantik görünüm için idealdir. Instagram bio ve hikayeler için en çok tercih edilen stil.</p>
-                <div className="category-examples">
-                  <span className="example-text">𝓔𝓵 𝓨𝓪𝔃ı𝓼ı</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">ᴀ</span>
-                  <h3>Estetik (Aesthetic)</h3>
-                </div>
-                <p>Küçük harflerden oluşan minimal ve modern bir görünüm. Estetik hesaplar için mükemmel.</p>
-                <div className="category-examples">
-                  <span className="example-text">ᴇsᴛᴇᴛɪᴋ</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">𝐊</span>
-                  <h3>Kalın (Bold)</h3>
-                </div>
-                <p>Dikkat çekici ve güçlü bir görünüm. Önemli kelimeleri vurgulamak için idealdir.</p>
-                <div className="category-examples">
-                  <span className="example-text">𝐊𝐚𝐥ı𝐧</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">✦</span>
-                  <h3>Süslü (Fancy)</h3>
-                </div>
-                <p>Yıldız, kalp ve özel sembollerle çevrili dekoratif yazılar. Gösterişli bir profil için.</p>
-                <div className="category-examples">
-                  <span className="example-text">✦･ﾟSüslü･✦</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">Ⓜ</span>
-                  <h3>Daire İçi (Circled)</h3>
-                </div>
-                <p>Harflerin daire içinde gösterildiği eğlenceli bir stil. Bio'da dikkat çeker.</p>
-                <div className="category-examples">
-                  <span className="example-text">Ⓓⓐⓘⓡⓔ</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🧿</span>
-                  <h3>Türk Kültürü</h3>
-                </div>
-                <p>Nazar boncuğu, lale ve Türk bayrağı sembolleriyle süslenmiş özel stiller.</p>
-                <div className="category-examples">
-                  <span className="example-text">🧿Nazar🧿</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 3: How to Use - Detailed */}
-          <div className="info-section">
-            <h2 className="section-main-title">Insta Yazı Tipi Nasıl Kullanılır?</h2>
-            
+          {/* SECTION 3: Instagram yazı tipleri nasıl kullanılır? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Instagram yazı tipleri nasıl kullanılır?</h2>
             <div className="detailed-steps">
               <div className="detailed-step">
                 <div className="step-visual">
@@ -819,17 +738,10 @@ export default function InstaYaziTipiClient() {
                   <div className="step-icon-circle">✏️</div>
                 </div>
                 <div className="step-details">
-                  <h3>Instagram Metninizi Yazın</h3>
+                  <h3>Type your text</h3>
                   <p>
-                    Sayfanın üst kısmındaki metin kutusuna dönüştürmek istediğiniz metni yazın. 
-                    Bu metin Instagram bio, gönderi açıklaması veya hikaye için hazırladığınız 
-                    herhangi bir yazı olabilir.
+                    Write your Instagram bio or caption in the input box above.
                   </p>
-                  <ul className="step-tips">
-                    <li>Instagram bio maksimum 150 karakter olabilir</li>
-                    <li>Türkçe karakterler tam desteklenir</li>
-                    <li>Emoji ile birlikte de kullanabilirsiniz</li>
-                  </ul>
                 </div>
               </div>
 
@@ -839,17 +751,10 @@ export default function InstaYaziTipiClient() {
                   <div className="step-icon-circle">👀</div>
                 </div>
                 <div className="step-details">
-                  <h3>Font Stilini Seçin</h3>
+                  <h3>Select a style</h3>
                   <p>
-                    Yazdığınız metin anında tüm Instagram uyumlu yazı stillerinde görüntülenir. 
-                    Kartları inceleyerek size en uygun <strong>insta yazı tipi</strong> stilini bulun. 
-                    Her kart, metninizin o stilde nasıl görüneceğini gösterir.
+                    Browse through the generated <strong>insta font</strong> styles and pick the one you like.
                   </p>
-                  <ul className="step-tips">
-                    <li>Popüler stiller 🔥 ile işaretlenmiştir</li>
-                    <li>Bio için El Yazısı veya Estetik stiller önerilir</li>
-                    <li>Caption için Kalın veya Süslü stiller dikkat çeker</li>
-                  </ul>
                 </div>
               </div>
 
@@ -859,281 +764,95 @@ export default function InstaYaziTipiClient() {
                   <div className="step-icon-circle">📋</div>
                 </div>
                 <div className="step-details">
-                  <h3>Kopyalayıp Instagram'a Yapıştırın</h3>
+                  <h3>Copy and Paste</h3>
                   <p>
-                    Beğendiğiniz stilin kartındaki "Kopyala" butonuna tıklayın. Metin otomatik 
-                    olarak panonuza kopyalanır. Instagram uygulamasını açın ve metni bio, caption 
-                    veya hikaye metnine yapıştırın.
+                    Click the copy button and paste it directly into your Instagram profile or post.
                   </p>
-                  <ul className="step-tips">
-                    <li>"Kopyalandı!" bildirimi işlemi onaylar</li>
-                    <li>Instagram uygulamasında Ctrl+V veya yapıştır ile ekleyin</li>
-                    <li>Mobil ve masaüstünde aynı şekilde çalışır</li>
-                  </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* SECTION 4: Instagram Usage Tips */}
-          <div className="info-section">
-            <h2 className="section-main-title">Instagram'da Yazı Tipi Kullanım İpuçları</h2>
-            
-            <div className="tips-grid">
-              <div className="tip-card">
-                <div className="tip-number">01</div>
-                <h3>Bio için 150 Karakter Sınırı</h3>
-                <p>
-                  Instagram bio maksimum 150 karakterdir. Özel fontlar bazen daha fazla karakter 
-                  sayabilir, bu yüzden bio'nuzu kısa ve öz tutun.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">02</div>
-                <h3>Okunabilirlik Önemli</h3>
-                <p>
-                  Çok karmaşık fontlar takipçileriniz tarafından okunması zor olabilir. 
-                  Önemli bilgiler için sade stiller tercih edin.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">03</div>
-                <h3>Hashtag'lerde Dikkatli Olun</h3>
-                <p>
-                  Hashtag'lerde özel fontlar kullanırsanız, Instagram onları hashtag olarak 
-                  algılamaz. Hashtag'leri normal yazın.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">04</div>
-                <h3>Highlight Başlıkları</h3>
-                <p>
-                  Instagram öne çıkan hikaye (highlight) başlıklarında özel fontlar 
-                  kullanarak profilinizi profesyonelleştirin.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">05</div>
-                <h3>Story Metinlerinde Kullanın</h3>
-                <p>
-                  Instagram hikayelerinde metin eklediğinizde özel fontlar yapıştırabilirsiniz. 
-                  Hikayelerinizi daha ilgi çekici hale getirin.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">06</div>
-                <h3>CTA Vurgulayın</h3>
-                <p>
-                  "Link bio'da" gibi çağrı metinlerini (CTA) özel fontlarla vurgulayarak 
-                  dikkat çekiciliğini artırın.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 5: Where to Use on Instagram */}
-          <div className="info-section">
-            <h2 className="section-main-title">Instagram'da Nerelerde Kullanabilirsiniz?</h2>
-            
+          {/* SECTION 4: Where to use Instagram fonts? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Where to use Instagram fonts?</h2>
             <div className="platforms-detailed">
               <div className="platform-detailed-card">
                 <div className="platform-icon-large">👤</div>
                 <div className="platform-info">
-                  <h3>Profil Bio</h3>
-                  <p>
-                    Instagram bio bölümünüz ziyaretçilerin ilk gördüğü yerdir. Özel 
-                    <strong> insta bio yazı tipi</strong> kullanarak kim olduğunuzu şık bir şekilde ifade edin.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Açıklama</span>
-                    <span>Slogan</span>
-                    <span>İletişim</span>
-                  </div>
+                  <h3>Profile Bio</h3>
+                  <p>Make your bio standout with stylish text and attractive fonts.</p>
                 </div>
               </div>
-
               <div className="platform-detailed-card">
                 <div className="platform-icon-large">📝</div>
                 <div className="platform-info">
-                  <h3>Gönderi Caption</h3>
-                  <p>
-                    Fotoğraf ve video gönderilerinizin açıklamalarını havalı yazılarla 
-                    zenginleştirerek etkileşimi artırın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Açıklama</span>
-                    <span>Alıntılar</span>
-                    <span>Başlıklar</span>
-                  </div>
+                  <h3>Captions</h3>
+                  <p>Use clear and bold fonts to highlight your message in posts.</p>
                 </div>
               </div>
-
               <div className="platform-detailed-card">
                 <div className="platform-icon-large">📖</div>
                 <div className="platform-info">
-                  <h3>Hikayeler (Stories)</h3>
-                  <p>
-                    Instagram hikayelerinizde metin eklerken özel fontlar yapıştırarak 
-                    hikayelerinizi daha dikkat çekici hale getirin.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Metin</span>
-                    <span>Anketler</span>
-                    <span>Sorular</span>
-                  </div>
+                  <h3>Stories</h3>
+                  <p>Add creative text to your stories to keep your followers engaged.</p>
                 </div>
               </div>
-
               <div className="platform-detailed-card">
                 <div className="platform-icon-large">⭐</div>
                 <div className="platform-info">
-                  <h3>Öne Çıkanlar (Highlights)</h3>
-                  <p>
-                    Profildeki öne çıkan hikaye kapak başlıklarını özel fontlarla 
-                    yazarak profilinizi profesyonelleştirin.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Kapak Adları</span>
-                    <span>Kategoriler</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">💬</div>
-                <div className="platform-info">
-                  <h3>Yorumlar</h3>
-                  <p>
-                    Gönderilere yaptığınız yorumları özel fontlarla yazarak 
-                    diğer yorumlar arasında öne çıkın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Yorum</span>
-                    <span>Yanıt</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">✉️</div>
-                <div className="platform-info">
-                  <h3>DM Mesajları</h3>
-                  <p>
-                    Instagram direkt mesajlarınızda (DM) özel fontlar kullanarak 
-                    mesajlarınızı daha eğlenceli hale getirin.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Mesajlar</span>
-                    <span>Tepkiler</span>
-                  </div>
+                  <h3>Highlights</h3>
+                  <p>Use unique fonts for your highlight covers to make them look professional.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* SECTION 6: FAQ - Detailed */}
-          <div className="info-section">
-            <h2 className="section-main-title">Sık Sorulan Sorular</h2>
-            
+          {/* SECTION 5: Instagram usage tips */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Instagram usage tips</h2>
+            <div className="tips-grid">
+              <div className="tip-card">
+                <div className="tip-number">01</div>
+                <h3>Check Readability</h3>
+                <p>Always make sure the font you choose is easy to read for your followers.</p>
+              </div>
+              <div className="tip-card">
+                <div className="tip-number">02</div>
+                <h3>Avoid Overusing Icons</h3>
+                <p>Use symbols and emojis, but don't overdo it, as it can make text messy.</p>
+              </div>
+              <div className="tip-card">
+                <div className="tip-number">03</div>
+                <h3>Be Consistent</h3>
+                <p>Try to use similar font styles across your profile for a more aesthetic look.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 6: FAQ */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Frequently Asked Questions</h2>
             <div className="faq-accordion">
               <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
                 <div className="faq-question">
-                  <span className="faq-icon">📷</span>
-                  <h3>Instagram bio için en iyi yazı tipi hangisi?</h3>
+                  <span className="faq-icon">❓</span>
+                  <h3>Are these fonts safe to use on Instagram?</h3>
                   <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
                 </div>
                 <div className="faq-answer">
-                  <p>
-                    Instagram bio için en popüler <strong>insta yazı tipi</strong> stilleri El Yazısı (Script), 
-                    Estetik (Aesthetic) ve Minimal stillerdir. Bu stiller hem okunabilir hem de estetik 
-                    görünür. Profil türünüze göre seçim yapın: iş profilleri için sade stiller, 
-                    kişisel hesaplar için daha dekoratif stiller tercih edilebilir.
-                  </p>
+                  <p>Yes, all our <strong>instagram fonts</strong> are based on Unicode and are completely safe for your account.</p>
                 </div>
               </div>
 
               <div className={`faq-item ${expandedFaq === 1 ? 'expanded' : ''}`} onClick={() => toggleFaq(1)}>
                 <div className="faq-question">
-                  <span className="faq-icon">✅</span>
-                  <h3>Bu fontlar Instagram'da gerçekten çalışıyor mu?</h3>
+                  <span className="faq-icon">❓</span>
+                  <h3>Can I use these fonts on mobile?</h3>
                   <span className="faq-toggle">{expandedFaq === 1 ? '−' : '+'}</span>
                 </div>
                 <div className="faq-answer">
-                  <p>
-                    Evet! <strong>Instagram fontları</strong> Unicode karakter setlerini kullandığı için Instagram 
-                    dahil tüm sosyal medya platformlarında çalışır. Unicode, uluslararası bir standart 
-                    olduğu için herhangi bir uygulama yüklemenize gerek kalmadan, kopyala-yapıştır 
-                    ile bio, caption, hikaye ve yorumlarda kullanabilirsiniz.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 2 ? 'expanded' : ''}`} onClick={() => toggleFaq(2)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🇹🇷</span>
-                  <h3>Türkçe karakterler (ç, ğ, ı, ö, ş, ü) destekleniyor mu?</h3>
-                  <span className="faq-toggle">{expandedFaq === 2 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Kesinlikle! Aracımız Türk kullanıcılar için özel olarak geliştirilmiştir. 
-                    Tüm Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) tam olarak desteklenir ve 
-                    <strong> instagram şekilli yazı</strong> stillerinde doğru şekilde görüntülenir. 
-                    Türkçe metinleriniz bozulmadan dönüştürülür.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 3 ? 'expanded' : ''}`} onClick={() => toggleFaq(3)}>
-                <div className="faq-question">
-                  <span className="faq-icon">📝</span>
-                  <h3>Instagram bio karakter sınırını aşar mı?</h3>
-                  <span className="faq-toggle">{expandedFaq === 3 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Instagram bio maksimum 150 karakterdir. Bazı özel fontlar normal karakterlerden 
-                    daha fazla byte kullanabilir, bu yüzden bio'nuzu kısa tutmanızı öneririz. 
-                    Çok uzun metinler sığmayabilir. En iyi uygulama: önce Instagram'da deneyip 
-                    kontrol edin.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 4 ? 'expanded' : ''}`} onClick={() => toggleFaq(4)}>
-                <div className="faq-question">
-                  <span className="faq-icon">#️⃣</span>
-                  <h3>Hashtag'lerde özel font kullanabilir miyim?</h3>
-                  <span className="faq-toggle">{expandedFaq === 4 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Hayır, hashtag'lerde özel fontlar kullanmamanızı öneririz. Instagram, özel 
-                    karakterlerle yazılmış hashtag'leri tanımaz ve bunlar tıklanabilir hashtag 
-                    olmaz. Hashtag'lerinizi her zaman normal karakterlerle yazın, sadece 
-                    açıklama metinlerinde <strong>havalı instagram yazıları</strong> kullanın.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 5 ? 'expanded' : ''}`} onClick={() => toggleFaq(5)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🔒</span>
-                  <h3>Bu araç ücretsiz mi ve güvenli mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 5 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, <strong>insta yazı tipi</strong> aracımız tamamen ücretsizdir. Kayıt veya giriş 
-                    gerektirmez. Ayrıca %100 güvenlidir - yazdığınız metinler sunucumuza 
-                    gönderilmez, tüm dönüşüm işlemleri tarayıcınızda gerçekleşir. 
-                    Verileriniz sadece sizin cihazınızda kalır.
-                  </p>
+                  <p>Definitely! Our tool is fully optimized for mobile devices, so you can copy-paste fonts directly from your phone.</p>
                 </div>
               </div>
             </div>
@@ -1171,7 +890,7 @@ export default function InstaYaziTipiClient() {
           {/* Link back to homepage */}
           <div className="back-link-section">
             <p>
-              Daha fazla font stili mi arıyorsunuz? 
+              Daha fazla font stili mi arıyorsunuz?
               <Link href="/" className="homepage-link">
                 Yazı Stilleri Ana Sayfa
               </Link>

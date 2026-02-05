@@ -29,6 +29,29 @@ export default function Home() {
     }
   }, [])
 
+  // Scroll reveal animation
+  useEffect(() => {
+    if (!mounted) return
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active')
+        }
+      })
+    }, observerOptions)
+
+    const revealElements = document.querySelectorAll('.reveal')
+    revealElements.forEach((el) => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [mounted])
+
   // Save dark mode to localStorage and apply to document
   useEffect(() => {
     if (mounted) {
@@ -57,7 +80,7 @@ export default function Home() {
         setVisibleFonts({})
       }
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
@@ -148,7 +171,7 @@ export default function Home() {
               <Link href="/pubg-sekilli-nick" className="nav-link">
                 PUBG Şekilli Nick
               </Link>
-              <button 
+              <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
                 aria-label="Karanlık mod"
@@ -161,141 +184,188 @@ export default function Home() {
       </header>
 
       <main className="main">
-        <div className="container">
-          {/* Modern Animated Hero Section */}
-          <div className="hero-section">
-            {/* Animated Background */}
-            <div className="hero-bg">
-              <div className="hero-gradient"></div>
-              <div className="hero-particles">
-                <div className="particle particle-1">✨</div>
-                <div className="particle particle-2">🎨</div>
-                <div className="particle particle-3">⭐</div>
-                <div className="particle particle-4">💫</div>
-                <div className="particle particle-5">🌟</div>
-                <div className="particle particle-6">✦</div>
-              </div>
-              <div className="hero-shapes">
-                <div className="shape shape-1"></div>
-                <div className="shape shape-2"></div>
-                <div className="shape shape-3"></div>
-              </div>
+        {/* Full-Screen Hero Section (Moved outside container) */}
+        <div className="hero-section-fullscreen">
+          {/* Animated Background */}
+          <div className="hero-bg-fullscreen">
+            <div className="hero-gradient-animated"></div>
+            <div className="hero-particles-animated">
+              <div className="particle particle-1">✨</div>
+              <div className="particle particle-2">🎨</div>
+              <div className="particle particle-3">⭐</div>
+              <div className="particle particle-4">💫</div>
+              <div className="particle particle-5">🌟</div>
+              <div className="particle particle-6">✦</div>
+              <div className="particle particle-7">💎</div>
+              <div className="particle particle-8">🔮</div>
             </div>
-
-            <div className="hero-content">
-              {/* Animated Title */}
-              <div className="hero-badge">
-                <span className="badge-icon">🚀</span>
-                <span>Ücretsiz & Hızlı</span>
-              </div>
-              
-              <h1 className="hero-title">
-                <span className="title-line">
-                  <span className="title-word">Yazı</span>
-                  <span className="title-word highlight">Stilleri</span>
-                </span>
-              </h1>
-              
-              <p className="hero-description">
-                Metninizi <span className="text-gradient">Instagram</span>, <span className="text-gradient">WhatsApp</span>, <span className="text-gradient">TikTok</span> ve 
-                diğer platformlar için <strong>özel font stillerine</strong> dönüştürün.
-              </p>
-
-
-              {/* Modern Input Section */}
-              <div className="hero-input-wrapper">
-                <div className="input-glow"></div>
-                <div className="modern-input-container">
-                  <div className="input-header-modern">
-                    <div className="input-icon-modern">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <div className="input-header-text">
-                      <h2>Metninizi Yazın</h2>
-                      <p>Anında 100+ stile dönüştürün ✨</p>
-                    </div>
-                  </div>
-                  
-                  <div className="input-field-wrapper">
-                    <textarea
-                      id="text-input"
-                      className="modern-text-input"
-                      value={inputText}
-                      onChange={(e) => setInputText(e.target.value)}
-                      placeholder="Merhaba Dünya yazarak başlayın..."
-                      rows={3}
-                      maxLength={500}
-                    />
-                    <div className="input-actions">
-                      <button 
-                        className="clear-input-btn"
-                        onClick={() => setInputText('')}
-                        style={{ opacity: inputText ? 1 : 0 }}
-                      >
-                        ✕ Temizle
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="input-footer-modern">
-                    <div className="turkish-chars">
-                      <span className="char-badge">ç</span>
-                      <span className="char-badge">ğ</span>
-                      <span className="char-badge">ı</span>
-                      <span className="char-badge">İ</span>
-                      <span className="char-badge">ö</span>
-                      <span className="char-badge">ş</span>
-                      <span className="char-badge">ü</span>
-                      <span className="char-label">desteklenir</span>
-                    </div>
-                    <div className={`char-counter ${inputText.length > 400 ? 'warning' : ''} ${inputText.length > 480 ? 'danger' : ''}`}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                      <span>{inputText.length}</span>
-                      <span className="counter-max">/ 500</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Decorative Elements */}
-                <div className="input-decoration-left">
-                  <div className="deco-circle"></div>
-                  <div className="deco-line"></div>
-                </div>
-                <div className="input-decoration-right">
-                  <div className="deco-dots">
-                    <span></span><span></span><span></span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <span className="stat-number">100+</span>
-                  <span className="stat-label">Font Stili</span>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">6</span>
-                  <span className="stat-label">Platform</span>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">🇹🇷</span>
-                  <span className="stat-label">Türkçe</span>
-                </div>
-              </div>
+            <div className="hero-shapes-animated">
+              <div className="shape shape-1"></div>
+              <div className="shape shape-2"></div>
+              <div className="shape shape-3"></div>
+              <div className="shape shape-4"></div>
             </div>
           </div>
 
+          <div className="hero-content-fullscreen">
+            {/* Badge */}
+            <div className="hero-badge-modern">
+              <span className="badge-pulse"></span>
+              <span className="badge-icon">🚀</span>
+              <span className="badge-text">Ücretsiz & Hızlı</span>
+            </div>
 
+            {/* Main Title */}
+            <h1 className="hero-title-fullscreen">
+              <span className="title-line-animated">
+                <span className="title-word-animated">Yazı</span>
+                <span className="title-word-animated highlight-gradient">Stilleri</span>
+              </span>
+              <span className="title-subtitle">Metninizi Dönüştürün</span>
+            </h1>
+
+            {/* Description */}
+            <p className="hero-description-fullscreen">
+              Metninizi <span className="text-gradient-purple">Instagram</span>, <span className="text-gradient-pink">WhatsApp</span>, <span className="text-gradient-blue">TikTok</span> ve
+              diğer platformlar için <strong>özel font stillerine</strong> dönüştürün.
+            </p>
+
+            {/* Premium Input Section */}
+            <div className="hero-input-fullscreen">
+              <div className="input-glow-effect"></div>
+              <div className="input-container-glass">
+                {/* Input Header */}
+                <div className="input-header-premium">
+                  <div className="input-icon-premium">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#gradient1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 17L12 22L22 17" stroke="url(#gradient1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 12L12 17L22 12" stroke="url(#gradient1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <defs>
+                        <linearGradient id="gradient1" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                          <stop offset="0%" stopColor="#8b5cf6" />
+                          <stop offset="100%" stopColor="#ec4899" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div className="input-header-text-premium">
+                    <h2>Metninizi Yazın</h2>
+                    <p>Anında 100+ stile dönüştürün ✨</p>
+                  </div>
+                </div>
+
+                {/* Input Field */}
+                <div className="input-field-premium">
+                  <textarea
+                    id="text-input"
+                    className="text-input-premium"
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="Merhaba Dünya yazarak başlayın..."
+                    rows={2}
+                    maxLength={500}
+                  />
+                  <button
+                    className="clear-btn-premium"
+                    onClick={() => setInputText('')}
+                    style={{ opacity: inputText ? 1 : 0, pointerEvents: inputText ? 'auto' : 'none' }}
+                    aria-label="Temizle"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Input Footer */}
+                <div className="input-footer-premium">
+                  <div className="turkish-chars-premium">
+                    <div className="chars-group">
+                      <span className="char-badge-premium">ç</span>
+                      <span className="char-badge-premium">ğ</span>
+                      <span className="char-badge-premium">ı</span>
+                      <span className="char-badge-premium">İ</span>
+                      <span className="char-badge-premium">ö</span>
+                      <span className="char-badge-premium">ş</span>
+                      <span className="char-badge-premium">ü</span>
+                    </div>
+                    <span className="char-label-premium">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      Türkçe desteklenir
+                    </span>
+                  </div>
+                  <div className={`char-counter-premium ${inputText.length > 400 ? 'warning' : ''} ${inputText.length > 480 ? 'danger' : ''}`}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                      <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span className="counter-text">{inputText.length} / 500</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats - Centered Container */}
+            <div className="hero-stats-fullscreen">
+              <div className="stat-item-premium">
+                <div className="stat-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="url(#statGradient1)" />
+                    <defs>
+                      <linearGradient id="statGradient1" x1="2" y1="2" x2="22" y2="22">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div className="stat-content">
+                  <span className="stat-number-premium">100+</span>
+                  <span className="stat-label-premium">Font Stili</span>
+                </div>
+              </div>
+              <div className="stat-divider-premium"></div>
+              <div className="stat-item-premium">
+                <div className="stat-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="3" width="18" height="18" rx="2" fill="url(#statGradient2)" />
+                    <defs>
+                      <linearGradient id="statGradient2" x1="3" y1="3" x2="21" y2="21">
+                        <stop offset="0%" stopColor="#ec4899" />
+                        <stop offset="100%" stopColor="#f472b6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div className="stat-content">
+                  <span className="stat-number-premium">6</span>
+                  <span className="stat-label-premium">Platform</span>
+                </div>
+              </div>
+              <div className="stat-divider-premium"></div>
+              <div className="stat-item-premium">
+                <div className="stat-icon">🇹🇷</div>
+                <div className="stat-content">
+                  <span className="stat-number-premium">%100</span>
+                  <span className="stat-label-premium">Türkçe</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="scroll-indicator">
+              <div className="scroll-mouse">
+                <div className="scroll-wheel"></div>
+              </div>
+              <span className="scroll-text">Kaydırarak keşfet</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="container">
           {/* Sticky Category Navigation */}
           <div className="sticky-category-nav">
             <div className="category-nav-scroll">
@@ -323,14 +393,14 @@ export default function Home() {
 
           {(() => {
             // Filter categories if a category is selected
-            const filteredCategories = selectedCategory 
+            const filteredCategories = selectedCategory
               ? categories.filter(c => c === selectedCategory)
               : categories
-            
+
             return filteredCategories.map(category => {
               const categoryFonts = filteredFontStyles.filter(style => style.category === category)
               if (categoryFonts.length === 0) return null
-              
+
               const maxVisible = isMobile ? (visibleFonts[category] || 6) : categoryFonts.length
               const visibleFontsList = categoryFonts.slice(0, maxVisible)
               const hasMore = categoryFonts.length > maxVisible
@@ -356,7 +426,7 @@ export default function Home() {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="font-preview">{transformedText || 'Örnek metin'}</div>
                           <button
                             className={`copy-button ${isCopied ? 'copied' : ''}`}
@@ -385,507 +455,319 @@ export default function Home() {
           })()}
 
           {/* ============ COMPREHENSIVE SEO CONTENT SECTIONS ============ */}
-          
-          {/* SECTION 1: What is Yazı Stilleri - Hero Info */}
-          <div className="info-section">
-            <h2 className="section-main-title">Yazı Stilleri Nedir?</h2>
-            
+
+          {/* SECTION 1: What are fonts? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">What are fonts?</h2>
             <div className="content-intro">
               <p className="intro-text">
-                <strong>Yazı stilleri</strong>, normal metinlerinizi özel Unicode karakterlere dönüştürerek 
-                sosyal medya platformlarında dikkat çekici ve benzersiz görünmesini sağlayan araçlardır. 
-                Türkçe karakterleri tam destekleyen bu ücretsiz araç sayesinde, Instagram bio'nuzdan 
-                WhatsApp durumunuza kadar her yerde özel fontlar kullanabilirsiniz.
+                Fonts are Text and styles that we customize on our own choice to change our text more eye-catching and better Visual Appearance in any social media Platform.
+                These Fonts make text more clear and readable by changing text font, size and color.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION 2: What are font styles? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">What are font styles?</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                Font styles help us to create special nicknames, Cool font, emoji stylish text and logo. Mostly use like Handwriting font are famous where user can generate different style in this category.
+                We can fully customize our text for our requirement and Interaction for platform. Font styles convey our message better with different effects, design and element that we use in Text.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION 3: How does the Font Changer work? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">How does the Font Changer work?</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                Font changer is an online Tool which works for creating a stylized nickname, cool text and engagement message for Social Media posts for brand and followers.
+                We can use symbols styles text which make a unique in different game which look attractive and make more confidence over the platform.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION 4: What are different font styles used for? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">What are different font styles used for?</h2>
+            <div className="content-intro">
+              <div className="feature-cards-grid" style={{ marginTop: '1.5rem' }}>
+                <div className="feature-card gradient-purple">
+                  <div className="feature-card-icon">📱</div>
+                  <h3>Social Media Posts</h3>
+                  <p>Create Fancy Posts and Aesthetic Bio for platforms like Instagram, Facebook and TikTok for a better visual and interactive profile.</p>
+                </div>
+                <div className="feature-card gradient-blue">
+                  <div className="feature-card-icon">🎮</div>
+                  <h3>Gaming Nicknames</h3>
+                  <p>Generate Cool and Stylish nicknames for Online games that stand out from the crowd.</p>
+                </div>
+                <div className="feature-card gradient-pink">
+                  <div className="feature-card-icon">💬</div>
+                  <h3>Creative Messaging</h3>
+                  <p>Send unique messages using these font styles on WhatsApp and Instagram to impress your friends.</p>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="section-sub-title" style={{ marginTop: '2rem' }}>Examples of Using Different Fonts</h3>
+            <div className="feature-cards-grid" style={{ marginTop: '1rem' }}>
+              <div className="feature-card gradient-purple">
+                <span className="example-text" style={{ fontSize: '1.25rem' }}>𝑌𝑎𝑧𝑖 𝑆𝑡𝑖𝑙𝑙𝑒𝑟𝑖</span>
+                <p>Italic Style</p>
+              </div>
+              <div className="feature-card gradient-pink">
+                <span className="example-text" style={{ fontSize: '1.25rem' }}>𝒴𝒶𝓏𝒾 𝒮𝓉𝒾𝓁𝓁𝑒𝓇𝒾</span>
+                <p>Handwriting Style</p>
+              </div>
+              <div className="feature-card gradient-blue">
+                <span className="example-text" style={{ fontSize: '1.25rem' }}>𝕐𝕒𝕫𝕚 𝕊𝕥𝕚𝕝𝕝𝕖𝕣𝕚</span>
+                <p>Double-Struck Style</p>
+              </div>
+              <div className="feature-card gradient-green">
+                <span className="example-text" style={{ fontSize: '1.25rem' }}>🅈🄰🅉Ｉ 🅂🅃Ｉ🄻🄻🄴🄻Ｉ</span>
+                <p>Boxed Text Style</p>
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 5: How to Create Font Styles and Use Them */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">How to Create Font Styles and Use Them (Copy & Paste)</h2>
+
+            <div className="content-intro" style={{ marginBottom: '2rem' }}>
+              <p className="intro-text" style={{ textAlign: 'center', fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
+                Follow these simple steps to transform your text into stunning font styles
               </p>
             </div>
 
+            <div className="detailed-steps" style={{ gap: '2rem' }}>
+              <div className="detailed-step" style={{
+                background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02))',
+                borderLeft: '4px solid #8b5cf6',
+                padding: '2rem',
+                borderRadius: '1rem',
+                transition: 'all 0.3s ease'
+              }}>
+                <div className="step-visual">
+                  <div className="step-number-large" style={{
+                    background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                    boxShadow: '0 8px 20px rgba(139, 92, 246, 0.3)',
+                    fontSize: '2rem',
+                    fontWeight: '800'
+                  }}>1</div>
+                  <div className="step-icon-circle" style={{
+                    fontSize: '2.5rem',
+                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05))',
+                    padding: '1rem',
+                    borderRadius: '50%'
+                  }}>✏️</div>
+                </div>
+                <div className="step-details">
+                  <h3 style={{
+                    color: '#8b5cf6',
+                    fontSize: '1.5rem',
+                    marginBottom: '0.75rem',
+                    fontWeight: '700'
+                  }}>Step 1: Enter Your Text</h3>
+                  <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
+                    Type your text in the input field. Our tool will automatically generate a list of different font styles for your text.
+                  </p>
+                </div>
+              </div>
+
+              <div className="detailed-step" style={{
+                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(236, 72, 153, 0.02))',
+                borderLeft: '4px solid #ec4899',
+                padding: '2rem',
+                borderRadius: '1rem',
+                transition: 'all 0.3s ease'
+              }}>
+                <div className="step-visual">
+                  <div className="step-number-large" style={{
+                    background: 'linear-gradient(135deg, #ec4899, #f472b6)',
+                    boxShadow: '0 8px 20px rgba(236, 72, 153, 0.3)',
+                    fontSize: '2rem',
+                    fontWeight: '800'
+                  }}>2</div>
+                  <div className="step-icon-circle" style={{
+                    fontSize: '2.5rem',
+                    background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(236, 72, 153, 0.05))',
+                    padding: '1rem',
+                    borderRadius: '50%'
+                  }}>👀</div>
+                </div>
+                <div className="step-details">
+                  <h3 style={{
+                    color: '#ec4899',
+                    fontSize: '1.5rem',
+                    marginBottom: '0.75rem',
+                    fontWeight: '700'
+                  }}>Step 2: Choose Your Favorite Font</h3>
+                  <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
+                    After entering your text, many font styles will appear below the input box. Each font style is shown with its name so you can easily choose the one you like.
+                  </p>
+                </div>
+              </div>
+
+              <div className="detailed-step" style={{
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02))',
+                borderLeft: '4px solid #3b82f6',
+                padding: '2rem',
+                borderRadius: '1rem',
+                transition: 'all 0.3s ease'
+              }}>
+                <div className="step-visual">
+                  <div className="step-number-large" style={{
+                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+                    boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)',
+                    fontSize: '2rem',
+                    fontWeight: '800'
+                  }}>3</div>
+                  <div className="step-icon-circle" style={{
+                    fontSize: '2.5rem',
+                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))',
+                    padding: '1rem',
+                    borderRadius: '50%'
+                  }}>📋</div>
+                </div>
+                <div className="step-details">
+                  <h3 style={{
+                    color: '#3b82f6',
+                    fontSize: '1.5rem',
+                    marginBottom: '0.75rem',
+                    fontWeight: '700'
+                  }}>Step 3: Copy and Paste the Text</h3>
+                  <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
+                    You will see almost 300+ stylish fonts in different designs. Click the Copy button on your favorite font and paste it anywhere you need.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SECTION 6: Using Stylish Fonts on Social Media */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Using Stylish Fonts on Social Media</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                Social Media platforms are highly interactive for new user to Convert into your follower and Client for any Service.
+                By Using Beautiful, small, heart bold and colors Fonts in posts, nickname and bio which make a more readable and attractive for everyone.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION 7: Things to Consider & Unique Styles */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Things to Consider When Choosing a Font Style</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                When choosing a font style, make sure it works well on all platforms and supports special characters like Turkish letters.
+                The font should look attractive but also be easy to read, even on small screens. Always consider the age of your audience, because different age groups prefer different font styles.
+                Most importantly, the text should be clear and legible so users can read it without effort.
+              </p>
+            </div>
+
+            <h3 className="section-sub-title" style={{ marginTop: '2rem' }}>Cool and unique font styles</h3>
+            <div className="content-intro">
+              <p className="intro-text">
+                Make a difference with cool and unique font styles that help your text stand out. Our Font Changer lets you easily create stylish text for social media, usernames, and brand messages.
+                Just type your text, choose a style, and copy-paste it anywhere you want. Simple, fast, and made for everyone.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION 8: Turkish Character Support */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Turkish Character Support and Styled Text</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                Our Font converter fully supports Turkish characters such as Ğ, ü, ş, ı, ö, and ç.
+                You can convert text with these characters into stylish fonts without losing their original form.
+                This ensures your text remains readable and correct on all platforms. It is perfect for social media posts, usernames, and messages in Turkish.
+              </p>
+            </div>
+          </div>
+
+          {/* SECTION 9: Types of Fonts & Popular Categories */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Types of Fonts Used by This Website</h2>
             <div className="feature-cards-grid">
               <div className="feature-card gradient-purple">
-                <div className="feature-card-icon">✨</div>
-                <h3>Unicode Teknolojisi</h3>
-                <p>
-                  Yazı stillerimiz Unicode karakter setlerini kullanır. Bu sayede herhangi bir uygulama 
-                  yüklemenize gerek kalmadan, kopyala-yapıştır ile tüm platformlarda çalışır. Özel font 
-                  dosyası veya yazı tipi indirme gerektirmez.
-                </p>
+                <p>Popular Fonts</p>
               </div>
-
               <div className="feature-card gradient-pink">
-                <div className="feature-card-icon">🇹🇷</div>
-                <h3>Tam Türkçe Desteği</h3>
-                <p>
-                  Türkçe'ye özgü karakterler (ç, ğ, ı, İ, ö, ş, ü) tüm yazı stillerinde mükemmel çalışır. 
-                  Diğer araçların aksine, Türkçe metinleriniz bozulmadan dönüştürülür ve doğru görüntülenir.
-                </p>
+                <p>Text Variations</p>
               </div>
-
               <div className="feature-card gradient-blue">
-                <div className="feature-card-icon">🎨</div>
-                <h3>50+ Farklı Stil</h3>
-                <p>
-                  Kalın, italik, el yazısı, gotik, estetik, glitch ve daha birçok stil seçeneği. 
-                  Her zevke ve ihtiyaca uygun yazı tipleri ile metinlerinizi özelleştirin.
-                </p>
+                <p>Fancy Unicode Styles</p>
               </div>
-
               <div className="feature-card gradient-green">
-                <div className="feature-card-icon">🧿</div>
-                <h3>Türk Kültürü Stilleri</h3>
-                <p>
-                  Nazar boncuğu, Türk bayrağı, lale, Türk kahvesi ve daha fazla kültürel sembol ile 
-                  metinlerinizi süsleyin. Türk kullanıcılar için özel olarak tasarlandı.
-                </p>
+                <p>Social Media Styles</p>
+              </div>
+              <div className="feature-card gradient-purple">
+                <p>WhatsApp & Facebook Safe Fonts</p>
+              </div>
+              <div className="feature-card gradient-pink">
+                <p>Instagram Font Styles</p>
+              </div>
+              <div className="feature-card gradient-blue">
+                <p>Emoji-Based Fonts</p>
+              </div>
+              <div className="feature-card gradient-green">
+                <p>Turkish Cultural Font Styles</p>
+              </div>
+              <div className="feature-card gradient-purple">
+                <p>Text & Character Effects</p>
+              </div>
+              <div className="feature-card gradient-pink">
+                <p>Gamer, Aesthetic & New Unicode Styles</p>
+              </div>
+              <div className="feature-card gradient-blue">
+                <p>Decorative Borders & Emoji Styles</p>
+              </div>
+              <div className="feature-card gradient-green">
+                <p>Text Transformations</p>
+              </div>
+            </div>
+
+            <h3 className="section-sub-title" style={{ marginTop: '2rem' }}>Popular fonts categories and their uses</h3>
+            <div className="detailed-steps" style={{ gridTemplateColumns: '1fr' }}>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>Bold (Kalın):</strong> Makes text strong and noticeable, perfect for headings or important words.</p>
+              </div>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>Italic (İtalik):</strong> Adds emphasis or style, often used for quotes or names.</p>
+              </div>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>Bold Italic (Kalın İtalik):</strong> Combines strength and style for standout text.</p>
+              </div>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>Instagram Bio Fonts & Aesthetic Text:</strong> Make your social media profile unique and visually appealing.</p>
+              </div>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>Script & Cursive:</strong> Adds a handwritten or elegant look, great for messages, invites, or creative posts.</p>
+              </div>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>Special Frames:</strong> Make text fun, eye-catching, and perfect for social media or gaming nicknames.</p>
+              </div>
+              <div className="detailed-step" style={{ padding: '1rem' }}>
+                <p><strong>WhatsApp & Facebook:</strong> Stylish fonts that work on these platforms without breaking or losing characters.</p>
               </div>
             </div>
           </div>
 
-          {/* SECTION 2: Font Categories */}
-          <div className="info-section">
-            <h2 className="section-main-title">Yazı Tipi Kategorileri</h2>
-            
-            <div className="categories-showcase">
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">⭐</span>
-                  <h3>Popüler Stiller</h3>
-                </div>
-                <p>En çok kullanılan ve beğenilen yazı stilleri. Kalın, italik, çift çizgili ve daire içi fontlar bu kategoride.</p>
-                <div className="category-examples">
-                  <span className="example-text">𝐊𝐚𝐥ı𝐧</span>
-                  <span className="example-text">𝘐𝘵𝘢𝘭𝘪𝘬</span>
-                  <span className="example-text">𝕆̈𝕫𝕖𝕝</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">💫</span>
-                  <h3>Süslü Yazılar</h3>
-                </div>
-                <p>Dekoratif semboller ve çerçevelerle süslenmiş yazı stilleri. Dikkat çekici ve estetik görünüm.</p>
-                <div className="category-examples">
-                  <span className="example-text">★彡Yıldız彡★</span>
-                  <span className="example-text">♥Kalp♥</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">📱</span>
-                  <h3>Sosyal Medya</h3>
-                </div>
-                <p>Instagram, TikTok ve WhatsApp için özel olarak optimize edilmiş yazı stilleri.</p>
-                <div className="category-examples">
-                  <span className="example-text">ᴀᴇsᴛʜᴇᴛɪᴄ</span>
-                  <span className="example-text">𝓔𝓵 𝓨𝓪𝔃ı𝓼ı</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🎮</span>
-                  <h3>Oyuncu Stilleri</h3>
-                </div>
-                <p>Gamer etiketleri, klan isimleri ve oyun profilleri için havalı yazı stilleri.</p>
-                <div className="category-examples">
-                  <span className="example-text">【PRO】</span>
-                  <span className="example-text">꧁༺GAMER༻꧂</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🎭</span>
-                  <h3>Efekt Yazılar</h3>
-                </div>
-                <p>Üstü çizili, altı çizili, ters yazı ve glitch efektli metinler.</p>
-                <div className="category-examples">
-                  <span className="example-text">S̶t̶r̶i̶k̶e̶</span>
-                  <span className="example-text">U̲n̲d̲e̲r̲</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🇹🇷</span>
-                  <h3>Türk Kültürü</h3>
-                </div>
-                <p>Nazar boncuğu, bayrak, lale ve kahve sembolleri ile Türk kültürünü yansıtın.</p>
-                <div className="category-examples">
-                  <span className="example-text">🧿Nazar🧿</span>
-                  <span className="example-text">🌷Lale🌷</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 3: How to Use - Detailed Steps */}
-          <div className="info-section">
-            <h2 className="section-main-title">Yazı Stilleri Nasıl Kullanılır?</h2>
-            
-            <div className="detailed-steps">
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">1</div>
-                  <div className="step-icon-circle">✏️</div>
-                </div>
-                <div className="step-details">
-                  <h3>Metninizi Yazın</h3>
-                  <p>
-                    Sayfanın üst kısmındaki metin kutusuna dönüştürmek istediğiniz metni yazın. 
-                    Türkçe karakterler dahil her türlü metin yazabilirsiniz. Örneğin: "Merhaba Dünya" 
-                    veya Instagram bio'nuz için hazırladığınız açıklama.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Türkçe karakterler tam desteklenir (ç, ğ, ı, İ, ö, ş, ü)</li>
-                    <li>Emoji ve özel karakterler de kullanabilirsiniz</li>
-                    <li>Maksimum 500 karakter yazabilirsiniz</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">2</div>
-                  <div className="step-icon-circle">👀</div>
-                </div>
-                <div className="step-details">
-                  <h3>Stilleri İnceleyin</h3>
-                  <p>
-                    Yazdığınız metin anında tüm yazı stillerinde görüntülenir. Kartlar halinde 
-                    sunulan her stil, metninizin nasıl görüneceğini gösterir. Beğendiğiniz 
-                    stilleri ❤️ butonu ile favorilerinize ekleyebilirsiniz.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Platform filtreleri ile Instagram, WhatsApp uyumlu fontları bulun</li>
-                    <li>Kategori navigasyonu ile hızlıca gezinin</li>
-                    <li>Arama özelliği ile istediğiniz stili bulun</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">3</div>
-                  <div className="step-icon-circle">📋</div>
-                </div>
-                <div className="step-details">
-                  <h3>Kopyalayın ve Kullanın</h3>
-                  <p>
-                    Beğendiğiniz stilin kartındaki "Kopyala" butonuna tıklayın. Metin otomatik 
-                    olarak panonuza kopyalanır. Artık Instagram, WhatsApp, TikTok veya istediğiniz 
-                    herhangi bir platforma yapıştırabilirsiniz.
-                  </p>
-                  <ul className="step-tips">
-                    <li>"Kopyalandı!" bildirimi ile işlemi onaylayın</li>
-                    <li>Tek tıkla kolay kopyalama</li>
-                    <li>Tüm cihazlarda çalışır (mobil ve masaüstü)</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 4: Platforms - Detailed */}
-          <div className="info-section">
-            <h2 className="section-main-title">Desteklenen Platformlar</h2>
-            <p className="section-subtitle">
-              Unicode tabanlı yazı stilleri, metin girişi kabul eden tüm platformlarda çalışır
-            </p>
-            
-            <div className="platforms-detailed">
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">📷</div>
-                <div className="platform-info">
-                  <h3>Instagram</h3>
-                  <p>
-                    Instagram bio, gönderi açıklamaları, hikaye metinleri ve yorumlarda kullanabilirsiniz. 
-                    Profilinizi öne çıkarmak için harika bir yöntem.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Bio</span>
-                    <span>Caption</span>
-                    <span>Hikayeler</span>
-                    <span>Yorumlar</span>
-                    <span>DM</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">💬</div>
-                <div className="platform-info">
-                  <h3>WhatsApp</h3>
-                  <p>
-                    WhatsApp durum mesajları, grup isimleri, profil açıklaması ve mesajlarınızda 
-                    özel yazı stilleri kullanın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Durum</span>
-                    <span>Grup Adı</span>
-                    <span>Mesajlar</span>
-                    <span>Profil</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">🎵</div>
-                <div className="platform-info">
-                  <h3>TikTok</h3>
-                  <p>
-                    TikTok bio, video açıklamaları ve yorumlarda dikkat çekici fontlar kullanarak 
-                    daha fazla etkileşim alın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Bio</span>
-                    <span>Video Açıklama</span>
-                    <span>Yorumlar</span>
-                    <span>Kullanıcı Adı</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">🐦</div>
-                <div className="platform-info">
-                  <h3>Twitter / X</h3>
-                  <p>
-                    Tweet'lerinizi, bio'nuzu ve kullanıcı adınızı özel fontlarla özelleştirerek 
-                    takipçilerinizin dikkatini çekin.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Tweet</span>
-                    <span>Bio</span>
-                    <span>İsim</span>
-                    <span>DM</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">👤</div>
-                <div className="platform-info">
-                  <h3>Facebook</h3>
-                  <p>
-                    Facebook gönderileri, yorumlar, sayfa isimleri ve profil bilgilerinizde 
-                    benzersiz yazı stilleri kullanın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Gönderiler</span>
-                    <span>Yorumlar</span>
-                    <span>Sayfa Adı</span>
-                    <span>Hakkında</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">🎮</div>
-                <div className="platform-info">
-                  <h3>Discord & Oyunlar</h3>
-                  <p>
-                    Discord sunucu ve kanal isimleri, oyun içi isimler, Steam profili ve 
-                    daha fazlasında kullanın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Sunucu Adı</span>
-                    <span>Kullanıcı Adı</span>
-                    <span>Mesajlar</span>
-                    <span>Oyun İsimleri</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 5: Tips and Tricks */}
-          <div className="info-section">
-            <h2 className="section-main-title">İpuçları ve Öneriler</h2>
-            
-            <div className="tips-grid">
-              <div className="tip-card">
-                <div className="tip-number">01</div>
-                <h3>Bio İçin Kısa Tutun</h3>
-                <p>
-                  Instagram ve TikTok bio'larında karakter sınırı vardır. Özel fontlar 
-                  bazen daha fazla karakter sayabilir, bu yüzden kısa ve öz tutun.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">02</div>
-                <h3>Okunabilirliği Koruyun</h3>
-                <p>
-                  Çok karmaşık fontlar okunması zor olabilir. Önemli metinler için 
-                  daha sade stilleri tercih edin.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">03</div>
-                <h3>Platform Uyumluluğunu Test Edin</h3>
-                <p>
-                  Bazı platformlar belirli Unicode karakterleri desteklemeyebilir. 
-                  Paylaşmadan önce önizleme yapın.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">04</div>
-                <h3>Aşırıya Kaçmayın</h3>
-                <p>
-                  Tüm metni özel font yapmak yerine, vurgulamak istediğiniz 
-                  kelimelerde kullanın.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">05</div>
-                <h3>Favorileri Kullanın</h3>
-                <p>
-                  Beğendiğiniz stilleri ❤️ ile favorilerinize ekleyin, böylece 
-                  her seferinde aramak zorunda kalmazsınız.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">06</div>
-                <h3>Mobilde Rahatça Kullanın</h3>
-                <p>
-                  Aracımız mobil uyumludur. Telefonunuzdan doğrudan yazı 
-                  stillerini oluşturup kopyalayabilirsiniz.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 6: FAQ */}
-          <div className="info-section">
-            <h2 className="section-main-title">Sık Sorulan Sorular</h2>
-            
-            <div className="faq-accordion">
-              <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
-                <div className="faq-question">
-                  <span className="faq-icon">💬</span>
-                  <h3>Yazı stilleri gerçekten tüm platformlarda çalışıyor mu?</h3>
-                  <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet! Yazı stillerimiz Unicode karakterleri kullandığı için, metin girişi kabul eden 
-                    tüm platformlarda çalışır. Instagram, WhatsApp, TikTok, Facebook, Twitter, Discord 
-                    ve daha birçok platformda sorunsuz kullanabilirsiniz. Unicode standart bir karakter 
-                    seti olduğu için ekstra uygulama veya font yüklemenize gerek yoktur.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 1 ? 'expanded' : ''}`} onClick={() => toggleFaq(1)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🇹🇷</span>
-                  <h3>Türkçe karakterler (ç, ğ, ı, ö, ş, ü) destekleniyor mu?</h3>
-                  <span className="faq-toggle">{expandedFaq === 1 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Kesinlikle! Yazı Stilleri aracı, Türkçe kullanıcılar için özel olarak geliştirilmiştir. 
-                    Tüm Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) tam olarak desteklenir ve doğru şekilde 
-                    dönüştürülür. Türkçe metinleriniz bozulmadan, okunabilir şekilde görüntülenir.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 2 ? 'expanded' : ''}`} onClick={() => toggleFaq(2)}>
-                <div className="faq-question">
-                  <span className="faq-icon">💰</span>
-                  <h3>Bu araç ücretsiz mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 2 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, Yazı Stilleri tamamen ücretsizdir. Kayıt olmanıza, giriş yapmanıza veya 
-                    herhangi bir ödeme yapmanıza gerek yoktur. Tüm özellikler sınırsız ve ücretsiz 
-                    olarak kullanımınıza sunulmuştur. Reklam destekli bir hizmet olarak çalışıyoruz.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 3 ? 'expanded' : ''}`} onClick={() => toggleFaq(3)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🔒</span>
-                  <h3>Metinlerim kaydediliyor mu? Güvenli mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 3 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Hayır, metinleriniz hiçbir şekilde sunucularımıza gönderilmez veya kaydedilmez. 
-                    Tüm dönüşüm işlemleri tamamen tarayıcınızda (cihazınızda) gerçekleşir. Bu sayede 
-                    %100 gizlilik ve güvenlik sağlanır. Verileriniz sadece sizin cihazınızda kalır.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 4 ? 'expanded' : ''}`} onClick={() => toggleFaq(4)}>
-                <div className="faq-question">
-                  <span className="faq-icon">📷</span>
-                  <h3>Hangi yazı stili Instagram için en iyi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 4 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Instagram bio için El Yazısı, Estetik ve Minimal stiller en popüler seçeneklerdir. 
-                    Bu stiller hem okunabilir hem de estetik görünür. Gönderi açıklamaları için 
-                    Kalın veya İtalik stilleri dikkat çekici olabilir. Platform filtresini kullanarak 
-                    Instagram uyumlu tüm stilleri görebilirsiniz.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 5 ? 'expanded' : ''}`} onClick={() => toggleFaq(5)}>
-                <div className="faq-question">
-                  <span className="faq-icon">📱</span>
-                  <h3>Mobil cihazlarda kullanabilir miyim?</h3>
-                  <span className="faq-toggle">{expandedFaq === 5 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet! Yazı Stilleri tamamen mobil uyumludur. iPhone, Android veya tablet 
-                    fark etmeksizin tüm cihazlarda sorunsuz çalışır. Dokunmatik ekranlar için 
-                    optimize edilmiş arayüzümüz sayesinde kolayca metin yazabilir, stil seçebilir 
-                    ve kopyalayabilirsiniz.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 7: Feature Banners */}
-          <div className="info-section">
-            <div className="feature-banners-grid">
-              <div className="feature-banner gradient-success">
-                <div className="feature-banner-icon">🚀</div>
-                <div className="feature-banner-content">
-                  <h3>Ücretsiz ve Hızlı</h3>
-                  <p>Kayıt gerektirmez, anında çalışır. Tüm özellikler sınırsız ve ücretsiz!</p>
-                </div>
-              </div>
-
-              <div className="feature-banner gradient-security">
-                <div className="feature-banner-icon">🔒</div>
-                <div className="feature-banner-content">
-                  <h3>%100 Güvenli</h3>
-                  <p>Metinleriniz sunucuya gönderilmez. Tüm işlemler tarayıcınızda gerçekleşir.</p>
-                </div>
-              </div>
-
-              <div className="feature-banner gradient-mobile">
-                <div className="feature-banner-icon">📱</div>
-                <div className="feature-banner-content">
-                  <h3>Mobil Uyumlu</h3>
-                  <p>Her cihazda mükemmel çalışır. Telefonunuzdan kolayca kullanın.</p>
-                </div>
-              </div>
+          {/* SECTION 10: Why should you choose us? */}
+          <div className="info-box reveal">
+            <h2 className="section-main-title">Why should you choose us?</h2>
+            <div className="content-intro">
+              <p className="intro-text">
+                Many online users struggle to find the perfect font style that looks great and feels unique on social media, messaging apps, and games.
+                Our tool makes it easy to create stylish and attractive text, helping you stand out and express yourself.
+                We provide a wide variety of fonts to meet all your creative needs, so you can always find the style you’re looking for.
+              </p>
             </div>
           </div>
 

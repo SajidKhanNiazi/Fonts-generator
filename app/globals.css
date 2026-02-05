@@ -1,3 +1,5 @@
+@import './hero-fullscreen.css';
+
 * {
   margin: 0;
   padding: 0;
@@ -1713,8 +1715,22 @@ body {
   padding: 1.75rem;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: boxFadeIn 0.6s ease-out both;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: boxFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll Reveal Base */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  visibility: hidden;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
 }
 
 .info-box:nth-child(1) {
@@ -1732,7 +1748,7 @@ body {
 @keyframes boxFadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.95);
+    transform: translateY(20px) scale(0.98);
   }
 
   to {
@@ -1742,8 +1758,9 @@ body {
 }
 
 .info-box:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border-color: var(--primary-color);
 }
 
 .info-box-large {
@@ -2289,7 +2306,8 @@ body {
 
 .feature-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
 }
 
 .feature-card::before {
@@ -3136,7 +3154,7 @@ body {
   .feature-banner {
     flex-direction: column;
     text-align: center;
-    padding: 1.25rem;
+    padding: 1.5rem;
   }
 
   .feature-banner-icon {
@@ -3152,7 +3170,7 @@ body {
 
 @media (max-width: 480px) {
   .content-intro {
-    padding: 1rem;
+    padding: 1.5rem;
     border-radius: 1rem;
   }
 
