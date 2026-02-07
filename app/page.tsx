@@ -8,12 +8,12 @@ export default function Home() {
   const [inputText, setInputText] = useState('Merhaba Dünya')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [showToast, setShowToast] = useState(false)
-  const [visibleFonts, setVisibleFonts] = useState<Record<string, number>>({})
   const [isMobile, setIsMobile] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [darkMode, setDarkMode] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   // Toggle FAQ accordion
   const toggleFaq = (index: number) => {
@@ -23,9 +23,35 @@ export default function Home() {
   // Mark component as mounted (client-side only)
   useEffect(() => {
     setMounted(true)
-    const savedDarkMode = localStorage.getItem('darkMode')
-    if (savedDarkMode) {
-      setDarkMode(JSON.parse(savedDarkMode))
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    setDarkMode(savedDarkMode)
+
+    // Ripple effect handler
+    const handleRipple = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const rippleTarget = target.closest('.nav-link, .mobile-nav-link, .btn-primary, .dark-mode-toggle, .hamburger-btn, .close-menu-btn, .font-card, .symbol-card');
+
+      if (rippleTarget) {
+        const rect = rippleTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-effect';
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        rippleTarget.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      }
+    };
+
+    document.addEventListener('mousedown', handleRipple);
+    return () => {
+      document.removeEventListener('mousedown', handleRipple);
     }
   }, [])
 
@@ -64,21 +90,10 @@ export default function Home() {
     }
   }, [darkMode, mounted])
 
-  // Detect mobile and set initial visible fonts limit
+  // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
-      const mobile = window.innerWidth <= 768
-      setIsMobile(mobile)
-      if (mobile) {
-        const categories = Array.from(new Set(fontStyles.map(s => s.category)))
-        const initial: Record<string, number> = {}
-        categories.forEach(cat => {
-          initial[cat] = 6 // Show 6 fonts per category on mobile
-        })
-        setVisibleFonts(initial)
-      } else {
-        setVisibleFonts({})
-      }
+      setIsMobile(window.innerWidth <= 768)
     }
 
     checkMobile()
@@ -159,27 +174,63 @@ export default function Home() {
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              ✨ Yazı Stilleri
+              ✨ Font Styles
             </Link>
-            <nav className="nav">
+
+            {/* Desktop Navigation */}
+            <nav className="nav desktop-nav">
               <Link href="/insta-yazi-tipi" className="nav-link">
-                Insta Yazı Tipi
+                Insta Font
               </Link>
               <Link href="/sekilli-semboller" className="nav-link">
-                Şekilli Semboller
+                Shaped Symbols
               </Link>
               <Link href="/pubg-sekilli-nick" className="nav-link">
-                PUBG Şekilli Nick
+                PUBG Stylish Nickname
               </Link>
+            </nav>
+
+            {/* Right Actions: Theme Toggle & Hamburger */}
+            <div className="header-actions">
               <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
-                aria-label="Karanlık mod"
+                aria-label="Toggle Dark Mode"
               >
                 {darkMode ? '☀️' : '🌙'}
               </button>
-            </nav>
+
+              <button
+                className={`hamburger-btn ${isMobileMenuOpen ? 'active' : ''}`}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Menu"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
           </div>
+        </div>
+
+        {/* Mobile Menu Drawer */}
+        <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+          <div className="mobile-menu-header">
+            <span className="mobile-menu-title">Menu</span>
+            <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
+          </div>
+          <nav className="mobile-nav">
+            <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">📸</span> Insta Font
+            </Link>
+            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">✨</span> Shaped Symbols
+            </Link>
+            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> PUBG Stylish Nickname
+            </Link>
+          </nav>
         </div>
       </header>
 
@@ -221,7 +272,6 @@ export default function Home() {
                 <span className="title-word-animated">Yazı</span>
                 <span className="title-word-animated highlight-gradient">Stilleri</span>
               </span>
-              <span className="title-subtitle">Metninizi Dönüştürün</span>
             </h1>
 
             {/* Description */}
@@ -355,13 +405,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Scroll Indicator */}
-            <div className="scroll-indicator">
-              <div className="scroll-mouse">
-                <div className="scroll-wheel"></div>
-              </div>
-              <span className="scroll-text">Kaydırarak keşfet</span>
-            </div>
+
           </div>
         </div>
 
@@ -401,9 +445,7 @@ export default function Home() {
               const categoryFonts = filteredFontStyles.filter(style => style.category === category)
               if (categoryFonts.length === 0) return null
 
-              const maxVisible = isMobile ? (visibleFonts[category] || 6) : categoryFonts.length
-              const visibleFontsList = categoryFonts.slice(0, maxVisible)
-              const hasMore = categoryFonts.length > maxVisible
+              const visibleFontsList = categoryFonts
 
               return (
                 <div key={category} className="category-section" data-category={category}>
@@ -438,17 +480,6 @@ export default function Home() {
                       )
                     })}
                   </div>
-                  {hasMore && isMobile && (
-                    <button
-                      className="show-more-button"
-                      onClick={() => setVisibleFonts(prev => ({
-                        ...prev,
-                        [category]: (prev[category] || 6) + 6
-                      }))}
-                    >
-                      Daha Fazla Göster ({categoryFonts.length - maxVisible} tane daha)
-                    </button>
-                  )}
                 </div>
               )
             })
@@ -694,42 +725,66 @@ export default function Home() {
           {/* SECTION 9: Types of Fonts & Popular Categories */}
           <div className="info-box reveal">
             <h2 className="section-main-title">Types of Fonts Used by This Website</h2>
-            <div className="feature-cards-grid">
-              <div className="feature-card gradient-purple">
-                <p>Popular Fonts</p>
+            <div className="font-types-grid">
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🌟</span>
+                <h3 className="font-type-title">Popular Fonts</h3>
+                <p className="font-type-desc">Most loved styles by our users</p>
               </div>
-              <div className="feature-card gradient-pink">
-                <p>Text Variations</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🔠</span>
+                <h3 className="font-type-title">Text Variations</h3>
+                <p className="font-type-desc">Bold, Italic, and more</p>
               </div>
-              <div className="feature-card gradient-blue">
-                <p>Fancy Unicode Styles</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">✨</span>
+                <h3 className="font-type-title">Fancy Unicode</h3>
+                <p className="font-type-desc">Unique character sets</p>
               </div>
-              <div className="feature-card gradient-green">
-                <p>Social Media Styles</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">📱</span>
+                <h3 className="font-type-title">Social Media</h3>
+                <p className="font-type-desc">Perfect for bios & posts</p>
               </div>
-              <div className="feature-card gradient-purple">
-                <p>WhatsApp & Facebook Safe Fonts</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">💬</span>
+                <h3 className="font-type-title">Chat Apps</h3>
+                <p className="font-type-desc">WhatsApp & Facebook safe</p>
               </div>
-              <div className="feature-card gradient-pink">
-                <p>Instagram Font Styles</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">📸</span>
+                <h3 className="font-type-title">Instagram Fonts</h3>
+                <p className="font-type-desc">Stand out on your feed</p>
               </div>
-              <div className="feature-card gradient-blue">
-                <p>Emoji-Based Fonts</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">😊</span>
+                <h3 className="font-type-title">Emoji Fonts</h3>
+                <p className="font-type-desc">Text mixed with emojis</p>
               </div>
-              <div className="feature-card gradient-green">
-                <p>Turkish Cultural Font Styles</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🇹🇷</span>
+                <h3 className="font-type-title">Turkish Styles</h3>
+                <p className="font-type-desc">Cultural & local fonts</p>
               </div>
-              <div className="feature-card gradient-purple">
-                <p>Text & Character Effects</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🎨</span>
+                <h3 className="font-type-title">Text Effects</h3>
+                <p className="font-type-desc">Cool character effects</p>
               </div>
-              <div className="feature-card gradient-pink">
-                <p>Gamer, Aesthetic & New Unicode Styles</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🎮</span>
+                <h3 className="font-type-title">Gamer & Aesthetic</h3>
+                <p className="font-type-desc">For nicknames & profiles</p>
               </div>
-              <div className="feature-card gradient-blue">
-                <p>Decorative Borders & Emoji Styles</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🖼️</span>
+                <h3 className="font-type-title">Decorative</h3>
+                <p className="font-type-desc">Borders & decorations</p>
               </div>
-              <div className="feature-card gradient-green">
-                <p>Text Transformations</p>
+              <div className="font-type-card glass-card-hover">
+                <span className="font-type-icon">🔄</span>
+                <h3 className="font-type-title">Transformations</h3>
+                <p className="font-type-desc">Upside down & mirrored</p>
               </div>
             </div>
 

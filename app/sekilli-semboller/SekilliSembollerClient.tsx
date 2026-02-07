@@ -118,6 +118,7 @@ export default function SekilliSembollerClient() {
   const [darkMode, setDarkMode] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   // Toggle FAQ accordion
@@ -127,9 +128,35 @@ export default function SekilliSembollerClient() {
 
   useEffect(() => {
     setMounted(true)
-    const savedDarkMode = localStorage.getItem('darkMode')
-    if (savedDarkMode) {
-      setDarkMode(JSON.parse(savedDarkMode))
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    setDarkMode(savedDarkMode)
+
+    // Ripple effect handler
+    const handleRipple = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const rippleTarget = target.closest('.nav-link, .mobile-nav-link, .btn-primary, .dark-mode-toggle, .hamburger-btn, .close-menu-btn, .font-card, .symbol-card');
+
+      if (rippleTarget) {
+        const rect = rippleTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-effect';
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        rippleTarget.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      }
+    };
+
+    document.addEventListener('mousedown', handleRipple);
+    return () => {
+      document.removeEventListener('mousedown', handleRipple);
     }
   }, [])
 
@@ -237,27 +264,63 @@ export default function SekilliSembollerClient() {
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              ✨ Yazı Stilleri
+              ✨ Font Styles
             </Link>
-            <nav className="nav">
+
+            {/* Desktop Navigation */}
+            <nav className="nav desktop-nav">
               <Link href="/insta-yazi-tipi" className="nav-link">
-                Insta Yazı Tipi
+                Insta Font
               </Link>
               <Link href="/sekilli-semboller" className="nav-link active">
-                Şekilli Semboller
+                Shaped Symbols
               </Link>
               <Link href="/pubg-sekilli-nick" className="nav-link">
-                PUBG Şekilli Nick
+                PUBG Stylish Nickname
               </Link>
+            </nav>
+
+            {/* Right Actions: Theme Toggle & Hamburger */}
+            <div className="header-actions">
               <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
-                aria-label="Karanlık mod"
+                aria-label="Toggle Dark Mode"
               >
                 {darkMode ? '☀️' : '🌙'}
               </button>
-            </nav>
+
+              <button
+                className={`hamburger-btn ${isMobileMenuOpen ? 'active' : ''}`}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Menu"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
           </div>
+        </div>
+
+        {/* Mobile Menu Drawer */}
+        <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+          <div className="mobile-menu-header">
+            <span className="mobile-menu-title">Menu</span>
+            <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
+          </div>
+          <nav className="mobile-nav">
+            <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">📸</span> Insta Font
+            </Link>
+            <Link href="/sekilli-semboller" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">✨</span> Shaped Symbols
+            </Link>
+            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> PUBG Stylish Nickname
+            </Link>
+          </nav>
         </div>
       </header>
 

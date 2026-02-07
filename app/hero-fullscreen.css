@@ -463,14 +463,14 @@
 .hero-input-fullscreen {
     position: relative;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
+    /* Increased from 600px */
     animation: inputSlideUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.1s both;
+    margin: 0 auto;
+    /* Ensure horizontal centering */
 }
 
-.input-glow-effect {
-    display: none;
-}
-
+/* ... existing keyframes ... */
 @keyframes inputSlideUp {
     from {
         opacity: 0;
@@ -496,23 +496,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    /* Ensure vertical centering */
 }
 
-.dark .input-container-glass {
-    background: transparent;
-    border-color: transparent;
-    box-shadow: none;
-}
-
-.input-container-glass:hover {
-    border-color: transparent;
-    box-shadow: none;
-}
-
-.dark .input-container-glass:hover {
-    border-color: transparent;
-    box-shadow: none;
-}
+/* ... dark mode styles ... */
 
 /* Input Header */
 .input-header-premium {
@@ -524,20 +512,11 @@
     text-align: center;
 }
 
-.input-icon-premium {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.15);
-}
+/* ... icon styles ... */
 
 .input-header-text-premium h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
+    /* Increased size for better visibility */
     font-weight: 700;
     color: var(--text-primary);
     margin: 0 0 0.5rem 0;
@@ -545,7 +524,8 @@
 }
 
 .input-header-text-premium p {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    /* Increased size */
     color: var(--text-secondary);
     margin: 0;
 }
@@ -554,47 +534,70 @@
 .input-field-premium {
     position: relative;
     width: 100%;
-    margin-bottom: 1.5rem;
-    max-width: 500px;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    /* Gradient border thickness */
+    border-radius: 4rem;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(236, 72, 153, 0.3), rgba(59, 130, 246, 0.3));
+    background-size: 200% 200%;
+    animation: borderGradient 4s ease infinite;
+}
+
+@keyframes borderGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .text-input-premium {
     width: 100%;
-    padding: 1rem 3rem 1rem 1.5rem;
-    font-size: 1.125rem;
+    padding: 1.5rem 4rem 1.5rem 2rem;
+    font-size: 1.25rem;
     line-height: 1.5;
     color: var(--text-primary);
     background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 3rem;
+    border: none;
+    border-radius: 4rem;
     resize: none;
-    min-height: 60px;
+    min-height: 70px;
     font-family: inherit;
     transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    background-clip: padding-box;
 }
 
 .dark .text-input-premium {
-    background: rgba(30, 30, 40, 0.8);
-    border-color: rgba(139, 92, 246, 0.2);
+    background: #0f172a;
+    color: #f8fafc;
 }
 
 .text-input-premium:focus {
     outline: none;
-    border-color: #8b5cf6;
-    background: var(--surface);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.15);
-    transform: translateY(-2px);
+    background: var(--surface-elevated, #fff);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
 .dark .text-input-premium:focus {
-    background: rgba(30, 30, 40, 1);
-    border-color: #a78bfa;
+    background: #1e293b;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .text-input-premium::placeholder {
-    color: var(--text-tertiary);
+    color: var(--text-muted);
+    font-weight: 500;
+    opacity: 0.7;
 }
 
 /* Clear Button */
@@ -968,5 +971,114 @@
     .stat-item-premium {
         width: 100%;
         justify-content: center;
+    }
+}
+
+/* =========================================
+   Font Types Grid Section
+   ========================================= */
+
+.font-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+    margin-bottom: 3rem;
+}
+
+.font-type-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark .font-type-card {
+    background: rgba(30, 30, 40, 0.6);
+    backdrop-filter: blur(10px);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+.font-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border-color: #8b5cf6;
+}
+
+.dark .font-type-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: #a78bfa;
+}
+
+/* Icon */
+.font-type-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.font-type-card:hover .font-type-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Title */
+.font-type-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-primary);
+}
+
+/* Description */
+.font-type-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Card Gradient Hover Effect */
+.font-type-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899, #3b82f6);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.font-type-card:hover::before {
+    opacity: 1;
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+    .font-types-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .font-type-card {
+        padding: 1.5rem;
+    }
+
+    .font-type-icon {
+        font-size: 2.5rem;
+    }
+
+    .font-type-title {
+        font-size: 1.125rem;
     }
 }
