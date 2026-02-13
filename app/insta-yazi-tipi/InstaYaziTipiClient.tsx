@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { translations, Language } from '@/lib/translations'
@@ -7,6 +8,7 @@ import './insta-content.css'
 
 // Helper function to transform text using a mapping
 function transformText(text: string, mapping: Record<string, string>): string {
+  if (!text) return ''
   return text.split('').map(char => mapping[char] || char).join('')
 }
 
@@ -385,7 +387,7 @@ const instagramFonts: FontStyle[] = [
     id: 'spaced',
     name: 'Aralıklı',
     description: 'Harfler arası boşluk',
-    transform: (text) => text.split('').join(' '),
+    transform: (text) => text ? text.split('').join(' ') : '',
   },
   {
     id: 'arrow',
@@ -808,52 +810,85 @@ export default function InstaYaziTipiClient() {
             </div>
 
             <section className="insta-section-highlight reveal insta-section-variant-c" aria-labelledby="stand-out-title">
-              <h3 id="stand-out-title" className="insta-subheading">{t.insta.sections[2].title}</h3>
-              <div className="insta-body">
-                <p>{t.insta.sections[2].content}</p>
-                <div className="insta-pill">
-                  <p>{lang === 'tr' ?
-                    'Aracımız, kullanıcıların favori bir yazı tipini seçip instagram ve diğer sosyal medya uygulamalarına kopyalayıp yapıştırması için kullanımı kolaydır. Instagram yazı tipi oluşturucuları, sosyal medya profilimizi benzersiz ve dengeli hale getirmek için bize göz alıcı ve etkileşimli yazı tipleri sunar.' :
-                    'Our tool is easy to use where users simply select a favorite font and copy paste it on instagram and Other Social media App. Instagram font generators give us eye-catching and interactive fonts to make our social media profile unique and balanced.'
-                  }</p>
-                </div>
-              </div>
+              {(() => {
+                const section = t.insta.sections.find((s: any) => s.id === 'stand-out') || t.insta.sections[2]
+                return (
+                  <>
+                    <h3 id="stand-out-title" className="insta-subheading">{section.title}</h3>
+                    <div className="insta-body">
+                      <p>{section.content}</p>
+                      <div className="insta-pill">
+                        <p>{lang === 'tr' ?
+                          'Aracımız, kullanıcıların favori bir yazı tipini seçip instagram ve diğer sosyal medya uygulamalarına kopyalayıp yapıştırması için kullanımı kolaydır. Instagram yazı tipi oluşturucuları, sosyal medya profilimizi benzersiz ve dengeli hale getirmek için bize göz alıcı ve etkileşimli yazı tipleri sunar.' :
+                          'Our tool is easy to use where users simply select a favorite font and copy paste it on instagram and Other Social media App. Instagram font generators give us eye-catching and interactive fonts to make our social media profile unique and balanced.'
+                        }</p>
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
             </section>
 
             <div className="insta-grid-2 insta-cards-split">
-              {t.insta.sections.slice(3, 5).map((section: any) => (
+              {['advantages', 'examples'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any) => (
                 <section key={section.id} className={`insta-card reveal insta-card-${section.id === 'stand-out' ? 'left' : 'right'}`} aria-labelledby={section.id}>
                   <h2 id={section.id} className="insta-heading">{section.title}</h2>
                   <div className="insta-body">
-                    <p>{section.content}</p>
+                    {section.content && <p>{section.content}</p>}
+                    {section.features && (
+                      <ul className="insta-dot-list">
+                        {section.features.map((f: any, i: number) => <li key={i}>{f.text || f}</li>)}
+                      </ul>
+                    )}
+                    {section.examples && (
+                      <div className="insta-examples-grid-mini">
+                        {section.examples.map((ex: any, i: number) => <div key={i}>{ex.label}: {ex.text}</div>)}
+                      </div>
+                    )}
                   </div>
                 </section>
               ))}
             </div>
 
-            <section className="insta-section-advantages reveal insta-section-variant-d" aria-labelledby="advantages">
-              <h3 id="advantages" className="insta-subheading">{t.insta.sections[5].title}</h3>
-              <div className="insta-adv-grid">
-                {t.insta.sections[5].features.map((feat: any, idx: number) => (
-                  <div key={idx} className="insta-adv-item"><span>{feat.icon}</span> {feat.text}</div>
-                ))}
-              </div>
+            <section className="insta-section-advantages reveal insta-section-variant-d" aria-labelledby="advantages-title">
+              {(() => {
+                const section = t.insta.sections.find((s: any) => s.id === 'advantages')
+                if (!section) return null
+                return (
+                  <>
+                    <h3 id="advantages-title" className="insta-subheading">{section.title}</h3>
+                    <div className="insta-adv-grid">
+                      {section.features.map((feat: any, idx: number) => (
+                        <div key={idx} className="insta-adv-item"><span>{feat.icon}</span> {feat.text}</div>
+                      ))}
+                    </div>
+                  </>
+                )
+              })()}
             </section>
 
             <section className="insta-section-examples reveal insta-section-variant-e" aria-labelledby="stylized-text">
-              <h2 id="stylized-text" className="insta-heading">{t.insta.sections[6].title}</h2>
-              <div className="insta-body">
-                <p>{t.insta.sections[6].content}</p>
-                <div className="insta-examples-grid">
-                  {t.insta.sections[6].examples.map((ex: any, idx: number) => (
-                    <div key={idx} className="insta-example-item"><strong>{ex.label}:</strong> {ex.text}</div>
-                  ))}
-                </div>
-              </div>
+              {(() => {
+                const section = t.insta.sections.find((s: any) => s.id === 'examples')
+                if (!section) return null
+                return (
+                  <>
+                    <h2 id="stylized-text" className="insta-heading">{section.title}</h2>
+                    <div className="insta-body">
+                      <p>{section.content}</p>
+                      <div className="insta-examples-grid">
+                        {section.examples.map((ex: any, idx: number) => (
+                          <div key={idx} className="insta-example-item"><strong>{ex.label}:</strong> {ex.text}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
             </section>
 
             <div className="insta-grid-3 insta-usage-trio">
-              {t.insta.sections.slice(7, 10).map((section: any, idx: number) => (
+              {['stories', 'bio', 'posts'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any, idx: number) => (
                 <section key={section.id} className={`insta-usage-card reveal insta-usage-${idx + 1}`} aria-labelledby={section.id}>
                   <h3 id={section.id} className="insta-usage-title">{section.title}</h3>
                   <p>{section.content}</p>
@@ -862,7 +897,7 @@ export default function InstaYaziTipiClient() {
             </div>
 
             <div className="insta-grid-2 insta-cards-split">
-              {t.insta.sections.slice(10, 12).map((section: any) => (
+              {['hashtags', 'best-fonts'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any) => (
                 <section key={section.id} className={`insta-card reveal insta-card-${section.id === 'hashtags' ? 'left' : 'right'}`} aria-labelledby={section.id}>
                   <h2 id={section.id} className="insta-heading">{section.title}</h2>
                   <div className="insta-body">
@@ -878,33 +913,47 @@ export default function InstaYaziTipiClient() {
             </div>
 
             <section className="insta-section-faq reveal insta-section-variant-f" aria-labelledby="errors-solutions">
-              <h2 id="errors-solutions" className="insta-heading">{t.insta.sections[12].title}</h2>
-              <div className="insta-faq-grid">
-                {t.insta.sections[12].faqs.map((item: any, idx: number) => (
-                  <div key={idx} className="insta-faq-item">
-                    <h4>{item.p}</h4>
-                    <p>{item.s}</p>
-                  </div>
-                ))}
-              </div>
+              {(() => {
+                const section = t.insta.sections.find((s: any) => s.id === 'faq')
+                return (
+                  <>
+                    <h2 id="errors-solutions" className="insta-heading">{section?.title}</h2>
+                    <div className="insta-faq-grid">
+                      {section?.faqs?.map((item: any, idx: number) => (
+                        <div key={idx} className="insta-faq-item">
+                          <h4>{item.p}</h4>
+                          <p>{item.s}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )
+              })()}
             </section>
 
             <section className="insta-section-features reveal insta-section-variant-g" aria-labelledby="key-features">
-              <h2 id="key-features" className="insta-features-title">
-                <span className="insta-accent-line" aria-hidden></span>
-                {t.insta.sections[13].title}
-              </h2>
-              <div className="insta-features-grid">
-                {t.insta.sections[13].features.map((feat: any, idx: number) => (
-                  <div key={idx} className="insta-feature-card">
-                    <div className="insta-f-icon">{feat.icon}</div>
-                    <div className="insta-f-info">
-                      <h3>{feat.title}</h3>
-                      <p>{feat.desc}</p>
+              {(() => {
+                const section = t.insta.sections.find((s: any) => s.id === 'features')
+                return (
+                  <>
+                    <h2 id="key-features" className="insta-features-title">
+                      <span className="insta-accent-line" aria-hidden></span>
+                      {section?.title}
+                    </h2>
+                    <div className="insta-features-grid">
+                      {section?.features?.map((feat: any, idx: number) => (
+                        <div key={idx} className="insta-feature-card">
+                          <div className="insta-f-icon">{feat.icon}</div>
+                          <div className="insta-f-info">
+                            <h3>{feat.title}</h3>
+                            <p>{feat.desc}</p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                ))}
-              </div>
+                  </>
+                )
+              })()}
             </section>
           </article>
 

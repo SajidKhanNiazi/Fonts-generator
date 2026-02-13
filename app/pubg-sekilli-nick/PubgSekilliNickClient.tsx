@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import { Language, translations } from '@/lib/translations'
@@ -1025,7 +1026,7 @@ export default function PubgSekilliNickClient() {
 
                   {section.type === 'steps' && (
                     <div className="detailed-steps">
-                      {section.steps.map((step: any, idx: number) => (
+                      {section.steps?.map((step: any, idx: number) => (
                         <div key={idx} className="detailed-step">
                           <div className="step-visual">
                             <div className="step-number-large">{step.number}</div>
@@ -1042,7 +1043,7 @@ export default function PubgSekilliNickClient() {
 
                   {section.type === 'features' && (
                     <div className="tips-grid">
-                      {section.features.map((feature: any, idx: number) => (
+                      {section.features?.map((feature: any, idx: number) => (
                         <div key={idx} className="tip-card">
                           <div className="tip-number">{idx < 9 ? `0${idx + 1}` : idx + 1}</div>
                           <h3>{feature.title}</h3>
@@ -1054,7 +1055,7 @@ export default function PubgSekilliNickClient() {
 
                   {section.type === 'faq' && (
                     <div className="faq-accordion">
-                      {section.faqs.map((faq: any, idx: number) => (
+                      {section.faqs?.map((faq: any, idx: number) => (
                         <div
                           key={idx}
                           className={`faq-item ${expandedFaq === idx ? 'expanded' : ''}`}
@@ -1076,7 +1077,7 @@ export default function PubgSekilliNickClient() {
                   {section.type === 'featuresGrid' && (
                     <div className="info-section">
                       <div className="feature-banners-grid">
-                        {section.features.map((feature: any, idx: number) => (
+                        {section.features?.map((feature: any, idx: number) => (
                           <div key={idx} className={`feature-banner ${idx === 0 ? 'gradient-success' : idx === 1 ? 'gradient-security' : 'gradient-mobile'}`}>
                             <div className="feature-banner-icon">{feature.icon}</div>
                             <div className="feature-banner-content">

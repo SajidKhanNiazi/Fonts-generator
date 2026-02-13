@@ -277,6 +277,13 @@ export const translations: Record<Language, any> = {
                 readyUse: 'Hemen Kullan',
                 clickToUse: 'İstediğin seçeneğe dokun, hemen kullan',
             },
+            categories: {
+                havali: 'Havalı & Şekilli',
+                sekilli: 'Sembollü & Çerçeveli',
+                pro: 'Profesyonel Oyuncu',
+                clan: 'Klan & Takım',
+                agresif: 'Agresif & Savaşçı',
+            },
             sections: [
                 {
                     id: 'what-is-pubg-nick',
@@ -681,6 +688,13 @@ export const translations: Record<Language, any> = {
                 howToUse: 'Create Now',
                 readyUse: 'Use Now',
                 clickToUse: 'Tap your desired option to use immediately',
+            },
+            categories: {
+                havali: 'Cool & Stylish',
+                sekilli: 'Symbol & Framed',
+                pro: 'Pro Gamer',
+                clan: 'Clan & Team',
+                agresif: 'Aggressive & Fighter',
             },
             sections: [
                 {
