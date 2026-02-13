@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { fontStyles } from '@/lib/fontStyles'
+import { translations, Language } from '@/lib/translations'
 import Link from 'next/link'
 
 export default function Home() {
+  const [lang, setLang] = useState<Language>('tr')
   const [inputText, setInputText] = useState('Merhaba Dünya')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [showToast, setShowToast] = useState(false)
@@ -168,30 +170,42 @@ export default function Home() {
     }
   }, [])
 
+  const t = translations[lang]
+
   return (
     <div className={mounted && darkMode ? 'dark' : ''}>
       <header className="header">
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              ✨ Font Styles
+              {t.common.logo}
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="nav desktop-nav">
               <Link href="/insta-yazi-tipi" className="nav-link">
-                Insta Font
+                {t.common.nav.insta}
               </Link>
               <Link href="/sekilli-semboller" className="nav-link">
-                Shaped Symbols
+                {t.common.nav.symbols}
               </Link>
               <Link href="/pubg-sekilli-nick" className="nav-link">
-                PUBG Stylish Nickname
+                {t.common.nav.pubg}
               </Link>
             </nav>
 
-            {/* Right Actions: Theme Toggle & Hamburger */}
+            {/* Right Actions: Theme Toggle, Lang Toggle & Hamburger */}
             <div className="header-actions">
+              <button
+                className="lang-toggle-btn"
+                onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+                aria-label="Toggle Language"
+                title={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
+              >
+                <span className="lang-icon">🌐</span>
+                <span className="lang-text">{lang === 'tr' ? 'EN' : 'TR'}</span>
+              </button>
+
               <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
@@ -222,14 +236,24 @@ export default function Home() {
           </div>
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">📸</span> Insta Font
+              <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> Shaped Symbols
+              <span className="nav-icon">✨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> PUBG Stylish Nickname
+              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
+            <div className="mobile-lang-switch">
+              <button
+                className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`}
+                onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}
+              >TR</button>
+              <button
+                className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`}
+                onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}
+              >EN</button>
+            </div>
           </nav>
         </div>
       </header>
@@ -263,21 +287,20 @@ export default function Home() {
             <div className="hero-badge-modern">
               <span className="badge-pulse"></span>
               <span className="badge-icon">🚀</span>
-              <span className="badge-text">Ücretsiz & Hızlı</span>
+              <span className="badge-text">{t.home.hero.badge}</span>
             </div>
 
             {/* Main Title */}
             <h1 className="hero-title-fullscreen">
               <span className="title-line-animated">
-                <span className="title-word-animated">Yazı</span>
-                <span className="title-word-animated highlight-gradient">Stilleri</span>
+                <span className="title-word-animated">{t.home.hero.title}</span>
+                <span className="title-word-animated highlight-gradient">{t.home.hero.titleHighlight}</span>
               </span>
             </h1>
 
             {/* Description */}
             <p className="hero-description-fullscreen">
-              Metninizi <span className="text-gradient-purple">Instagram</span>, <span className="text-gradient-pink">WhatsApp</span>, <span className="text-gradient-blue">TikTok</span> ve
-              diğer platformlar için <strong>özel font stillerine</strong> dönüştürün.
+              {t.home.hero.description}
             </p>
 
             {/* Premium Input Section */}
@@ -300,8 +323,8 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className="input-header-text-premium">
-                    <h2>Metninizi Yazın</h2>
-                    <p>Anında 100+ stile dönüştürün ✨</p>
+                    <h2>{t.home.hero.inputTitle}</h2>
+                    <p>{t.home.hero.inputSub}</p>
                   </div>
                 </div>
 
@@ -312,7 +335,7 @@ export default function Home() {
                     className="text-input-premium"
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Merhaba Dünya yazarak başlayın..."
+                    placeholder={t.home.hero.inputPlaceholder}
                     rows={2}
                     maxLength={500}
                   />
@@ -320,7 +343,7 @@ export default function Home() {
                     className="clear-btn-premium"
                     onClick={() => setInputText('')}
                     style={{ opacity: inputText ? 1 : 0, pointerEvents: inputText ? 'auto' : 'none' }}
-                    aria-label="Temizle"
+                    aria-label={t.common.clear}
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -344,7 +367,7 @@ export default function Home() {
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                         <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      Türkçe desteklenir
+                      {t.common.charsSupported}
                     </span>
                   </div>
                   <div className={`char-counter-premium ${inputText.length > 400 ? 'warning' : ''} ${inputText.length > 480 ? 'danger' : ''}`}>
@@ -374,7 +397,7 @@ export default function Home() {
                 </div>
                 <div className="stat-content">
                   <span className="stat-number-premium">100+</span>
-                  <span className="stat-label-premium">Font Stili</span>
+                  <span className="stat-label-premium">{t.home.hero.stat1}</span>
                 </div>
               </div>
               <div className="stat-divider-premium"></div>
@@ -392,7 +415,7 @@ export default function Home() {
                 </div>
                 <div className="stat-content">
                   <span className="stat-number-premium">6</span>
-                  <span className="stat-label-premium">Platform</span>
+                  <span className="stat-label-premium">{t.home.hero.stat2}</span>
                 </div>
               </div>
               <div className="stat-divider-premium"></div>
@@ -400,7 +423,7 @@ export default function Home() {
                 <div className="stat-icon">🇹🇷</div>
                 <div className="stat-content">
                   <span className="stat-number-premium">%100</span>
-                  <span className="stat-label-premium">Türkçe</span>
+                  <span className="stat-label-premium">{t.home.hero.stat3}</span>
                 </div>
               </div>
             </div>
@@ -420,7 +443,7 @@ export default function Home() {
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
               >
-                Tümü
+                {t.common.all}
               </button>
               {categories.map((category) => (
                 <button
@@ -464,17 +487,17 @@ export default function Home() {
                             <div className="font-card-title">
                               <div className="font-name">
                                 {style.name}
-                                {style.popular && <span className="popular-badge">🔥 Popüler</span>}
+                                {style.popular && <span className="popular-badge">🔥 {t.common.popular}</span>}
                               </div>
                             </div>
                           </div>
 
-                          <div className="font-preview">{transformedText || 'Örnek metin'}</div>
+                          <div className="font-preview">{transformedText || t.common.exampleText}</div>
                           <button
                             className={`copy-button ${isCopied ? 'copied' : ''}`}
                             onClick={() => handleCopy(transformedText, style.id)}
                           >
-                            {isCopied ? '✓ Kopyalandı!' : '📋 Kopyala'}
+                            {isCopied ? t.common.copied : t.common.copy}
                           </button>
                         </div>
                       )
@@ -486,345 +509,99 @@ export default function Home() {
           })()}
 
           {/* ============ COMPREHENSIVE SEO CONTENT SECTIONS ============ */}
+          {t.home.sections.map((section: any) => (
+            <div key={section.id} className="info-box reveal">
+              <h2 className="section-main-title">{section.title}</h2>
+              <div className="content-intro">
+                {section.type === 'text' && (
+                  <p className="intro-text" dangerouslySetInnerHTML={{ __html: section.content }} />
+                )}
 
-          {/* SECTION 1: What are fonts? */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">What are fonts?</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                Fonts are Text and styles that we customize on our own choice to change our text more eye-catching and better Visual Appearance in any social media Platform.
-                These Fonts make text more clear and readable by changing text font, size and color.
-              </p>
-            </div>
-          </div>
+                {section.type === 'features' && (
+                  <div className="feature-cards-grid" style={{ marginTop: '1.5rem' }}>
+                    {section.features.map((feature: any, idx: number) => (
+                      <div key={idx} className="feature-card gradient-purple">
+                        <div className="feature-card-icon">{feature.icon}</div>
+                        <h3>{feature.title}</h3>
+                        <p>{feature.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-          {/* SECTION 2: What are font styles? */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">What are font styles?</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                Font styles help us to create special nicknames, Cool font, emoji stylish text and logo. Mostly use like Handwriting font are famous where user can generate different style in this category.
-                We can fully customize our text for our requirement and Interaction for platform. Font styles convey our message better with different effects, design and element that we use in Text.
-              </p>
-            </div>
-          </div>
+                {section.type === 'fontFeatures' && (
+                  <div className="feature-cards-grid" style={{ marginTop: '1rem' }}>
+                    {section.features.map((feature: any, idx: number) => (
+                      <div key={idx} className={`feature-card ${feature.gradient}`}>
+                        <span className="example-text" style={{ fontSize: '1.25rem' }}>{feature.text}</span>
+                        <p>{feature.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-          {/* SECTION 3: How does the Font Changer work? */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">How does the Font Changer work?</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                Font changer is an online Tool which works for creating a stylized nickname, cool text and engagement message for Social Media posts for brand and followers.
-                We can use symbols styles text which make a unique in different game which look attractive and make more confidence over the platform.
-              </p>
-            </div>
-          </div>
+                {section.type === 'steps' && (
+                  <div className="detailed-steps" style={{ gap: '2rem', marginTop: '1.5rem' }}>
+                    {section.steps.map((step: any, idx: number) => (
+                      <div key={idx} className="detailed-step" style={{
+                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02))',
+                        borderLeft: '4px solid #8b5cf6',
+                        padding: '2rem',
+                        borderRadius: '1rem',
+                        transition: 'all 0.3s ease'
+                      }}>
+                        <div className="step-visual">
+                          <div className="step-number-large" style={{
+                            background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+                            boxShadow: '0 8px 20px rgba(139, 92, 246, 0.3)',
+                            fontSize: '2rem',
+                            fontWeight: '800'
+                          }}>{step.number}</div>
+                          <div className="step-icon-circle" style={{
+                            fontSize: '2.5rem',
+                            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05))',
+                            padding: '1rem',
+                            borderRadius: '50%'
+                          }}>{step.icon}</div>
+                        </div>
+                        <div className="step-details">
+                          <h3 style={{
+                            color: '#8b5cf6',
+                            fontSize: '1.5rem',
+                            marginBottom: '0.75rem',
+                            fontWeight: '700'
+                          }}>{step.title}</h3>
+                          <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-          {/* SECTION 4: What are different font styles used for? */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">What are different font styles used for?</h2>
-            <div className="content-intro">
-              <div className="feature-cards-grid" style={{ marginTop: '1.5rem' }}>
-                <div className="feature-card gradient-purple">
-                  <div className="feature-card-icon">📱</div>
-                  <h3>Social Media Posts</h3>
-                  <p>Create Fancy Posts and Aesthetic Bio for platforms like Instagram, Facebook and TikTok for a better visual and interactive profile.</p>
-                </div>
-                <div className="feature-card gradient-blue">
-                  <div className="feature-card-icon">🎮</div>
-                  <h3>Gaming Nicknames</h3>
-                  <p>Generate Cool and Stylish nicknames for Online games that stand out from the crowd.</p>
-                </div>
-                <div className="feature-card gradient-pink">
-                  <div className="feature-card-icon">💬</div>
-                  <h3>Creative Messaging</h3>
-                  <p>Send unique messages using these font styles on WhatsApp and Instagram to impress your friends.</p>
-                </div>
-              </div>
-            </div>
+                {section.type === 'fontTypes' && (
+                  <div className="font-types-grid">
+                    {section.types.map((type: any, idx: number) => (
+                      <div key={idx} className="font-type-card glass-card-hover">
+                        <span className="font-type-icon">{type.icon}</span>
+                        <h3 className="font-type-title">{type.title}</h3>
+                        <p className="font-type-desc">{type.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-            <h3 className="section-sub-title" style={{ marginTop: '2rem' }}>Examples of Using Different Fonts</h3>
-            <div className="feature-cards-grid" style={{ marginTop: '1rem' }}>
-              <div className="feature-card gradient-purple">
-                <span className="example-text" style={{ fontSize: '1.25rem' }}>𝑌𝑎𝑧𝑖 𝑆𝑡𝑖𝑙𝑙𝑒𝑟𝑖</span>
-                <p>Italic Style</p>
-              </div>
-              <div className="feature-card gradient-pink">
-                <span className="example-text" style={{ fontSize: '1.25rem' }}>𝒴𝒶𝓏𝒾 𝒮𝓉𝒾𝓁𝓁𝑒𝓇𝒾</span>
-                <p>Handwriting Style</p>
-              </div>
-              <div className="feature-card gradient-blue">
-                <span className="example-text" style={{ fontSize: '1.25rem' }}>𝕐𝕒𝕫𝕚 𝕊𝕥𝕚𝕝𝕝𝕖𝕣𝕚</span>
-                <p>Double-Struck Style</p>
-              </div>
-              <div className="feature-card gradient-green">
-                <span className="example-text" style={{ fontSize: '1.25rem' }}>🅈🄰🅉Ｉ 🅂🅃Ｉ🄻🄻🄴🄻Ｉ</span>
-                <p>Boxed Text Style</p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 5: How to Create Font Styles and Use Them */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">How to Create Font Styles and Use Them (Copy & Paste)</h2>
-
-            <div className="content-intro" style={{ marginBottom: '2rem' }}>
-              <p className="intro-text" style={{ textAlign: 'center', fontSize: '1.1rem', color: 'var(--text-secondary)' }}>
-                Follow these simple steps to transform your text into stunning font styles
-              </p>
-            </div>
-
-            <div className="detailed-steps" style={{ gap: '2rem' }}>
-              <div className="detailed-step" style={{
-                background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02))',
-                borderLeft: '4px solid #8b5cf6',
-                padding: '2rem',
-                borderRadius: '1rem',
-                transition: 'all 0.3s ease'
-              }}>
-                <div className="step-visual">
-                  <div className="step-number-large" style={{
-                    background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
-                    boxShadow: '0 8px 20px rgba(139, 92, 246, 0.3)',
-                    fontSize: '2rem',
-                    fontWeight: '800'
-                  }}>1</div>
-                  <div className="step-icon-circle" style={{
-                    fontSize: '2.5rem',
-                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05))',
-                    padding: '1rem',
-                    borderRadius: '50%'
-                  }}>✏️</div>
-                </div>
-                <div className="step-details">
-                  <h3 style={{
-                    color: '#8b5cf6',
-                    fontSize: '1.5rem',
-                    marginBottom: '0.75rem',
-                    fontWeight: '700'
-                  }}>Step 1: Enter Your Text</h3>
-                  <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
-                    Type your text in the input field. Our tool will automatically generate a list of different font styles for your text.
-                  </p>
-                </div>
-              </div>
-
-              <div className="detailed-step" style={{
-                background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.05), rgba(236, 72, 153, 0.02))',
-                borderLeft: '4px solid #ec4899',
-                padding: '2rem',
-                borderRadius: '1rem',
-                transition: 'all 0.3s ease'
-              }}>
-                <div className="step-visual">
-                  <div className="step-number-large" style={{
-                    background: 'linear-gradient(135deg, #ec4899, #f472b6)',
-                    boxShadow: '0 8px 20px rgba(236, 72, 153, 0.3)',
-                    fontSize: '2rem',
-                    fontWeight: '800'
-                  }}>2</div>
-                  <div className="step-icon-circle" style={{
-                    fontSize: '2.5rem',
-                    background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(236, 72, 153, 0.05))',
-                    padding: '1rem',
-                    borderRadius: '50%'
-                  }}>👀</div>
-                </div>
-                <div className="step-details">
-                  <h3 style={{
-                    color: '#ec4899',
-                    fontSize: '1.5rem',
-                    marginBottom: '0.75rem',
-                    fontWeight: '700'
-                  }}>Step 2: Choose Your Favorite Font</h3>
-                  <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
-                    After entering your text, many font styles will appear below the input box. Each font style is shown with its name so you can easily choose the one you like.
-                  </p>
-                </div>
-              </div>
-
-              <div className="detailed-step" style={{
-                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02))',
-                borderLeft: '4px solid #3b82f6',
-                padding: '2rem',
-                borderRadius: '1rem',
-                transition: 'all 0.3s ease'
-              }}>
-                <div className="step-visual">
-                  <div className="step-number-large" style={{
-                    background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-                    boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)',
-                    fontSize: '2rem',
-                    fontWeight: '800'
-                  }}>3</div>
-                  <div className="step-icon-circle" style={{
-                    fontSize: '2.5rem',
-                    background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))',
-                    padding: '1rem',
-                    borderRadius: '50%'
-                  }}>📋</div>
-                </div>
-                <div className="step-details">
-                  <h3 style={{
-                    color: '#3b82f6',
-                    fontSize: '1.5rem',
-                    marginBottom: '0.75rem',
-                    fontWeight: '700'
-                  }}>Step 3: Copy and Paste the Text</h3>
-                  <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>
-                    You will see almost 300+ stylish fonts in different designs. Click the Copy button on your favorite font and paste it anywhere you need.
-                  </p>
-                </div>
+                {section.type === 'categoriesList' && (
+                  <div className="detailed-steps" style={{ gridTemplateColumns: '1fr' }}>
+                    {section.categories.map((cat: any, idx: number) => (
+                      <div key={idx} className="detailed-step" style={{ padding: '1rem' }}>
+                        <p><strong>{cat.title}</strong> {cat.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-
-          {/* SECTION 6: Using Stylish Fonts on Social Media */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Using Stylish Fonts on Social Media</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                Social Media platforms are highly interactive for new user to Convert into your follower and Client for any Service.
-                By Using Beautiful, small, heart bold and colors Fonts in posts, nickname and bio which make a more readable and attractive for everyone.
-              </p>
-            </div>
-          </div>
-
-          {/* SECTION 7: Things to Consider & Unique Styles */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Things to Consider When Choosing a Font Style</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                When choosing a font style, make sure it works well on all platforms and supports special characters like Turkish letters.
-                The font should look attractive but also be easy to read, even on small screens. Always consider the age of your audience, because different age groups prefer different font styles.
-                Most importantly, the text should be clear and legible so users can read it without effort.
-              </p>
-            </div>
-
-            <h3 className="section-sub-title" style={{ marginTop: '2rem' }}>Cool and unique font styles</h3>
-            <div className="content-intro">
-              <p className="intro-text">
-                Make a difference with cool and unique font styles that help your text stand out. Our Font Changer lets you easily create stylish text for social media, usernames, and brand messages.
-                Just type your text, choose a style, and copy-paste it anywhere you want. Simple, fast, and made for everyone.
-              </p>
-            </div>
-          </div>
-
-          {/* SECTION 8: Turkish Character Support */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Turkish Character Support and Styled Text</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                Our Font converter fully supports Turkish characters such as Ğ, ü, ş, ı, ö, and ç.
-                You can convert text with these characters into stylish fonts without losing their original form.
-                This ensures your text remains readable and correct on all platforms. It is perfect for social media posts, usernames, and messages in Turkish.
-              </p>
-            </div>
-          </div>
-
-          {/* SECTION 9: Types of Fonts & Popular Categories */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Types of Fonts Used by This Website</h2>
-            <div className="font-types-grid">
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🌟</span>
-                <h3 className="font-type-title">Popular Fonts</h3>
-                <p className="font-type-desc">Most loved styles by our users</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🔠</span>
-                <h3 className="font-type-title">Text Variations</h3>
-                <p className="font-type-desc">Bold, Italic, and more</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">✨</span>
-                <h3 className="font-type-title">Fancy Unicode</h3>
-                <p className="font-type-desc">Unique character sets</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">📱</span>
-                <h3 className="font-type-title">Social Media</h3>
-                <p className="font-type-desc">Perfect for bios & posts</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">💬</span>
-                <h3 className="font-type-title">Chat Apps</h3>
-                <p className="font-type-desc">WhatsApp & Facebook safe</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">📸</span>
-                <h3 className="font-type-title">Instagram Fonts</h3>
-                <p className="font-type-desc">Stand out on your feed</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">😊</span>
-                <h3 className="font-type-title">Emoji Fonts</h3>
-                <p className="font-type-desc">Text mixed with emojis</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🇹🇷</span>
-                <h3 className="font-type-title">Turkish Styles</h3>
-                <p className="font-type-desc">Cultural & local fonts</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🎨</span>
-                <h3 className="font-type-title">Text Effects</h3>
-                <p className="font-type-desc">Cool character effects</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🎮</span>
-                <h3 className="font-type-title">Gamer & Aesthetic</h3>
-                <p className="font-type-desc">For nicknames & profiles</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🖼️</span>
-                <h3 className="font-type-title">Decorative</h3>
-                <p className="font-type-desc">Borders & decorations</p>
-              </div>
-              <div className="font-type-card glass-card-hover">
-                <span className="font-type-icon">🔄</span>
-                <h3 className="font-type-title">Transformations</h3>
-                <p className="font-type-desc">Upside down & mirrored</p>
-              </div>
-            </div>
-
-            <h3 className="section-sub-title" style={{ marginTop: '2rem' }}>Popular fonts categories and their uses</h3>
-            <div className="detailed-steps" style={{ gridTemplateColumns: '1fr' }}>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>Bold (Kalın):</strong> Makes text strong and noticeable, perfect for headings or important words.</p>
-              </div>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>Italic (İtalik):</strong> Adds emphasis or style, often used for quotes or names.</p>
-              </div>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>Bold Italic (Kalın İtalik):</strong> Combines strength and style for standout text.</p>
-              </div>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>Instagram Bio Fonts & Aesthetic Text:</strong> Make your social media profile unique and visually appealing.</p>
-              </div>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>Script & Cursive:</strong> Adds a handwritten or elegant look, great for messages, invites, or creative posts.</p>
-              </div>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>Special Frames:</strong> Make text fun, eye-catching, and perfect for social media or gaming nicknames.</p>
-              </div>
-              <div className="detailed-step" style={{ padding: '1rem' }}>
-                <p><strong>WhatsApp & Facebook:</strong> Stylish fonts that work on these platforms without breaking or losing characters.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 10: Why should you choose us? */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Why should you choose us?</h2>
-            <div className="content-intro">
-              <p className="intro-text">
-                Many online users struggle to find the perfect font style that looks great and feels unique on social media, messaging apps, and games.
-                Our tool makes it easy to create stylish and attractive text, helping you stand out and express yourself.
-                We provide a wide variety of fonts to meet all your creative needs, so you can always find the style you’re looking for.
-              </p>
-            </div>
-          </div>
+          ))}
 
         </div>
       </main>
@@ -843,11 +620,14 @@ export default function Home() {
               <Link href="/" className="footer-link">
                 Ana Sayfa
               </Link>
-              <Link href="/insta-yazi-tipi" className="footer-link">
-                Insta Yazı Tipi
+              <Link href="/gizlilik-politikasi" className="footer-link">
+                Gizlilik Politikası
               </Link>
-              <Link href="/sekilli-semboller" className="footer-link">
-                Şekilli Semboller
+              <Link href="/kullanim-kosullari" className="footer-link">
+                Kullanım Koşulları
+              </Link>
+              <Link href="/hakkimizda" className="footer-link">
+                Hakkımızda
               </Link>
               <Link href="/pubg-sekilli-nick" className="footer-link">
                 PUBG Şekilli Nick

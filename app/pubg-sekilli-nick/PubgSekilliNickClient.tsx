@@ -1,159 +1,10 @@
-'use client'
-
-import { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-
-// ============ PUBG NICKNAME CATEGORIES ============
-
-interface NicknameCategory {
-  id: string
-  name: string
-  icon: string
-  nicknames: string[]
-}
-
-const nicknameCategories: NicknameCategory[] = [
-  {
-    id: 'havali',
-    name: 'Havalı PUBG Nickleri',
-    icon: '🔥',
-    nicknames: [
-      '🔥Killer🔥', '⚡Death⚡', '💀Shadow💀', '🔥Demon🔥', '⚔️Warrior⚔️', '💥Destroyer💥',
-      '🔥Phoenix🔥', '⚡Thunder⚡', '💀Reaper💀', '🔥Ghost🔥', '⚔️Assassin⚔️', '💥Storm💥',
-      '🔥Viper🔥', '⚡Blade⚡', '💀Nightmare💀', '🔥Dragon🔥', '⚔️Hunter⚔️', '💥Rage💥',
-      '🔥Titan🔥', '⚡Fury⚡', '💀Venom💀', '🔥Cobra🔥', '⚔️Savage⚔️', '💥Chaos💥',
-      '🔥Warlord🔥', '⚡Storm⚡', '💀Darkness💀', '🔥Inferno🔥', '⚔️Vengeance⚔️', '💥Crusher💥',
-      '🔥Nemesis🔥', '⚡Zeus⚡', '💀Hades💀', '🔥Ares🔥', '⚔️Mars⚔️', '💥Titan💥',
-      '🔥Legend🔥', '⚡Elite⚡', '💀Master💀', '🔥Pro🔥', '⚔️Champion⚔️', '💥King💥'
-    ]
-  },
-  {
-    id: 'sekilli',
-    name: 'Şekilli & Sembollü Nickler',
-    icon: '✨',
-    nicknames: [
-      '꧁༺Killer༻꧂', '【★Death★】', '『⚡Storm⚡』', '༺💀Shadow💀༻', '【🔥Demon🔥】',
-      '꧁⚔️Warrior⚔️꧂', '『💥Destroyer💥』', '【⚡Thunder⚡】', '༺🔥Phoenix🔥༻', '꧁💀Reaper💀꧂',
-      '【⚔️Assassin⚔️】', '『💥Storm💥』', '༺🔥Viper🔥༻', '꧁⚡Blade⚡꧂', '【💀Nightmare💀】',
-      '『🔥Dragon🔥』', '༺⚔️Hunter⚔️༻', '꧁💥Rage💥꧂', '【🔥Titan🔥】', '『⚡Fury⚡』',
-      '༺💀Venom💀༻', '꧁🔥Cobra🔥꧂', '【⚔️Savage⚔️】', '『💥Chaos💥』', '༺🔥Warlord🔥༻',
-      '꧁⚡Storm⚡꧂', '【💀Darkness💀】', '『🔥Inferno🔥』', '༺⚔️Vengeance⚔️༻', '꧁💥Crusher💥꧂',
-      '【🔥Nemesis🔥】', '『⚡Zeus⚡』', '༺💀Hades💀༻', '꧁🔥Ares🔥꧂', '【⚔️Mars⚔️】',
-      '『💥Titan💥』', '༺🔥Legend🔥༻', '꧁⚡Elite⚡꧂', '【💀Master💀】', '『🔥Pro🔥』'
-    ]
-  },
-  {
-    id: 'pro',
-    name: 'Pro & Kısa Nickler',
-    icon: '👑',
-    nicknames: [
-      'PRO', 'ELITE', 'KING', 'ACE', 'TOP', 'BEST', 'WIN', 'GOAT', 'MVP', 'LEG',
-      'PRO1', 'ELITE1', 'KING1', 'ACE1', 'TOP1', 'BEST1', 'WIN1', 'GOAT1', 'MVP1', 'LEG1',
-      'PRO★', 'ELITE★', 'KING★', 'ACE★', 'TOP★', 'BEST★', 'WIN★', 'GOAT★', 'MVP★', 'LEG★',
-      'PRO🔥', 'ELITE🔥', 'KING🔥', 'ACE🔥', 'TOP🔥', 'BEST🔥', 'WIN🔥', 'GOAT🔥', 'MVP🔥', 'LEG🔥',
-      'PRO⚡', 'ELITE⚡', 'KING⚡', 'ACE⚡', 'TOP⚡', 'BEST⚡', 'WIN⚡', 'GOAT⚡', 'MVP⚡', 'LEG⚡',
-      'PRO💀', 'ELITE💀', 'KING💀', 'ACE💀', 'TOP💀', 'BEST💀', 'WIN💀', 'GOAT💀', 'MVP💀', 'LEG💀'
-    ]
-  },
-  {
-    id: 'clan',
-    name: 'Clan / Team Nickleri',
-    icon: '⚔️',
-    nicknames: [
-      '【CLAN】Killer', '【TEAM】Death', '【SQUAD】Shadow', '【ARMY】Demon', '【FORCE】Warrior',
-      '【CLAN】Destroyer', '【TEAM】Phoenix', '【SQUAD】Thunder', '【ARMY】Reaper', '【FORCE】Ghost',
-      '【CLAN】Assassin', '【TEAM】Storm', '【SQUAD】Viper', '【ARMY】Blade', '【FORCE】Nightmare',
-      '【CLAN】Dragon', '【TEAM】Hunter', '【SQUAD】Rage', '【ARMY】Titan', '【FORCE】Fury',
-      '【CLAN】Venom', '【TEAM】Cobra', '【SQUAD】Savage', '【ARMY】Chaos', '【FORCE】Warlord',
-      '【CLAN】Storm', '【TEAM】Darkness', '【SQUAD】Inferno', '【ARMY】Vengeance', '【FORCE】Crusher',
-      '【CLAN】Nemesis', '【TEAM】Zeus', '【SQUAD】Hades', '【ARMY】Ares', '【FORCE】Mars',
-      '【CLAN】Titan', '【TEAM】Legend', '【SQUAD】Elite', '【ARMY】Master', '【FORCE】Pro'
-    ]
-  },
-  {
-    id: 'agresif',
-    name: 'Agresif / Savaşçı Nickler',
-    icon: '💀',
-    nicknames: [
-      '💀Killer💀', '☠️Death☠️', '⚔️Warrior⚔️', '🔥Destroyer🔥', '💥Crusher💥',
-      '💀Reaper💀', '☠️Shadow☠️', '⚔️Assassin⚔️', '🔥Hunter🔥', '💥Savage💥',
-      '💀Vengeance💀', '☠️Nemesis☠️', '⚔️Warlord⚔️', '🔥Titan🔥', '💥Chaos💥',
-      '💀Darkness💀', '☠️Nightmare☠️', '⚔️Demon⚔️', '🔥Phoenix🔥', '💥Storm💥',
-      '💀Venom💀', '☠️Blade☠️', '⚔️Fury⚔️', '🔥Rage🔥', '💥Thunder💥',
-      '💀Inferno💀', '☠️Cobra☠️', '⚔️Viper⚔️', '🔥Dragon🔥', '💥Zeus💥',
-      '💀Hades💀', '☠️Ares☠️', '⚔️Mars⚔️', '🔥Legend🔥', '💥Elite💥',
-      '💀Master💀', '☠️Pro☠️', '⚔️Champion⚔️', '🔥King🔥', '💥Ace💥'
-    ]
-  }
-]
-
-// ============ PUBG NICKNAME PATTERNS WITH UNIQUE LABELS ============
-interface NicknamePattern {
-  pattern: string
-  label: string
-}
-
-const pubgPatterns: NicknamePattern[] = [
-  // Classic frames
-  { pattern: `꧁༒{name}༒꧂`, label: 'Klasik Çerçeve' },
-  { pattern: `꧁༺{name}༻꧂`, label: 'Süslü Çerçeve' },
-  { pattern: `【★{name}★】`, label: 'Yıldızlı Çerçeve' },
-  { pattern: `『{name}』`, label: 'Japon Çerçeve' },
-  { pattern: `【{name}】`, label: 'Köşeli Çerçeve' },
-  { pattern: `《{name}》`, label: 'Çift Çerçeve' },
-  { pattern: `「{name}」`, label: 'Minimal Çerçeve' },
-  { pattern: `〔{name}〕`, label: 'Yuvarlak Çerçeve' },
-  // Special symbols
-  { pattern: `亗{name}亗`, label: 'Özel Sembol' },
-  { pattern: `☠︎{name}☠︎`, label: 'Korsan Stili' },
-  { pattern: `𓆩{name}𓆪`, label: 'Mısır Stili' },
-  { pattern: `★彡{name}彡★`, label: 'Yıldız Parıltı' },
-  { pattern: `✦{name}✦`, label: 'Parlak Yıldız' },
-  { pattern: `✧{name}✧`, label: 'Işıltılı Yıldız' },
-  { pattern: `❖{name}❖`, label: 'Elmas Stil' },
-  // Emoji styles
-  { pattern: `🔥{name}🔥`, label: 'Ateşli Stil' },
-  { pattern: `⚡{name}⚡`, label: 'Şimşek Stil' },
-  { pattern: `💀{name}💀`, label: 'Kafatası Stil' },
-  { pattern: `⚔️{name}⚔️`, label: 'Kılıç Stil' },
-  { pattern: `💥{name}💥`, label: 'Patlama Stil' },
-  { pattern: `☠️{name}☠️`, label: 'Ölüm İşareti' },
-  { pattern: `👑{name}👑`, label: 'Kraliyet Stil' },
-  // Clan/Team styles
-  { pattern: `【CLAN】{name}`, label: 'Clan Etiketi' },
-  { pattern: `【TEAM】{name}`, label: 'Takım Etiketi' },
-  { pattern: `【SQUAD】{name}`, label: 'Squad Etiketi' },
-  { pattern: `【ARMY】{name}`, label: 'Ordu Etiketi' },
-  { pattern: `【FORCE】{name}`, label: 'Güç Etiketi' },
-  { pattern: `【PRO】{name}`, label: 'Pro Etiketi' },
-  // Suffix styles
-  { pattern: `{name}×͜×`, label: 'Çarpı Sonek' },
-  { pattern: `{name}★`, label: 'Yıldız Sonek' },
-  { pattern: `{name}🔥`, label: 'Ateş Sonek' },
-  { pattern: `{name}⚡`, label: 'Şimşek Sonek' },
-  { pattern: `{name}💀`, label: 'Kafatası Sonek' },
-  { pattern: `{name}☠️`, label: 'Ölüm Sonek' },
-  // Uppercase variations
-  { pattern: `🔥{name_upper}🔥`, label: 'Büyük Ateş' },
-  { pattern: `⚡{name_upper}⚡`, label: 'Büyük Şimşek' },
-  { pattern: `💀{name_upper}💀`, label: 'Büyük Kafatası' },
-  { pattern: `꧁༺{name_upper}༻꧂`, label: 'Büyük Süslü' },
-  { pattern: `【★{name_upper}★】`, label: 'Büyük Yıldızlı' },
-  // Mixed styles
-  { pattern: `꧁{name}🔥꧂`, label: 'Çerçeve Ateş' },
-  { pattern: `【{name}⚡】`, label: 'Çerçeve Şimşek' },
-  { pattern: `『{name}💀』`, label: 'Çerçeve Kafatası' },
-  { pattern: `★{name}★`, label: 'Yıldız Vurgu' },
-  { pattern: `✦{name}✦`, label: 'Parlak Vurgu' },
-  { pattern: `✧{name}✧`, label: 'Işıltı Vurgu' },
-  { pattern: `❖{name}❖`, label: 'Elmas Vurgu' },
-  { pattern: `☠︎{name}☠︎`, label: 'Korsan Vurgu' },
-  { pattern: `亗{name}亗`, label: 'Özel Vurgu' },
-  { pattern: `𓆩{name}𓆪`, label: 'Mısır Vurgu' },
-]
+import { Language, translations } from '@/lib/translations'
 
 // ============ MAIN COMPONENT ============
 export default function PubgSekilliNickClient() {
+  const [lang, setLang] = useState<Language>('tr')
   const [inputText, setInputText] = useState('')
   const [copiedNick, setCopiedNick] = useState<string | null>(null)
   const [showToast, setShowToast] = useState(false)
@@ -162,6 +13,127 @@ export default function PubgSekilliNickClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
+  const t = translations[lang]
+
+  // Localized Categories
+  const nicknameCategories = useMemo(() => [
+    {
+      id: 'havali',
+      name: (t.pubg.categories as any).havali,
+      icon: '🔥',
+      nicknames: [
+        '🔥Killer🔥', '⚡Death⚡', '💀Shadow💀', '🔥Demon🔥', '⚔️Warrior⚔️', '💥Destroyer💥',
+        '🔥Phoenix🔥', '⚡Thunder⚡', '💀Reaper💀', '🔥Ghost🔥', '⚔️Assassin⚔️', '💥Storm💥',
+        '🔥Viper🔥', '⚡Blade⚡', '💀Nightmare💀', '🔥Dragon🔥', '⚔️Hunter⚔️', '💥Rage💥',
+        '🔥Titan🔥', '⚡Fury⚡', '💀Venom💀', '🔥Cobra🔥', '⚔️Savage⚔️', '💥Chaos💥',
+        '🔥Warlord🔥', '⚡Storm⚡', '💀Darkness💀', '🔥Inferno🔥', '⚔️Vengeance⚔️', '💥Crusher💥',
+        '🔥Nemesis🔥', '⚡Zeus⚡', '💀Hades💀', '🔥Ares🔥', '⚔️Mars⚔️', '💥Titan💥',
+        '🔥Legend🔥', '⚡Elite⚡', '💀Master💀', '🔥Pro🔥', '⚔️Champion⚔️', '💥King💥'
+      ]
+    },
+    {
+      id: 'sekilli',
+      name: (t.pubg.categories as any).sekilli,
+      icon: '✨',
+      nicknames: [
+        '꧁༺Killer༻꧂', '【★Death★】', '『⚡Storm⚡』', '༺💀Shadow💀༻', '【🔥Demon🔥】',
+        '꧁⚔️Warrior⚔️꧂', '『💥Destroyer💥』', '【⚡Thunder⚡】', '༺🔥Phoenix🔥༻', '꧁💀Reaper💀꧂',
+        '【⚔️Assassin⚔️】', '『💥Storm💥』', '༺🔥Viper🔥༻', '꧁⚡Blade⚡꧂', '【💀Nightmare💀】',
+        '『🔥Dragon🔥』', '༺⚔️Hunter⚔️༻', '꧁💥Rage💥꧂', '【🔥Titan🔥】', '『⚡Fury⚡』',
+        '༺💀Venom💀༻', '꧁🔥Cobra🔥꧂', '【⚔️Savage⚔️】', '『💥Chaos💥』', '༺🔥Warlord🔥༻',
+        '꧁⚡Storm⚡꧂', '【💀Darkness💀】', '『🔥Inferno🔥』', '༺⚔️Vengeance⚔️༻', '꧁💥Crusher💥꧂',
+        '【🔥Nemesis🔥】', '『⚡Zeus⚡』', '༺💀Hades💀༻', '꧁🔥Ares🔥꧂', '【⚔️Mars⚔️】',
+        '『💥Titan💥』', '༺🔥Legend🔥༻', '꧁⚡Elite⚡꧂', '【💀Master💀】', '『🔥Pro🔥』'
+      ]
+    },
+    {
+      id: 'pro',
+      name: (t.pubg.categories as any).pro,
+      icon: '👑',
+      nicknames: [
+        'PRO', 'ELITE', 'KING', 'ACE', 'TOP', 'BEST', 'WIN', 'GOAT', 'MVP', 'LEG',
+        'PRO1', 'ELITE1', 'KING1', 'ACE1', 'TOP1', 'BEST1', 'WIN1', 'GOAT1', 'MVP1', 'LEG1',
+        'PRO★', 'ELITE★', 'KING★', 'ACE★', 'TOP★', 'BEST★', 'WIN★', 'GOAT★', 'MVP★', 'LEG★',
+        'PRO🔥', 'ELITE🔥', 'KING🔥', 'ACE🔥', 'TOP🔥', 'BEST🔥', 'WIN🔥', 'GOAT🔥', 'MVP🔥', 'LEG🔥',
+        'PRO⚡', 'ELITE⚡', 'KING⚡', 'ACE⚡', 'TOP⚡', 'BEST⚡', 'WIN⚡', 'GOAT⚡', 'MVP⚡', 'LEG⚡',
+        'PRO💀', 'ELITE💀', 'KING💀', 'ACE💀', 'TOP💀', 'BEST💀', 'WIN💀', 'GOAT💀', 'MVP💀', 'LEG💀'
+      ]
+    },
+    {
+      id: 'clan',
+      name: (t.pubg.categories as any).clan,
+      icon: '⚔️',
+      nicknames: [
+        '【CLAN】Killer', '【TEAM】Death', '【SQUAD】Shadow', '【ARMY】Demon', '【FORCE】Warrior',
+        '【CLAN】Destroyer', '【TEAM】Phoenix', '【SQUAD】Thunder', '【ARMY】Reaper', '【FORCE】Ghost',
+        '【CLAN】Assassin', '【TEAM】Storm', '【SQUAD】Viper', '【ARMY】Blade', '【FORCE】Nightmare',
+        '【CLAN】Dragon', '【TEAM】Hunter', '【SQUAD】Rage', '【ARMY】Titan', '【FORCE】Fury',
+        '【CLAN】Venom', '【TEAM】Cobra', '【SQUAD】Savage', '【ARMY】Chaos', '【FORCE】Warlord',
+        '【CLAN】Storm', '【TEAM】Darkness', '【SQUAD】Inferno', '【ARMY】Vengeance', '【FORCE】Crusher',
+        '【CLAN】Nemesis', '【TEAM】Zeus', '【SQUAD】Hades', '【ARMY】Ares', '【FORCE】Mars',
+        '【CLAN】Titan', '【TEAM】Legend', '【SQUAD】Elite', '【ARMY】Master', '【FORCE】Pro'
+      ]
+    },
+    {
+      id: 'agresif',
+      name: (t.pubg.categories as any).agresif,
+      icon: '💀',
+      nicknames: [
+        '💀Killer💀', '☠️Death☠️', '⚔️Warrior⚔️', '🔥Destroyer🔥', '💥Crusher💥',
+        '💀Reaper💀', '☠️Shadow☠️', '⚔️Assassin⚔️', '🔥Hunter🔥', '💥Savage💥',
+        '💀Vengeance💀', '☠️Nemesis☠️', '⚔️Warlord⚔️', '🔥Titan🔥', '💥Chaos💥',
+        '💀Darkness💀', '☠️Nightmare☠️', '⚔️Demon⚔️', '🔥Phoenix🔥', '💥Storm💥',
+        '💀Venom💀', '☠️Blade☠️', '⚔️Fury⚔️', '🔥Rage🔥', '💥Thunder💥',
+        '💀Inferno💀', '☠️Cobra☠️', '⚔️Viper⚔️', '🔥Dragon🔥', '💥Zeus💥',
+        '💀Hades💀', '☠️Ares☠️', '⚔️Mars⚔️', '🔥Legend🔥', '💥Elite💥',
+        '💀Master💀', '☠️Pro☠️', '⚔️Champion⚔️', '🔥King🔥', '💥Ace💥'
+      ]
+    }
+  ], [t])
+
+  // Localized Patterns
+  const pubgPatterns = useMemo(() => [
+    { pattern: `꧁༒{name}༒꧂`, label: lang === 'tr' ? 'Klasik Çerçeve' : 'Classic Frame' },
+    { pattern: `꧁༺{name}༻꧂`, label: lang === 'tr' ? 'Süslü Çerçeve' : 'Fancy Frame' },
+    { pattern: `【★{name}★】`, label: lang === 'tr' ? 'Yıldızlı Çerçeve' : 'Starred Frame' },
+    { pattern: `『{name}』`, label: lang === 'tr' ? 'Japon Çerçeve' : 'Japanese Frame' },
+    { pattern: `【{name}】`, label: lang === 'tr' ? 'Köşeli Çerçeve' : 'Angular Frame' },
+    { pattern: `《{name}》`, label: lang === 'tr' ? 'Çift Çerçeve' : 'Double Frame' },
+    { pattern: `「{name}」`, label: lang === 'tr' ? 'Minimal Çerçeve' : 'Minimal Frame' },
+    { pattern: `〔{name}〕`, label: lang === 'tr' ? 'Yuvarlak Çerçeve' : 'Round Frame' },
+    { pattern: `亗{name}亗`, label: lang === 'tr' ? 'Özel Sembol' : 'Special Symbol' },
+    { pattern: `☠︎{name}☠︎`, label: lang === 'tr' ? 'Korsan Stili' : 'Pirate Style' },
+    { pattern: `𓆩{name}𓆪`, label: lang === 'tr' ? 'Mısır Stili' : 'Egyptian Style' },
+    { pattern: `★彡{name}彡★`, label: lang === 'tr' ? 'Yıldız Parıltı' : 'Star Sparkle' },
+    { pattern: `✦{name}✦`, label: lang === 'tr' ? 'Parlak Yıldız' : 'Bright Star' },
+    { pattern: `✧{name}✧`, label: lang === 'tr' ? 'Işıltılı Yıldız' : 'Shiny Star' },
+    { pattern: `❖{name}❖`, label: lang === 'tr' ? 'Elmas Stil' : 'Diamond Style' },
+    { pattern: `🔥{name}🔥`, label: lang === 'tr' ? 'Ateşli Stil' : 'Fire Style' },
+    { pattern: `⚡{name}⚡`, label: lang === 'tr' ? 'Şimşek Stil' : 'Lightning Style' },
+    { pattern: `💀{name}💀`, label: lang === 'tr' ? 'Kafatası Stil' : 'Skull Style' },
+    { pattern: `⚔️{name}⚔️`, label: lang === 'tr' ? 'Kılıç Stil' : 'Sword Style' },
+    { pattern: `💥{name}💥`, label: lang === 'tr' ? 'Patlama Stil' : 'Blast Style' },
+    { pattern: `☠️{name}☠️`, label: lang === 'tr' ? 'Ölüm İşareti' : 'Death Mark' },
+    { pattern: `👑{name}👑`, label: lang === 'tr' ? 'Kraliyet Stil' : 'Royal Style' },
+    { pattern: `【CLAN】{name}`, label: lang === 'tr' ? 'Clan Etiketi' : 'Clan Tag' },
+    { pattern: `【TEAM】{name}`, label: lang === 'tr' ? 'Takım Etiketi' : 'Team Tag' },
+    { pattern: `【SQUAD】{name}`, label: lang === 'tr' ? 'Squad Etiketi' : 'Squad Tag' },
+    { pattern: `【ARMY】{name}`, label: lang === 'tr' ? 'Ordu Etiketi' : 'Army Tag' },
+    { pattern: `【FORCE】{name}`, label: lang === 'tr' ? 'Güç Etiketi' : 'Force Tag' },
+    { pattern: `【PRO】{name}`, label: lang === 'tr' ? 'Pro Etiketi' : 'Pro Tag' },
+    { pattern: `{name}×͜×`, label: lang === 'tr' ? 'Çarpı Sonek' : 'Cross Suffix' },
+    { pattern: `{name}★`, label: lang === 'tr' ? 'Yıldız Sonek' : 'Star Suffix' },
+    { pattern: `{name}🔥`, label: lang === 'tr' ? 'Ateş Sonek' : 'Fire Suffix' },
+    { pattern: `{name}⚡`, label: lang === 'tr' ? 'Şimşek Sonek' : 'Lightning Suffix' },
+    { pattern: `{name}💀`, label: lang === 'tr' ? 'Kafatası Sonek' : 'Skull Suffix' },
+    { pattern: `{name}☠️`, label: lang === 'tr' ? 'Ölüm Sonek' : 'Death Suffix' },
+    { pattern: `🔥{name_upper}🔥`, label: lang === 'tr' ? 'Büyük Ateş' : 'Large Fire' },
+    { pattern: `⚡{name_upper}⚡`, label: lang === 'tr' ? 'Büyük Şimşek' : 'Large Lightning' },
+    { pattern: `💀{name_upper}💀`, label: lang === 'tr' ? 'Büyük Kafatası' : 'Large Skull' },
+    { pattern: `꧁༺{name_upper}༻꧂`, label: lang === 'tr' ? 'Büyük Süslü' : 'Large Fancy' },
+    { pattern: `【★{name_upper}★】`, label: lang === 'tr' ? 'Büyük Yıldızlı' : 'Large Starred' },
+  ], [lang])
 
   // Toggle FAQ accordion
   const toggleFaq = (index: number) => {
@@ -266,7 +238,7 @@ export default function PubgSekilliNickClient() {
     })
 
     return dynamicNicks
-  }, [inputText])
+  }, [inputText, pubgPatterns])
 
   // Scroll to category
   const scrollToCategory = (categoryId: string) => {
@@ -302,9 +274,9 @@ export default function PubgSekilliNickClient() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "PUBG Şekilli Nick",
-      "description": "PUBG şekilli nick oluştur, havalı ve estetik PUBG nicklerini tek tıkla kopyala ve oyunda kullan.",
-      "url": "https://yazistilleri.com/pubg-sekilli-nick",
+      "name": lang === 'tr' ? "PUBG Şekilli Nick" : "PUBG Stylish Nickname",
+      "description": lang === 'tr' ? "PUBG şekilli nick oluştur, havalı ve estetik PUBG nicklerini tek tıkla kopyala ve oyunda kullan." : "Create PUBG stylish nicknames, copy cool and aesthetic PUBG nicks with one click and use in game.",
+      "url": `https://yazistilleri.com/pubg-sekilli-nick`,
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -326,7 +298,7 @@ export default function PubgSekilliNickClient() {
         existingScript.remove()
       }
     }
-  }, [mounted])
+  }, [mounted, lang])
 
   // Filter categories if selected
   const filteredCategories = selectedCategory
@@ -340,24 +312,45 @@ export default function PubgSekilliNickClient() {
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              ✨ Font Styles
+              {t.common.logo}
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="nav desktop-nav">
+              <Link href="/" className="nav-link">
+                {t.common.nav.home}
+              </Link>
               <Link href="/insta-yazi-tipi" className="nav-link">
-                Insta Font
+                {t.common.nav.insta}
               </Link>
               <Link href="/sekilli-semboller" className="nav-link">
-                Shaped Symbols
+                {t.common.nav.symbols}
               </Link>
               <Link href="/pubg-sekilli-nick" className="nav-link active">
-                PUBG Stylish Nickname
+                {t.common.nav.pubg}
               </Link>
             </nav>
 
-            {/* Right Actions: Theme Toggle & Hamburger */}
+            {/* Right Actions: Theme Toggle & Language Switcher & Hamburger */}
             <div className="header-actions">
+              {/* Language Switcher */}
+              <div className="language-switcher">
+                <button
+                  className={`lang-btn ${lang === 'tr' ? 'active' : ''}`}
+                  onClick={() => setLang('tr')}
+                  title="Türkçe"
+                >
+                  TR
+                </button>
+                <button
+                  className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+                  onClick={() => setLang('en')}
+                  title="English"
+                >
+                  EN
+                </button>
+              </div>
+
               <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
@@ -387,15 +380,34 @@ export default function PubgSekilliNickClient() {
             <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
           </div>
           <nav className="mobile-nav">
+            <Link href="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🏠</span> {t.common.nav.home}
+            </Link>
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">📸</span> Insta Font
+              <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> Shaped Symbols
+              <span className="nav-icon">✨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> PUBG Stylish Nickname
+              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
+
+            {/* Mobile Language Switcher */}
+            <div className="mobile-lang-switcher">
+              <button
+                className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`}
+                onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}
+              >
+                Türkçe (TR)
+              </button>
+              <button
+                className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`}
+                onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}
+              >
+                English (EN)
+              </button>
+            </div>
           </nav>
         </div>
       </header>
@@ -428,36 +440,35 @@ export default function PubgSekilliNickClient() {
               {/* Animated Title */}
               <div className="hero-badge">
                 <span className="badge-icon">🎮</span>
-                <span>PUBG İçin Özel</span>
+                <span>{t.pubg.hero.badge}</span>
               </div>
 
               <h1 className="hero-title">
                 <span className="title-line">
-                  <span className="title-word">PUBG</span>
-                  <span className="title-word highlight">Şekilli Nick</span>
+                  <span className="title-word">{t.pubg.hero.title}</span>
+                  <span className="title-word highlight">{t.pubg.hero.titleHighlight}</span>
                 </span>
               </h1>
 
               <p className="hero-description">
-                İstersen <span className="text-gradient">kendi adınla</span> PUBG nick oluştur, istersen <span className="text-gradient">hazır PUBG nicklerini</span>
-                <strong> tek tıkla kopyala</strong> ve oyunda kullan.
+                {t.pubg.hero.description}
               </p>
 
               {/* Stats */}
               <div className="hero-stats">
                 <div className="stat-item">
                   <span className="stat-number">{nicknameCategories.reduce((sum, cat) => sum + cat.nicknames.length, 0)}+</span>
-                  <span className="stat-label">Hazır Nick</span>
+                  <span className="stat-label">{lang === 'tr' ? 'Hazır Nick' : 'Ready Nicks'}</span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
                   <span className="stat-number">40+</span>
-                  <span className="stat-label">Şekil Stili</span>
+                  <span className="stat-label">{lang === 'tr' ? 'Şekil Stili' : 'Style Patterns'}</span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
                   <span className="stat-number">🇹🇷</span>
-                  <span className="stat-label">Türkçe</span>
+                  <span className="stat-label">{lang === 'tr' ? 'Türkçe' : 'Turkish'}</span>
                 </div>
               </div>
             </div>
@@ -716,490 +727,400 @@ export default function PubgSekilliNickClient() {
               </p>
             </div>
 
-            {/* Sticky Category Navigation */}
-            <div className="sticky-category-nav">
-              <div className="category-nav-scroll">
-                <button
-                  className={`category-nav-button ${selectedCategory === null ? 'active' : ''}`}
-                  onClick={() => {
-                    setSelectedCategory(null)
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }}
-                >
-                  Tümü
-                </button>
-                {nicknameCategories.map((category) => (
-                  <button
-                    key={category.id}
-                    className={`category-nav-button ${selectedCategory === category.id ? 'active' : ''}`}
-                    onClick={() => scrollToCategory(category.id)}
-                  >
-                    {category.icon} {category.name}
-                  </button>
-                ))}
-              </div>
+            {/* Generator Tabs */}
+            <div className="generator-tabs reveal">
+              <button
+                className={`tab-btn ${!selectedCategory ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(null)}
+              >
+                <span className="tab-icon">✨</span>
+                <span className="tab-text">{t.pubg.hero.readyNicks}</span>
+              </button>
+              <button
+                className={`tab-btn ${selectedCategory === 'custom' ? 'active' : ''}`}
+                onClick={() => setSelectedCategory('custom')}
+              >
+                <span className="tab-icon">✏️</span>
+                <span className="tab-text">{t.pubg.hero.generatorTitle}</span>
+              </button>
             </div>
 
-            {/* Nickname Categories */}
-            {filteredCategories.map((category) => (
-              <div key={category.id} className="category-section" data-category={category.id}>
-                <h2 className="category-header">
-                  {category.icon} {category.name}
-                  <span className="category-count">{category.nicknames.length}</span>
-                </h2>
+            <div className="section-divider"></div>
 
-                <div className="font-grid">
-                  {category.nicknames.map((nick, index) => {
-                    const isCopied = copiedNick === nick
-                    const uniqueId = `${category.id}-${index}`
-
-                    return (
-                      <div key={uniqueId} className="font-card glass-card">
-                        <div className="font-card-header">
-                          <div className="font-card-title">
-                            <div className="font-name">
-                              {category.name} {index + 1}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="font-preview">{nick}</div>
-                        <button
-                          className={`copy-button ${isCopied ? 'copied' : ''}`}
-                          onClick={() => handleCopy(nick)}
-                        >
-                          {isCopied ? '✓ Kopyalandı!' : '📋 Kopyala'}
-                        </button>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Input-Based Generator Section */}
-          <div id="nick-generator" style={{ scrollMarginTop: '140px', marginTop: '4rem' }}>
-            {/* Generator Section Title */}
-            <div style={{
-              textAlign: 'center',
-              marginBottom: '2rem',
-              padding: '1.5rem 0'
-            }}>
-              <h2 style={{
-                margin: 0,
-                fontSize: '1.75rem',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                lineHeight: 1.2
-              }}>
-                Kendi Adınla PUBG Nick Oluştur
-              </h2>
-              <p style={{
-                margin: '0.75rem 0 0 0',
-                fontSize: '1rem',
-                color: 'var(--text-secondary)',
-                fontWeight: 400
-              }}>
-                İsminizi yazın, 40+ şekilli PUBG nicki otomatik oluşturulur
-              </p>
-            </div>
-
-            {/* Input Section */}
-            <div className="hero-input-wrapper">
-              <div className="input-glow"></div>
-              <div className="modern-input-container">
-                <div className="input-header-modern">
-                  <div className="input-icon-modern">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="input-header-text">
-                    <h2>İsminizi Yazın</h2>
-                    <p>PUBG uyumlu şekilli nickler otomatik oluşturulur ✨</p>
-                  </div>
-                </div>
-
-                <div className="input-field-wrapper">
-                  <textarea
-                    id="text-input"
-                    className="modern-text-input"
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    placeholder="İsminizi yazın (örnek: Ahmet)..."
-                    rows={2}
-                    maxLength={20}
-                  />
-                  <div className="input-actions">
+            {/* Quick Category Navigation (If not in custom mode) */}
+            {selectedCategory !== 'custom' && (
+              <div className="category-nav reveal">
+                <div className="category-scroll">
+                  {nicknameCategories.map((category) => (
                     <button
-                      className="clear-input-btn"
-                      onClick={() => setInputText('')}
-                      style={{ opacity: inputText ? 1 : 0 }}
+                      key={category.id}
+                      className={`nav-pill ${selectedCategory === category.id ? 'active' : ''}`}
+                      onClick={() => scrollToCategory(category.id)}
                     >
-                      ✕ Temizle
+                      <span className="pill-icon">{category.icon}</span>
+                      <span className="pill-text">{category.name}</span>
                     </button>
-                  </div>
-                </div>
-
-                <div className="input-footer-modern">
-                  <div className="turkish-chars">
-                    <span className="char-badge">ç</span>
-                    <span className="char-badge">ğ</span>
-                    <span className="char-badge">ı</span>
-                    <span className="char-badge">İ</span>
-                    <span className="char-badge">ö</span>
-                    <span className="char-badge">ş</span>
-                    <span className="char-badge">ü</span>
-                    <span className="char-label">desteklenir</span>
-                  </div>
-                  <div className={`char-counter ${inputText.length > 15 ? 'warning' : ''} ${inputText.length > 18 ? 'danger' : ''}`}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                      <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                    <span>{inputText.length}</span>
-                    <span className="counter-max">/ 20</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Helper text below input */}
-              <div style={{
-                textAlign: 'center',
-                marginTop: '1.5rem',
-                padding: '1rem',
-                color: 'var(--text-primary)',
-                fontSize: '0.9375rem',
-                fontWeight: 500,
-                background: 'var(--surface)',
-                borderRadius: 'var(--radius)',
-                border: '1px solid var(--border)'
-              }}>
-                İstersen kendi adınla nick oluştur, istersen yukarıdan hazır PUBG nickleri kopyala
-              </div>
-            </div>
-
-            {/* Dynamic Nicknames Section (if input provided) */}
-            {inputText.trim() && generateDynamicNicks.length > 0 && (
-              <div className="category-section" data-category="dynamic" style={{ marginTop: '2rem' }}>
-                <h2 className="category-header">
-                  {inputText} İçin PUBG Şekilli Nickler
-                  <span className="category-count">{generateDynamicNicks.length}</span>
-                </h2>
-
-                <div className="font-grid">
-                  {generateDynamicNicks.map(({ nick, label }, index) => {
-                    const isCopied = copiedNick === nick
-                    const uniqueId = `dynamic-${index}`
-
-                    return (
-                      <div key={uniqueId} className="font-card glass-card">
-                        <div className="font-card-header">
-                          <div className="font-card-title">
-                            <div className="font-name">
-                              {label}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="font-preview">{nick}</div>
-                        <button
-                          className={`copy-button ${isCopied ? 'copied' : ''}`}
-                          onClick={() => handleCopy(nick)}
-                        >
-                          {isCopied ? '✓ Kopyalandı!' : '📋 Kopyala'}
-                        </button>
-                      </div>
-                    )
-                  })}
+                  ))}
                 </div>
               </div>
             )}
-          </div>
 
-          {/* ============ COMPREHENSIVE SEO CONTENT ============ */}
+            {/* Custom Generator Section */}
+            <div className={`generator-container reveal ${selectedCategory === 'custom' ? 'active' : ''}`}>
+              <div className="glass-card main-input-card">
+                <div className="input-header">
+                  <div className="input-title-group">
+                    <h2 className="input-title">{t.pubg.hero.inputTitle}</h2>
+                    <p className="input-subtitle">{t.pubg.hero.inputSub}</p>
+                  </div>
+                  {inputText && (
+                    <button
+                      className="clear-btn"
+                      onClick={() => setInputText('')}
+                      title={t.common.clear}
+                    >
+                      {t.common.clear} ✕
+                    </button>
+                  )}
+                </div>
 
-          {/* SECTION 1: What is PUBG Şekilli Nick */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">PUBG Şekilli Nick Nedir?</h2>
+                <div className="input-wrapper">
+                  <div className="input-icon">🎮</div>
+                  <input
+                    type="text"
+                    className="main-input"
+                    placeholder={t.pubg.hero.inputPlaceholder}
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    maxLength={14}
+                  />
+                  <div className="input-progress" style={{ width: `${(inputText.length / 14) * 100}%` }}></div>
+                </div>
 
-            <div className="content-intro">
-              <p className="intro-text">
-                <strong>PUBG şekilli nick</strong>, PUBG ve PUBG Mobile oyunlarında kullanabileceğiniz
-                özel semboller, emojiler ve Unicode karakterlerle süslenmiş oyuncu isimleridir.
-                Bu <strong>havalı PUBG nickleri</strong> sayesinde oyunda dikkat çekici ve benzersiz
-                bir kimlik oluşturabilirsiniz. Şekilli nickler, normal karakterlerin yanı sıra
-                yıldız, kalp, ok, çerçeve ve daha birçok özel sembol içerir.
+                <div className="input-footer">
+                  <div className="char-count">
+                    <span className={inputText.length > 12 ? 'text-warning' : ''}>{inputText.length}</span>/14 {lang === 'tr' ? 'karakter' : 'characters'}
+                  </div>
+                  <div className="support-badge">
+                    <span className="support-icon">✅</span>
+                    <span>{t.common.charsSupported}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Generated Results */}
+              {inputText && (
+                <div className="results-grid reveal active">
+                  {generateDynamicNicks.map((item, index) => (
+                    <div key={index} className="nick-card-wrapper">
+                      <div className="nick-card" onClick={() => handleCopy(item.nick)}>
+                        <div className="nick-label">{item.label}</div>
+                        <div className="nick-content">{item.nick}</div>
+                        <div className="nick-action">
+                          {copiedNick === item.nick ? (
+                            <span className="copied-text">{t.common.copied}</span>
+                          ) : (
+                            <span className="copy-icon">📋</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Ready-Made Categories Section */}
+            {(selectedCategory === null || nicknameCategories.some(c => c.id === selectedCategory)) && (
+              <div className="nick-categories-section">
+                {filteredCategories.map((category) => (
+                  <section
+                    key={category.id}
+                    className="nick-category reveal"
+                    data-category={category.id}
+                  >
+                    <div className="category-header">
+                      <div className="category-title-group">
+                        <span className="category-icon-large">{category.icon}</span>
+                        <h2 className="category-title">{category.name}</h2>
+                      </div>
+                      <div className="category-count">{category.nicknames.length} {lang === 'tr' ? 'Nick' : 'Nicks'}</div>
+                    </div>
+
+                    <div className="nicknames-grid">
+                      {category.nicknames.map((nick, index) => (
+                        <div
+                          key={index}
+                          className="ready-nick-card"
+                          onClick={() => handleCopy(nick)}
+                        >
+                          <span className="ready-nick-text">{nick}</span>
+                          <div className="ready-nick-action">
+                            {copiedNick === nick ? (
+                              <span className="copied-badge">✓</span>
+                            ) : (
+                              <span className="copy-hint">📋</span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            )}
+
+            {/* Input-Based Generator Section */}
+            <div id="nick-generator" style={{ scrollMarginTop: '140px', marginTop: '4rem' }}>
+              {/* Generator Section Title */}
+              <div style={{
+                textAlign: 'center',
+                marginBottom: '2rem',
+                padding: '1.5rem 0'
+              }}>
+                <h2 style={{
+                  margin: 0,
+                  fontSize: '1.75rem',
+                  fontWeight: 700,
+                  color: 'var(--text-primary)',
+                  lineHeight: 1.2
+                }}>
+                  Kendi Adınla PUBG Nick Oluştur
+                </h2>
+                <p style={{
+                  margin: '0.75rem 0 0 0',
+                  fontSize: '1rem',
+                  color: 'var(--text-secondary)',
+                  fontWeight: 400
+                }}>
+                  İsminizi yazın, 40+ şekilli PUBG nicki otomatik oluşturulur
+                </p>
+              </div>
+
+              {/* Input Section */}
+              <div className="hero-input-wrapper">
+                <div className="input-glow"></div>
+                <div className="modern-input-container">
+                  <div className="input-header-modern">
+                    <div className="input-icon-modern">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                    <div className="input-header-text">
+                      <h2>İsminizi Yazın</h2>
+                      <p>PUBG uyumlu şekilli nickler otomatik oluşturulur ✨</p>
+                    </div>
+                  </div>
+
+                  <div className="input-field-wrapper">
+                    <textarea
+                      id="text-input"
+                      className="modern-text-input"
+                      value={inputText}
+                      onChange={(e) => setInputText(e.target.value)}
+                      placeholder="İsminizi yazın (örnek: Ahmet)..."
+                      rows={2}
+                      maxLength={20}
+                    />
+                    <div className="input-actions">
+                      <button
+                        className="clear-input-btn"
+                        onClick={() => setInputText('')}
+                        style={{ opacity: inputText ? 1 : 0 }}
+                      >
+                        ✕ Temizle
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="input-footer-modern">
+                    <div className="turkish-chars">
+                      <span className="char-badge">ç</span>
+                      <span className="char-badge">ğ</span>
+                      <span className="char-badge">ı</span>
+                      <span className="char-badge">İ</span>
+                      <span className="char-badge">ö</span>
+                      <span className="char-badge">ş</span>
+                      <span className="char-badge">ü</span>
+                      <span className="char-label">desteklenir</span>
+                    </div>
+                    <div className={`char-counter ${inputText.length > 15 ? 'warning' : ''} ${inputText.length > 18 ? 'danger' : ''}`}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                      <span>{inputText.length}</span>
+                      <span className="counter-max">/ 20</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Helper text below input */}
+                <div style={{
+                  textAlign: 'center',
+                  marginTop: '1.5rem',
+                  padding: '1rem',
+                  color: 'var(--text-primary)',
+                  fontSize: '0.9375rem',
+                  fontWeight: 500,
+                  background: 'var(--surface)',
+                  borderRadius: 'var(--radius)',
+                  border: '1px solid var(--border)'
+                }}>
+                  İstersen kendi adınla nick oluştur, istersen yukarıdan hazır PUBG nickleri kopyala
+                </div>
+              </div>
+
+              {/* Dynamic Nicknames Section (if input provided) */}
+              {inputText.trim() && generateDynamicNicks.length > 0 && (
+                <div className="category-section" data-category="dynamic" style={{ marginTop: '2rem' }}>
+                  <h2 className="category-header">
+                    {inputText} İçin PUBG Şekilli Nickler
+                    <span className="category-count">{generateDynamicNicks.length}</span>
+                  </h2>
+
+                  <div className="font-grid">
+                    {generateDynamicNicks.map(({ nick, label }, index) => {
+                      const isCopied = copiedNick === nick
+                      const uniqueId = `dynamic-${index}`
+
+                      return (
+                        <div key={uniqueId} className="font-card glass-card">
+                          <div className="font-card-header">
+                            <div className="font-card-title">
+                              <div className="font-name">
+                                {label}
+                              </div>
+                            </div>
+                          </div>
+
+                          <button
+                            className={`copy-button ${isCopied ? 'copied' : ''}`}
+                            onClick={() => handleCopy(nick)}
+                          >
+                            {isCopied ? t.common.copied : t.common.copy}
+                          </button>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Dynamic Content Sections from Translations */}
+            <div className="content-sections">
+              {t.pubg.sections.map((section: any) => (
+                <section key={section.id} id={section.id} className="info-box reveal">
+                  <h2 className="section-main-title">{section.title}</h2>
+
+                  {section.type === 'text' && (
+                    <div className="content-intro">
+                      <p className="intro-text">{section.content}</p>
+                    </div>
+                  )}
+
+                  {section.type === 'steps' && (
+                    <div className="detailed-steps">
+                      {section.steps.map((step: any, idx: number) => (
+                        <div key={idx} className="detailed-step">
+                          <div className="step-visual">
+                            <div className="step-number-large">{step.number}</div>
+                            <div className="step-icon-circle">{step.icon}</div>
+                          </div>
+                          <div className="step-details">
+                            <h3>{step.title}</h3>
+                            <p>{step.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {section.type === 'features' && (
+                    <div className="tips-grid">
+                      {section.features.map((feature: any, idx: number) => (
+                        <div key={idx} className="tip-card">
+                          <div className="tip-number">{idx < 9 ? `0${idx + 1}` : idx + 1}</div>
+                          <h3>{feature.title}</h3>
+                          <p>{feature.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {section.type === 'faq' && (
+                    <div className="faq-accordion">
+                      {section.faqs.map((faq: any, idx: number) => (
+                        <div
+                          key={idx}
+                          className={`faq-item ${expandedFaq === idx ? 'expanded' : ''}`}
+                          onClick={() => toggleFaq(idx)}
+                        >
+                          <div className="faq-question">
+                            <span className="faq-icon">❓</span>
+                            <h3>{faq.q}</h3>
+                            <span className="faq-toggle">{expandedFaq === idx ? '−' : '+'}</span>
+                          </div>
+                          <div className="faq-answer">
+                            <p>{faq.a}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {section.type === 'featuresGrid' && (
+                    <div className="info-section">
+                      <div className="feature-banners-grid">
+                        {section.features.map((feature: any, idx: number) => (
+                          <div key={idx} className={`feature-banner ${idx === 0 ? 'gradient-success' : idx === 1 ? 'gradient-security' : 'gradient-mobile'}`}>
+                            <div className="feature-banner-icon">{feature.icon}</div>
+                            <div className="feature-banner-content">
+                              <h3>{feature.title}</h3>
+                              <p>{feature.desc}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </section>
+              ))}
+            </div>
+
+            {/* Link back to other pages */}
+            <div className="back-link-section reveal">
+              <p>
+                {lang === 'tr' ? 'Daha fazla yazı stili mi arıyorsunuz?' : 'Looking for more font styles?'}
+                <Link href="/" className="homepage-link">
+                  {t.common.nav.home}
+                </Link>
+                ,
+                <Link href="/insta-yazi-tipi" className="homepage-link">
+                  {t.common.nav.insta}
+                </Link>
+                {' '}{lang === 'tr' ? 've' : 'and'}{' '}
+                <Link href="/sekilli-semboller" className="homepage-link">
+                  {t.common.nav.symbols}
+                </Link>
+                {' '}{lang === 'tr' ? 'sayfalarımıza göz atın.' : 'pages.'}
               </p>
             </div>
-
-            <div className="feature-cards-grid">
-              <div className="feature-card gradient-purple">
-                <div className="feature-card-icon">🎮</div>
-                <h3>PUBG & PUBG Mobile Uyumlu</h3>
-                <p>
-                  Tüm <strong>PUBG şekilli nickler</strong> PUBG ve PUBG Mobile oyunlarında
-                  sorunsuz çalışır. Kopyala-yapıştır ile saniyeler içinde oyunda kullanabilirsiniz.
-                  Unicode karakterler sayesinde ekstra uygulama yüklemenize gerek yoktur.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-pink">
-                <div className="feature-card-icon">🔥</div>
-                <h3>Havalı ve Agresif Nickler</h3>
-                <p>
-                  Oyunda güçlü bir izlenim bırakmak için <strong>havalı PUBG nickleri</strong>
-                  kullanın. Agresif, savaşçı ve korkutucu temalı nickler ile rakiplerinizi
-                  etkileyin ve oyun deneyiminizi zenginleştirin.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-blue">
-                <div className="feature-card-icon">⚔️</div>
-                <h3>Clan ve Team Nickleri</h3>
-                <p>
-                  Takım oyunu için <strong>PUBG clan nickleri</strong> oluşturun. Aynı takımda
-                  oynayan arkadaşlarınızla uyumlu nickler seçerek takım kimliğinizi güçlendirin.
-                  Prefix ve suffix'li hazır nickler mevcuttur.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-green">
-                <div className="feature-card-icon">🇹🇷</div>
-                <h3>Tam Türkçe Desteği</h3>
-                <p>
-                  Türkçe karakterler (ç, ğ, ı, İ, ö, ş, ü) tüm PUBG nicklerinde mükemmel çalışır.
-                  Türkçe isimleriniz bozulmadan, okunabilir şekilde şekilli nicklere dönüştürülür.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 2: Popular PUBG Nicknames */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">En Popüler PUBG Şekilli Nickler</h2>
-
-            <div className="categories-showcase">
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🔥</span>
-                  <h3>Havalı Nickler</h3>
-                </div>
-                <p>Agresif, korkutucu ve dikkat çekici PUBG nickleri. Oyunda güçlü bir izlenim bırakmak için idealdir.</p>
-                <div className="category-examples">
-                  <span className="example-text">🔥Killer🔥</span>
-                  <span className="example-text">⚡Death⚡</span>
-                  <span className="example-text">💀Shadow💀</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">✨</span>
-                  <h3>Şekilli & Sembollü</h3>
-                </div>
-                <p>Özel çerçeveler, yıldızlar ve sembollerle süslenmiş estetik PUBG nickleri.</p>
-                <div className="category-examples">
-                  <span className="example-text">꧁༺Killer༻꧂</span>
-                  <span className="example-text">【★Death★】</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">👑</span>
-                  <h3>Pro & Kısa</h3>
-                </div>
-                <p>Kısa, profesyonel ve esports tarzı PUBG nickleri. Temiz ve etkili görünüm.</p>
-                <div className="category-examples">
-                  <span className="example-text">PRO★</span>
-                  <span className="example-text">ELITE🔥</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">⚔️</span>
-                  <h3>Clan / Team</h3>
-                </div>
-                <p>Takım oyunu için hazırlanmış prefix'li PUBG nickleri. Squad kimliği için mükemmel.</p>
-                <div className="category-examples">
-                  <span className="example-text">【CLAN】Killer</span>
-                  <span className="example-text">【TEAM】Death</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">💀</span>
-                  <h3>Agresif / Savaşçı</h3>
-                </div>
-                <p>Karanlık, savaşçı and ölüm temalı agresif PUBG nickleri. Korkutucu görünüm.</p>
-                <div className="category-examples">
-                  <span className="example-text">💀Killer💀</span>
-                  <span className="example-text">☠️Death☠️</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🎮</span>
-                  <h3>Özel İsimler</h3>
-                </div>
-                <p>Kendi isminize özel şekilli PUBG nickleri oluşturun. Yukarıdaki input alanını kullanın.</p>
-              </div>
-            </div>
           </div>
         </div>
+      </main >
 
-        {/* ============ COMPREHENSIVE SEO CONTENT FOR PUBG ============ */}
-
-        {/* SECTION 1: How to change name in PUBG? */}
-        <div className="info-box reveal">
-          <h2 className="section-main-title">How to change name in PUBG?</h2>
-          <div className="detailed-steps">
-            <div className="detailed-step">
-              <div className="step-visual">
-                <div className="step-number-large">1</div>
-                <div className="step-icon-circle">📋</div>
-              </div>
-              <div className="step-details">
-                <h3>Copy Nickname</h3>
-                <p>Choose your favorite stylish nickname from our list or generate one with your name and click the copy button.</p>
-              </div>
-            </div>
-
-            <div className="detailed-step">
-              <div className="step-visual">
-                <div className="step-number-large">2</div>
-                <div className="step-icon-circle">🎮</div>
-              </div>
-              <div className="step-details">
-                <h3>Open PUBG</h3>
-                <p>Launch PUBG or PUBG Mobile, go to your profile or inventory, and find the "Rename Card" to change your nickname.</p>
-              </div>
-            </div>
-
-            <div className="detailed-step">
-              <div className="step-visual">
-                <div className="step-number-large">3</div>
-                <div className="step-icon-circle">✨</div>
-              </div>
-              <div className="step-details">
-                <h3>Paste and Save</h3>
-                <p>Paste your new stylish nickname in the change name box and click save to apply your new look.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 2: Popular PUBG Nickname Categories */}
-        <div className="info-box reveal">
-          <h2 className="section-main-title">Popular PUBG Nickname Categories</h2>
-          <div className="tips-grid">
-            <div className="tip-card">
-              <div className="tip-number">01</div>
-              <h3>Cool and stylish nicknames for PUBG</h3>
-              <p>Standing out in PUBG is not just about your gameplay, it’s also about your name. A cool nickname helps you build a unique identity and gain confidence. Our generator provides different unique and eye-catching names that make you more famous among players. Whether you like aggressive, aesthetic, or funny names, you can find them all here.</p>
-            </div>
-            <div className="tip-card">
-              <div className="tip-number">02</div>
-              <h3>Professional and SHORT Nicknames</h3>
-              <p>Many professional players and streamers use short and impactful names. Our tool offers hundreds of pro-level names that are short, clear, and easy to remember for your fans and rivals. Short nicknames are perfect for quick recognition on the leaderboard.</p>
-            </div>
-            <div className="tip-card">
-              <div className="tip-number">03</div>
-              <h3>PUBG Clan Nicknames</h3>
-              <p>If you are playing with a team or running a clan, having a consistent nickname style is great for team spirit and recognition. You can create names with special tags and prefixes that show your squad’s power and unity.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 3: FAQ */}
-        <div className="info-box reveal">
-          <h2 className="section-main-title">Frequently Asked Questions</h2>
-          <div className="faq-accordion">
-            <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
-              <div className="faq-question">
-                <span className="faq-icon">❓</span>
-                <h3>Can I use symbols in my PUBG nickname?</h3>
-                <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
-              </div>
-              <div className="faq-answer">
-                <p>Yes, PUBG supports many Unicode symbols. Our generator uses symbols that are known to work on most mobile and PC versions.</p>
-              </div>
-            </div>
-
-            <div className={`faq-item ${expandedFaq === 1 ? 'expanded' : ''}`} onClick={() => toggleFaq(1)}>
-              <div className="faq-question">
-                <span className="faq-icon">❓</span>
-                <h3>How many characters can a PUBG name have?</h3>
-                <span className="faq-toggle">{expandedFaq === 1 ? '−' : '+'}</span>
-              </div>
-              <div className="faq-answer">
-                <p>Typically, PUBG Mobile names have a limit of 14 characters. Make sure your chosen style fits within this limit.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SECTION 6: Feature Banners */}
-        <div className="info-section">
-          <div className="feature-banners-grid">
-            <div className="feature-banner gradient-success">
-              <div className="feature-banner-icon">🚀</div>
-              <div className="feature-banner-content">
-                <h3>Free and Instant</h3>
-                <p>No registration required, copy ready-made PUBG nicknames instantly!</p>
-              </div>
-            </div>
-
-            <div className="feature-banner gradient-security">
-              <div className="feature-banner-icon">🔒</div>
-              <div className="feature-banner-content">
-                <h3>100% Safe</h3>
-                <p>Your names are not sent to any server; they are processed in your browser.</p>
-              </div>
-            </div>
-
-            <div className="feature-banner gradient-mobile">
-              <div className="feature-banner-icon">📱</div>
-              <div className="feature-banner-content">
-                <h3>Mobile Friendly</h3>
-                <p>Use it easily from your phone and paste instantly into PUBG.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Link back to other pages */}
-        <div className="back-link-section">
-          <p>
-            Looking for more font styles? Visit our
-            <Link href="/" className="homepage-link">
-              Homepage
-            </Link>
-            ,
-            <Link href="/insta-yazi-tipi" className="homepage-link">
-              Instagram Font
-            </Link>
-            {' '}and{' '}
-            <Link href="/sekilli-semboller" className="homepage-link">
-              Fancy Symbols
-            </Link>
-            {' '}pages.
-          </p>
-        </div>
-      </main>
       {showToast && (
         <div className="toast">
           <span className="toast-icon">✓</span>
-          <span>Kopyalandı!</span>
+          <span>{copiedNick ? t.common.copied : ''}</span>
         </div>
-      )}
+      )
+      }
 
       {/* Footer */}
       <footer className="footer">
@@ -1207,20 +1128,20 @@ export default function PubgSekilliNickClient() {
           <div className="footer-content">
             <div className="footer-links">
               <Link href="/" className="footer-link">
-                Ana Sayfa
+                {t.common.footer.home}
               </Link>
               <Link href="/insta-yazi-tipi" className="footer-link">
-                Insta Yazı Tipi
+                {t.common.footer.insta}
               </Link>
               <Link href="/sekilli-semboller" className="footer-link">
-                Şekilli Semboller
+                {t.common.footer.symbols}
               </Link>
               <Link href="/pubg-sekilli-nick" className="footer-link">
-                PUBG Şekilli Nick
+                {t.common.footer.pubg}
               </Link>
             </div>
             <div className="footer-text">
-              © 2026 Yazı Stilleri. Tüm hakları saklıdır.
+              {t.common.footer.rights}
             </div>
           </div>
         </div>
@@ -1234,28 +1155,30 @@ export default function PubgSekilliNickClient() {
         }
         .back-link-section {
           text-align: center;
-          margin-top: 2rem;
-          padding: 1.5rem;
-          background: var(--background);
+          margin-top: 4rem;
+          padding: 2.5rem;
+          background: var(--card-bg);
           border-radius: var(--radius-lg);
-          box-shadow: var(--shadow);
+          border: 1px solid var(--border-color);
         }
         .back-link-section p {
           color: var(--text-secondary);
           margin: 0;
+          font-size: 1.1rem;
         }
         .homepage-link {
           color: var(--primary-color);
           font-weight: 600;
           text-decoration: none;
-          margin-left: 0.25rem;
-          margin-right: 0.25rem;
-          transition: color 0.2s;
+          margin-left: 0.5rem;
+          margin-right: 0.5rem;
+          transition: all 0.2s;
         }
         .homepage-link:hover {
           text-decoration: underline;
+          opacity: 0.8;
         }
       `}</style>
-    </div>
+    </div >
   )
 }

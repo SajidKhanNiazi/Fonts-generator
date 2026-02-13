@@ -1,7 +1,6 @@
-'use client'
-
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
+import { translations, Language } from '@/lib/translations'
 import './insta-content.css'
 
 // ============ INSTAGRAM FONT TRANSFORMATIONS ============
@@ -411,6 +410,7 @@ const instagramFonts: FontStyle[] = [
 
 // ============ MAIN COMPONENT ============
 export default function InstaYaziTipiClient() {
+  const [lang, setLang] = useState<Language>('tr')
   const [inputText, setInputText] = useState('Instagram Bio')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [showToast, setShowToast] = useState(false)
@@ -418,6 +418,8 @@ export default function InstaYaziTipiClient() {
   const [mounted, setMounted] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const t = translations[lang]
 
   // Toggle FAQ accordion
   const toggleFaq = (index: number) => {
@@ -512,8 +514,8 @@ export default function InstaYaziTipiClient() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Insta Yazı Tipi",
-      "description": "Instagram bio, gönderi ve hikayeler için havalı yazı fontları oluşturucu",
+      "name": t.insta.hero.title + " " + t.insta.hero.titleHighlight,
+      "description": t.insta.hero.description,
       "url": "https://yazistilleri.com/insta-yazi-tipi",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
@@ -545,24 +547,34 @@ export default function InstaYaziTipiClient() {
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              ✨ Font Styles
+              {t.common.logo}
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="nav desktop-nav">
               <Link href="/insta-yazi-tipi" className="nav-link active">
-                Insta Font
+                {t.common.nav.insta}
               </Link>
               <Link href="/sekilli-semboller" className="nav-link">
-                Shaped Symbols
+                {t.common.nav.symbols}
               </Link>
               <Link href="/pubg-sekilli-nick" className="nav-link">
-                PUBG Stylish Nickname
+                {t.common.nav.pubg}
               </Link>
             </nav>
 
-            {/* Right Actions: Theme Toggle & Hamburger */}
+            {/* Right Actions: Theme Toggle, Lang Toggle & Hamburger */}
             <div className="header-actions">
+              <button
+                className="lang-toggle-btn"
+                onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
+                aria-label={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
+                title={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
+              >
+                <span className="lang-icon">🌐</span>
+                <span className="lang-text">{lang === 'tr' ? 'EN' : 'TR'}</span>
+              </button>
+
               <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
@@ -593,14 +605,24 @@ export default function InstaYaziTipiClient() {
           </div>
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">📸</span> Insta Font
+              <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> Shaped Symbols
+              <span className="nav-icon">✨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> PUBG Stylish Nickname
+              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
+            <div className="mobile-lang-switch">
+              <button
+                className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`}
+                onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}
+              >TR</button>
+              <button
+                className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`}
+                onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}
+              >EN</button>
+            </div>
           </nav>
         </div>
       </header>
@@ -633,19 +655,18 @@ export default function InstaYaziTipiClient() {
               {/* Animated Title */}
               <div className="hero-badge">
                 <span className="badge-icon">📸</span>
-                <span>Instagram İçin Özel</span>
+                <span>{t.insta.hero.badge}</span>
               </div>
 
               <h1 className="hero-title">
                 <span className="title-line">
-                  <span className="title-word">Instagram</span>
-                  <span className="title-word highlight">Yazı Tipi</span>
+                  <span className="title-word">{t.insta.hero.title}</span>
+                  <span className="title-word highlight">{t.insta.hero.titleHighlight}</span>
                 </span>
               </h1>
 
               <p className="hero-description">
-                Instagram <span className="text-gradient">bio</span>, <span className="text-gradient">gönderi</span> ve <span className="text-gradient">hikayeler</span> için
-                <strong> havalı insta yazı tipi</strong> fontlarını anında oluştur.
+                {t.insta.hero.description}
               </p>
 
               {/* Modern Input Section */}
@@ -661,8 +682,8 @@ export default function InstaYaziTipiClient() {
                       </svg>
                     </div>
                     <div className="input-header-text">
-                      <h2>Metninizi Yazın</h2>
-                      <p>Anında {instagramFonts.length}+ stile dönüştürün ✨</p>
+                      <h2>{t.insta.hero.inputTitle}</h2>
+                      <p>{t.insta.hero.inputSub}</p>
                     </div>
                   </div>
 
@@ -672,7 +693,7 @@ export default function InstaYaziTipiClient() {
                       className="modern-text-input"
                       value={inputText}
                       onChange={(e) => setInputText(e.target.value)}
-                      placeholder="Instagram bio veya caption yazın..."
+                      placeholder={t.insta.hero.inputPlaceholder}
                       rows={2}
                       maxLength={150}
                     />
@@ -769,116 +790,97 @@ export default function InstaYaziTipiClient() {
           {/* Content section – modern SaaS design, tight spacing, mobile-first */}
           <article className="insta-content" aria-label="Instagram font guide">
             <div className="insta-grid-2">
-              <section className="insta-section-intro reveal" aria-labelledby="how-it-works">
-                <h2 id="how-it-works" className="insta-heading">How does the Instagram Fonts Generator work?</h2>
-                <div className="insta-body">
-                  <p>Instagram font generator is a free online tool which can generate different types of font styles for Instagram users which can use these fonts in Bio, stories and posts for better engagement and feel Cool.</p>
-                </div>
-              </section>
-              <section className="insta-section-steps reveal" aria-labelledby="how-to-create">
-                <h2 id="how-to-create" className="insta-heading">How to create Instagram fonts for copy-pasting</h2>
-                <ol className="insta-steps-list" aria-label="Steps">
-                  <li className="insta-step"><span className="insta-step-num" aria-hidden>1</span> Enter your Text in the input section.</li>
-                  <li className="insta-step"><span className="insta-step-num" aria-hidden>2</span> Tool generates different instagram fonts to copy it. Search the Favourite font from the list.</li>
-                  <li className="insta-step"><span className="insta-step-num" aria-hidden>3</span> Choose your favourite font style, copy it and paste it where you need.</li>
-                </ol>
-              </section>
+              {t.insta.sections.slice(0, 2).map((section: any) => (
+                <section key={section.id} className={`insta-section-${section.id === 'how-it-works' ? 'intro' : 'steps'} reveal`} aria-labelledby={section.id}>
+                  <h2 id={section.id} className="insta-heading">{section.title}</h2>
+                  <div className="insta-body">
+                    {section.type === 'text' && <p>{section.content}</p>}
+                    {section.type === 'textSteps' && (
+                      <ol className="insta-steps-list" aria-label="Steps">
+                        {section.steps.map((step: string, idx: number) => (
+                          <li key={idx} className="insta-step"><span className="insta-step-num" aria-hidden>{idx + 1}</span> {step}</li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                </section>
+              ))}
             </div>
 
-            <section className="insta-section-highlight reveal" aria-labelledby="copy-paste-fonts">
-              <h3 id="copy-paste-fonts" className="insta-subheading">Copy-Paste Fonts for Instagram</h3>
+            <section className="insta-section-highlight reveal insta-section-variant-c" aria-labelledby="stand-out-title">
+              <h3 id="stand-out-title" className="insta-subheading">{t.insta.sections[2].title}</h3>
               <div className="insta-body">
-                <p>All online platforms like Instagram give an option to user Paste customize their text into Stylish Bio, Post Outline and Comment. Instagram Text converter helps us to change font into a different style like Bold, 3D, Aesthetic, Handwritten and fancy text.</p>
+                <p>{t.insta.sections[2].content}</p>
                 <div className="insta-pill">
-                  <p>Our tool is easy to use where users simply select a favorite font and copy paste it on instagram and Other Social media App. Instagram font generators give us eye-catching and interactive fonts to make our social media profile unique and balanced.</p>
+                  <p>{lang === 'tr' ?
+                    'Aracımız, kullanıcıların favori bir yazı tipini seçip instagram ve diğer sosyal medya uygulamalarına kopyalayıp yapıştırması için kullanımı kolaydır. Instagram yazı tipi oluşturucuları, sosyal medya profilimizi benzersiz ve dengeli hale getirmek için bize göz alıcı ve etkileşimli yazı tipleri sunar.' :
+                    'Our tool is easy to use where users simply select a favorite font and copy paste it on instagram and Other Social media App. Instagram font generators give us eye-catching and interactive fonts to make our social media profile unique and balanced.'
+                  }</p>
                 </div>
               </div>
             </section>
 
-            <div className="insta-grid-2">
-              <section className="insta-card reveal" aria-labelledby="stand-out">
-                <h2 id="stand-out" className="insta-heading">How to Stand Out on Instagram: Using Different Fonts</h2>
-                <div className="insta-body">
-                  <p>As we know, Instagram does not allow direct text style customization, and millions of users share content on this platform. To stand out from millions of profiles, the only effective way is better visual representation of your text. The structure and style of your text strongly affect how your profile looks. Well-styled text makes your profile attractive, professional, and memorable</p>
-                </div>
-              </section>
-              <section className="insta-card reveal" aria-labelledby="why-fonts">
-                <h2 id="why-fonts" className="insta-heading">Why are different fonts used on Instagram?</h2>
-                <div className="insta-body">
-                  <p>Instagram default font is Instagram Sans which is used by 80 to 90% users. We want to look different from others so we use different customized and unicode fonts.</p>
-                </div>
-              </section>
+            <div className="insta-grid-2 insta-cards-split">
+              {t.insta.sections.slice(3, 5).map((section: any) => (
+                <section key={section.id} className={`insta-card reveal insta-card-${section.id === 'stand-out' ? 'left' : 'right'}`} aria-labelledby={section.id}>
+                  <h2 id={section.id} className="insta-heading">{section.title}</h2>
+                  <div className="insta-body">
+                    <p>{section.content}</p>
+                  </div>
+                </section>
+              ))}
             </div>
 
-            <section className="insta-section-advantages reveal" aria-labelledby="advantages">
-              <h3 id="advantages" className="insta-subheading">Advantages of changing the font on Instagram?</h3>
+            <section className="insta-section-advantages reveal insta-section-variant-d" aria-labelledby="advantages">
+              <h3 id="advantages" className="insta-subheading">{t.insta.sections[5].title}</h3>
               <div className="insta-adv-grid">
-                <div className="insta-adv-item"><span>🎯</span> Grabs attention and helps your profile stand out</div>
-                <div className="insta-adv-item"><span>💼</span> Looks more professional and well-designed</div>
-                <div className="insta-adv-item"><span>🎭</span> Reflects your personality and personal style</div>
-                <div className="insta-adv-item"><span>👁️</span> Makes your profile instantly more eye-catching</div>
-                <div className="insta-adv-item"><span>📈</span> Helps attract and gain more followers</div>
+                {t.insta.sections[5].features.map((feat: any, idx: number) => (
+                  <div key={idx} className="insta-adv-item"><span>{feat.icon}</span> {feat.text}</div>
+                ))}
               </div>
             </section>
 
-            <section className="insta-section-examples reveal" aria-labelledby="stylized-text">
-              <h2 id="stylized-text" className="insta-heading">How to Write Stylized Text on Instagram</h2>
+            <section className="insta-section-examples reveal insta-section-variant-e" aria-labelledby="stylized-text">
+              <h2 id="stylized-text" className="insta-heading">{t.insta.sections[6].title}</h2>
               <div className="insta-body">
-                <p>Stylized text style makes us feel proud among friends. We can simply change our nickname, Bio and post caption text into Stylized and Cool texts. Insta fonts are generated by an online font converter where we enter our text and the tool give us a list of converted fonts styles.</p>
+                <p>{t.insta.sections[6].content}</p>
                 <div className="insta-examples-grid">
-                  <div className="insta-example-item"><strong>Bold:</strong> 𝐈𝐧𝐬𝐭𝐚 𝐘𝐚𝐳𝐢 𝐭𝐢𝐩𝐢</div>
-                  <div className="insta-example-item"><strong>Script:</strong> 𝓘𝓷𝓼𝓽𝓪 𝓨𝓪𝔃𝓲 𝓽𝓲𝓹𝓲</div>
-                  <div className="insta-example-item"><strong>Cursive:</strong> ℐ𝓃𝓈𝓉𝒶 𝒴𝒶𝓏𝒾 𝓉𝒾𝓅𝒾</div>
-                  <div className="insta-example-item"><strong>Aesthetic:</strong> ɪɴsᴛᴀ ʏᴀᴢɪ ᴛɪᴘɪ</div>
+                  {t.insta.sections[6].examples.map((ex: any, idx: number) => (
+                    <div key={idx} className="insta-example-item"><strong>{ex.label}:</strong> {ex.text}</div>
+                  ))}
                 </div>
               </div>
             </section>
 
-            <div className="insta-grid-3">
-              <section className="insta-usage-card reveal" aria-labelledby="stories">
-                <h3 id="stories" className="insta-usage-title">Instagram Stories?</h3>
-                <p>If you want to convey your message or story more user then Both text and video clip are highly optimized for reach then You should select a special fonts styles to make story more engaging and attractive. Open instagram story section add a video or photo then click editing option Aa. Simply copy your favourite fonts style and paste on video or photo.</p>
-              </section>
-              <section className="insta-usage-card reveal" aria-labelledby="bio">
-                <h3 id="bio" className="insta-usage-title">Instagram Bio?</h3>
-                <p>There is real problem for any instagram users while adding a Bio in profile which makes it boring and lazy with common font style. So different fonts are used for this Bio optimization. You can choose our online font converter which makes your bio interactive among friends and followers. Simply copy paste into instagram Bio.</p>
-              </section>
-              <section className="insta-usage-card reveal" aria-labelledby="posts">
-                <h3 id="posts" className="insta-usage-title">Instagram Posts</h3>
-                <p>Still you are looking a font that meet with your post or design which make a complete a sense of your post. Always use a font which are highly match your post theme to engage interaction of audience. Make sure a that your font style completely clear and memorably for user. Typing Typography is a weapon for you instagram reach.</p>
-              </section>
+            <div className="insta-grid-3 insta-usage-trio">
+              {t.insta.sections.slice(7, 10).map((section: any, idx: number) => (
+                <section key={section.id} className={`insta-usage-card reveal insta-usage-${idx + 1}`} aria-labelledby={section.id}>
+                  <h3 id={section.id} className="insta-usage-title">{section.title}</h3>
+                  <p>{section.content}</p>
+                </section>
+              ))}
             </div>
 
-            <div className="insta-grid-2">
-              <section className="insta-card reveal" aria-labelledby="hashtags">
-                <h2 id="hashtags" className="insta-heading">Do fonts work with hashtags?</h2>
-                <div className="insta-body">
-                  <p>No, These fonts styles are not use in instagram post with hashtags because Instagram algorithms did not recognize it and did not clickable. This will complete down to reach of your post and not good practice.</p>
-                </div>
-              </section>
-              <section className="insta-card reveal" aria-labelledby="best-fonts">
-                <h2 id="best-fonts" className="insta-heading">Best Fonts for Instagram</h2>
-                <div className="insta-body">
-                  <ul className="insta-dot-list">
-                    <li>Popular Fonts – Bold, Italic, Script, Aesthetic</li>
-                    <li>Styles – Fancy, Stylish, Classy fonts</li>
-                    <li>Unicode – Gothic, Monospace, Boxed</li>
-                    <li>Visuals – Emoji, Hearts, stars, sparkles</li>
-                    <li>Safety – WhatsApp &amp; Facebook Safe Fonts</li>
-                  </ul>
-                </div>
-              </section>
+            <div className="insta-grid-2 insta-cards-split">
+              {t.insta.sections.slice(10, 12).map((section: any) => (
+                <section key={section.id} className={`insta-card reveal insta-card-${section.id === 'hashtags' ? 'left' : 'right'}`} aria-labelledby={section.id}>
+                  <h2 id={section.id} className="insta-heading">{section.title}</h2>
+                  <div className="insta-body">
+                    {section.type === 'text' && <p>{section.content}</p>}
+                    {section.type === 'list' && (
+                      <ul className="insta-dot-list">
+                        {section.items.map((item: string, idx: number) => <li key={idx}>{item}</li>)}
+                      </ul>
+                    )}
+                  </div>
+                </section>
+              ))}
             </div>
 
-            <section className="insta-section-faq reveal" aria-labelledby="errors-solutions">
-              <h2 id="errors-solutions" className="insta-heading">Instagram Font Errors and Solutions</h2>
+            <section className="insta-section-faq reveal insta-section-variant-f" aria-labelledby="errors-solutions">
+              <h2 id="errors-solutions" className="insta-heading">{t.insta.sections[12].title}</h2>
               <div className="insta-faq-grid">
-                {[
-                  { p: "Problem 1: Font Not Showing Properly", s: "Use Instagram-safe Unicode fonts that work on all devices." },
-                  { p: "Problem 2: Text Appears as Boxes", s: "Avoid heavy decorative fonts and choose simple styles." },
-                  { p: "Problem 3: Does Not Copy/Paste Correctly", s: "Copy the full text and paste it directly without editing." },
-                  { p: "Problem 4: Text Is Hard to Read", s: "Use clean and readable fonts for bios and captions." }
-                ].map((item, idx) => (
+                {t.insta.sections[12].faqs.map((item: any, idx: number) => (
                   <div key={idx} className="insta-faq-item">
                     <h4>{item.p}</h4>
                     <p>{item.s}</p>
@@ -887,55 +889,31 @@ export default function InstaYaziTipiClient() {
               </div>
             </section>
 
-            <section className="insta-section-features reveal" aria-labelledby="key-features">
+            <section className="insta-section-features reveal insta-section-variant-g" aria-labelledby="key-features">
               <h2 id="key-features" className="insta-features-title">
                 <span className="insta-accent-line" aria-hidden></span>
-                Key Features of Instagram Font Generator
+                {t.insta.sections[13].title}
               </h2>
               <div className="insta-features-grid">
-                <div className="insta-feature-card">
-                  <div className="insta-f-icon">⚡</div>
-                  <div className="insta-f-info">
-                    <h3>Simple and Fast</h3>
-                    <p>Easy to use with instant results.</p>
+                {t.insta.sections[13].features.map((feat: any, idx: number) => (
+                  <div key={idx} className="insta-feature-card">
+                    <div className="insta-f-icon">{feat.icon}</div>
+                    <div className="insta-f-info">
+                      <h3>{feat.title}</h3>
+                      <p>{feat.desc}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="insta-feature-card">
-                  <div className="insta-f-icon">💸</div>
-                  <div className="insta-f-info">
-                    <h3>Free to Use</h3>
-                    <p>No charges, completely free.</p>
-                  </div>
-                </div>
-                <div className="insta-feature-card">
-                  <div className="insta-f-icon">📋</div>
-                  <div className="insta-f-info">
-                    <h3>Copy and Paste</h3>
-                    <p>Easy One click to copy and use anywhere.</p>
-                  </div>
-                </div>
-                <div className="insta-feature-card">
-                  <div className="insta-f-icon">🔒</div>
-                  <div className="insta-f-info">
-                    <h3>No Login Required</h3>
-                    <p>Use the tool without signing up.</p>
-                  </div>
-                </div>
-                <div className="insta-feature-card">
-                  <div className="insta-f-icon">🌐</div>
-                  <div className="insta-f-info">
-                    <h3>100% Online</h3>
-                    <p>Works directly in your browser.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </section>
           </article>
 
           <div className="insta-back-link reveal">
             <p>
-              Daha fazla font stili ve <strong>Insta Yazı Tipi</strong> seçenekleri mi arıyorsunuz?
-              <Link href="/" className="insta-homepage-link">Yazı Stilleri Ana Sayfa</Link>
+              {lang === 'tr' ? 'Daha fazla font stili ve ' : 'Looking for more font styles and '}
+              <strong>Insta Yazı Tipi</strong>
+              {lang === 'tr' ? ' seçenekleri mi arıyorsunuz?' : ' options?'}
+              <Link href="/" className="insta-homepage-link">{t.common.nav.home}</Link>
             </p>
           </div>
 
@@ -946,7 +924,7 @@ export default function InstaYaziTipiClient() {
       {showToast && (
         <div className="toast">
           <span className="toast-icon">✓</span>
-          <span>Kopyalandı!</span>
+          <span>{lang === 'tr' ? 'Kopyalandı!' : 'Copied!'}</span>
         </div>
       )}
 
@@ -955,21 +933,14 @@ export default function InstaYaziTipiClient() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-links">
-              <Link href="/" className="footer-link">
-                Ana Sayfa
-              </Link>
-              <Link href="/insta-yazi-tipi" className="footer-link">
-                Insta Yazı Tipi
-              </Link>
-              <Link href="/sekilli-semboller" className="footer-link">
-                Şekilli Semboller
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="footer-link">
-                PUBG Şekilli Nick
-              </Link>
+              <Link href="/" className="footer-link">{t.common.nav.home}</Link>
+              <Link href="/insta-yazi-tipi" className="footer-link">{t.common.nav.insta}</Link>
+              <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
+              <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>
+              <Link href="/hakkimizda" className="footer-link">Hakkımızda</Link>
             </div>
             <div className="footer-text">
-              © 2026 Yazı Stilleri. Tüm hakları saklıdır.
+              © 2026 {t.common.logo}. {t.common.nav.rights}
             </div>
           </div>
         </div>

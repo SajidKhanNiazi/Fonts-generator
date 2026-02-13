@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
+import { Language, translations } from '@/lib/translations'
 
 // ============ SYMBOL CATEGORIES DATA ============
 
@@ -12,107 +13,10 @@ interface SymbolCategory {
   symbols: string[]
 }
 
-const symbolCategories: SymbolCategory[] = [
-  {
-    id: 'kalp',
-    name: 'Kalp Sembolleri',
-    icon: '❤️',
-    symbols: ['❤', '♥', '♡', '💖', '💕', '💗', '💓', '💘', '💝', '💞', '💟', '❥', '❣', 'ღ', '❤️‍🔥', '❤️‍🩹', '🖤', '🤍', '💙', '💚', '💛', '🧡', '💜', '🤎', '❣️', '💔', '🩷', '🩵', '🩶', '♥️', '🫀', '💌', '💋', '😍', '🥰', '😘', '😻', '💑', '💏', '👩‍❤️‍👨', '❦', '❧', '☙', '🫶', '💓', '𖣔', '𓆩', '𓆪', '𓇢', '𓂃']
-  },
-  {
-    id: 'yildiz',
-    name: 'Yıldız & Parlama',
-    icon: '⭐',
-    symbols: ['★', '☆', '✦', '✧', '✨', '🌟', '⭐', '🌠', '💫', '✩', '✪', '✫', '✬', '✭', '✮', '✯', '✰', '⁂', '⁎', '⁑', '✴', '✵', '✶', '✷', '✸', '✹', '✺', '❂', '❃', '❊', '✳️', '✴️', '🔯', '💥', '🎇', '🎆', '✡', '⭒', '⭑', '🌃', '🌌', '🔅', '🔆', '☀️', '🌞', '🌄', '🌅', '༄', '࿐', '⋆']
-  },
-  {
-    id: 'ok',
-    name: 'Ok & İşaretler',
-    icon: '➤',
-    symbols: ['➤', '➜', '➝', '➞', '➠', '➳', '➵', '→', '←', '↑', '↓', '↔', '↕', '↖', '↗', '↘', '↙', '⇒', '⇐', '⇑', '⇓', '⇔', '⇕', '➔', '➙', '➚', '➛', '➟', '➡', '⬅', '⬆', '⬇', '↩', '↪', '⤴', '⤵', '🔙', '🔚', '🔛', '🔜', '🔝', '▶️', '◀️', '⏩', '⏪', '⏫', '⏬', '➲', '➢', '➣']
-  },
-  {
-    id: 'cerceve',
-    name: 'Çerçeveli Semboller',
-    icon: '【】',
-    symbols: ['【', '】', '『', '』', '《', '》', '⟦', '⟧', '〖', '〗', '〘', '〙', '〚', '〛', '「', '」', '〔', '〕', '〈', '〉', '﹁', '﹂', '﹃', '﹄', '︵', '︶', '︷', '︸', '꧁', '꧂', '『', '』', '༺', '༻', '〔', '〕', '⦅', '⦆', '⦃', '⦄', '❮', '❯', '❰', '❱', '❲', '❳', '❴', '❵', '⟨', '⟩']
-  },
-  {
-    id: 'cicek',
-    name: 'Çiçek & Doğa',
-    icon: '🌸',
-    symbols: ['🌸', '🌷', '🌹', '🌺', '🌻', '🌼', '💐', '🏵', '❀', '✿', '❁', '❃', '❋', '🌵', '🌴', '🌲', '🌳', '🌿', '☘', '🍀', '🍃', '🍂', '🍁', '🌾', '🪻', '🪷', '🪹', '🪺', '🌱', '🪴', '🌏', '🌍', '🌎', '🦋', '🐝', '🌈', '🍄', '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘', '🦚', '🦢', '🕊️', '🐦']
-  },
-  {
-    id: 'dekoratif',
-    name: 'Dekoratif & Fancy',
-    icon: '✪',
-    symbols: ['✪', '✯', '✰', '☾', '☽', '⚝', '❖', '❦', '❧', '☙', '❡', '❢', '❣', '✾', '✽', '✼', '✻', '❆', '❅', '❄', '❈', '❉', '❊', '❋', '✣', '✤', '✥', '✱', '✲', '✳', '༄', '࿐', '࿔', '᯽', '꧂', '꧁', '۞', '۩', '࿊', '࿋', '࿌', '᪥', '⌘', '⚜', '☬', '☫', '☤', '⚕', '⚚', '☸']
-  },
-  {
-    id: 'emoji',
-    name: 'Popüler Emojiler',
-    icon: '😊',
-    symbols: ['😊', '😍', '🥰', '😘', '🤩', '😎', '🥳', '😇', '🤗', '😏', '😌', '🙃', '😉', '😋', '🤪', '🔥', '💯', '👑', '🎯', '💪', '🙏', '👀', '🎉', '🎊', '✨', '💫', '⚡', '🌈', '🦄', '🍀', '🌙', '☀️', '❄️', '🌊', '🔮', '🎭', '🎪', '🎨', '🎬', '📸', '💎', '👻', '🤖', '👽', '🦋', '🌺', '🍒', '🍓', '🌴']
-  },
-  {
-    id: 'oyun',
-    name: 'Oyun & E-Spor',
-    icon: '🎮',
-    symbols: ['🎮', '🕹', '🎲', '🎯', '🏆', '🥇', '🥈', '🥉', '🎖', '🏅', '⚔️', '🗡️', '🛡️', '🏹', '💣', '💥', '🔫', '☠️', '💀', '👾', '🤖', '🎳', '🎰', '🎴', '🃏', '🀄', '♠', '♣', '♥', '♦', '♤', '♧', '♡', '♢', '🎁', '🎀', '🎈', '🎉', '🎊', '🎄', '🎃', '⭐', '🌟', '✨', '💫', '🔥', '❌', '⭕', '✅', '🚀']
-  },
-  {
-    id: 'muzik',
-    name: 'Müzik & Ses',
-    icon: '🎵',
-    symbols: ['♪', '♫', '♬', '♩', '🎵', '🎶', '🎼', '🎤', '🎧', '🎸', '🎹', '🎺', '🎻', '🥁', '🎷', '🪘', '🪗', '🪕', '🎙', '📻', '🔔', '🔕', '🔊', '🔉', '🔈', '🔇', '📢', '📣', '🔌', '🎚', '🎛', '📯', '🪈', '🎶', '🎵', '🎤', '🎧', '🎼', '♭', '♮', '♯', '𝄞', '𝄢', '𝄫', '𝄪', '🎹', '🪇', '🪘', '📀']
-  },
-  {
-    id: 'hava',
-    name: 'Hava & Gökyüzü',
-    icon: '☀️',
-    symbols: ['☀', '☁', '☂', '☃', '☄', '🌤', '⛅', '🌥', '🌦', '🌧', '⛈', '🌩', '🌨', '❄', '🌬', '💨', '🌪', '🌈', '☔', '⚡', '🌊', '💧', '💦', '🌙', '🌛', '🌜', '🌝', '🌚', '⭐', '🌟', '☀️', '🌞', '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘', '🌍', '🌎', '🌏', '🌐', '🛸', '🚀', '🌌', '✨', '☁️', '⛄']
-  },
-  {
-    id: 'isaretler',
-    name: 'Özel İşaretler',
-    icon: '✓',
-    symbols: ['✓', '✔', '✗', '✘', '✕', '✖', '☑', '☒', '☐', '✅', '❌', '❎', '⭕', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣', '🟤', '⚫', '⚪', '🔘', '🔲', '🔳', '▪', '▫', '◼', '◻', '◾', '◽', '▶', '◀', '🔺', '🔻', '🔷', '🔶', '🔸', '🔹', '💠', '🔵', '🟥', '🟧', '🟨', '🟩', '🟦', '🟪', '⬛', '⬜', '🔈']
-  },
-  {
-    id: 'semboller',
-    name: 'Burçlar & Semboller',
-    icon: '♈',
-    symbols: ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓', '⛎', '☮', '☯', '☪', '✝', '☦', '✡', '🕉', '☸', '⚛', '🔯', '🆔', '⚠', '☢', '☣', '📛', '🚫', '⭕', '♀', '♂', '⚧', '⚥', '⚢', '⚣', '⚤', '🔱', '⚜', '🧿', '👁️‍🗨️', '🧠', '👁', '💀', '☠️', '👻', '🎭', '🔮', '🪬']
-  },
-  {
-    id: 'el',
-    name: 'El & Jest',
-    icon: '👋',
-    symbols: ['👋', '🤚', '🖐', '✋', '🖖', '👌', '🤌', '🤏', '✌', '🤞', '🫰', '🤟', '🤘', '🤙', '👈', '👉', '👆', '🖕', '👇', '☝', '🫵', '👍', '👎', '✊', '👊', '🤛', '🤜', '👏', '🙌', '🤲', '🙏', '🤝', '💪', '🦾', '🦿', '🦵', '🦶', '👂', '🦻', '👃', '🧠', '👀', '👁', '👅', '👄', '💋', '🫦', '🦷', '🦴']
-  },
-  {
-    id: 'minimal',
-    name: 'Minimal & Geometrik',
-    icon: '●',
-    symbols: ['•', '◦', '○', '●', '◉', '◎', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗', '◘', '◙', '◚', '◛', '◜', '◝', '◞', '◟', '◠', '◡', '⦿', '⊙', '⊚', '⊛', '⊜', '⊝', '▪', '▫', '▬', '▭', '▮', '▯', '▰', '▱', '▲', '△', '▴', '▵', '▶', '▷', '▸', '▹', '►', '▻', '◆', '◇']
-  },
-  {
-    id: 'para',
-    name: 'Para & Finans',
-    icon: '💰',
-    symbols: ['💰', '💵', '💴', '💶', '💷', '💸', '💳', '🪙', '💲', '₺', '$', '€', '£', '¥', '₩', '₽', '฿', '₿', '💎', '📈', '📉', '📊', '🏦', '🏧', '💹', '🛒', '🛍', '💼', '📦', '🎁', '🏪', '🏬', '🏭', '🏢', '💵', '💴', '💶', '💷', '🤑', '💲', '💱', '💹', '📈', '📉', '💳', '🧾', '💸', '🪙', '💎']
-  },
-  {
-    id: 'turk',
-    name: 'Türk Kültürü',
-    icon: '🇹🇷',
-    symbols: ['🇹🇷', '🧿', '☪', '🌙', '⭐', '🌷', '☕', '🫖', '🥯', '🍢', '🥙', '🍯', '🕌', '۩', '༺', '༻', '꧁', '꧂', '۞', '࿊', '◆', '◇', '❖', '✦', '✧', '★', '☆', '⁂', '❃', '❋', '🏛️', '🎭', '🧕', '🕋', '📿', '🪬', '🔮', '🎪', '🎡', '🎢', '🌍', '🗺️', '🏔️', '⛰️', '🌊', '🏖️', '⛵', '🚢', '✈️', '🛫']
-  }
-]
 
 // ============ MAIN COMPONENT ============
 export default function SekilliSembollerClient() {
+  const [lang, setLang] = useState<Language>('tr')
   const [copiedSymbol, setCopiedSymbol] = useState<string | null>(null)
   const [showToast, setShowToast] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
@@ -120,6 +24,108 @@ export default function SekilliSembollerClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
+  const t = translations[lang]
+
+  // Localized Symbols Data
+  const symbolCategories = useMemo(() => [
+    {
+      id: 'kalp',
+      name: (t.symbols.categories as any).kalp,
+      icon: '❤️',
+      symbols: ['❤', '♥', '♡', '💖', '💕', '💗', '💓', '💘', '💝', '💞', '💟', '❥', '❣', 'ღ', '❤️‍🔥', '❤️‍🩹', '🖤', '🤍', '💙', '💚', '💛', '🧡', '💜', '🤎', '❣️', '💔', '🩷', '🩵', '🩶', '♥️', '🫀', '💌', '💋', '😍', '🥰', '😘', '😻', '💑', '💏', '👩‍❤️‍👨', '❦', '❧', '☙', '🫶', '💓', '𖣔', '𓆩', '𓆪', '𓇢', '𓂃']
+    },
+    {
+      id: 'yildiz',
+      name: (t.symbols.categories as any).yildiz,
+      icon: '⭐',
+      symbols: ['★', '☆', '✦', '✧', '✨', '🌟', '⭐', '🌠', '💫', '✩', '✪', '✫', '✬', '✭', '✮', '✯', '✰', '⁂', '⁎', '⁑', '✴', '✵', '✶', '✷', '✸', '✹', '✺', '❂', '❃', '❊', '✳️', '✴️', '🔯', '💥', '🎇', '🎆', '✡', '⭒', '⭑', '🌃', '🌌', '🔅', '🔆', '☀️', '🌞', '🌄', '🌅', '༄', '࿐', '⋆']
+    },
+    {
+      id: 'ok',
+      name: (t.symbols.categories as any).ok,
+      icon: '➤',
+      symbols: ['➤', '➜', '➝', '➞', '➠', '➳', '➵', '→', '←', '↑', '↓', '↔', '↕', '↖', '↗', '↘', '↙', '⇒', '⇐', '⇑', '⇓', '⇔', '⇕', '➔', '➙', '➚', '➛', '➟', '➡', '⬅', '⬆', '⬇', '↩', '↪', '⤴', '⤵', '🔙', '🔚', '🔛', '🔜', '🔝', '▶️', '◀️', '⏩', '⏪', '⏫', '⏬', '➲', '➢', '➣']
+    },
+    {
+      id: 'cerceve',
+      name: (t.symbols.categories as any).cerceve,
+      icon: '【】',
+      symbols: ['【', '】', '『', '』', '《', '》', '⟦', '⟧', '〖', '〗', '〘', '〙', '〚', '〛', '「', '」', '〔', '〕', '〈', '〉', '﹁', '﹂', '﹃', '﹄', '︵', '︶', '︷', '︸', '꧁', '꧂', '『', '』', '༺', '༻', '〔', '〕', '⦅', '⦆', '⦃', '⦄', '❮', '❯', '❰', '❱', '❲', '❳', '❴', '❵', '⟨', '⟩']
+    },
+    {
+      id: 'cicek',
+      name: (t.symbols.categories as any).cicek,
+      icon: '🌸',
+      symbols: ['🌸', '🌷', '🌹', '🌺', '🌻', '🌼', '💐', '🏵', '❀', '✿', '❁', '❃', '❋', '🌵', '🌴', '🌲', '🌳', '🌿', '☘', '🍀', '🍃', '🍂', '🍁', '🌾', '🪻', '🪷', '🪹', '🪺', '🌱', '🪴', '🌏', '🌍', '🌎', '🦋', '🐝', '🌈', '🍄', '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘', '🦚', '🦢', '🕊️', '🐦']
+    },
+    {
+      id: 'dekoratif',
+      name: (t.symbols.categories as any).dekoratif,
+      icon: '✪',
+      symbols: ['✪', '✯', '✰', '☾', '☽', '⚝', '❖', '❦', '❧', '☙', '❡', '❢', '❣', '✾', '✽', '✼', '✻', '❆', '❅', '❄', '❈', '❉', '❊', '❋', '✣', '✤', '✥', '✱', '✲', '✳', '༄', '࿐', '࿔', '᯽', '꧂', '꧁', '۞', '۩', '࿊', '࿋', '࿌', '᪥', '⌘', '⚜', '☬', '☫', '☤', '⚕', '⚚', '☸']
+    },
+    {
+      id: 'emoji',
+      name: (t.symbols.categories as any).emoji,
+      icon: '😊',
+      symbols: ['😊', '😍', '🥰', '😘', '🤩', '😎', '🥳', '😇', '🤗', '😏', '😌', '🙃', '😉', '😋', '🤪', '🔥', '💯', '👑', '🎯', '💪', '🙏', '👀', '🎉', '🎊', '✨', '💫', '⚡', '🌈', '🦄', '🍀', '🌙', '☀️', '❄️', '🌊', '🔮', '🎭', '🎪', '🎨', '🎬', '📸', '💎', '👻', '🤖', '👽', '🦋', '🌺', '🍒', '🍓', '🌴']
+    },
+    {
+      id: 'oyun',
+      name: (t.symbols.categories as any).oyun,
+      icon: '🎮',
+      symbols: ['🎮', '🕹', '🎲', '🎯', '🏆', '🥇', '🥈', '🥉', '🎖', '🏅', '⚔️', '🗡️', '🛡️', '🏹', '💣', '💥', '🔫', '☠️', '💀', '👾', '🤖', '🎳', '🎰', '🎴', '🃏', '🀄', '♠', '♣', '♥', '♦', '♤', '♧', '♡', '♢', '🎁', '🎀', '🎈', '🎉', '🎊', '🎄', '🎃', '⭐', '🌟', '✨', '💫', '🔥', '❌', '⭕', '✅', '🚀']
+    },
+    {
+      id: 'muzik',
+      name: (t.symbols.categories as any).muzik,
+      icon: '🎵',
+      symbols: ['♪', '♫', '♬', '♩', '🎵', '🎶', '🎼', '🎤', '🎧', '🎸', '🎹', '🎺', '🎻', '🥁', '🎷', '🪘', '🪗', '🪕', '🎙', '📻', '🔔', '🔕', '🔊', '🔉', '🔈', '🔇', '📢', '📣', '🔌', '🎚', '🎛', '📯', '🪈', '🎶', '🎵', '🎤', '🎧', '🎼', '♭', '♮', '♯', '𝄞', '𝄢', '𝄫', '𝄪', '🎹', '🪇', '🪘', '📀']
+    },
+    {
+      id: 'hava',
+      name: (t.symbols.categories as any).hava,
+      icon: '☀️',
+      symbols: ['☀', '☁', '☂', '☃', '☄', '🌤', '⛅', '🌥', '🌦', '🌧', '⛈', '🌩', '🌨', '❄', '🌬', '💨', '🌪', '🌈', '☔', '⚡', '🌊', '💧', '💦', '🌙', '🌛', '🌜', '🌝', '🌚', '⭐', '🌟', '☀️', '🌞', '🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘', '🌍', '🌎', '🌏', '🌐', '🛸', '🚀', '🌌', '✨', '☁️', '⛄']
+    },
+    {
+      id: 'isaretler',
+      name: (t.symbols.categories as any).isaretler,
+      icon: '✓',
+      symbols: ['✓', '✔', '✗', '✘', '✕', '✖', '☑', '☒', '☐', '✅', '❌', '❎', '⭕', '🔴', '🟠', '🟡', '🟢', '🔵', '🟣', '🟤', '⚫', '⚪', '🔘', '🔲', '🔳', '▪', '▫', '◼', '◻', '◾', '◽', '▶', '◀', '🔺', '🔻', '🔷', '🔶', '🔸', '🔹', '💠', '🔵', '🟥', '🟧', '🟨', '🟩', '🟦', '🟪', '⬛', '⬜', '🔈']
+    },
+    {
+      id: 'semboller',
+      name: (t.symbols.categories as any).semboller,
+      icon: '♈',
+      symbols: ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓', '⛎', '☮', '☯', '☪', '✝', '☦', '✡', '🕉', '☸', '⚛', '🔯', '🆔', '⚠', '☢', '☣', '📛', '🚫', '⭕', '♀', '♂', '⚧', '⚥', '⚢', '⚣', '⚤', '🔱', '⚜', '🧿', '👁️‍🗨️', '🧠', '👁', '💀', '☠️', '👻', '🎭', '🔮', '🪬']
+    },
+    {
+      id: 'el',
+      name: (t.symbols.categories as any).el,
+      icon: '👋',
+      symbols: ['👋', '🤚', '🖐', '✋', '🖖', '👌', '🤌', '🤏', '✌', '🤞', '🫰', '🤟', '🤘', '🤙', '👈', '👉', '👆', '🖕', '👇', '☝', '🫵', '👍', '👎', '✊', '👊', '🤛', '🤜', '👏', '🙌', '🤲', '🙏', '🤝', '💪', '🦾', '🦿', '🦵', '🦶', '👂', '🦻', '👃', '🧠', '👀', '👁', '👅', '👄', '💋', '🫦', '🦷', '🦴']
+    },
+    {
+      id: 'minimal',
+      name: (t.symbols.categories as any).minimal,
+      icon: '●',
+      symbols: ['•', '◦', '○', '●', '◉', '◎', '◐', '◑', '◒', '◓', '◔', '◕', '◖', '◗', '◘', '◙', '◚', '◛', '◜', '◝', '◞', '◟', '◠', '◡', '⦿', '⊙', '⊚', '⊛', '⊜', '⊝', '▪', '▫', '▬', '▭', '▮', '▯', '▰', '▱', '▲', '△', '▴', '▵', '▶', '▷', '▸', '▹', '►', '▻', '◆', '◇']
+    },
+    {
+      id: 'para',
+      name: (t.symbols.categories as any).para,
+      icon: '💰',
+      symbols: ['💰', '💵', '💴', '💶', '💷', '💸', '💳', '🪙', '💲', '₺', '$', '€', '£', '¥', '₩', '₽', '฿', '₿', '💎', '📈', '📉', '📊', '🏦', '🏧', '💹', '🛒', '🛍', '💼', '📦', '🎁', '🏪', '🏬', '🏭', '🏢', '💵', '💴', '💶', '💷', '🤑', '💲', '💱', '💹', '📈', '📉', '💳', '🧾', '💸', '🪙', '💎']
+    },
+    {
+      id: 'turk',
+      name: (t.symbols.categories as any).turk,
+      icon: '🇹🇷',
+      symbols: ['🇹🇷', '🧿', '☪', '🌙', '⭐', '🌷', '☕', '🫖', '🥯', '🍢', '🥙', '🍯', '🕌', '۩', '༺', '༻', '꧁', '꧂', '۞', '࿊', '◆', '◇', '❖', '✦', '✧', '★', '☆', '⁂', '❃', '❋', '🏛️', '🎭', '🧕', '🕋', '📿', '🪬', '🔮', '🎪', '🎡', '🎢', '🌍', '�', '🪵', '🪵', '�', '🐚', '🪸', '🪼', '🪵']
+    }
+  ], [t])
 
   // Toggle FAQ accordion
   const toggleFaq = (index: number) => {
@@ -228,8 +234,8 @@ export default function SekilliSembollerClient() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Şekilli Semboller",
-      "description": "Şekilli semboller ile süslü, özel ve estetik sembolleri tek tıkla kopyala ve kullan.",
+      "name": t.symbols.hero.title + " " + t.symbols.hero.titleHighlight,
+      "description": t.symbols.hero.description,
       "url": "https://yazistilleri.com/sekilli-semboller",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
@@ -264,24 +270,43 @@ export default function SekilliSembollerClient() {
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              ✨ Font Styles
+              {t.common.logo}
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="nav desktop-nav">
+              <Link href="/" className="nav-link">
+                {t.common.nav.home}
+              </Link>
               <Link href="/insta-yazi-tipi" className="nav-link">
-                Insta Font
+                {t.common.nav.insta}
               </Link>
               <Link href="/sekilli-semboller" className="nav-link active">
-                Shaped Symbols
+                {t.common.nav.symbols}
               </Link>
               <Link href="/pubg-sekilli-nick" className="nav-link">
-                PUBG Stylish Nickname
+                {t.common.nav.pubg}
               </Link>
             </nav>
 
-            {/* Right Actions: Theme Toggle & Hamburger */}
+            {/* Right Actions: Language, Theme & Hamburger */}
             <div className="header-actions">
+              {/* Language Switcher */}
+              <div className="lang-switcher">
+                <button
+                  className={`lang-btn ${lang === 'tr' ? 'active' : ''}`}
+                  onClick={() => setLang('tr')}
+                >
+                  TR
+                </button>
+                <button
+                  className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
+                  onClick={() => setLang('en')}
+                >
+                  EN
+                </button>
+              </div>
+
               <button
                 className="dark-mode-toggle"
                 onClick={() => setDarkMode(!darkMode)}
@@ -311,14 +336,33 @@ export default function SekilliSembollerClient() {
             <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
           </div>
           <nav className="mobile-nav">
+            {/* Language Switcher Mobile */}
+            <div className="mobile-lang-switcher">
+              <button
+                className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`}
+                onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}
+              >
+                Türkçe
+              </button>
+              <button
+                className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`}
+                onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}
+              >
+                English
+              </button>
+            </div>
+
+            <Link href="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🏠</span> {t.common.nav.home}
+            </Link>
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">📸</span> Insta Font
+              <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> Shaped Symbols
+              <span className="nav-icon">✨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> PUBG Stylish Nickname
+              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
           </nav>
         </div>
@@ -330,7 +374,6 @@ export default function SekilliSembollerClient() {
 
           {/* Hero Section */}
           <div className="hero-section">
-            {/* Animated Background */}
             <div className="hero-bg">
               <div className="hero-gradient"></div>
               <div className="hero-particles">
@@ -349,39 +392,37 @@ export default function SekilliSembollerClient() {
             </div>
 
             <div className="hero-content">
-              {/* Animated Title */}
               <div className="hero-badge">
                 <span className="badge-icon">🎨</span>
-                <span>Tek Tıkla Kopyala</span>
+                <span>{t.symbols.hero.badge}</span>
               </div>
 
               <h1 className="hero-title">
                 <span className="title-line">
-                  <span className="title-word">Cool</span>
-                  <span className="title-word highlight">Symbols</span>
+                  <span className="title-word">{t.symbols.hero.title}</span>
+                  <span className="title-word highlight">{t.symbols.hero.titleHighlight}</span>
                 </span>
               </h1>
 
               <p className="hero-description">
-                <span className="text-gradient">Fancy</span>, <span className="text-gradient">special</span>, and <span className="text-gradient">aesthetic</span> symbols to
-                copy with one click. Perfect for Instagram bio, WhatsApp status, and game names!
+                {t.symbols.hero.description}
               </p>
 
               {/* Stats */}
               <div className="hero-stats">
                 <div className="stat-item">
                   <span className="stat-number">{totalSymbols}+</span>
-                  <span className="stat-label">Sembol</span>
+                  <span className="stat-label">{t.symbols.hero.stat1}</span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
                   <span className="stat-number">{symbolCategories.length}</span>
-                  <span className="stat-label">Kategori</span>
+                  <span className="stat-label">{t.symbols.hero.stat2}</span>
                 </div>
                 <div className="stat-divider"></div>
                 <div className="stat-item">
                   <span className="stat-number">🇹🇷</span>
-                  <span className="stat-label">Türkçe</span>
+                  <span className="stat-label">{t.symbols.hero.stat3}</span>
                 </div>
               </div>
             </div>
@@ -397,7 +438,7 @@ export default function SekilliSembollerClient() {
                   window.scrollTo({ top: 0, behavior: 'smooth' })
                 }}
               >
-                Tümü
+                {t.common.all}
               </button>
               {symbolCategories.map((category) => (
                 <button
@@ -428,11 +469,11 @@ export default function SekilliSembollerClient() {
                       key={`${category.id}-${index}`}
                       className={`symbol-card ${isCopied ? 'copied' : ''}`}
                       onClick={() => handleCopy(symbol)}
-                      title={`${symbol} kopyala`}
+                      title={`${symbol} ${t.common.copy}`}
                     >
                       <span className="symbol-char">{symbol}</span>
                       <span className="symbol-action">
-                        {isCopied ? '✓' : 'Kopyala'}
+                        {isCopied ? '✓' : t.common.copy.replace('📋 ', '')}
                       </span>
                     </button>
                   )
@@ -441,556 +482,150 @@ export default function SekilliSembollerClient() {
             </div>
           ))}
 
-          {/* ============ COMPREHENSIVE SEO CONTENT ============ */}
 
-          {/* SECTION 1: Havalı ve Şık Semboller Nedir */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Havalı ve Şık Semboller Nedir?</h2>
+          {/* ============ DYNAMIC LOCALIZED CONTENT ============ */}
+          <div className="content-sections">
+            {t.symbols.sections.map((section: any) => (
+              <section key={section.id} id={section.id} className="info-box reveal">
+                <h2 className="section-main-title">{section.title}</h2>
 
-            <div className="content-intro">
-              <p className="intro-text">
-                <strong>Havalı semboller</strong>, sosyal medya platformlarında, oyun isimlerinde ve mesajlaşma uygulamalarında
-                kullanabileceğiniz özel karakterler ve işaretlerdir. Bu <strong>şık semboller</strong>, metninizi göz alıcı hale
-                getirmenize, profilinizi özelleştirmenize ve mesajlarınıza estetik bir dokunuş eklemenize yardımcı olur.
-                Kalpler, yıldızlar, oklar ve çiçekler gibi <strong>özel semboller</strong> tek tıkla kopyalanıp yapıştırılabilir.
-              </p>
-            </div>
-
-            <div className="feature-cards-grid">
-              <div className="feature-card gradient-purple">
-                <div className="feature-card-icon">❤️</div>
-                <h3>Zengin Sembol Koleksiyonu</h3>
-                <p>
-                  Kalpler, yıldızlar, oklar, çerçeveler, çiçekler ve daha fazlası! {totalSymbols}+ farklı <strong>şık sembol</strong> ile
-                  metninizi süsleyin ve profilinizi öne çıkarın.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-pink">
-                <div className="feature-card-icon">📋</div>
-                <h3>Tek Tıkla Kopyala</h3>
-                <p>
-                  İstediğiniz sembole tıklayın ve anında kopyalansın! <strong>Sembol kopyalama</strong> özelliğimizle
-                  saniyeler içinde istediğiniz yere yapıştırın.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-blue">
-                <div className="feature-card-icon">📱</div>
-                <h3>Tüm Platformlarda Çalışır</h3>
-                <p>
-                  Instagram, WhatsApp, TikTok, Discord ve daha fazlası! <strong>Sembol işaretleri</strong> Unicode tabanlıdır,
-                  bu yüzden tüm cihazlarda doğru şekilde görünür.
-                </p>
-              </div>
-
-              <div className="feature-card gradient-green">
-                <div className="feature-card-icon">🎮</div>
-                <h3>Oyun İsimleri İçin</h3>
-                <p>
-                  Oyunlarınız için havalı kullanıcı adları oluşturun! <strong>Özel işaretler</strong> ile
-                  klan etiketleri ve oyuncu isimleri için şık bir görünüm.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 2: En Popüler Semboller */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">En Popüler Havalı Semboller</h2>
-
-            <div className="categories-showcase">
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">❤️</span>
-                  <h3>Kalp Sembolleri</h3>
-                </div>
-                <p>Sevgi ve şefkat ifade etmek için en çok kullanılan semboller. Instagram bio ve mesajlar için ideal.</p>
-                <div className="category-examples">
-                  <span className="example-text">♥</span>
-                  <span className="example-text">❤</span>
-                  <span className="example-text">💖</span>
-                  <span className="example-text">💕</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">⭐</span>
-                  <h3>Yıldız Sembolleri</h3>
-                </div>
-                <p>Parlaklık ve önem ifade etmek için kullanılır. Göz alıcı profiller için mükemmel.</p>
-                <div className="category-examples">
-                  <span className="example-text">★</span>
-                  <span className="example-text">☆</span>
-                  <span className="example-text">✨</span>
-                  <span className="example-text">🌟</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🌸</span>
-                  <h3>Çiçek Sembolleri</h3>
-                </div>
-                <p>Doğa ve güzellik temalı süslemeler. Estetik bir görünüm için popüler bir seçim.</p>
-                <div className="category-examples">
-                  <span className="example-text">❀</span>
-                  <span className="example-text">✿</span>
-                  <span className="example-text">🌸</span>
-                  <span className="example-text">🌷</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🎮</span>
-                  <h3>Oyun Sembolleri</h3>
-                </div>
-                <p>Oyun isimleri ve klan etiketleri için havalı semboller. Profesyonel oyuncu görünümü.</p>
-                <div className="category-examples">
-                  <span className="example-text">『</span>
-                  <span className="example-text">』</span>
-                  <span className="example-text">【</span>
-                  <span className="example-text">】</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">🇹🇷</span>
-                  <h3>Türk Kültürü</h3>
-                </div>
-                <p>Nazar boncuğu, ay-yıldız ve lale gibi Türk kültürüne özgü semboller.</p>
-                <div className="category-examples">
-                  <span className="example-text">🧿</span>
-                  <span className="example-text">☪</span>
-                  <span className="example-text">🌷</span>
-                  <span className="example-text">☕</span>
-                </div>
-              </div>
-
-              <div className="category-card">
-                <div className="category-header-card">
-                  <span className="category-emoji">✨</span>
-                  <h3>Dekoratif</h3>
-                </div>
-                <p>Metin süslemesi için özel dekoratif semboller. Göz alıcı tasarımlar için.</p>
-                <div className="category-examples">
-                  <span className="example-text">✦</span>
-                  <span className="example-text">❖</span>
-                  <span className="example-text">✪</span>
-                  <span className="example-text">❋</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 3: Kategorilere Göre Semboller */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Kategorilere Göre Şık Semboller</h2>
-            <p className="section-subtitle">
-              Her kategori farklı kullanım alanları için optimize edilmiştir. İhtiyacınıza uygun sembolleri seçin.
-            </p>
-
-            <div className="platforms-detailed">
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">❤️</div>
-                <div className="platform-info">
-                  <h3>Kalp & Aşk</h3>
-                  <p>
-                    Sevgi ifade etmek için en popüler <strong>şık semboller</strong>. Instagram bio, WhatsApp durumu
-                    ve romantik mesajlar için mükemmel kalp sembolleri.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Bio</span>
-                    <span>Mesajlar</span>
-                    <span>Durum</span>
+                {section.type === 'text' && (
+                  <div className="content-intro">
+                    <p className="intro-text">{section.content}</p>
                   </div>
-                </div>
-              </div>
+                )}
 
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">⭐</div>
-                <div className="platform-info">
-                  <h3>Yıldız & Parıltı</h3>
-                  <p>
-                    Göz alıcı profiller için yıldız sembolleri. Başlıkları ve önemli metinleri
-                    vurgulamak için ideal.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Vurgu</span>
-                    <span>Başlık</span>
-                    <span>Öne Çıkarma</span>
+                {section.type === 'features' && (
+                  <div className="feature-cards-grid">
+                    {section.features.map((feature: any, idx: number) => (
+                      <div key={idx} className={`feature-card gradient-${idx % 4 === 0 ? 'purple' : idx % 4 === 1 ? 'pink' : idx % 4 === 2 ? 'blue' : 'green'}`}>
+                        <div className="feature-card-icon">{idx === 0 ? '❤️' : idx === 1 ? '📋' : idx === 2 ? '📱' : '🎮'}</div>
+                        <h3>{feature.title}</h3>
+                        <p>{feature.desc}</p>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              </div>
+                )}
 
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">🎮</div>
-                <div className="platform-info">
-                  <h3>Oyun & E-Spor</h3>
-                  <p>
-                    Oyun isimleri, klan etiketleri ve Discord sunucuları için <strong>özel karakterler</strong>.
-                    Profesyonel oyuncu görünümü sağlayan benzersiz işaretler.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Oyun İsmi</span>
-                    <span>Klan</span>
-                    <span>Discord</span>
+                {section.type === 'categoriesGrid' && (
+                  <div className="categories-showcase">
+                    {section.categories.map((cat: any, idx: number) => (
+                      <div key={idx} className="category-card">
+                        <div className="category-header-card">
+                          <span className="category-emoji">{cat.icon}</span>
+                          <h3>{cat.title}</h3>
+                        </div>
+                        <p>{cat.desc}</p>
+                        <div className="category-examples">
+                          {cat.examples.map((ex: string, eIdx: number) => (
+                            <span key={eIdx} className="example-text">{ex}</span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              </div>
+                )}
 
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">📱</div>
-                <div className="platform-info">
-                  <h3>Sosyal Medya</h3>
-                  <p>
-                    Instagram, TikTok ve Twitter için trend <strong>özel semboller</strong>.
-                    Bio, altyazılar ve story metinlerinde kullanın.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Instagram</span>
-                    <span>TikTok</span>
-                    <span>Twitter</span>
+                {section.type === 'tips' && (
+                  <div className="tips-grid">
+                    {section.tips.map((tip: any, idx: number) => (
+                      <div key={idx} className="tip-card">
+                        <div className="tip-number">{idx + 1 < 10 ? `0${idx + 1}` : idx + 1}</div>
+                        <h3>{tip.title}</h3>
+                        <p>{tip.desc}</p>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              </div>
+                )}
 
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">💬</div>
-                <div className="platform-info">
-                  <h3>Mesajlaşma</h3>
-                  <p>
-                    WhatsApp, Telegram ve diğer mesajlaşma uygulamaları için semboller.
-                    Mesajlarınızı eğlenceli ve renkli hale getirin.
-                  </p>
-                  <div className="platform-uses">
-                    <span>WhatsApp</span>
-                    <span>Telegram</span>
-                    <span>SMS</span>
+                {section.type === 'faq' && (
+                  <div className="faq-accordion">
+                    {section.faqs.map((faq: any, idx: number) => (
+                      <div
+                        key={idx}
+                        className={`faq-item ${expandedFaq === idx ? 'expanded' : ''}`}
+                        onClick={() => toggleFaq(idx)}
+                      >
+                        <div className="faq-question">
+                          <span className="faq-icon">❓</span>
+                          <h3>{faq.q}</h3>
+                          <span className="faq-toggle">{expandedFaq === idx ? '−' : '+'}</span>
+                        </div>
+                        <div className="faq-answer">
+                          <p>{faq.a}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                </div>
-              </div>
-
-              <div className="platform-detailed-card">
-                <div className="platform-icon-large">🌷</div>
-                <div className="platform-info">
-                  <h3>Dekorasyon</h3>
-                  <p>
-                    Çiçek, doğa ve dekoratif <strong>sembol işaretleri</strong>. Estetik profiller ve
-                    güzel görünümlü metinler için.
-                  </p>
-                  <div className="platform-uses">
-                    <span>Estetik</span>
-                    <span>Süsleme</span>
-                    <span>Dekor</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+                )}
+              </section>
+            ))}
           </div>
 
-          {/* SECTION 4: Semboller Nerede Kullanılır */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Havalı Semboller Nerede Kullanılır?</h2>
-
-            <div className="detailed-steps">
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">1</div>
-                  <div className="step-icon-circle">📷</div>
-                </div>
-                <div className="step-details">
-                  <h3>Instagram</h3>
-                  <p>
-                    Instagram bio, gönderi altyazıları, hikayeler ve yorumlarda <strong>havalı semboller</strong> ile öne çıkın.
-                    Kalp, yıldız ve çiçek sembolleri en popüler seçimlerdir.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Bio'da 150 karakter sınırını unutmayın</li>
-                    <li>Öne çıkan kapak başlıklarında kullanın</li>
-                    <li>Altyazılarda göz alıcı bir görünüm sağlar</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">2</div>
-                  <div className="step-icon-circle">💬</div>
-                </div>
-                <div className="step-details">
-                  <h3>WhatsApp & Mesajlaşma</h3>
-                  <p>
-                    WhatsApp durum güncellemelerinde, grup isimlerinde ve kişisel mesajlarda <strong>şık semboller</strong> ile
-                    iletişiminizi canlandırın.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Durum mesajlarını süsleyin</li>
-                    <li>Grup isimlerini özelleştirin</li>
-                    <li>Mesajlarınıza eğlenceli bir dokunuu015f ekleyin</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="detailed-step">
-                <div className="step-visual">
-                  <div className="step-number-large">3</div>
-                  <div className="step-icon-circle">🎮</div>
-                </div>
-                <div className="step-details">
-                  <h3>Oyun & Discord</h3>
-                  <p>
-                    Oyun karakter isimlerinde, klan etiketlerinde ve Discord sunucu/kanal isimlerinde <strong>özel işaretler</strong>
-                    kullanarak profesyonel ve göz alıcı bir görünüm elde edin.
-                  </p>
-                  <ul className="step-tips">
-                    <li>Çerçeve sembolleri klan isimleri için mükemmel</li>
-                    <li>Yıldız ve ok sembolleriyle oyuncu isimleri oluşturun</li>
-                    <li>Discord rollerinde ve kanal isimlerinde kullanın</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 5: Kullanım İpuçları */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Kullanım İpuçları</h2>
-
-            <div className="tips-grid">
-              <div className="tip-card">
-                <div className="tip-number">01</div>
-                <h3>Aşırıya Kaçmayın</h3>
-                <p>
-                  Çok fazla sembol kullanmak okunabilirliği azaltır. Vurgulamak istediğiniz
-                  yerlerde kullanın.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">02</div>
-                <h3>Uyumlu Semboller Seçin</h3>
-                <p>
-                  Aynı tema veya stildeki sembolleri birlikte kullanın. Kalpler kalple, yıldızlar
-                  yıldızla.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">03</div>
-                <h3>Platform Uyumluluğu</h3>
-                <p>
-                  Bazı semboller bazı platformlarda farklı görünebilir. Paylaşmadan önce
-                  test edin.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">04</div>
-                <h3>Simetrik Kullanım</h3>
-                <p>
-                  Metnin başına ve sonuna aynı sembolleri koyarak simetrik ve estetik bir
-                  görünüm elde edin.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">05</div>
-                <h3>Favorilerinizi Kaydedin</h3>
-                <p>
-                  Sık kullandığınız sembolleri bir not defterine kaydedin, her seferinde
-                  aramak zorunda kalmayın.
-                </p>
-              </div>
-
-              <div className="tip-card">
-                <div className="tip-number">06</div>
-                <h3>Kombinasyonlar Deneyin</h3>
-                <p>
-                  Farklı sembolleri birleştirerek benzersiz dekoratif çerçeveler oluşturun.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 6: FAQ */}
-          <div className="info-box reveal">
-            <h2 className="section-main-title">Sıkça Sorulan Sorular</h2>
-
-            <div className="faq-accordion">
-              <div className={`faq-item ${expandedFaq === 0 ? 'expanded' : ''}`} onClick={() => toggleFaq(0)}>
-                <div className="faq-question">
-                  <span className="faq-icon">❓</span>
-                  <h3>Şık semboller tüm cihazlarda çalışır mı?</h3>
-                  <span className="faq-toggle">{expandedFaq === 0 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet! <strong>Şık semboller</strong> Unicode karakter setini kullanır, bu yüzden iPhone, Android,
-                    Windows ve Mac dahil tüm modern cihazlarda görüntülenir. Ancak bazı emojiler eski
-                    cihazlarda farklı görünebilir.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 1 ? 'expanded' : ''}`} onClick={() => toggleFaq(1)}>
-                <div className="faq-question">
-                  <span className="faq-icon">📋</span>
-                  <h3>Sembolleri nasıl kopyalarım?</h3>
-                  <span className="faq-toggle">{expandedFaq === 1 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Çok basit! İstediğiniz sembole tıklayın ve otomatik olarak panonuza kopyalanacaktır.
-                    "Kopyalandı" bildirimini gördüğünüzde, istediğiniz yere yapıştırabilirsiniz.
-                    Mobil ve masaüstünde aynı şekilde çalışır.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 2 ? 'expanded' : ''}`} onClick={() => toggleFaq(2)}>
-                <div className="faq-question">
-                  <span className="faq-icon">📷</span>
-                  <h3>Sembolleri Instagram'da kullanabilir miyim?</h3>
-                  <span className="faq-toggle">{expandedFaq === 2 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Kesinlikle! <strong>Şık semboller</strong> Instagram bio, gönderi altyazıları,
-                    hikaye metinleri ve yorumlarda mükemmel çalışır. Kalp, yıldız ve çiçek sembolleri
-                    profilinizi öne çıkarmak için harika seçimlerdir.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 3 ? 'expanded' : ''}`} onClick={() => toggleFaq(3)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🎮</span>
-                  <h3>Oyun isimlerinde kullanabilir miyim?</h3>
-                  <span className="faq-toggle">{expandedFaq === 3 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, ancak oyuna bağlıdır. Çoğu oyun Unicode karakterleri destekler ve
-                    <strong>özel işaretler</strong> kullanmanıza izin verir. 【】『』 gibi çerçeve sembolleri
-                    klan isimleri için özellikle popülerdir. Oyununuzun karakter sınırlamalarını kontrol edin.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 4 ? 'expanded' : ''}`} onClick={() => toggleFaq(4)}>
-                <div className="faq-question">
-                  <span className="faq-icon">💰</span>
-                  <h3>Bu araç ücretsiz mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 4 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, <strong>sembol kopyalama</strong> aracımız tamamen ücretsizdir. Kayıt veya
-                    giriş gerekmez. Tüm {totalSymbols}+ sembol sınırsız ve ücretsiz kullanıma açıktır.
-                  </p>
-                </div>
-              </div>
-
-              <div className={`faq-item ${expandedFaq === 5 ? 'expanded' : ''}`} onClick={() => toggleFaq(5)}>
-                <div className="faq-question">
-                  <span className="faq-icon">🔒</span>
-                  <h3>Güvenli mi?</h3>
-                  <span className="faq-toggle">{expandedFaq === 5 ? '−' : '+'}</span>
-                </div>
-                <div className="faq-answer">
-                  <p>
-                    Evet, %100 güvenlidir. Tüm işlemler tarayıcınızda gerçekleşir; sunucularımıza hiçbir veri
-                    gönderilmez. <strong>Özel semboller</strong> yalnızca kopyala-yapıştır işlemi yapar ve
-                    cihazınıza veya hesaplarınıza erişmez.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* SECTION 7: Feature Banners */}
-          <div className="info-section">
-            <div className="feature-banners-grid">
-              <div className="feature-banner gradient-success">
-                <div className="feature-banner-icon">🚀</div>
-                <div className="feature-banner-content">
-                  <h3>Ücretsiz ve Hızlı</h3>
-                  <p>Kayıt gerekmez, tek tıkla sembolleri kopyalayın ve kullanın!</p>
-                </div>
-              </div>
-
-              <div className="feature-banner gradient-security">
-                <div className="feature-banner-icon">🔒</div>
-                <div className="feature-banner-content">
-                  <h3>%100 Güvenli</h3>
-                  <p>Tüm işlemler tarayıcınızda gerçekleşir; verileriniz sizde kalır.</p>
-                </div>
-              </div>
-
-              <div className="feature-banner gradient-mobile">
-                <div className="feature-banner-icon">📱</div>
-                <div className="feature-banner-content">
-                  <h3>Mobil Uyumlu</h3>
-                  <p>Telefonunuzdan kolayca sembolleri kopyalayın.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Internal Links Section */}
-          <div className="back-link-section">
+          {/* Link back to other pages */}
+          <div className="back-link-section reveal">
             <p>
-              Yazı stilleri mi arıyorsunuz?
+              {lang === 'tr' ? 'Daha fazla yazı stili mi arıyorsunuz?' : 'Looking for more font styles?'}
               <Link href="/" className="homepage-link">
-                Ana Sayfa
+                {t.common.nav.home}
               </Link>
-              {' '}veya{' '}
+              ,
               <Link href="/insta-yazi-tipi" className="homepage-link">
-                Instagram Yazı Tipi
+                {t.common.nav.insta}
               </Link>
-              {' '}sayfalarını ziyaret edin.
+              {' '}{lang === 'tr' ? 've' : 'and'}{' '}
+              <Link href="/pubg-sekilli-nick" className="homepage-link">
+                {t.common.nav.pubg}
+              </Link>
+              {' '}{lang === 'tr' ? 'sayfalarımıza göz atın.' : 'pages.'}
             </p>
           </div>
-
         </div>
       </main>
-
-      {/* Toast Notification */}
-      {showToast && (
-        <div className="toast">
-          <span className="toast-icon">✓</span>
-          <span>Kopyalandı!</span>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="footer">
         <div className="container">
           <div className="footer-content">
-            <div className="footer-links">
-              <Link href="/" className="footer-link">
-                Ana Sayfa
+            <div className="footer-logo">
+              <Link href="/" className="logo">
+                {t.common.logo}
               </Link>
-              <Link href="/insta-yazi-tipi" className="footer-link">
-                Insta Yazı Tipi
-              </Link>
-              <Link href="/sekilli-semboller" className="footer-link">
-                Şekilli Semboller
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="footer-link">
-                PUBG Şekilli Nick
-              </Link>
+              <p className="footer-tagline">
+                {lang === 'tr'
+                  ? 'Sosyal medya ve oyunlar için en havalı yazı tipleri ve semboller.'
+                  : 'Coolest fonts and symbols for social media and games.'}
+              </p>
             </div>
-            <div className="footer-text">
-              © 2026 Yazı Stilleri. Tüm hakları saklıdır.
+            <div className="footer-links-grid">
+              <div className="footer-links-col">
+                <h4>{lang === 'tr' ? 'Hızlı Bağlantılar' : 'Quick Links'}</h4>
+                <ul>
+                  <li><Link href="/">{t.common.footer.home}</Link></li>
+                  <li><Link href="/insta-yazi-tipi">{t.common.footer.insta}</Link></li>
+                  <li><Link href="/sekilli-semboller">{t.common.footer.symbols}</Link></li>
+                  <li><Link href="/pubg-sekilli-nick">{t.common.footer.pubg}</Link></li>
+                </ul>
+              </div>
             </div>
+          </div>
+          <div className="footer-bottom">
+            <p>{t.common.footer.rights}</p>
           </div>
         </div>
       </footer>
+
+      {/* Copy Toast */}
+      {showToast && (
+        <div className="toast-container">
+          <div className="toast">
+            <span className="toast-icon">✨</span>
+            <span className="toast-text">
+              {copiedSymbol}: {lang === 'tr' ? 'Panoya kopyalandı!' : 'Copied to clipboard!'}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Additional Styles */}
       <style jsx>{`
@@ -1135,6 +770,6 @@ export default function SekilliSembollerClient() {
           }
         }
       `}</style>
-    </div>
+    </div >
   )
 }
