@@ -40,7 +40,7 @@ Build tamamlandıktan sonra `out` klasörü oluşacak.
 
 **ÖNEMLİ:** `public/sitemap.xml` ve `public/robots.txt` dosyalarındaki domain adresini kendi domain'inizle değiştirin:
 
-- `https://yazistilleri.com` → `https://yourdomain.com`
+- `https://yazı-stilleripro.com.tr` → `https://yourdomain.com`
 
 ### 5. Test
 

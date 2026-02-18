@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://yazistilleri.com/sitemap.xml
+Sitemap: https://yazı-stilleripro.com.tr/sitemap.xml

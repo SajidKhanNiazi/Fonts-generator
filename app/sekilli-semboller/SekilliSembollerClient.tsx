@@ -236,7 +236,7 @@ export default function SekilliSembollerClient() {
       "@type": "WebApplication",
       "name": t.symbols.hero.title + " " + t.symbols.hero.titleHighlight,
       "description": t.symbols.hero.description,
-      "url": "https://yazistilleri.com/sekilli-semboller",
+      "url": "https://yazı-stilleripro.com.tr/sekilli-semboller",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -280,12 +280,6 @@ export default function SekilliSembollerClient() {
               </Link>
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
-              </Link>
-              <Link href="/sekilli-semboller" className="nav-link active">
-                {t.common.nav.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="nav-link">
-                {t.common.nav.pubg}
               </Link>
             </nav>
 
@@ -357,12 +351,6 @@ export default function SekilliSembollerClient() {
             </Link>
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
-            </Link>
-            <Link href="/sekilli-semboller" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> {t.common.nav.symbols}
-            </Link>
-            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
           </nav>
         </div>
@@ -569,15 +557,10 @@ export default function SekilliSembollerClient() {
               <Link href="/" className="homepage-link">
                 {t.common.nav.home}
               </Link>
-              ,
               <Link href="/insta-yazi-tipi" className="homepage-link">
                 {t.common.nav.insta}
               </Link>
-              {' '}{lang === 'tr' ? 've' : 'and'}{' '}
-              <Link href="/pubg-sekilli-nick" className="homepage-link">
-                {t.common.nav.pubg}
-              </Link>
-              {' '}{lang === 'tr' ? 'sayfalarımıza göz atın.' : 'pages.'}
+              {' '}{lang === 'tr' ? 'sayfamıza göz atın.' : 'page.'}
             </p>
           </div>
         </div>
@@ -603,8 +586,9 @@ export default function SekilliSembollerClient() {
                 <ul>
                   <li><Link href="/">{t.common.footer.home}</Link></li>
                   <li><Link href="/insta-yazi-tipi">{t.common.footer.insta}</Link></li>
-                  <li><Link href="/sekilli-semboller">{t.common.footer.symbols}</Link></li>
-                  <li><Link href="/pubg-sekilli-nick">{t.common.footer.pubg}</Link></li>
+                  <li><Link href="/gizlilik-politikasi">Gizlilik Politikası</Link></li>
+                  <li><Link href="/kullanim-kosullari">Kullanım Koşulları</Link></li>
+                  <li><Link href="/hakkimizda">Hakkımızda</Link></li>
                 </ul>
               </div>
             </div>

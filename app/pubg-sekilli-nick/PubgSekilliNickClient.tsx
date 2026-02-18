@@ -277,7 +277,7 @@ export default function PubgSekilliNickClient() {
       "@type": "WebApplication",
       "name": lang === 'tr' ? "PUBG Şekilli Nick" : "PUBG Stylish Nickname",
       "description": lang === 'tr' ? "PUBG şekilli nick oluştur, havalı ve estetik PUBG nicklerini tek tıkla kopyala ve oyunda kullan." : "Create PUBG stylish nicknames, copy cool and aesthetic PUBG nicks with one click and use in game.",
-      "url": `https://yazistilleri.com/pubg-sekilli-nick`,
+      "url": `https://yazı-stilleripro.com.tr/pubg-sekilli-nick`,
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -323,12 +323,6 @@ export default function PubgSekilliNickClient() {
               </Link>
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
-              </Link>
-              <Link href="/sekilli-semboller" className="nav-link">
-                {t.common.nav.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="nav-link active">
-                {t.common.nav.pubg}
               </Link>
             </nav>
 
@@ -386,12 +380,6 @@ export default function PubgSekilliNickClient() {
             </Link>
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
-            </Link>
-            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> {t.common.nav.symbols}
-            </Link>
-            <Link href="/pubg-sekilli-nick" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
 
             {/* Mobile Language Switcher */}
@@ -1104,11 +1092,7 @@ export default function PubgSekilliNickClient() {
                 <Link href="/insta-yazi-tipi" className="homepage-link">
                   {t.common.nav.insta}
                 </Link>
-                {' '}{lang === 'tr' ? 've' : 'and'}{' '}
-                <Link href="/sekilli-semboller" className="homepage-link">
-                  {t.common.nav.symbols}
-                </Link>
-                {' '}{lang === 'tr' ? 'sayfalarımıza göz atın.' : 'pages.'}
+                {' '}{lang === 'tr' ? 'sayfamıza göz atın.' : 'page.'}
               </p>
             </div>
           </div>
@@ -1134,12 +1118,9 @@ export default function PubgSekilliNickClient() {
               <Link href="/insta-yazi-tipi" className="footer-link">
                 {t.common.footer.insta}
               </Link>
-              <Link href="/sekilli-semboller" className="footer-link">
-                {t.common.footer.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="footer-link">
-                {t.common.footer.pubg}
-              </Link>
+              <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
+              <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>
+              <Link href="/hakkimizda" className="footer-link">Hakkımızda</Link>
             </div>
             <div className="footer-text">
               {t.common.footer.rights}

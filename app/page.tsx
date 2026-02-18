@@ -186,12 +186,6 @@ export default function Home() {
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
               </Link>
-              <Link href="/sekilli-semboller" className="nav-link">
-                {t.common.nav.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="nav-link">
-                {t.common.nav.pubg}
-              </Link>
             </nav>
 
             {/* Right Actions: Theme Toggle, Lang Toggle & Hamburger */}
@@ -237,12 +231,6 @@ export default function Home() {
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
-            </Link>
-            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> {t.common.nav.symbols}
-            </Link>
-            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
             <div className="mobile-lang-switch">
               <button
@@ -620,6 +608,9 @@ export default function Home() {
               <Link href="/" className="footer-link">
                 Ana Sayfa
               </Link>
+              <Link href="/insta-yazi-tipi" className="footer-link">
+                İnstagram Yazı Tipi
+              </Link>
               <Link href="/gizlilik-politikasi" className="footer-link">
                 Gizlilik Politikası
               </Link>
@@ -628,9 +619,6 @@ export default function Home() {
               </Link>
               <Link href="/hakkimizda" className="footer-link">
                 Hakkımızda
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="footer-link">
-                PUBG Şekilli Nick
               </Link>
             </div>
             <div className="footer-text">

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Instagram bio, gönderi ve hikayeler için en güzel insta yazı tipi fontlarını hemen oluştur.',
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://yazistilleri.com/insta-yazi-tipi',
+    url: 'https://yazı-stilleripro.com.tr/insta-yazi-tipi',
   },
   twitter: {
     card: 'summary_large_image',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://yazistilleri.com/insta-yazi-tipi',
+    canonical: 'https://yazı-stilleripro.com.tr/insta-yazi-tipi',
   },
 }
 

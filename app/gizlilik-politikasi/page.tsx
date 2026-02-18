@@ -23,6 +23,9 @@ export default function GizlilikPolitikasi() {
               <Link href="/" className="nav-link">
                 Ana Sayfa
               </Link>
+              <Link href="/insta-yazi-tipi" className="nav-link">
+                İnstagram Yazı Tipi
+              </Link>
               <Link href="/hakkimizda" className="nav-link">
                 Hakkımızda
               </Link>
@@ -146,6 +149,9 @@ export default function GizlilikPolitikasi() {
             <div className="footer-links">
               <Link href="/" className="footer-link">
                 Ana Sayfa
+              </Link>
+              <Link href="/insta-yazi-tipi" className="footer-link">
+                İnstagram Yazı Tipi
               </Link>
               <Link href="/hakkimizda" className="footer-link">
                 Hakkımızda

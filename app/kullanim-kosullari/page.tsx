@@ -23,6 +23,9 @@ export default function KullanimKosullari() {
                             <Link href="/" className="nav-link">
                                 Ana Sayfa
                             </Link>
+                            <Link href="/insta-yazi-tipi" className="nav-link">
+                                İnstagram Yazı Tipi
+                            </Link>
                             <Link href="/hakkimizda" className="nav-link">
                                 Hakkımızda
                             </Link>
@@ -108,7 +111,7 @@ export default function KullanimKosullari() {
                     <div className="footer-content">
                         <div className="footer-links">
                             <Link href="/" className="footer-link">Ana Sayfa</Link>
-                            <Link href="/insta-yazi-tipi" className="footer-link">Instagram Yazı Tipi</Link>
+                            <Link href="/insta-yazi-tipi" className="footer-link">İnstagram Yazı Tipi</Link>
                             <Link href="/hakkimizda" className="footer-link">Hakkımızda</Link>
                             <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
                             <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>

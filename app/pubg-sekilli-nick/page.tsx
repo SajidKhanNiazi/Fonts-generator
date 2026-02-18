@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: 'PUBG şekilli nick oluştur, havalı ve estetik PUBG nicklerini tek tıkla kopyala ve oyunda kullan.',
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://yazistilleri.com/pubg-sekilli-nick',
+    url: 'https://yazı-stilleripro.com.tr/pubg-sekilli-nick',
   },
   twitter: {
     card: 'summary_large_image',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://yazistilleri.com/pubg-sekilli-nick',
+    canonical: 'https://yazı-stilleripro.com.tr/pubg-sekilli-nick',
   },
 }
 

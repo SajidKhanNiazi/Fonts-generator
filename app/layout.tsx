@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://yazistilleri.com',
+    canonical: 'https://yazı-stilleripro.com.tr',
   },
 }
 

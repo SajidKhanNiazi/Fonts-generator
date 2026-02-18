@@ -518,7 +518,7 @@ export default function InstaYaziTipiClient() {
       "@type": "WebApplication",
       "name": t.insta.hero.title + " " + t.insta.hero.titleHighlight,
       "description": t.insta.hero.description,
-      "url": "https://yazistilleri.com/insta-yazi-tipi",
+      "url": "https://yazı-stilleripro.com.tr/insta-yazi-tipi",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -556,12 +556,6 @@ export default function InstaYaziTipiClient() {
             <nav className="nav desktop-nav">
               <Link href="/insta-yazi-tipi" className="nav-link active">
                 {t.common.nav.insta}
-              </Link>
-              <Link href="/sekilli-semboller" className="nav-link">
-                {t.common.nav.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="nav-link">
-                {t.common.nav.pubg}
               </Link>
             </nav>
 
@@ -608,12 +602,6 @@ export default function InstaYaziTipiClient() {
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
-            </Link>
-            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">✨</span> {t.common.nav.symbols}
-            </Link>
-            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
             <div className="mobile-lang-switch">
               <button
