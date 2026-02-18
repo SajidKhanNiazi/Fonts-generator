@@ -629,129 +629,180 @@ export default function InstaYaziTipiClient() {
 
       {/* Main Content */}
       <main className="main">
-        <div className="container">
-
-          {/* Hero Section */}
-          <div className="hero-section">
-            {/* Animated Background */}
-            <div className="hero-bg">
-              <div className="hero-gradient"></div>
-              <div className="hero-particles">
-                <div className="particle particle-1">✨</div>
-                <div className="particle particle-2">🎨</div>
-                <div className="particle particle-3">⭐</div>
-                <div className="particle particle-4">💫</div>
-                <div className="particle particle-5">🌟</div>
-                <div className="particle particle-6">✦</div>
-              </div>
-              <div className="hero-shapes">
-                <div className="shape shape-1"></div>
-                <div className="shape shape-2"></div>
-                <div className="shape shape-3"></div>
-              </div>
+        {/* Full-Screen Hero Section (Home Design Logic) */}
+        <div className="hero-section-fullscreen">
+          {/* Animated Background */}
+          <div className="hero-bg-fullscreen">
+            <div className="hero-gradient-animated"></div>
+            <div className="hero-particles-animated">
+              <div className="particle particle-1">✨</div>
+              <div className="particle particle-2">📸</div>
+              <div className="particle particle-3">⭐</div>
+              <div className="particle particle-4">💫</div>
+              <div className="particle particle-5">🌟</div>
+              <div className="particle particle-6">✦</div>
+              <div className="particle particle-7">💎</div>
+              <div className="particle particle-8">🔮</div>
             </div>
-
-            <div className="hero-content">
-              {/* Animated Title */}
-              <div className="hero-badge">
-                <span className="badge-icon">📸</span>
-                <span>{t.insta.hero.badge}</span>
-              </div>
-
-              <h1 className="hero-title">
-                <span className="title-line">
-                  <span className="title-word">{t.insta.hero.title}</span>
-                  <span className="title-word highlight">{t.insta.hero.titleHighlight}</span>
-                </span>
-              </h1>
-
-              <p className="hero-description">
-                {t.insta.hero.description}
-              </p>
-
-              {/* Modern Input Section */}
-              <div className="hero-input-wrapper">
-                <div className="input-glow"></div>
-                <div className="modern-input-container">
-                  <div className="input-header-modern">
-                    <div className="input-icon-modern">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                    <div className="input-header-text">
-                      <h2>{t.insta.hero.inputTitle}</h2>
-                      <p>{t.insta.hero.inputSub}</p>
-                    </div>
-                  </div>
-
-                  <div className="input-field-wrapper">
-                    <textarea
-                      id="text-input"
-                      className="modern-text-input"
-                      value={inputText}
-                      onChange={(e) => setInputText(e.target.value)}
-                      placeholder={t.insta.hero.inputPlaceholder}
-                      rows={2}
-                      maxLength={150}
-                    />
-                    <div className="input-actions">
-                      <button
-                        className="clear-input-btn"
-                        onClick={() => setInputText('')}
-                        style={{ opacity: inputText ? 1 : 0 }}
-                      >
-                        ✕ Temizle
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="input-footer-modern">
-                    <div className="turkish-chars">
-                      <span className="char-badge">ç</span>
-                      <span className="char-badge">ğ</span>
-                      <span className="char-badge">ı</span>
-                      <span className="char-badge">İ</span>
-                      <span className="char-badge">ö</span>
-                      <span className="char-badge">ş</span>
-                      <span className="char-badge">ü</span>
-                      <span className="char-label">desteklenir</span>
-                    </div>
-                    <div className={`char-counter ${inputText.length > 120 ? 'warning' : ''} ${inputText.length > 140 ? 'danger' : ''}`}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      </svg>
-                      <span>{inputText.length}</span>
-                      <span className="counter-max">/ 150</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Stats */}
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <span className="stat-number">{instagramFonts.length}+</span>
-                  <span className="stat-label">Font Stili</span>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">📸</span>
-                  <span className="stat-label">Instagram</span>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">🇹🇷</span>
-                  <span className="stat-label">Türkçe</span>
-                </div>
-              </div>
+            <div className="hero-shapes-animated">
+              <div className="shape shape-1"></div>
+              <div className="shape shape-2"></div>
+              <div className="shape shape-3"></div>
+              <div className="shape shape-4"></div>
             </div>
           </div>
 
-          {/* Font Cards Section */}
+          <div className="hero-content-fullscreen">
+            {/* Badge */}
+            <div className="hero-badge-modern">
+              <span className="badge-pulse"></span>
+              <span className="badge-icon">📸</span>
+              <span className="badge-text">{t.insta.hero.badge}</span>
+            </div>
+
+            {/* Main Title */}
+            <h1 className="hero-title-fullscreen">
+              <span className="title-line-animated">
+                <span className="title-word-animated">{t.insta.hero.title}</span>
+                <span className="title-word-animated highlight-gradient">{t.insta.hero.titleHighlight}</span>
+              </span>
+            </h1>
+
+            {/* Description */}
+            <p className="hero-description-fullscreen">
+              {t.insta.hero.description}
+            </p>
+
+            {/* Premium Input Section */}
+            <div className="hero-input-fullscreen">
+              <div className="input-glow-effect"></div>
+              <div className="input-container-glass">
+                {/* Input Header */}
+                <div className="input-header-premium">
+                  <div className="input-icon-premium">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="url(#gradient1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 17L12 22L22 17" stroke="url(#gradient1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 12L12 17L22 12" stroke="url(#gradient1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <defs>
+                        <linearGradient id="gradient1" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                          <stop offset="0%" stopColor="#8b5cf6" />
+                          <stop offset="100%" stopColor="#ec4899" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                  <div className="input-header-text-premium">
+                    <h2>{t.insta.hero.inputTitle}</h2>
+                    <p>{t.insta.hero.inputSub}</p>
+                  </div>
+                </div>
+
+                {/* Input Field */}
+                <div className="input-field-premium">
+                  <textarea
+                    id="insta-input"
+                    className="text-input-premium"
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder={t.insta.hero.inputPlaceholder}
+                    rows={2}
+                    maxLength={500}
+                  />
+                  <button
+                    className="clear-btn-premium"
+                    onClick={() => setInputText('')}
+                    style={{ opacity: inputText ? 1 : 0, pointerEvents: inputText ? 'auto' : 'none' }}
+                    aria-label={t.common.clear}
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Input Footer */}
+                <div className="input-footer-premium">
+                  <div className="turkish-chars-premium">
+                    <div className="chars-group">
+                      <span className="char-badge-premium">ç</span>
+                      <span className="char-badge-premium">ğ</span>
+                      <span className="char-badge-premium">ı</span>
+                      <span className="char-badge-premium">İ</span>
+                      <span className="char-badge-premium">ö</span>
+                      <span className="char-badge-premium">ş</span>
+                      <span className="char-badge-premium">ü</span>
+                    </div>
+                    <span className="char-label-premium">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      {t.common.charsSupported}
+                    </span>
+                  </div>
+                  <div className={`char-counter-premium ${inputText.length > 400 ? 'warning' : ''} ${inputText.length > 480 ? 'danger' : ''}`}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
+                      <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span className="counter-text">{inputText.length} / 500</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats - Centered Container */}
+            <div className="hero-stats-fullscreen">
+              <div className="stat-item-premium">
+                <div className="stat-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="url(#statGradient1)" />
+                    <defs>
+                      <linearGradient id="statGradient1" x1="2" y1="2" x2="22" y2="22">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="100%" stopColor="#6366f1" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div className="stat-content">
+                  <span className="stat-number-premium">40+</span>
+                  <span className="stat-label-premium">{t.home.hero.stat1}</span>
+                </div>
+              </div>
+              <div className="stat-divider-premium"></div>
+              <div className="stat-item-premium">
+                <div className="stat-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="3" width="18" height="18" rx="2" fill="url(#statGradient2)" />
+                    <defs>
+                      <linearGradient id="statGradient2" x1="3" y1="3" x2="21" y2="21">
+                        <stop offset="0%" stopColor="#ec4899" />
+                        <stop offset="100%" stopColor="#f472b6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div className="stat-content">
+                  <span className="stat-number-premium">3</span>
+                  <span className="stat-label-premium">{t.home.hero.stat2}</span>
+                </div>
+              </div>
+              <div className="stat-divider-premium"></div>
+              <div className="stat-item-premium">
+                <div className="stat-icon">🇹🇷</div>
+                <div className="stat-content">
+                  <span className="stat-number-premium">%100</span>
+                  <span className="stat-label-premium">{t.home.hero.stat3}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="container">
+
           <div className="category-section">
             <h2 className="category-header">
               Instagram İçin En Popüler Yazı Tipleri
@@ -787,7 +838,6 @@ export default function InstaYaziTipiClient() {
             </div>
           </div>
 
-          {/* Content section – modern SaaS design, tight spacing, mobile-first */}
           {/* Content section – modern SaaS design */}
           <article className="insta-content" aria-label="Instagram font guide">
 
@@ -855,14 +905,16 @@ export default function InstaYaziTipiClient() {
 
             {/* Usage Trio (Stories, Bio, Posts) - Feature Grid */}
             <section className="saas-section reveal">
-              <div className="saas-feature-grid">
+              <div className="saas-feature-stack">
                 {['stories', 'bio', 'posts'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any, idx: number) => (
                   <div key={section.id} className="saas-feature-card">
                     <div className="saas-feature-icon">
                       {idx === 0 ? '📝' : idx === 1 ? '👤' : '🖼️'}
                     </div>
-                    <h3 className="saas-feature-title">{section.title}</h3>
-                    <p className="saas-feature-desc">{section.content}</p>
+                    <div className="saas-feature-content">
+                      <h3 className="saas-feature-title">{section.title}</h3>
+                      <p className="saas-feature-desc">{section.content}</p>
+                    </div>
                   </div>
                 ))}
               </div>

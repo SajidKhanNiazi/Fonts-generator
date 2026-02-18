@@ -1,626 +1,522 @@
-/* ============================================
-   INSTAGRAM FONT PAGE – SAAS CONTENT REDESIGN
-   Clean, Professional, Readable, Business-oriented
-   ============================================ */
+/* Insta Font Generator Content Styles - Refined Typography & Interactive Grid */
 
-/* ---------- Container & Layout ---------- */
 .insta-content {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-  /* Increased spacing for clear separation */
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 100%;
+    margin-top: var(--spacing-2xl);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1rem;
 }
 
-@media (min-width: 768px) {
-  .insta-content {
-    gap: 4rem;
-    margin-top: 3rem;
-  }
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
-/* Common Section Styles */
+@keyframes gradient-x {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Section Common Styles */
 .saas-section {
-  position: relative;
-  scroll-margin-top: 100px;
+    margin-bottom: 4rem;
+    position: relative;
 }
 
 .saas-section-header {
-  margin-bottom: 1.5rem;
-  max-width: 700px;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
 }
 
 .saas-heading {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-main);
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
+    font-size: 1.8rem;
+    /* Adjusted from 2.25rem */
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--text-primary) 30%, #8b5cf6, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradient-x 8s ease infinite;
 }
 
-.saas-subheading {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
+.saas-heading::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    margin: 0.75rem auto 0;
+    border-radius: 2px;
 }
 
-@media (min-width: 768px) {
-  .saas-heading {
-    font-size: 1.875rem;
-  }
-}
-
-/* ---------- Text Block Variant (Clean reading) ---------- */
+/* Text Block - Glassmorphism */
 .saas-text-block {
-  max-width: 68ch;
-  /* Optimal reading width */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.saas-text-content {
-  font-size: 1.0625rem;
-  line-height: 1.75;
-  color: var(--text-secondary);
+.dark .saas-text-block {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.saas-text-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.08);
 }
 
 .saas-text-content p {
-  margin-bottom: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+    /* Adjusted from 1.125rem */
 }
 
-.saas-text-content p:last-child {
-  margin-bottom: 0;
-}
-
-/* ---------- Steps Variant (Timeline / Process) ---------- */
+/* Steps Section - Interactive Timeline */
 .saas-steps-container {
-  display: grid;
-  gap: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    position: relative;
 }
 
-@media (min-width: 768px) {
-  .saas-steps-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
+.saas-steps-container::before {
+    content: '';
+    position: absolute;
+    top: 35px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    z-index: 0;
 }
 
 .saas-step-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  transition: all 0.2s ease;
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1.25rem;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 1;
+    cursor: default;
 }
 
 .saas-step-card:hover {
-  border-color: var(--primary-color);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+    transform: translateY(-5px);
+    border-color: #8b5cf6;
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.12);
 }
 
 .saas-step-number {
-  font-family: var(--font-mono, monospace);
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--primary-light);
-  /* Very light background color, dark text overlay */
-  opacity: 0.5;
-  position: absolute;
-  top: 0.5rem;
-  right: 1rem;
-  line-height: 1;
-  pointer-events: none;
+    width: 45px;
+    height: 45px;
+    background: var(--surface);
+    color: var(--text-secondary);
+    border: 2px solid var(--border);
+    font-weight: 800;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Alternative Number Style if preferred: */
-.saas-step-badge {
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--primary-color);
-  background: var(--primary-light);
-  padding: 0.25rem 0.75rem;
-  border-radius: 1rem;
-  align-self: flex-start;
-  margin-bottom: 1rem;
+.saas-step-card:hover .saas-step-number {
+    background: #8b5cf6;
+    color: white;
+    border-color: #8b5cf6;
+    transform: scale(1.1);
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
 }
-
 
 .saas-step-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.75rem;
-  position: relative;
-  z-index: 1;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
 }
 
 .saas-step-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  flex-grow: 1;
-  /* Pushes content effectively */
-  position: relative;
-  z-index: 1;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
-/* ---------- Feature Grid Variant (Icon + Title + Desc) ---------- */
+/* Feature Grid - Interactive Cards */
 .saas-feature-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 640px) {
-  .saas-feature-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .saas-feature-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
 }
 
 .saas-feature-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  /* Reduced padding slightly for tighter feel */
-  transition: all 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    height: 100%;
 }
 
 .saas-feature-card:hover {
-  border-color: var(--border-hover);
-  background: var(--surface-elevated);
+    transform: translateY(-4px);
+    border-color: rgba(139, 92, 246, 0.4);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    /* Soft shadow */
+}
+
+/* Subtle background gradient on hover */
+.saas-feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.05), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.saas-feature-card:hover::after {
+    opacity: 1;
 }
 
 .saas-feature-icon {
-  width: 48px;
-  height: 48px;
-  background: var(--primary-light);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: inline-flex;
+    width: 54px;
+    height: 54px;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(236, 72, 153, 0.08));
+    border-radius: 0.875rem;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.saas-feature-card:hover .saas-feature-icon {
+    transform: scale(1.1) rotate(3deg);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.15));
 }
 
 .saas-feature-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-main);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
 }
 
 .saas-feature-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
-/* ---------- List / Checkmark Variant ---------- */
-.saas-list-container {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 2rem;
-}
-
-.saas-check-list {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 768px) {
-  .saas-check-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.saas-check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.saas-check-icon {
-  color: var(--success);
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-  /* Visual alignment */
-}
-
-/* ---------- FAQ Section Variant ---------- */
+/* FAQ Grid - Clean Interactive */
 .saas-faq-grid {
-  display: grid;
-  gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
 }
 
 .saas-faq-item {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  transition: border-color 0.2s ease;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0.875rem;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
 }
 
 .saas-faq-item:hover {
-  border-color: var(--text-muted);
+    border-color: #ec4899;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.08);
 }
 
 .saas-faq-question {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+    line-height: 1.4;
 }
 
 .saas-faq-icon {
-  color: var(--warning);
-  /* Make consistent with generic warning/alert color or primary */
+    font-size: 1.25rem;
+    color: #ec4899;
+    flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .saas-faq-answer {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  padding-left: calc(1.5rem + 0.75rem);
-  /* Align with text start */
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    padding-left: 2.125rem;
+    opacity: 0.95;
 }
 
-/* ---------- Examples / Showcase Variant ---------- */
+/* Example Cards - Compact & Pop */
 .saas-example-grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
 }
 
 .saas-example-card {
-  background: var(--surface-elevated);
-  /* Slightly distinct bg */
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    background: var(--background);
+    border: 2px dashed var(--border);
+    border-radius: 0.875rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.saas-example-card:hover {
+    border-color: #8b5cf6;
+    border-style: solid;
+    transform: scale(1.03);
+    background: var(--surface);
+    box-shadow: 0 8px 16px rgba(139, 92, 246, 0.1);
 }
 
 .saas-example-label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    color: #8b5cf6;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    background: rgba(139, 92, 246, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
 }
 
 .saas-example-text {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--primary-color);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 500;
 }
 
-/* ---------- Hero Stats override for Insta page if needed here ---------- */
-/* (Currently integrated in main page CSS, but keeping this block just in case of specific overrides) */
-.insta-section-faq .insta-heading {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.9rem;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
+/* List Container (Best Fonts etc.) */
+.saas-list-container {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.03), rgba(236, 72, 153, 0.03));
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    position: relative;
 }
 
-.insta-faq-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
+.saas-check-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.875rem;
+    padding: 0;
 }
 
-@media (min-width: 600px) {
-  .insta-faq-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.85rem;
-  }
+.saas-check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    background: var(--surface);
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.625rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    border: 1px solid transparent;
 }
 
-.insta-faq-item {
-  padding: 0.95rem 1.15rem;
-  padding-left: 2.75rem;
-  border-radius: var(--radius);
-  background: rgba(var(--primary-rgb), 0.04);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  border-left: 4px solid var(--accent-orange, #ea580c);
-  position: relative;
-  transition: transform 0.3s var(--insta-ease), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+.saas-check-item:hover {
+    transform: translateX(4px);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    color: #8b5cf6;
 }
 
-.insta-faq-item::before {
-  content: attr(data-num);
-  position: absolute;
-  left: 0.85rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: var(--accent-orange, #ea580c);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.saas-check-icon {
+    color: #10b981;
+    font-weight: bold;
 }
 
-.insta-faq-item:nth-child(1)::before {
-  content: "1";
+/* Responsive */
+@media (max-width: 1024px) {
+    .saas-section {
+        margin-bottom: 3rem;
+    }
+
+    .saas-heading {
+        font-size: 1.6rem;
+    }
+
+    .saas-steps-container {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .saas-steps-container::before {
+        left: 21px;
+        top: 20px;
+        bottom: 20px;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(to bottom, transparent, var(--border), transparent);
+    }
+
+    .saas-step-card {
+        text-align: left;
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+        padding: 1.25rem;
+    }
+
+    .saas-step-number {
+        margin: 0;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .saas-faq-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.insta-faq-item:nth-child(2)::before {
-  content: "2";
+@media (max-width: 640px) {
+    .insta-content {
+        margin-top: var(--spacing-xl);
+    }
+
+    .saas-text-block {
+        padding: 1.5rem;
+    }
+
+    .saas-heading {
+        font-size: 1.4rem;
+    }
+
+    .saas-text-content p {
+        font-size: 0.95rem;
+    }
+
+    .saas-step-card {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .saas-steps-container::before {
+        display: none;
+    }
+
+    .saas-feature-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.insta-faq-item:nth-child(3)::before {
-  content: "3";
+/* Stack Layout for Usage Trio (Stories, Bio, Posts) */
+.saas-feature-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.insta-faq-item:nth-child(4)::before {
-  content: "4";
+.saas-feature-stack .saas-feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.insta-faq-item:hover {
-  background: rgba(var(--primary-rgb), 0.08);
-  border-color: rgba(var(--primary-rgb), 0.18);
-  transform: translateY(-3px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-}
-
-.insta-faq-item h4 {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.35rem;
-  line-height: 1.35;
-}
-
-.insta-faq-item p {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: 1.5;
-}
-
-@media (min-width: 768px) {
-  .insta-section-faq {
-    padding: 1.5rem 1.75rem;
-  }
-
-  .insta-section-faq .insta-heading {
-    font-size: 1.2rem;
-  }
-}
-
-/* ---------- Section: Key Features (variant G – showcase) ---------- */
-.insta-section-features.insta-section-variant-g {
-  margin-top: 0.5rem;
-  padding: 1.5rem 1.5rem;
-  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.06) 0%, rgba(var(--primary-rgb), 0.02) 50%, var(--card-bg) 100%);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(var(--primary-rgb), 0.12);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.4s var(--insta-ease), transform 0.3s var(--insta-ease);
-}
-
-.insta-section-features.insta-section-variant-g:hover {
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-.insta-section-features .insta-features-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 1.35rem;
-  letter-spacing: -0.02em;
-  text-align: center;
-}
-
-.insta-section-features .insta-features-title .insta-accent-line {
-  width: 52px;
-  height: 5px;
-  background: var(--gradient-primary);
-  border-radius: 3px;
-  flex-shrink: 0;
-  transform-origin: left;
-  box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.3);
-}
-
-.insta-content .reveal.active .insta-section-features .insta-accent-line {
-  animation: instaLineIn 0.7s var(--insta-ease) 0.2s both;
-}
-
-.insta-features-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.85rem;
-}
-
-@media (min-width: 480px) {
-  .insta-features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.saas-feature-stack .saas-feature-card:hover {
+    transform: translateY(-4px);
+    border-color: #8b5cf6;
+    box-shadow: 0 15px 30px rgba(139, 92, 246, 0.12);
 }
 
 @media (min-width: 768px) {
-  .insta-features-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.1rem;
-  }
-}
+    .saas-feature-stack .saas-feature-card {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: 2rem;
+    }
 
-.insta-feature-card {
-  background: var(--card-bg);
-  padding: 1.25rem 1.5rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  display: flex;
-  align-items: flex-start;
-  gap: 1.15rem;
-  transition: transform 0.35s var(--insta-ease), box-shadow 0.35s var(--insta-ease), border-color 0.35s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-}
+    .saas-feature-stack .saas-feature-icon {
+        margin-bottom: 0;
+        width: 70px;
+        height: 70px;
+        font-size: 2.5rem;
+        flex-shrink: 0;
+    }
 
-.insta-feature-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(var(--primary-rgb), 0.25);
-  animation: instaPulse 2.5s ease-in-out infinite;
-}
+    .saas-feature-stack .saas-feature-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
 
-.insta-feature-card .insta-f-icon {
-  width: 52px;
-  height: 52px;
-  min-width: 52px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.12) 0%, rgba(var(--primary-rgb), 0.06) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  transition: transform 0.35s var(--insta-ease), background 0.35s ease;
-}
-
-.insta-feature-card:hover .insta-f-icon {
-  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.18) 0%, rgba(var(--primary-rgb), 0.1) 100%);
-  transform: scale(1.1);
-}
-
-.insta-feature-card .insta-f-info h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.25rem;
-  letter-spacing: -0.01em;
-}
-
-.insta-feature-card .insta-f-info p {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: 1.5;
-}
-
-@media (min-width: 768px) {
-  .insta-section-features {
-    padding: 1.5rem 1.75rem;
-  }
-
-  .insta-section-features .insta-features-title {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-  }
-}
-
-/* ---------- Back link ---------- */
-.insta-back-link {
-  text-align: center;
-  margin-top: 1rem;
-  padding: 1.15rem 1.5rem;
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.insta-back-link:hover {
-  border-color: rgba(var(--primary-rgb), 0.2);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-}
-
-.insta-back-link p {
-  color: var(--text-secondary);
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.5;
-}
-
-.insta-back-link .insta-homepage-link {
-  color: var(--primary-color);
-  font-weight: 600;
-  text-decoration: none;
-  margin-left: 0.4rem;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.insta-back-link .insta-homepage-link:hover {
-  opacity: 0.9;
-  text-decoration: underline;
-}
-
-.insta-back-link .insta-homepage-link:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* ---------- List: Best Fonts ---------- */
-.insta-dot-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.insta-dot-list li {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  padding: 0.4rem 0 0.4rem 1.35rem;
-  position: relative;
-  transition: color 0.2s ease;
-}
-
-.insta-dot-list li:hover {
-  color: var(--text-main);
-}
-
-.insta-dot-list li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.7em;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--primary-color);
-  opacity: 0.8;
-  transition: transform 0.2s var(--insta-ease);
-}
-
-.insta-dot-list li:hover::before {
-  transform: scale(1.25);
+    .saas-feature-stack .saas-feature-desc {
+        font-size: 1.05rem;
+    }
 }
