@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { Language, translations } from '@/lib/translations'
 
 // ============ MAIN COMPONENT ============
@@ -312,8 +313,17 @@ export default function PubgSekilliNickClient() {
       <header className="header">
         <div className="container">
           <div className="header-content">
-            <Link href="/" className="logo">
-              {t.common.logo}
+            <Link href="/" className="logo-container">
+              <div className="logo-wrapper">
+                <NextImage
+                  src="/logo.svg"
+                  alt={t.common.logoAlt || 'Stilleri Pro Logo'}
+                  width={180}
+                  height={40}
+                  className="logo-image"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Desktop Navigation */}

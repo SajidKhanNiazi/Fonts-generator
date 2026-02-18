@@ -1,803 +1,328 @@
 /* ============================================
-   INSTAGRAM FONT PAGE – CONTENT SECTION
-   Modern editorial feel: animations, readability, UX
+   INSTAGRAM FONT PAGE – SAAS CONTENT REDESIGN
+   Clean, Professional, Readable, Business-oriented
    ============================================ */
 
-/* ---------- Keyframes ---------- */
-@keyframes instaReveal {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes instaStagger {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes instaLineIn {
-  from {
-    transform: scaleX(0);
-    opacity: 0.8;
-  }
-  to {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
-@keyframes instaShine {
-  0% { background-position: -120% 0; }
- 100% { background-position: 120% 0; }
-}
-
-@keyframes instaPulse {
-  0%, 100% { box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04); }
-  50% { box-shadow: 0 6px 24px rgba(var(--primary-rgb), 0.12); }
-}
-
-@keyframes instaRevealStrong {
-  from {
-    opacity: 0;
-    transform: translateY(28px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes instaShineSweep {
-  0% { background-position: -100% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* Respect user preference for less motion */
-@media (prefers-reduced-motion: reduce) {
-  .insta-content .reveal,
-  .insta-content .insta-step,
-  .insta-content .insta-adv-item,
-  .insta-content .insta-faq-item,
-  .insta-content .insta-feature-card,
-  .insta-content .insta-usage-card,
-  .insta-content .insta-card {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ---------- Page spacing (insta page only): less gap between font grid and content ---------- */
-.page-insta .category-section {
-  margin-bottom: 1.25rem;
-}
-
-.page-insta .category-header {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.page-insta .font-grid {
-  margin-bottom: 1rem;
-}
-
-.page-insta .hero-section {
-  min-height: auto;
-  padding-top: 1.5rem;
-  padding-bottom: 1rem;
-}
-
-@media (min-width: 768px) {
-  .page-insta .hero-section {
-    padding-top: 2rem;
-    padding-bottom: 1.5rem;
-  }
-}
-
-/* ---------- Container ---------- */
+/* ---------- Container & Layout ---------- */
 .insta-content {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  margin-top: 0;
-  --insta-read-max: 68ch;
-  --insta-ease: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Subtle divider between major content blocks */
-.insta-content > .insta-section-highlight,
-.insta-content > .insta-section-advantages,
-.insta-content > .insta-section-features {
-  padding-top: 1.5rem;
-  margin-top: 0.25rem;
-  border-top: 1px solid rgba(var(--primary-rgb), 0.06);
+  gap: 3rem;
+  /* Increased spacing for clear separation */
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 @media (min-width: 768px) {
   .insta-content {
-    gap: 1rem;
+    gap: 4rem;
+    margin-top: 3rem;
   }
 }
 
-/* ---------- Reveal: scroll-triggered animation ---------- */
-.insta-content .reveal {
-  opacity: 0;
-  transform: translateY(28px) scale(0.98);
-  transition: opacity 0.65s var(--insta-ease), transform 0.65s var(--insta-ease);
-}
-
-.insta-content .reveal.active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: instaRevealStrong 0.7s var(--insta-ease) forwards;
-}
-
-/* Stagger children when parent reveals */
-/* Stagger: use animation-fill-mode: backwards so "from" state applies only when animation runs; no explicit opacity:0 so content stays visible when prefers-reduced-motion disables animation */
-.insta-content .reveal.active .insta-step {
-  animation: instaStagger 0.45s var(--insta-ease) backwards;
-}
-
-.insta-content .reveal.active .insta-step:nth-child(1) { animation-delay: 0.08s; }
-.insta-content .reveal.active .insta-step:nth-child(2) { animation-delay: 0.16s; }
-.insta-content .reveal.active .insta-step:nth-child(3) { animation-delay: 0.24s; }
-
-.insta-content .reveal.active .insta-adv-item {
-  animation: instaStagger 0.4s var(--insta-ease) backwards;
-}
-
-.insta-content .reveal.active .insta-adv-item:nth-child(1) { animation-delay: 0.05s; }
-.insta-content .reveal.active .insta-adv-item:nth-child(2) { animation-delay: 0.1s; }
-.insta-content .reveal.active .insta-adv-item:nth-child(3) { animation-delay: 0.15s; }
-.insta-content .reveal.active .insta-adv-item:nth-child(4) { animation-delay: 0.2s; }
-.insta-content .reveal.active .insta-adv-item:nth-child(5) { animation-delay: 0.25s; }
-
-.insta-content .reveal.active .insta-faq-item {
-  animation: instaStagger 0.4s var(--insta-ease) backwards;
-}
-
-.insta-content .reveal.active .insta-faq-item:nth-child(1) { animation-delay: 0.06s; }
-.insta-content .reveal.active .insta-faq-item:nth-child(2) { animation-delay: 0.12s; }
-.insta-content .reveal.active .insta-faq-item:nth-child(3) { animation-delay: 0.18s; }
-.insta-content .reveal.active .insta-faq-item:nth-child(4) { animation-delay: 0.24s; }
-
-.insta-content .reveal.active .insta-feature-card {
-  animation: instaStagger 0.45s var(--insta-ease) backwards;
-}
-
-.insta-content .reveal.active .insta-feature-card:nth-child(1) { animation-delay: 0.05s; }
-.insta-content .reveal.active .insta-feature-card:nth-child(2) { animation-delay: 0.1s; }
-.insta-content .reveal.active .insta-feature-card:nth-child(3) { animation-delay: 0.15s; }
-.insta-content .reveal.active .insta-feature-card:nth-child(4) { animation-delay: 0.2s; }
-.insta-content .reveal.active .insta-feature-card:nth-child(5) { animation-delay: 0.25s; }
-
-.insta-content .reveal.active .insta-usage-card {
-  animation: instaStagger 0.5s var(--insta-ease) backwards;
-}
-
-.insta-content .reveal.active .insta-usage-card:nth-child(1) { animation-delay: 0.06s; }
-.insta-content .reveal.active .insta-usage-card:nth-child(2) { animation-delay: 0.14s; }
-.insta-content .reveal.active .insta-usage-card:nth-child(3) { animation-delay: 0.22s; }
-
-.insta-content .reveal.active .insta-example-item {
-  animation: instaStagger 0.35s var(--insta-ease) backwards;
-}
-
-.insta-content .reveal.active .insta-example-item:nth-child(1) { animation-delay: 0.05s; }
-.insta-content .reveal.active .insta-example-item:nth-child(2) { animation-delay: 0.1s; }
-.insta-content .reveal.active .insta-example-item:nth-child(3) { animation-delay: 0.15s; }
-.insta-content .reveal.active .insta-example-item:nth-child(4) { animation-delay: 0.2s; }
-
-/* ---------- Section: Intro ---------- */
-.insta-section-intro {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  padding: 1.25rem 1.5rem;
+/* Common Section Styles */
+.saas-section {
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.35s var(--insta-ease), border-color 0.35s ease;
+  scroll-margin-top: 100px;
 }
 
-.insta-section-intro:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  border-color: rgba(var(--primary-rgb), 0.15);
+.saas-section-header {
+  margin-bottom: 1.5rem;
+  max-width: 700px;
 }
 
-.insta-section-intro::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--gradient-primary);
-  border-radius: 4px 0 0 4px;
-  transform-origin: bottom;
-}
-
-.insta-content .reveal.active .insta-section-intro::before {
-  animation: instaLineIn 0.5s var(--insta-ease) 0.2s both;
-}
-
-.insta-section-intro .insta-heading {
-  font-size: 1.2rem;
+.saas-heading {
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-main);
-  margin-bottom: 0.6rem;
   line-height: 1.3;
   letter-spacing: -0.02em;
-  max-width: var(--insta-read-max);
+  margin-bottom: 0.75rem;
 }
 
-.insta-section-intro .insta-body p {
-  font-size: 1rem;
-  line-height: 1.65;
+.saas-subheading {
+  font-size: 1.125rem;
   color: var(--text-secondary);
-  margin: 0;
-  max-width: var(--insta-read-max);
+  line-height: 1.6;
 }
 
 @media (min-width: 768px) {
-  .insta-section-intro {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-section-intro .insta-heading {
-    font-size: 1.25rem;
+  .saas-heading {
+    font-size: 1.875rem;
   }
 }
 
-/* ---------- Section: Steps (variant B – timeline) ---------- */
-.insta-section-steps {
-  background: var(--card-bg);
+/* ---------- Text Block Variant (Clean reading) ---------- */
+.saas-text-block {
+  max-width: 68ch;
+  /* Optimal reading width */
+}
+
+.saas-text-content {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.saas-text-content p {
+  margin-bottom: 1rem;
+}
+
+.saas-text-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Steps Variant (Timeline / Process) ---------- */
+.saas-steps-container {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .saas-steps-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.saas-step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.4s var(--insta-ease), transform 0.3s var(--insta-ease);
+  padding: 1.5rem;
+  transition: all 0.2s ease;
   position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.insta-section-steps::after {
-  content: "";
-  position: absolute;
-  left: 1.6rem;
-  top: 4.5rem;
-  bottom: 2rem;
-  width: 2px;
-  background: linear-gradient(180deg, rgba(var(--primary-rgb), 0.4), rgba(var(--primary-rgb), 0.08));
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.insta-section-steps:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+.saas-step-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 
-.insta-section-steps .insta-heading {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.85rem;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
+.saas-step-number {
+  font-family: var(--font-mono, monospace);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--primary-light);
+  /* Very light background color, dark text overlay */
+  opacity: 0.5;
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  line-height: 1;
+  pointer-events: none;
 }
 
-.insta-section-steps .insta-steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Alternative Number Style if preferred: */
+.saas-step-badge {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--primary-color);
+  background: var(--primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
+
+.saas-step-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
   position: relative;
   z-index: 1;
 }
 
-.insta-section-steps .insta-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.9rem;
-  font-size: 1rem;
+.saas-step-desc {
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  line-height: 1.55;
-  padding: 0.75rem 0.9rem;
-  background: rgba(var(--primary-rgb), 0.04);
+  line-height: 1.6;
+  flex-grow: 1;
+  /* Pushes content effectively */
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Feature Grid Variant (Icon + Title + Desc) ---------- */
+.saas-feature-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .saas-feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .saas-feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.saas-feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  /* Reduced padding slightly for tighter feel */
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.saas-feature-card:hover {
+  border-color: var(--border-hover);
+  background: var(--surface-elevated);
+}
+
+.saas-feature-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-light);
+  color: var(--primary-color);
   border-radius: var(--radius);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  transition: transform 0.3s var(--insta-ease), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.insta-section-steps .insta-step:hover {
-  background: rgba(var(--primary-rgb), 0.08);
-  border-color: rgba(var(--primary-rgb), 0.18);
-  transform: translateX(6px);
-  box-shadow: 0 2px 12px rgba(var(--primary-rgb), 0.1);
-}
-
-.insta-section-steps .insta-step-num {
-  flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: var(--gradient-primary);
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 10px rgba(var(--primary-rgb), 0.35);
-  transition: transform 0.3s var(--insta-ease), box-shadow 0.3s ease;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.insta-section-steps .insta-step:hover .insta-step-num {
-  transform: scale(1.12);
-  box-shadow: 0 4px 14px rgba(var(--primary-rgb), 0.4);
-}
-
-@media (min-width: 768px) {
-  .insta-section-steps {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-section-steps .insta-heading {
-    font-size: 1.25rem;
-  }
-}
-
-/* ---------- Section: Highlight (variant C – callout) ---------- */
-.insta-section-highlight {
-  background: linear-gradient(145deg, var(--card-bg) 0%, rgba(var(--primary-rgb), 0.06) 50%, var(--card-bg) 100%);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.15);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.4s var(--insta-ease), transform 0.3s var(--insta-ease);
-}
-
-.insta-section-highlight::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--accent-pink, #db2777));
-  opacity: 0.85;
-  transform-origin: left;
-}
-
-.insta-content .reveal.active .insta-section-highlight::after {
-  animation: instaLineIn 0.7s var(--insta-ease) 0.15s both;
-}
-
-.insta-section-highlight:hover {
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-.insta-section-highlight .insta-subheading {
+.saas-feature-title {
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-main);
-  margin-bottom: 0.85rem;
-  padding-bottom: 0.45rem;
-  border-bottom: 2px solid rgba(var(--primary-rgb), 0.22);
-  display: inline-block;
-  letter-spacing: -0.01em;
 }
 
-.insta-section-highlight .insta-body p {
-  font-size: 1rem;
-  line-height: 1.65;
+.saas-feature-desc {
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  margin-bottom: 0.85rem;
-  max-width: var(--insta-read-max);
+  line-height: 1.5;
 }
 
-.insta-section-highlight .insta-body p:last-child {
-  margin-bottom: 0;
-}
-
-.insta-section-highlight .insta-pill {
-  margin-top: 1rem;
-  padding: 1rem 1.25rem;
-  background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0.04) 100%);
-  border: 1px solid rgba(var(--primary-rgb), 0.16);
+/* ---------- List / Checkmark Variant ---------- */
+.saas-list-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  border-left: 4px solid var(--primary-color);
-  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
-  position: relative;
-  overflow: hidden;
+  padding: 2rem;
 }
 
-.insta-section-highlight .insta-pill:hover {
-  background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.12) 0%, rgba(var(--primary-rgb), 0.06) 100%);
-  border-color: rgba(var(--primary-rgb), 0.24);
-  animation: instaPulse 2s ease-in-out infinite;
-}
-
-.insta-section-highlight .insta-pill p {
-  margin: 0;
+.saas-check-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
 }
 
 @media (min-width: 768px) {
-  .insta-section-highlight {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-section-highlight .insta-subheading {
-    font-size: 1.15rem;
+  .saas-check-list {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ---------- Grid & Cards (left/right variants) ---------- */
-.insta-grid-2 {
+.saas-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.saas-check-icon {
+  color: var(--success);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  /* Visual alignment */
+}
+
+/* ---------- FAQ Section Variant ---------- */
+.saas-faq-grid {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
-.insta-grid-2.insta-cards-split {
-  gap: 1.25rem;
+.saas-faq-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color 0.2s ease;
 }
 
-@media (min-width: 768px) {
-  .insta-grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-  }
+.saas-faq-item:hover {
+  border-color: var(--text-muted);
 }
 
-.insta-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.12);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s var(--insta-ease), box-shadow 0.35s var(--insta-ease), border-color 0.35s ease;
-}
-
-.insta-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(var(--primary-rgb), 0.22);
-  animation: instaPulse 2.5s ease-in-out infinite;
-}
-
-.insta-card-left::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  background: var(--gradient-primary);
-  opacity: 0.5;
-  border-radius: 5px 0 0 5px;
-  transform-origin: top;
-}
-
-.insta-card-right::before {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  background: linear-gradient(180deg, var(--accent-teal, #0d9488), var(--primary-color));
-  opacity: 0.5;
-  border-radius: 0 5px 5px 0;
-  transform-origin: top;
-}
-
-.insta-content .reveal.active .insta-card-left::before,
-.insta-content .reveal.active .insta-card-right::before {
-  animation: instaLineIn 0.55s var(--insta-ease) 0.25s both;
-}
-
-.insta-card .insta-heading {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.6rem;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
-}
-
-.insta-card .insta-body p {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  margin: 0;
-  max-width: var(--insta-read-max);
-}
-
-@media (min-width: 768px) {
-  .insta-card {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-card .insta-heading {
-    font-size: 1.2rem;
-  }
-}
-
-/* ---------- Section: Advantages ---------- */
-.insta-section-advantages {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.35s var(--insta-ease);
-}
-
-.insta-section-advantages:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-}
-
-.insta-section-advantages .insta-subheading {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.85rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 2px solid rgba(var(--primary-rgb), 0.18);
-  display: inline-block;
-  letter-spacing: -0.01em;
-}
-
-.insta-adv-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.6rem;
-}
-
-@media (min-width: 480px) {
-  .insta-adv-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 768px) {
-  .insta-adv-grid {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 0.75rem;
-  }
-}
-
-.insta-adv-item {
+.saas-faq-question {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
-  padding: 0.8rem 1rem;
-  background: rgba(var(--primary-rgb), 0.04);
-  border-radius: var(--radius);
-  font-size: 0.9375rem;
-  color: var(--text-main);
-  border: 1px solid rgba(var(--primary-rgb), 0.08);
-  border-left: 4px solid var(--primary-color);
-  line-height: 1.45;
-  transition: transform 0.3s var(--insta-ease), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.insta-adv-item:nth-child(5n+2) { border-left-color: var(--accent-teal, #0d9488); }
-.insta-adv-item:nth-child(5n+3) { border-left-color: var(--accent-pink, #db2777); }
-.insta-adv-item:nth-child(5n+4) { border-left-color: var(--accent-purple, #7c3aed); }
-.insta-adv-item:nth-child(5n+5) { border-left-color: var(--accent-orange, #ea580c); }
-
-.insta-adv-item:hover {
-  background: rgba(var(--primary-rgb), 0.08);
-  border-color: rgba(var(--primary-rgb), 0.16);
-  transform: translateX(6px);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-}
-
-.insta-adv-item span:first-child {
-  flex-shrink: 0;
-  font-size: 1.25rem;
-  transition: transform 0.3s var(--insta-ease);
-}
-
-.insta-adv-item:hover span:first-child {
-  transform: scale(1.2) rotate(-5deg);
-}
-
-@media (min-width: 768px) {
-  .insta-section-advantages {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-section-advantages .insta-subheading {
-    font-size: 1.15rem;
-  }
-}
-
-/* ---------- Section: Examples ---------- */
-.insta-section-examples {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.35s var(--insta-ease);
-}
-
-.insta-section-examples:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-}
-
-.insta-section-examples .insta-heading {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 0.6rem;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
-}
-
-.insta-section-examples .insta-body p {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  margin: 0 0 0.85rem 0;
-  max-width: var(--insta-read-max);
-}
-
-.insta-examples-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.6rem;
-  margin-top: 0.85rem;
-}
-
-@media (min-width: 480px) {
-  .insta-examples-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.insta-example-item {
-  padding: 0.7rem 1rem;
-  background: rgba(var(--primary-rgb), 0.05);
-  border-radius: var(--radius);
-  font-size: 0.875rem;
-  border: 1px solid rgba(var(--primary-rgb), 0.1);
-  border-left: 3px solid var(--primary-color);
-  color: var(--text-main);
-  line-height: 1.5;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s var(--insta-ease);
-}
-
-.insta-example-item:hover {
-  border-color: rgba(var(--primary-rgb), 0.25);
-  box-shadow: 0 2px 12px rgba(var(--primary-rgb), 0.08);
-  transform: translateX(4px);
-}
-
-.insta-example-item strong {
-  color: var(--primary-color);
+  gap: 0.75rem;
   font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 0.75rem;
 }
 
-@media (min-width: 768px) {
-  .insta-section-examples {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-section-examples .insta-heading {
-    font-size: 1.2rem;
-  }
+.saas-faq-icon {
+  color: var(--warning);
+  /* Make consistent with generic warning/alert color or primary */
 }
 
-/* ---------- Section: Usage cards (3-col, each with unique accent) ---------- */
-.insta-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.insta-grid-3.insta-usage-trio {
-  gap: 1.25rem;
-}
-
-@media (min-width: 768px) {
-  .insta-grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-  }
-}
-
-.insta-usage-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-color);
-  padding: 1.25rem 1.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s var(--insta-ease), box-shadow 0.35s var(--insta-ease), border-color 0.35s ease;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-}
-
-.insta-usage-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  transform-origin: left;
-}
-
-.insta-usage-1::before { background: linear-gradient(90deg, var(--accent-purple, #7c3aed), var(--primary-color)); }
-.insta-usage-2::before { background: linear-gradient(90deg, var(--accent-blue, #2563eb), var(--primary-color)); }
-.insta-usage-3::before { background: linear-gradient(90deg, var(--accent-green, #16a34a), var(--primary-color)); }
-
-.insta-content .reveal.active .insta-usage-card::before {
-  animation: instaLineIn 0.6s var(--insta-ease) 0.2s both;
-}
-
-.insta-usage-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(var(--primary-rgb), 0.2);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.1);
-}
-
-.insta-usage-card .insta-usage-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 0.55rem;
-  display: block;
-  letter-spacing: -0.01em;
-}
-
-.insta-usage-card p {
-  font-size: 0.9375rem;
-  line-height: 1.6;
+.saas-faq-answer {
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  margin: 0;
+  line-height: 1.6;
+  padding-left: calc(1.5rem + 0.75rem);
+  /* Align with text start */
 }
 
-@media (min-width: 768px) {
-  .insta-usage-card {
-    padding: 1.5rem 1.75rem;
-  }
-  .insta-usage-card .insta-usage-title {
-    font-size: 1.1rem;
-  }
+/* ---------- Examples / Showcase Variant ---------- */
+.saas-example-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
-/* ---------- Section: FAQ (variant F – problem/solution) ---------- */
-.insta-section-faq {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--primary-rgb), 0.12);
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.4s var(--insta-ease), transform 0.3s var(--insta-ease);
+.saas-example-card {
+  background: var(--surface-elevated);
+  /* Slightly distinct bg */
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.insta-section-faq:hover {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
-  transform: translateY(-2px);
+.saas-example-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
+.saas-example-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* ---------- Hero Stats override for Insta page if needed here ---------- */
+/* (Currently integrated in main page CSS, but keeping this block just in case of specific overrides) */
 .insta-section-faq .insta-heading {
   font-size: 1.15rem;
   font-weight: 700;
@@ -849,10 +374,21 @@
   justify-content: center;
 }
 
-.insta-faq-item:nth-child(1)::before { content: "1"; }
-.insta-faq-item:nth-child(2)::before { content: "2"; }
-.insta-faq-item:nth-child(3)::before { content: "3"; }
-.insta-faq-item:nth-child(4)::before { content: "4"; }
+.insta-faq-item:nth-child(1)::before {
+  content: "1";
+}
+
+.insta-faq-item:nth-child(2)::before {
+  content: "2";
+}
+
+.insta-faq-item:nth-child(3)::before {
+  content: "3";
+}
+
+.insta-faq-item:nth-child(4)::before {
+  content: "4";
+}
 
 .insta-faq-item:hover {
   background: rgba(var(--primary-rgb), 0.08);
@@ -880,6 +416,7 @@
   .insta-section-faq {
     padding: 1.5rem 1.75rem;
   }
+
   .insta-section-faq .insta-heading {
     font-size: 1.2rem;
   }
@@ -1002,6 +539,7 @@
   .insta-section-features {
     padding: 1.5rem 1.75rem;
   }
+
   .insta-section-features .insta-features-title {
     font-size: 1.3rem;
     margin-bottom: 1.5rem;

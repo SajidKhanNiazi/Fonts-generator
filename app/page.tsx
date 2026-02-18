@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { fontStyles } from '@/lib/fontStyles'
 import { translations, Language } from '@/lib/translations'
 import Link from 'next/link'
+import NextImage from 'next/image'
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('tr')
@@ -144,9 +145,9 @@ export default function Home() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Yazı Stilleri",
+      "name": "Stilleri Pro",
       "description": "Türkçe metin stil dönüştürücü aracı. Instagram, WhatsApp, Facebook için özel font stilleri.",
-      "url": "https://yazistilleri.com",
+      "url": "https://stilleripro.com.tr",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -177,8 +178,17 @@ export default function Home() {
       <header className="header">
         <div className="container">
           <div className="header-content">
-            <Link href="/" className="logo">
-              {t.common.logo}
+            <Link href="/" className="logo-container">
+              <div className="logo-wrapper">
+                <NextImage
+                  src="/logo.svg"
+                  alt={t.common.logoAlt || 'Stilleri Pro Logo'}
+                  width={180}
+                  height={40}
+                  className="logo-image"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Desktop Navigation */}

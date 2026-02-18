@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { translations, Language } from '@/lib/translations'
 import './insta-content.css'
 
@@ -548,8 +549,17 @@ export default function InstaYaziTipiClient() {
       <header className="header">
         <div className="container">
           <div className="header-content">
-            <Link href="/" className="logo">
-              {t.common.logo}
+            <Link href="/" className="logo-container">
+              <div className="logo-wrapper">
+                <NextImage
+                  src="/logo.svg"
+                  alt={t.common.logoAlt || 'Yazı Stilleri Logo'}
+                  width={180}
+                  height={40}
+                  className="logo-image"
+                  priority
+                />
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -778,179 +788,215 @@ export default function InstaYaziTipiClient() {
           </div>
 
           {/* Content section – modern SaaS design, tight spacing, mobile-first */}
+          {/* Content section – modern SaaS design */}
           <article className="insta-content" aria-label="Instagram font guide">
-            <div className="insta-grid-2">
-              {t.insta.sections.slice(0, 2).map((section: any) => (
-                <section key={section.id} className={`insta-section-${section.id === 'how-it-works' ? 'intro' : 'steps'} reveal`} aria-labelledby={section.id}>
-                  <h2 id={section.id} className="insta-heading">{section.title}</h2>
-                  <div className="insta-body">
-                    {section.type === 'text' && <p>{section.content}</p>}
-                    {section.type === 'textSteps' && (
-                      <ol className="insta-steps-list" aria-label="Steps">
-                        {section.steps.map((step: string, idx: number) => (
-                          <li key={idx} className="insta-step"><span className="insta-step-num" aria-hidden>{idx + 1}</span> {step}</li>
-                        ))}
-                      </ol>
-                    )}
-                  </div>
-                </section>
-              ))}
-            </div>
 
-            <section className="insta-section-highlight reveal insta-section-variant-c" aria-labelledby="stand-out-title">
-              {(() => {
-                const section = t.insta.sections.find((s: any) => s.id === 'stand-out') || t.insta.sections[2]
-                return (
-                  <>
-                    <h3 id="stand-out-title" className="insta-subheading">{section.title}</h3>
-                    <div className="insta-body">
+            {/* Intro Section - Text Block */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'how-it-works');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-text-block">
+                    <div className="saas-text-content">
                       <p>{section.content}</p>
-                      <div className="insta-pill">
-                        <p>{lang === 'tr' ?
-                          'Aracımız, kullanıcıların favori bir yazı tipini seçip instagram ve diğer sosyal medya uygulamalarına kopyalayıp yapıştırması için kullanımı kolaydır. Instagram yazı tipi oluşturucuları, sosyal medya profilimizi benzersiz ve dengeli hale getirmek için bize göz alıcı ve etkileşimli yazı tipleri sunar.' :
-                          'Our tool is easy to use where users simply select a favorite font and copy paste it on instagram and Other Social media App. Instagram font generators give us eye-catching and interactive fonts to make our social media profile unique and balanced.'
-                        }</p>
-                      </div>
                     </div>
-                  </>
-                )
-              })()}
-            </section>
-
-            <div className="insta-grid-2 insta-cards-split">
-              {['advantages', 'examples'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any) => (
-                <section key={section.id} className={`insta-card reveal insta-card-${section.id === 'stand-out' ? 'left' : 'right'}`} aria-labelledby={section.id}>
-                  <h2 id={section.id} className="insta-heading">{section.title}</h2>
-                  <div className="insta-body">
-                    {section.content && <p>{section.content}</p>}
-                    {section.features && (
-                      <ul className="insta-dot-list">
-                        {section.features.map((f: any, i: number) => <li key={i}>{f.text || f}</li>)}
-                      </ul>
-                    )}
-                    {section.examples && (
-                      <div className="insta-examples-grid-mini">
-                        {section.examples.map((ex: any, i: number) => <div key={i}>{ex.label}: {ex.text}</div>)}
-                      </div>
-                    )}
                   </div>
                 </section>
-              ))}
-            </div>
+              ) : null;
+            })()}
 
-            <section className="insta-section-advantages reveal insta-section-variant-d" aria-labelledby="advantages-title">
-              {(() => {
-                const section = t.insta.sections.find((s: any) => s.id === 'advantages')
-                if (!section) return null
-                return (
-                  <>
-                    <h3 id="advantages-title" className="insta-subheading">{section.title}</h3>
-                    <div className="insta-adv-grid">
-                      {section.features.map((feat: any, idx: number) => (
-                        <div key={idx} className="insta-adv-item"><span>{feat.icon}</span> {feat.text}</div>
-                      ))}
-                    </div>
-                  </>
-                )
-              })()}
-            </section>
+            {/* Steps Section - Timeline Cards */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'how-to-create-insta');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-steps-container">
+                    {section.steps.map((step: string, idx: number) => (
+                      <div key={idx} className="saas-step-card">
+                        <span className="saas-step-number">{idx + 1}</span>
+                        <h3 className="saas-step-title">{['Metni Girin', 'Stili Seçin', 'Kopyalayın'][idx] || `Adım ${idx + 1}`}</h3>
+                        <p className="saas-step-desc">{step}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
 
-            <section className="insta-section-examples reveal insta-section-variant-e" aria-labelledby="stylized-text">
-              {(() => {
-                const section = t.insta.sections.find((s: any) => s.id === 'examples')
-                if (!section) return null
-                return (
-                  <>
-                    <h2 id="stylized-text" className="insta-heading">{section.title}</h2>
-                    <div className="insta-body">
+            {/* Stand Out - Highlight Section */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'stand-out');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-text-block">
+                    <div className="saas-text-content">
                       <p>{section.content}</p>
-                      <div className="insta-examples-grid">
-                        {section.examples.map((ex: any, idx: number) => (
-                          <div key={idx} className="insta-example-item"><strong>{ex.label}:</strong> {ex.text}</div>
-                        ))}
+                      <div className="saas-note saas-list-container" style={{ marginTop: '1.5rem', padding: '1.5rem' }}>
+                        <p style={{ margin: 0, fontWeight: 500, color: 'var(--text-main)' }}>
+                          {lang === 'tr' ?
+                            '💡 İpucu: Aracımız, kullanıcıların favori bir yazı tipini seçip instagram ve diğer sosyal medya uygulamalarına kopyalayıp yapıştırması için kullanımı kolaydır.' :
+                            '💡 Tip: Our tool is easy to use where users simply select a favorite font and copy paste it on instagram and other apps.'}
+                        </p>
                       </div>
                     </div>
-                  </>
-                )
-              })()}
-            </section>
-
-            <div className="insta-grid-3 insta-usage-trio">
-              {['stories', 'bio', 'posts'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any, idx: number) => (
-                <section key={section.id} className={`insta-usage-card reveal insta-usage-${idx + 1}`} aria-labelledby={section.id}>
-                  <h3 id={section.id} className="insta-usage-title">{section.title}</h3>
-                  <p>{section.content}</p>
-                </section>
-              ))}
-            </div>
-
-            <div className="insta-grid-2 insta-cards-split">
-              {['hashtags', 'best-fonts'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any) => (
-                <section key={section.id} className={`insta-card reveal insta-card-${section.id === 'hashtags' ? 'left' : 'right'}`} aria-labelledby={section.id}>
-                  <h2 id={section.id} className="insta-heading">{section.title}</h2>
-                  <div className="insta-body">
-                    {section.type === 'text' && <p>{section.content}</p>}
-                    {section.type === 'list' && (
-                      <ul className="insta-dot-list">
-                        {section.items.map((item: string, idx: number) => <li key={idx}>{item}</li>)}
-                      </ul>
-                    )}
                   </div>
                 </section>
-              ))}
-            </div>
+              ) : null;
+            })()}
 
-            <section className="insta-section-faq reveal insta-section-variant-f" aria-labelledby="errors-solutions">
+            {/* Usage Trio (Stories, Bio, Posts) - Feature Grid */}
+            <section className="saas-section reveal">
+              <div className="saas-feature-grid">
+                {['stories', 'bio', 'posts'].map(id => t.insta.sections.find((s: any) => s.id === id)).filter(Boolean).map((section: any, idx: number) => (
+                  <div key={section.id} className="saas-feature-card">
+                    <div className="saas-feature-icon">
+                      {idx === 0 ? '📝' : idx === 1 ? '👤' : '🖼️'}
+                    </div>
+                    <h3 className="saas-feature-title">{section.title}</h3>
+                    <p className="saas-feature-desc">{section.content}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Advantages - Feature Grid */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'advantages');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-feature-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
+                    {section.features.map((feat: any, idx: number) => (
+                      <div key={idx} className="saas-feature-card">
+                        <div className="saas-feature-icon">{feat.icon}</div>
+                        <p className="saas-feature-desc" style={{ fontWeight: 500, color: 'var(--text-main)' }}>{feat.text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
+
+            {/* Examples - Example Grid */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'examples');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-text-content" style={{ marginBottom: '1.5rem' }}>
+                    <p>{section.content}</p>
+                  </div>
+                  <div className="saas-example-grid">
+                    {section.examples.map((ex: any, idx: number) => (
+                      <div key={idx} className="saas-example-card">
+                        <span className="saas-example-label">{ex.label}</span>
+                        <span className="saas-example-text">{ex.text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
+
+            {/* Hashtags & Best Fonts - Split Layout using Grid */}
+            <div className="saas-feature-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+              {/* Hashtags */}
               {(() => {
-                const section = t.insta.sections.find((s: any) => s.id === 'faq')
-                return (
-                  <>
-                    <h2 id="errors-solutions" className="insta-heading">{section?.title}</h2>
-                    <div className="insta-faq-grid">
-                      {section?.faqs?.map((item: any, idx: number) => (
-                        <div key={idx} className="insta-faq-item">
-                          <h4>{item.p}</h4>
-                          <p>{item.s}</p>
+                const section = t.insta.sections.find((s: any) => s.id === 'hashtags');
+                return section ? (
+                  <div className="saas-feature-card reveal saas-text-content">
+                    <h3 className="saas-heading" style={{ fontSize: '1.25rem' }}>{section.title}</h3>
+                    <p>{section.content}</p>
+                  </div>
+                ) : null;
+              })()}
+
+              {/* Best Fonts List */}
+              {(() => {
+                const section = t.insta.sections.find((s: any) => s.id === 'best-fonts');
+                return section ? (
+                  <div className="saas-list-container reveal" style={{ padding: '1.5rem' }}>
+                    <h3 className="saas-heading" style={{ fontSize: '1.25rem' }}>{section.title}</h3>
+                    <div className="saas-check-list" style={{ gridTemplateColumns: '1fr' }}>
+                      {section.items.map((item: string, idx: number) => (
+                        <div key={idx} className="saas-check-item">
+                          <span className="saas-check-icon">✓</span>
+                          <span>{item}</span>
                         </div>
                       ))}
                     </div>
-                  </>
-                )
+                  </div>
+                ) : null;
               })()}
-            </section>
+            </div>
 
-            <section className="insta-section-features reveal insta-section-variant-g" aria-labelledby="key-features">
-              {(() => {
-                const section = t.insta.sections.find((s: any) => s.id === 'features')
-                return (
-                  <>
-                    <h2 id="key-features" className="insta-features-title">
-                      <span className="insta-accent-line" aria-hidden></span>
-                      {section?.title}
-                    </h2>
-                    <div className="insta-features-grid">
-                      {section?.features?.map((feat: any, idx: number) => (
-                        <div key={idx} className="insta-feature-card">
-                          <div className="insta-f-icon">{feat.icon}</div>
-                          <div className="insta-f-info">
-                            <h3>{feat.title}</h3>
-                            <p>{feat.desc}</p>
-                          </div>
+            {/* FAQ - Accordion/Grid */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'faq');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-faq-grid">
+                    {section.faqs.map((item: any, idx: number) => (
+                      <div key={idx} className="saas-faq-item">
+                        <div className="saas-faq-question">
+                          <span className="saas-faq-icon">❓</span>
+                          {item.p}
                         </div>
-                      ))}
-                    </div>
-                  </>
-                )
-              })()}
-            </section>
+                        <div className="saas-faq-answer">
+                          {item.s}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
+
+            {/* Key Features - Feature Grid */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'features');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="saas-feature-grid">
+                    {section.features.map((feat: any, idx: number) => (
+                      <div key={idx} className="saas-feature-card">
+                        <div className="saas-feature-icon">{feat.icon}</div>
+                        <h3 className="saas-feature-title">{feat.title}</h3>
+                        <p className="saas-feature-desc">{feat.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
+
           </article>
 
-          <div className="insta-back-link reveal">
+          <div className="insta-back-link reveal" style={{ marginTop: '3rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
             <p>
               {lang === 'tr' ? 'Daha fazla font stili ve ' : 'Looking for more font styles and '}
               <strong>Insta Yazı Tipi</strong>
-              {lang === 'tr' ? ' seçenekleri mi arıyorsunuz?' : ' options?'}
-              <Link href="/" className="insta-homepage-link">{t.common.nav.home}</Link>
+              {lang === 'tr' ? ' seçenekleri mi arıyorsunuz?' : ' options?'} <br />
+              <Link href="/" className="insta-homepage-link" style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}>{t.common.nav.home}</Link>
             </p>
           </div>
 

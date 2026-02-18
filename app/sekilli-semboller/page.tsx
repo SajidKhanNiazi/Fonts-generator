@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   title: 'Şekilli Semboller – Süslü ve Özel Semboller Kopyala',
   description: 'Şekilli semboller ile süslü, özel ve estetik sembolleri tek tıkla kopyala ve kullan.',
   keywords: 'şekilli semboller, şekilli semboller kopyala, süslü semboller, özel semboller, sembol işaretleri, şekilli işaretler, instagram semboller, whatsapp semboller, oyun sembolleri, kalp sembolleri, yıldız sembolleri',
-  authors: [{ name: 'Yazı Stilleri' }],
+  authors: [{ name: 'Stilleri Pro' }],
   openGraph: {
     title: 'Şekilli Semboller – Süslü ve Özel Semboller Kopyala',
     description: 'Şekilli semboller ile süslü, özel ve estetik sembolleri tek tıkla kopyala ve kullan.',
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://yazı-stilleripro.com.tr/sekilli-semboller',
+    url: 'https://stilleripro.com.tr/sekilli-semboller',
   },
   twitter: {
     card: 'summary_large_image',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://yazı-stilleripro.com.tr/sekilli-semboller',
+    canonical: 'https://stilleripro.com.tr/sekilli-semboller',
   },
 }
 

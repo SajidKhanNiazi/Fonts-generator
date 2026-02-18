@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Gizlilik Politikası - Yazı Stilleri',
-  description: 'Yazı Stilleri gizlilik politikası. Kişisel verilerinizin nasıl korunduğu ve kullanıldığı hakkında bilgi.',
+  title: 'Gizlilik Politikası - Stilleri Pro',
+  description: 'Stilleri Pro gizlilik politikası. Kişisel verilerinizin nasıl korunduğu ve kullanıldığı hakkında bilgi.',
   robots: {
     index: true,
     follow: true,
@@ -17,7 +17,7 @@ export default function GizlilikPolitikasi() {
         <div className="container">
           <div className="header-content">
             <Link href="/" className="logo">
-              Yazı Stilleri
+              Stilleri Pro
             </Link>
             <nav className="nav">
               <Link href="/" className="nav-link">
@@ -48,7 +48,7 @@ export default function GizlilikPolitikasi() {
 
             <h2>1. Giriş</h2>
             <p>
-              Yazı Stilleri olarak, kullanıcılarımızın gizliliğine büyük önem veriyoruz. Bu gizlilik politikası,
+              Stilleri Pro olarak, kullanıcılarımızın gizliliğine büyük önem veriyoruz. Bu gizlilik politikası,
               web sitemizi kullanırken toplanan bilgilerin nasıl kullanıldığını ve korunduğunu açıklamaktadır.
             </p>
 
@@ -99,7 +99,7 @@ export default function GizlilikPolitikasi() {
 
             <h2>5. Veri Güvenliği</h2>
             <p>
-              Yazı Stilleri olarak, kullanıcı verilerinin güvenliğini sağlamak için endüstri standardı güvenlik
+              Stilleri Pro olarak, kullanıcı verilerinin güvenliğini sağlamak için endüstri standardı güvenlik
               önlemleri alıyoruz. Ancak, internet üzerinden veri iletiminin %100 güvenli olduğu garanti edilemez.
             </p>
 
@@ -129,7 +129,7 @@ export default function GizlilikPolitikasi() {
 
             <h2>10. KVKK (Kişisel Verilerin Korunması Kanunu) Uyumluluğu</h2>
             <p>
-              Yazı Stilleri, 6698 sayılı Kişisel Verilerin Korunması Kanunu'na uygun olarak hareket eder.
+              Stilleri Pro, 6698 sayılı Kişisel Verilerin Korunması Kanunu'na uygun olarak hareket eder.
               Kişisel verileriniz, yalnızca yasal zorunluluklar ve web sitesinin işleyişi için gerekli olduğu
               ölçüde işlenir.
             </p>
@@ -161,7 +161,7 @@ export default function GizlilikPolitikasi() {
               </Link>
             </div>
             <div className="footer-text">
-              © 2024 Yazı Stilleri. Tüm hakları saklıdır.
+              © 2026 Stilleri Pro. Tüm hakları saklıdır.
             </div>
           </div>
         </div>

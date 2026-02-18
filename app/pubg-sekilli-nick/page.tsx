@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   title: 'PUBG Şekilli Nick – Havalı ve Estetik PUBG Nickleri',
   description: 'PUBG şekilli nick oluştur, havalı ve estetik PUBG nicklerini tek tıkla kopyala ve oyunda kullan.',
   keywords: 'pubg şekilli nick, pubg nick, pubg havalı nick, pubg şekilli isimler, pubg mobile nick, pubg clan nickleri, pubg estetik nick',
-  authors: [{ name: 'Yazı Stilleri' }],
+  authors: [{ name: 'Stilleri Pro' }],
   openGraph: {
     title: 'PUBG Şekilli Nick – Havalı ve Estetik PUBG Nickleri',
     description: 'PUBG şekilli nick oluştur, havalı ve estetik PUBG nicklerini tek tıkla kopyala ve oyunda kullan.',
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://yazı-stilleripro.com.tr/pubg-sekilli-nick',
+    url: 'https://stilleripro.com.tr/pubg-sekilli-nick',
   },
   twitter: {
     card: 'summary_large_image',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://yazı-stilleripro.com.tr/pubg-sekilli-nick',
+    canonical: 'https://stilleripro.com.tr/pubg-sekilli-nick',
   },
 }
 

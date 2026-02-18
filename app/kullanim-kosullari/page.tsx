@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Kullanım Koşulları - Yazı Stilleri',
-    description: 'Yazı Stilleri web sitesi kullanım koşulları ve yasal uyarılar. Hizmetlerimizi kullanırken uymanız gereken kurallar hakkında bilgi edinin.',
+    title: 'Kullanım Koşulları - Stilleri Pro',
+    description: 'Stilleri Pro web sitesi kullanım koşulları ve yasal uyarılar. Hizmetlerimizi kullanırken uymanız gereken kurallar hakkında bilgi edinin.',
     robots: {
         index: true,
         follow: true,
@@ -17,7 +17,7 @@ export default function KullanimKosullari() {
                 <div className="container">
                     <div className="header-content">
                         <Link href="/" className="logo">
-                            ✨ Yazı Stilleri
+                            ✨ Stilleri Pro
                         </Link>
                         <nav className="nav">
                             <Link href="/" className="nav-link">
@@ -44,7 +44,7 @@ export default function KullanimKosullari() {
                     <div className="page-content" style={{ lineHeight: '1.8', color: 'var(--text-secondary)' }}>
                         <section style={{ marginBottom: '2.5rem' }}>
                             <p>
-                                Yazı Stilleri ("biz", "bize" veya "bizim") tarafından işletilen web sitemizi ziyaret ettiğiniz için teşekkür ederiz.
+                                Stilleri Pro ("biz", "bize" veya "bizim") tarafından işletilen web sitemizi ziyaret ettiğiniz için teşekkür ederiz.
                                 Bu web sitesini kullanarak, aşağıdaki kullanım koşullarını kabul etmiş sayılırsınız.
                                 Lütfen hizmetlerimizi kullanmadan önce bu koşulları dikkatlice okuyunuz.
                             </p>
@@ -53,7 +53,7 @@ export default function KullanimKosullari() {
                         <section style={{ marginBottom: '2.5rem' }}>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '1rem' }}>1. Hizmet Kullanımı</h2>
                             <p>
-                                Yazı Stilleri, kullanıcıların metinlerini farklı yazı tiplerine dönüştürmelerine olanak tanıyan ücretsiz bir çevrimiçi araçtır.
+                                Stilleri Pro, kullanıcıların metinlerini farklı yazı tiplerine dönüştürmelerine olanak tanıyan ücretsiz bir çevrimiçi araçtır.
                                 Hizmetimiz yalnızca yasal amaçlar için kullanılabilir.
                                 Web sitemizi kullanarak, üçüncü şahısların haklarını ihlal etmeyeceğinizi ve yasalara aykırı içerik üretmeyeceğinizi taahhüt edersiniz.
                             </p>
@@ -62,7 +62,7 @@ export default function KullanimKosullari() {
                         <section style={{ marginBottom: '2.5rem' }}>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '1rem' }}>2. Fikri Mülkiyet</h2>
                             <p>
-                                Web sitemizde kullanılan yazılım, tasarım, metinler ve logolar Yazı Stilleri'ne aittir veya lisanslıdır.
+                                Web sitemizde kullanılan yazılım, tasarım, metinler ve logolar Stilleri Pro'ya aittir veya lisanslıdır.
                                 Bu içeriklerin izinsiz kopyalanması, çoğaltılması veya dağıtılması yasaktır.
                                 Oluşturduğunuz şık metinleri kişisel veya ticari amaçlarla sosyal medya platformlarında özgürce kullanabilirsiniz.
                             </p>
@@ -71,7 +71,7 @@ export default function KullanimKosullari() {
                         <section style={{ marginBottom: '2.5rem' }}>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '1rem' }}>3. Sorumluluk Reddi</h2>
                             <p>
-                                Hizmetimiz "olduğu gibi" sunulmaktadır. Yazı Stilleri, hizmetin kesintisiz veya hatasız olacağını garanti etmez.
+                                Hizmetimiz "olduğu gibi" sunulmaktadır. Stilleri Pro, hizmetin kesintisiz veya hatasız olacağını garanti etmez.
                                 Metin dönüşümleri sırasında oluşabilecek veri kayıplarından veya yanlış gösterimlerden sorumlu tutulamaz.
                                 Farklı platformların (Instagram, WhatsApp vb.) belirli Unicode karakterlerini desteklememesi bizim kontrolümüz dışındadır.
                             </p>
@@ -88,7 +88,7 @@ export default function KullanimKosullari() {
                         <section style={{ marginBottom: '2.5rem' }}>
                             <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '1rem' }}>5. Değişiklikler</h2>
                             <p>
-                                Yazı Stilleri, bu kullanım koşullarını dilediği zaman güncelleme hakkını saklı tutar.
+                                Stilleri Pro, bu kullanım koşullarını dilediği zaman güncelleme hakkını saklı tutar.
                                 Değişiklikler web sitesinde yayınlandığı andan itibaren geçerli olur.
                                 Hizmetimizi kullanmaya devam ederek güncel koşulları kabul etmiş sayılırsınız.
                             </p>
@@ -117,7 +117,7 @@ export default function KullanimKosullari() {
                             <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>
                         </div>
                         <div className="footer-text">
-                            © 2026 Yazı Stilleri. Tüm hakları saklıdır.
+                            © 2026 Stilleri Pro. Tüm hakları saklıdır.
                         </div>
                     </div>
                 </div>

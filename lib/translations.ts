@@ -3,7 +3,7 @@ export type Language = 'tr' | 'en';
 export const translations: Record<Language, any> = {
     tr: {
         common: {
-            logo: '✨ Yazı Stilleri',
+            logo: '✨ Stilleri Pro',
             nav: {
                 home: 'Ana Sayfa',
                 insta: 'Insta Yazı Tipi',
@@ -16,7 +16,7 @@ export const translations: Record<Language, any> = {
                 insta: 'Insta Yazı Tipi',
                 symbols: 'Şekilli Semboller',
                 pubg: 'PUBG Şekilli Nick',
-                rights: '© 2026 Yazı Stilleri. Tüm hakları saklıdır.',
+                rights: '© 2026 Stilleri Pro. Tüm hakları saklıdır.',
             },
             copy: '📋 Kopyala',
             copied: '✓ Kopyalandı!',
@@ -415,7 +415,7 @@ export const translations: Record<Language, any> = {
     },
     en: {
         common: {
-            logo: '✨ Font Styles',
+            logo: '✨ Stilleri Pro',
             nav: {
                 home: 'Home',
                 insta: 'Insta Font',
@@ -428,7 +428,7 @@ export const translations: Record<Language, any> = {
                 insta: 'Insta Font',
                 symbols: 'Shaped Symbols',
                 pubg: 'PUBG Stylish Nickname',
-                rights: '© 2026 Font Styles. All rights reserved.',
+                rights: '© 2026 Stilleri Pro. All rights reserved.',
             },
             copy: '📋 Copy',
             copied: '✓ Copied!',
