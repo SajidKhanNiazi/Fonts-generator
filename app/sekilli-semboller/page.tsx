@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'Şekilli semboller ile süslü, özel ve estetik sembolleri tek tıkla kopyala ve kullan.',
     type: 'website',
     locale: 'tr_TR',
-    url: 'https://stilleripro.com.tr/sekilli-semboller',
+    url: 'https://yazı-stilleripro.com.tr/sekilli-semboller',
   },
   twitter: {
     card: 'summary_large_image',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://stilleripro.com.tr/sekilli-semboller',
+    canonical: 'https://yazı-stilleripro.com.tr/sekilli-semboller',
   },
 }
 

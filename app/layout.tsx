@@ -2,13 +2,13 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Stilleri Pro - Türkçe Metin Stil Dönüştürücü | Ücretsiz Font Aracı',
-  description: 'Yazı stilleri aracı ile metninizi Instagram, WhatsApp, Facebook için özel font stillerine dönüştürün. Kalın, italik, süslü ve daha fazla yazı stili. Türkçe karakter desteği ile ç, ğ, ı, ö, ş, ü karakterleri mükemmel çalışır.',
+  title: 'Yazi Stilleri -Değişik yazı stilleri - Şık Nick Yazma',
+  description: 'Metni Instagram ve PUBG için şık yazı tiplerine ve takma adlara dönüştürün. Biyografinizi ve mesajlarınızı özelleştirmek için ücretsiz yazı stilleri aracımızla dikkat çekici stiller oluşturun.',
   keywords: 'yazı stilleri, font stilleri, metin dönüştürücü, instagram yazı stili, whatsapp font, türkçe font, yazı tipi, metin stili',
   authors: [{ name: 'Stilleri Pro' }],
   openGraph: {
     title: 'Stilleri Pro - Türkçe Metin Stil Dönüştürücü',
-    description: 'Metninizi özel font stillerine dönüştürün. Instagram, WhatsApp ve Facebook için mükemmel.',
+    description: 'Metni Instagram ve PUBG için şık yazı tiplerine ve takma adlara dönüştürün. Biyografinizi ve mesajlarınızı özelleştirmek için ücretsiz yazı stilleri aracımızla dikkat çekici stiller oluşturun.',
     type: 'website',
     locale: 'tr_TR',
   },

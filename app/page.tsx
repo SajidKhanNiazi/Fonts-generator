@@ -147,7 +147,7 @@ export default function Home() {
       "@type": "WebApplication",
       "name": "Stilleri Pro",
       "description": "Türkçe metin stil dönüştürücü aracı. Instagram, WhatsApp, Facebook için özel font stilleri.",
-      "url": "https://stilleripro.com.tr",
+      "url": "https://yazı-stilleripro.com.tr",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web",
       "offers": {
