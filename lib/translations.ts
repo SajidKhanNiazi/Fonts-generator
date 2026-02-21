@@ -50,13 +50,15 @@ export const translations: Record<Language, any> = {
                     id: 'what-are-font-styles',
                     title: 'Yazı Tipi Stilleri Ne İçin Kullanılır?',
                     type: 'text',
-                    content: 'Yazı tipi stilleri özel takma adlar, havalı fontlar, emojili şık metinler ve logolar oluşturmamıza yardımcı olur. Özellikle el yazısı stilleri en popüler kategorilerden biridir. Metninizi ihtiyaçlarınıza ve platformun gereksinimlerine göre tamamen özelleştirebilirsiniz.'
+                    content: 'Yazı tipi stilleri özel takma adlar, havalı fontlar, emojili şık metinler ve logolar oluşturmamıza yardımcı olur. Özellikle el yazısı stilleri en popüler kategorilerden biridir. Metninizi ihtiyaçlarınıza ve platformun gereksinimlerine göre tamamen özelleştirebilirsiniz.',
+                    image: '/fonts-showcase.png'
                 },
                 {
                     id: 'how-changer-works',
                     title: 'Yazı Dönüştürücü Nasıl Çalışır?',
                     type: 'text',
-                    content: 'Yazı dönüştürücü, sosyal medya gönderileri, markalar ve takipçiler için stilize edilmiş takma adlar ve havalı metinler oluşturmaya yarayan çevrimiçi bir araçtır. Farklı platformlarda benzersiz görünmenizi sağlar ve profil etkileşiminizi artırır.'
+                    content: 'Yazı dönüştürücü, sosyal medya gönderileri, markalar ve takipçiler için stilize edilmiş takma adlar ve havalı metinler oluşturmaya yarayan çevrimiçi bir araçtır. Farklı platformlarda benzersiz görünmenizi sağlar ve profil etkileşiminizi artırır.',
+                    image: '/text-showcase.png'
                 },
                 {
                     id: 'use-cases',
@@ -93,13 +95,15 @@ export const translations: Record<Language, any> = {
                     id: 'social-media-use',
                     title: 'Sosyal Medyada Şık Yazı Tiplerini Kullanma',
                     type: 'text',
-                    content: 'Sosyal medya platformları, yeni kullanıcıları takipçiye ve müşteriye dönüştürmek için son derece etkileşimlidir. Gönderilerde, takma adlarda ve biyografilerde güzel, küçük, kalp logolu ve kalın yazı tipleri kullanarak herkes için daha okunabilir ve çekici bir profil oluşturabilirsiniz.'
+                    content: 'Sosyal medya platformları, yeni kullanıcıları takipçiye ve müşteriye dönüştürmek için son derece etkileşimlidir. Gönderilerde, takma adlarda ve biyografilerde güzel, küçük, kalp logolu ve kalın yazı tipleri kullanarak herkes için daha okunabilir ve çekici bir profil oluşturabilirsiniz.',
+                    image: '/social-media-showcase.png'
                 },
                 {
                     id: 'to-consider',
                     title: 'Yazı Stili Seçerken Dikkat Edilmesi Gerekenler',
                     type: 'text',
-                    content: 'Bir yazı stili seçerken tüm platformlarda iyi çalıştığından ve Türkçe karakterleri desteklediğinden emin olun. Yazı tipi çekici görünmeli ancak küçük ekranlarda bile okunması kolay olmalıdır. Metin her zaman açık ve net olmalıdır.'
+                    content: 'Bir yazı stili seçerken tüm platformlarda iyi çalıştığından ve Türkçe karakterleri desteklediğinden emin olun. Yazı tipi çekici görünmeli ancak küçük ekranlarda bile okunması kolay olmalıdır. Metin her zaman açık ve net olmalıdır.',
+                    image: '/showcase-v2.png'
                 },
                 {
                     id: 'turkish-support',
@@ -145,6 +149,33 @@ export const translations: Record<Language, any> = {
                     title: 'Neden Bizi Seçmelisiniz?',
                     type: 'text',
                     content: 'Many online users struggle to find the perfect font style that looks great on social media and games. Our tool makes it easy to create stylish and attractive text, helping you stand out. We provide a wide variety of fonts to meet all your creative needs.'
+                },
+                {
+                    id: 'home-faq',
+                    title: 'Sıkça Sorulan Sorular',
+                    type: 'faq',
+                    faqs: [
+                        {
+                            q: 'Yazı Stilleri Aracı nasıl şık takma adlar oluşturur?',
+                            a: 'PUBG ve Instagram için şık takma adlar oluşturmak için metninizi giriş bölümüne girmeniz yeterlidir; bu, metninizi takma ad olarak kullanılabilecek benzersiz ve havalı metinlere dönüştürür. PUBG için hazır takma adlar istiyorsanız, takma ad fikirlerini keşfetmek için PUBG tarzı takma ad sayfamızı kullanabilirsiniz.'
+                        },
+                        {
+                            q: 'Türkçe karakterler tam olarak destekleniyor mu?',
+                            a: 'Evet, Yazı stilleri aracımız tüm Türkçe Ğ, ü, ş, ı, ö ve ç karakterlerini destekler. Bu araç, Türk kullanıcıların yazı tiplerini değiştirmeleri için özel olarak tasarlanmıştır.'
+                        },
+                        {
+                            q: 'Tüm dillerde çalışıyor mu?',
+                            a: 'Evet, kullanıcılar dillerini bozmadan tüm dillerde yazı stilleri oluşturabilir ve kullanabilir. Unicode tüm dilleri kapsar, karakterlerini tüm dillerde kolayca değiştirirler.'
+                        },
+                        {
+                            q: 'Yazı tiplerini bilgisayarımda kullanabilir miyim?',
+                            a: 'Evet, bu yazı tipleri tüm cihazlarda çalışır. İndirmeden kopyalayıp yapıştırmak kolaydır.'
+                        },
+                        {
+                            q: 'Gizlilik konusunda endişelenmeli miyim?',
+                            a: 'Hayır, yazı tipi oluşturucumuzu güvenle kullanabilirsiniz. Web sitemizi kullanan kullanıcıların hiçbir metnini kaydetmiyoruz. Aracımızı kullanmakta ve her yerde paylaşmakta özgürsünüz.'
+                        }
+                    ]
                 }
             ]
         },
@@ -198,6 +229,7 @@ export const translations: Record<Language, any> = {
                     title: 'Instagram\'da Stilize Metin Nasıl Yazılır?',
                     type: 'examples',
                     content: 'Stilize metin tarzı arkadaşlarımız arasında kendimizi gururlu hissetmemizi sağlar. Takma adımızı, biyografimizi ve gönderi açıklaması metnimizi Stilize ve Havalı metinlere dönüştürebiliriz. Insta yazı tipleri, metnimizi girdiğimiz ve aracın bize dönüştürülmüş yazı tipi stillerinin bir listesini sunduğu çevrimiçi bir yazı tipi dönüştürücü tarafından oluşturulur.',
+                    image: '/insta-font-showcase.png',
                     examples: [
                         { label: 'Bold (Kalın)', text: '𝐈𝐧𝐬𝐭𝐚 𝐘𝐚𝐳𝐢 𝐭𝐢𝐩𝐢' },
                         { label: 'Script (El Yazısı)', text: '𝓘𝓷𝓼𝓽𝓪 𝓨𝓪𝔃𝓲 𝓽𝓲p𝓲' },
@@ -240,12 +272,15 @@ export const translations: Record<Language, any> = {
                 },
                 {
                     id: 'faq',
-                    title: 'Instagram Yazı Tipi Hataları ve Çözümleri',
+                    title: 'Sıkça Sorulan Sorular',
+                    type: 'faq',
                     faqs: [
-                        { p: "Sorun 1: Yazı Tipi Düzgün Görünmüyor", s: "Tüm cihazlarda çalışan Instagram güvenli Unicode yazı tiplerini kullanın." },
-                        { p: "Sorun 2: Metin Kutucuk Olarak Görünüyor", s: "Ağır dekoratif yazı tiplerinden kaçının ve basit stilleri seçin." },
-                        { p: "Sorun 3: Kopyala/Yapıştır Doğru Çalışmıyor", s: "Metnin tamamını kopyalayın ve düzenleme yapmadan doğrudan yapıştırın." },
-                        { p: "Sorun 4: Metnin Okunması Zor", s: "Biyografiler ve açıklamalar için temiz ve okunabilir yazı tipleri kullanın." }
+                        { q: 'Instagram\'da hangi yazı tipleri çalışır?', a: 'Çoğunlukla tüm Unicode karakter tabanlı yazı tipleri Instagram\'da çalışır. İşte Instagram\'da yaygın olarak kullanılan birkaç önemli yazı tipi stili: Kalın, El Yazısı, Estetik Yazı ve Küçük.' },
+                        { q: 'Instagram\'da Metin Stilleri Nasıl Değiştirilir?', a: 'Instagram uygulamasının sınırlı yazı tipi stilleri varken, stilize edilmiş bir metin oluşturmak ve Instagram\'daki biyografinizi ve açıklamalarınızı değiştirmek için Instagram yazı tipi aracımızı kullanabilirsiniz.' },
+                        { q: 'Instagram Stilize Metin Aracı Nasıl Çalışır?', a: 'Instagram profilinizi etkileşimli ve profesyonel hale getiren bir yazı tipi stili ararken; Mükemmel yazı tipi stilini bulmak için metninizi aracımıza girebilir ve tarayıcıda arama yapabilirsiniz.' },
+                        { q: 'Instagram Hikayesinde farklı bir yazı tipi kullanabilir miyim?', a: 'Evet, Instagram hikayesinde farklı yazı tipleri kullanabilirsiniz. Instagram\'ın varsayılan sınırlı bir stili vardır, ardından hikayenize eklemek için daha fazla yazı tipine göz atabilirsiniz.' },
+                        { q: 'Instagram yazı tiplerini kullanmak güvenli mi?', a: 'Evet, kullanımı tamamen güvenli olan ve Instagram profilinizi etkilemeyen Unicode karakterleri vardır.' },
+                        { q: 'Instagram\'da en popüler yazı tipi hangisidir?', a: 'Süslü metin, Gotik, Siyah Kare ve Estetik yazı tipi, daha anlaşılır oldukları için çoğunlukla Instagram\'da kullanılır. Ayrıca Taçlı, Kod Metni ve Modern Kalın seçeneklerini de kullanabilirsiniz.' }
                     ]
                 },
                 {
@@ -456,7 +491,8 @@ export const translations: Record<Language, any> = {
                     id: 'what-are-fonts',
                     title: 'What are fonts?',
                     type: 'text',
-                    content: 'Fonts are text and styles that we customize on our own choice to change our text more eye-catching and better Visual Appearance in any social media Platform. These Fonts make text more clear and readable by changing text font, size and color.'
+                    content: 'Fonts are text and styles that we customize on our own choice to change our text more eye-catching and better Visual Appearance in any social media Platform. These Fonts make text more clear and readable by changing text font, size and color.',
+                    image: '/fonts-showcase.png'
                 },
                 {
                     id: 'what-are-font-styles',
@@ -468,7 +504,8 @@ export const translations: Record<Language, any> = {
                     id: 'how-changer-works',
                     title: 'How does the Font Changer work?',
                     type: 'text',
-                    content: 'Font changer is an online Tool which works for creating a stylized nickname, cool text and engagement message for Social Media posts for brand and followers. We can use symbols styles text which make a unique in different game which look attractive.'
+                    content: 'Font changer is an online Tool which works for creating a stylized nickname, cool text and engagement message for Social Media posts for brand and followers. We can use symbols styles text which make a unique in different game which look attractive.',
+                    image: '/text-showcase.png'
                 },
                 {
                     id: 'use-cases',
@@ -505,13 +542,15 @@ export const translations: Record<Language, any> = {
                     id: 'social-media-use',
                     title: 'Using Stylish Fonts on Social Media',
                     type: 'text',
-                    content: 'Social Media platforms are highly interactive for new user to Convert into your follower and Client for any Service. By Using Beautiful, small, heart bold and colors Fonts in posts, nickname and bio which make a more readable and attractive for everyone.'
+                    content: 'Social Media platforms are highly interactive for new user to Convert into your follower and Client for any Service. By Using Beautiful, small, heart bold and colors Fonts in posts, nickname and bio which make a more readable and attractive for everyone.',
+                    image: '/social-media-showcase.png'
                 },
                 {
                     id: 'to-consider',
                     title: 'Things to Consider When Choosing a Font Style',
                     type: 'text',
-                    content: 'When choosing a font style, make sure it works well on all platforms and supports special characters like Turkish letters. The font should look attractive but also be easy to read, even on small screens.'
+                    content: 'When choosing a font style, make sure it works well on all platforms and supports special characters like Turkish letters. The font should look attractive but also be easy to read, even on small screens.',
+                    image: '/showcase-v2.png'
                 },
                 {
                     id: 'turkish-support',
@@ -557,6 +596,33 @@ export const translations: Record<Language, any> = {
                     title: 'Why should you choose us?',
                     type: 'text',
                     content: 'Many online users struggle to find the perfect font style that looks great on social media and games. Our tool makes it easy to create stylish and attractive text, helping you stand out. We provide a wide variety of fonts to meet all your creative needs.'
+                },
+                {
+                    id: 'home-faq',
+                    title: 'Frequently Asked Questions (FAQs)',
+                    type: 'faq',
+                    faqs: [
+                        {
+                            q: 'How does the Font Styles Tool generate stylish nicknames?',
+                            a: 'Generate stylish nicknames for PUBG and instagram simply enter your text in the input section which converts your text into unique and cool text which can be used as nicknames. If you want a ready to build nicknames for PUBG, simple you our PUBG-style nickname page to explore nicknames ideas.'
+                        },
+                        {
+                            q: 'Are Turkish characters fully supported?',
+                            a: 'Yes, Our font styles tool support all turkish Ğ, ü, ş, ı, ö, and ç characters. This tool is specially designed for Turkish users to change their font.'
+                        },
+                        {
+                            q: 'Does it work in all languages?',
+                            a: 'Yes, Users can create and use font styles in all languages without breaking their style. Unicode covers all languages, they simply change their characters in all languages.'
+                        },
+                        {
+                            q: 'Can I use the fonts on my computer?',
+                            a: 'Yes, These fonts work on all devices. This is easy to copy and paste without downloading.'
+                        },
+                        {
+                            q: 'Should I be concerned about privacy?',
+                            a: 'No, You can safely use our font generator. We did not save any text of users which use our website. You are free to use our tool and share anywhere.'
+                        }
+                    ]
                 }
             ]
         },
@@ -610,6 +676,7 @@ export const translations: Record<Language, any> = {
                     title: 'How to Write Stylized Text on Instagram',
                     type: 'examples',
                     content: 'Stylized text style makes us feel proud among friends. We can simply change our nickname, Bio and post caption text into Stylized and Cool texts. Insta fonts are generated by an online font converter where we enter our text and the tool give us a list of converted fonts styles.',
+                    image: '/insta-font-showcase.png',
                     examples: [
                         { label: 'Bold', text: '𝐈𝐧𝐬𝐭𝐚 𝐘𝐚𝐳𝐢 𝐭𝐢𝐩𝐢' },
                         { label: 'Script', text: '𝓘𝓷𝓼𝓽𝓪 𝓨𝓪𝔃𝓲 𝓽𝓲p𝓲' },
@@ -652,12 +719,15 @@ export const translations: Record<Language, any> = {
                 },
                 {
                     id: 'faq',
-                    title: 'Instagram Font Errors and Solutions',
+                    title: 'FAQs',
+                    type: 'faq',
                     faqs: [
-                        { p: "Problem 1: Font Not Showing Properly", s: "Use Instagram-safe Unicode fonts that work on all devices." },
-                        { p: "Problem 2: Text Appears as Boxes", s: "Avoid heavy decorative fonts and choose simple styles." },
-                        { p: "Problem 3: Does Not Copy/Paste Correctly", s: "Copy the full text and paste it directly without editing." },
-                        { p: "Problem 4: Text Is Hard to Read", s: "Use clean and readable fonts for bios and captions." }
+                        { q: 'Which fonts work on Instagram?', a: 'Mostly all unicode characters base font work on instagram. Here are few important font styles which are commonly used on instagram: Bold, Handwriting, Aesthetic Writing and small.' },
+                        { q: 'How to Change Text Styles on Instagram?', a: 'Instagram app has limited font styles while you can use our instagram font tool to create a stylized text and change your bio and captions on instagram.' },
+                        { q: 'How does the Instagram Stylized Text Tool work?', a: 'While you are searching for a font style which makes your instagram profile interactive and professional, you can simply enter your text in our tool and browser to find the perfect font style.' },
+                        { q: 'Can I use a different font in Instagram Story?', a: 'Yes, you can use different fonts in insta story. Instagram has a default limited style, then you can browse more fonts to add in your story.' },
+                        { q: 'Are Instagram fonts safe to use?', a: 'Yes, there are unicode characters which are completely safe to use and don\'t affect your instagram profile.' },
+                        { q: 'Which font is the most popular on Instagram?', a: 'Fancy text, Gothic, Black Square and Aesthetic font are mostly used on Instagram because they are more understandable. You can also use Crowned, Code Text and Modern Thick.' }
                     ]
                 },
                 {

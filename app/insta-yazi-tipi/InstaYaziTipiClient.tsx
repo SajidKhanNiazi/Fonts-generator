@@ -557,6 +557,7 @@ export default function InstaYaziTipiClient() {
                   width={180}
                   height={40}
                   className="logo-image"
+                  style={{ height: 'auto' }}
                   priority
                 />
               </div>
@@ -948,8 +949,21 @@ export default function InstaYaziTipiClient() {
                   <div className="saas-section-header">
                     <h2 id={section.id} className="saas-heading">{section.title}</h2>
                   </div>
-                  <div className="saas-text-content" style={{ marginBottom: '1.5rem' }}>
+                  <div className="saas-text-content">
                     <p>{section.content}</p>
+                    {section.image && (
+                      <div className="section-image-container reveal">
+                        <NextImage
+                          src={section.image}
+                          alt={section.title}
+                          width={1000}
+                          height={600}
+                          sizes="(max-width: 768px) 100vw, 800px"
+                          style={{ width: '100%', height: 'auto' }}
+                          className="section-image"
+                        />
+                      </div>
+                    )}
                   </div>
                   <div className="saas-example-grid">
                     {section.examples.map((ex: any, idx: number) => (
@@ -995,30 +1009,7 @@ export default function InstaYaziTipiClient() {
               })()}
             </div>
 
-            {/* FAQ - Accordion/Grid */}
-            {(() => {
-              const section = t.insta.sections.find((s: any) => s.id === 'faq');
-              return section ? (
-                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
-                  <div className="saas-section-header">
-                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
-                  </div>
-                  <div className="saas-faq-grid">
-                    {section.faqs.map((item: any, idx: number) => (
-                      <div key={idx} className="saas-faq-item">
-                        <div className="saas-faq-question">
-                          <span className="saas-faq-icon">❓</span>
-                          {item.p}
-                        </div>
-                        <div className="saas-faq-answer">
-                          {item.s}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              ) : null;
-            })()}
+
 
             {/* Key Features - Feature Grid */}
             {(() => {
@@ -1034,6 +1025,35 @@ export default function InstaYaziTipiClient() {
                         <div className="saas-feature-icon">{feat.icon}</div>
                         <h3 className="saas-feature-title">{feat.title}</h3>
                         <p className="saas-feature-desc">{feat.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ) : null;
+            })()}
+
+            {/* FAQ - Accordion */}
+            {(() => {
+              const section = t.insta.sections.find((s: any) => s.id === 'faq');
+              return section ? (
+                <section key={section.id} className="saas-section reveal" aria-labelledby={section.id}>
+                  <div className="saas-section-header">
+                    <h2 id={section.id} className="saas-heading">{section.title}</h2>
+                  </div>
+                  <div className="faq-accordion" style={{ marginTop: '2rem' }}>
+                    {section.faqs.map((item: any, idx: number) => (
+                      <div key={idx} className={`faq-item-modern ${expandedFaq === idx ? 'expanded' : ''}`}>
+                        <button
+                          className="faq-question-btn"
+                          onClick={() => toggleFaq(idx)}
+                          aria-expanded={expandedFaq === idx}
+                        >
+                          <span className="faq-q-text">{item.q}</span>
+                          <span className="faq-q-icon">{expandedFaq === idx ? '−' : '+'}</span>
+                        </button>
+                        <div className="faq-answer-modern">
+                          <p>{item.a}</p>
+                        </div>
                       </div>
                     ))}
                   </div>

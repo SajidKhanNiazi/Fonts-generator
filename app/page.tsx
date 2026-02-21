@@ -186,6 +186,7 @@ export default function Home() {
                   width={180}
                   height={40}
                   className="logo-image"
+                  style={{ height: 'auto' }}
                   priority
                 />
               </div>
@@ -512,11 +513,26 @@ export default function Home() {
               <h2 className="section-main-title">{section.title}</h2>
               <div className="content-intro">
                 {section.type === 'text' && (
-                  <p className="intro-text" dangerouslySetInnerHTML={{ __html: section.content }} />
+                  <>
+                    <p className="intro-text" dangerouslySetInnerHTML={{ __html: section.content }} />
+                    {section.image && (
+                      <div className="section-image-container reveal">
+                        <NextImage
+                          src={section.image}
+                          alt={section.title}
+                          width={1000}
+                          height={600}
+                          sizes="(max-width: 768px) 100vw, 800px"
+                          style={{ width: '100%', height: 'auto' }}
+                          className="section-image"
+                        />
+                      </div>
+                    )}
+                  </>
                 )}
 
                 {section.type === 'features' && (
-                  <div className="feature-cards-grid" style={{ marginTop: '1.5rem' }}>
+                  <div className="feature-cards-grid">
                     {section.features.map((feature: any, idx: number) => (
                       <div key={idx} className="feature-card gradient-purple">
                         <div className="feature-card-icon">{feature.icon}</div>
@@ -528,7 +544,7 @@ export default function Home() {
                 )}
 
                 {section.type === 'fontFeatures' && (
-                  <div className="feature-cards-grid" style={{ marginTop: '1rem' }}>
+                  <div className="feature-cards-grid">
                     {section.features.map((feature: any, idx: number) => (
                       <div key={idx} className={`feature-card ${feature.gradient}`}>
                         <span className="example-text" style={{ fontSize: '1.25rem' }}>{feature.text}</span>
@@ -539,37 +555,16 @@ export default function Home() {
                 )}
 
                 {section.type === 'steps' && (
-                  <div className="detailed-steps" style={{ gap: '2rem', marginTop: '1.5rem' }}>
+                  <div className="detailed-steps">
                     {section.steps.map((step: any, idx: number) => (
-                      <div key={idx} className="detailed-step" style={{
-                        background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(139, 92, 246, 0.02))',
-                        borderLeft: '4px solid #8b5cf6',
-                        padding: '2rem',
-                        borderRadius: '1rem',
-                        transition: 'all 0.3s ease'
-                      }}>
+                      <div key={idx} className="detailed-step">
                         <div className="step-visual">
-                          <div className="step-number-large" style={{
-                            background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
-                            boxShadow: '0 8px 20px rgba(139, 92, 246, 0.3)',
-                            fontSize: '2rem',
-                            fontWeight: '800'
-                          }}>{step.number}</div>
-                          <div className="step-icon-circle" style={{
-                            fontSize: '2.5rem',
-                            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05))',
-                            padding: '1rem',
-                            borderRadius: '50%'
-                          }}>{step.icon}</div>
+                          <div className="step-number-large">{step.number}</div>
+                          <div className="step-icon-circle">{step.icon}</div>
                         </div>
                         <div className="step-details">
-                          <h3 style={{
-                            color: '#8b5cf6',
-                            fontSize: '1.5rem',
-                            marginBottom: '0.75rem',
-                            fontWeight: '700'
-                          }}>{step.title}</h3>
-                          <p style={{ fontSize: '1.05rem', lineHeight: '1.7' }}>{step.desc}</p>
+                          <h3>{step.title}</h3>
+                          <p>{step.desc}</p>
                         </div>
                       </div>
                     ))}
@@ -589,10 +584,30 @@ export default function Home() {
                 )}
 
                 {section.type === 'categoriesList' && (
-                  <div className="detailed-steps" style={{ gridTemplateColumns: '1fr' }}>
+                  <div className="detailed-steps">
                     {section.categories.map((cat: any, idx: number) => (
-                      <div key={idx} className="detailed-step" style={{ padding: '1rem' }}>
+                      <div key={idx} className="detailed-step" style={{ gridTemplateColumns: '1fr' }}>
                         <p><strong>{cat.title}</strong> {cat.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {section.type === 'faq' && mounted && (
+                  <div className="faq-accordion">
+                    {section.faqs.map((faq: any, idx: number) => (
+                      <div key={idx} className={`faq-item-modern ${expandedFaq === idx ? 'expanded' : ''}`}>
+                        <button
+                          className="faq-question-btn"
+                          onClick={() => toggleFaq(idx)}
+                          aria-expanded={expandedFaq === idx}
+                        >
+                          <span className="faq-q-text">{faq.q}</span>
+                          <span className="faq-q-icon">{expandedFaq === idx ? '−' : '+'}</span>
+                        </button>
+                        <div className="faq-answer-modern">
+                          <p>{faq.a}</p>
+                        </div>
                       </div>
                     ))}
                   </div>

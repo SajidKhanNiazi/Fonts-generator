@@ -278,6 +278,7 @@ export default function SekilliSembollerClient() {
                   width={180}
                   height={40}
                   className="logo-image"
+                  style={{ height: 'auto' }}
                   priority
                 />
               </div>
