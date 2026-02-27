@@ -4,6 +4,100 @@ import Link from 'next/link'
 import NextImage from 'next/image'
 import { Language, translations } from '@/lib/translations'
 
+// ============ TEXT TRANSFORMATION HELPERS ============
+
+const smallCapsMap: Record<string, string> = {
+  'a': 'ᴀ', 'b': 'ʙ', 'c': 'ᴄ', 'd': 'ᴅ', 'e': 'ᴇ', 'f': 'ꜰ', 'g': 'ɢ', 'h': 'ʜ',
+  'i': 'ɪ', 'j': 'ᴊ', 'k': 'ᴋ', 'l': 'ʟ', 'm': 'ᴍ', 'n': 'ɴ', 'o': 'ᴏ', 'p': 'ᴘ',
+  'q': 'ǫ', 'r': 'ʀ', 's': 'ꜱ', 't': 'ᴛ', 'u': 'ᴜ', 'v': 'ᴠ', 'w': 'ᴡ', 'x': 'x',
+  'y': 'ʏ', 'z': 'ᴢ',
+  'A': 'ᴀ', 'B': 'ʙ', 'C': 'ᴄ', 'D': 'ᴅ', 'E': 'ᴇ', 'F': 'ꜰ', 'G': 'ɢ', 'H': 'ʜ',
+  'I': 'ɪ', 'J': 'ᴊ', 'K': 'ᴋ', 'L': 'ʟ', 'M': 'ᴍ', 'N': 'ɴ', 'O': 'ᴏ', 'P': 'ᴘ',
+  'Q': 'ǫ', 'R': 'ʀ', 'S': 'ꜱ', 'T': 'ᴛ', 'U': 'ᴜ', 'V': 'ᴠ', 'W': 'ᴡ', 'X': 'x',
+  'Y': 'ʏ', 'Z': 'ᴢ',
+}
+
+const superscriptMap: Record<string, string> = {
+  'A': 'ᴬ', 'B': 'ᴮ', 'C': 'ᶜ', 'D': 'ᴰ', 'E': 'ᴱ', 'F': 'ᶠ', 'G': 'ᴳ', 'H': 'ᴴ',
+  'I': 'ᴵ', 'J': 'ᴶ', 'K': 'ᴷ', 'L': 'ᴸ', 'M': 'ᴹ', 'N': 'ᴺ', 'O': 'ᴼ', 'P': 'ᴾ',
+  'Q': 'Q', 'R': 'ᴿ', 'S': 'ˢ', 'T': 'ᵀ', 'U': 'ᵁ', 'V': 'ⱽ', 'W': 'ᵂ', 'X': 'ˣ',
+  'Y': 'ʸ', 'Z': 'ᶻ',
+}
+
+const mirrorMap: Record<string, string> = {
+  'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ',
+  'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd',
+  'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x',
+  'y': 'ʎ', 'z': 'z',
+  'A': '∀', 'B': 'ᗺ', 'C': 'Ↄ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁', 'H': 'H',
+  'I': 'I', 'J': 'ſ', 'K': 'ꓘ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ',
+  'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥', 'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X',
+  'Y': '⅄', 'Z': 'Z',
+}
+
+const glitchMap: Record<string, string> = {
+  'A': '∆', 'a': '∆', 'E': '3', 'e': '3', 'O': 'Ø', 'o': 'Ø',
+  'S': '$', 's': '$', 'I': '!', 'i': '!', 'T': '†', 't': '†',
+  'B': 'ß', 'b': 'ß', 'G': '9', 'g': '9', 'R': 'Я', 'r': 'Я',
+  'N': 'И', 'n': 'И', 'U': 'Ü', 'u': 'Ü', 'L': '£', 'l': '£',
+}
+
+const leetMap: Record<string, string> = {
+  'A': '4', 'a': '4', 'E': '3', 'e': '3', 'I': '1', 'i': '1',
+  'O': '0', 'o': '0', 'S': '5', 's': '5', 'T': '7', 't': '7',
+  'B': '8', 'b': '8', 'G': '6', 'g': '6', 'L': '1', 'l': '1',
+}
+
+function toSmallCaps(text: string): string {
+  return [...text].map(c => smallCapsMap[c] || c).join('')
+}
+
+function toSuperscript(text: string): string {
+  return [...text.toUpperCase()].map(c => superscriptMap[c] || c).join('')
+}
+
+function toSplitDot(text: string): string {
+  return [...text.toUpperCase()].join('•')
+}
+
+function toSplitLine(text: string): string {
+  return [...text.toUpperCase()].join('丨')
+}
+
+function toSplitSymbol(text: string): string {
+  return [...text.toUpperCase()].join('么')
+}
+
+function toGlitch(text: string): string {
+  return [...text].map(c => glitchMap[c] || c).join('')
+}
+
+function toLeetSpeak(text: string): string {
+  return [...text].map(c => leetMap[c] || c).join('')
+}
+
+function toFullwidth(text: string): string {
+  return [...text].map(c => {
+    const code = c.charCodeAt(0)
+    if (code >= 33 && code <= 126) {
+      return String.fromCharCode(code + 0xFEE0)
+    }
+    return c
+  }).join('')
+}
+
+function toCursedText(text: string): string {
+  return [...text].map(c => c + '\u0355\u033d').join('')
+}
+
+function toCircledText(text: string): string {
+  return [...text].map(c => c + '\u20e0').join('')
+}
+
+function toMirror(text: string): string {
+  return [...text].reverse().map(c => mirrorMap[c] || c).join('')
+}
+
 // ============ MAIN COMPONENT ============
 export default function PubgSekilliNickClient() {
   const [lang, setLang] = useState<Language>('tr')
@@ -15,6 +109,7 @@ export default function PubgSekilliNickClient() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [activeMode, setActiveMode] = useState<'initial' | 'converter' | 'aliases'>('initial')
 
   const t = translations[lang]
 
@@ -91,8 +186,39 @@ export default function PubgSekilliNickClient() {
         '💀Hades💀', '☠️Ares☠️', '⚔️Mars⚔️', '🔥Legend🔥', '💥Elite💥',
         '💀Master💀', '☠️Pro☠️', '⚔️Champion⚔️', '🔥King🔥', '💥Ace💥'
       ]
+    },
+    {
+      id: 'girl',
+      name: lang === 'tr' ? 'Kız Şekilli Nick' : 'Girl Stylish Names',
+      icon: '🌸',
+      nicknames: [
+        '♡Shadow♡', '✿ᴋɪʟʟᴇʀ✿', '🌸Ｓｈａｄｏｗ🌸', '♡亗Queen亗♡', '✿꧁Angel꧂✿',
+        '🦋ᴘʀɪɴᴄᴇꜱꜱ🦋', '♡Luna♡', '✿ᴠᴇɴᴜꜱ✿', '🌸Ａｎｇｅｌ🌸', '♡亗Rose亗♡',
+        '✿꧁Luna꧂✿', '🦋ᴀᴜʀᴏʀᴀ🦋', '♡Stella♡', '✿ᴅʀᴇᴀᴍ✿', '🌸Ｓｔａｒ🌸',
+        '♡亗Fairy亗♡', '✿꧁Cherry꧂✿', '🦋ᴅᴀɪꜱʏ🦋', '♡Crystal♡', '✿ᴍᴏᴏɴ✿',
+        '🌸Ｐｉｘｉｅ🌸', '♡亗Lily亗♡', '✿꧁Ruby꧂✿', '🦋ꜱᴋʏ🦋', '♡Pearl♡',
+        '✿ᴅᴏʟʟ✿', '🌸Ｂｌｏｓｓｏｍ🌸', '♡亗Iris亗♡', '✿꧁Sakura꧂✿', '🦋ᴀɴɢᴇʟ🦋',
+        '♡Violet♡', '✿ᴊᴀꜱᴍɪɴᴇ✿', '🌸Ｈｏｎｅｙ🌸', '♡亗Kitten亗♡', '✿꧁Candy꧂✿',
+        '🦋ᴘᴇᴀᴄʜ🦋', '♡Sugar♡', '✿ᴄᴜᴘɪᴅ✿', '🌸Ｃｕｔｉｅ🌸', '♡亗Blossom亗♡'
+      ]
+    },
+    {
+      id: 'japanese',
+      name: lang === 'tr' ? 'Japon Stili' : 'Japanese Style',
+      icon: '🎌',
+      nicknames: [
+        'シKillerシ', '乂Shadow乂', '亗Death亗', '影•Storm', '龍Phoenix龍',
+        '忍ᴀꜱꜱᴀꜱꜱɪɴ忍', 'シDestroyerシ', '乂Thunder乂', '亗Reaper亗', '影•Ghost',
+        '龍Dragon龍', '忍ʜᴜɴᴛᴇʀ忍', 'シViperシ', '乂Blade乂', '亗Nightmare亗',
+        '影•Titan', '龍Cobra龍', '忍ᴡᴀʀʟᴏʀᴅ忍', 'シFuryシ', '乂Rage乂',
+        '亗Venom亗', '影•Inferno', '龍Legend龍', '忍ᴇʟɪᴛᴇ忍', 'シMasterシ',
+        '乂Pro乂', '亗Champion亗', '影•King', '龍Ace龍', '忍ɢᴏᴀᴛ忍',
+        '꧁シKillerシ꧂', '꧁乂Shadow乂꧂', '꧁亗Death亗꧂', '꧁龍Dragon龍꧂',
+        '꧁忍ᴀꜱꜱᴀꜱꜱɪɴ忍꧂', '꧁シPhoenixシ꧂', '꧁乂Storm乂꧂', '꧁亗Reaper亗꧂',
+        '꧁龍Legend龍꧂', '꧁忍ᴇʟɪᴛᴇ忍꧂'
+      ]
     }
-  ], [t])
+  ], [t, lang])
 
   // Localized Patterns
   const pubgPatterns = useMemo(() => [
@@ -225,22 +351,143 @@ export default function PubgSekilliNickClient() {
 
   // Generate dynamic nicknames based on input
   const generateDynamicNicks = useMemo(() => {
-    if (!inputText.trim()) return []
-
-    const baseName = inputText.trim()
+    const defaultName = lang === 'tr' ? 'Oyuncu' : 'Player'
+    const baseName = inputText.trim() || defaultName
     const baseNameUpper = baseName.toUpperCase()
-    const dynamicNicks: Array<{ nick: string; label: string }> = []
+    const dynamicNicks: Array<{ nick: string; label: string; category: string }> = []
 
-    // Generate nicknames using all patterns
+    // ─── 1. Classic Frame Patterns ───
     pubgPatterns.forEach(({ pattern, label }) => {
       const nick = pattern
         .replace(/{name}/g, baseName)
         .replace(/{name_upper}/g, baseNameUpper)
-      dynamicNicks.push({ nick, label })
+      dynamicNicks.push({ nick, label, category: lang === 'tr' ? '🎮 Klasik Stiller' : '🎮 Classic Styles' })
     })
 
+    // ─── 2. Split Letter Styles ───
+    const splitCategory = lang === 'tr' ? '✂️ Bölünmüş Harf' : '✂️ Split Letter'
+    const splitDot = toSplitDot(baseName)
+    const splitLine = toSplitLine(baseName)
+    const splitSym = toSplitSymbol(baseName)
+    dynamicNicks.push(
+      { nick: splitDot, label: lang === 'tr' ? 'Nokta Bölme' : 'Dot Split', category: splitCategory },
+      { nick: `꧁${splitDot}꧂`, label: lang === 'tr' ? 'Çerçeveli Nokta' : 'Framed Dot', category: splitCategory },
+      { nick: `亗${splitDot}亗`, label: lang === 'tr' ? 'Sembol Nokta' : 'Symbol Dot', category: splitCategory },
+      { nick: splitLine, label: lang === 'tr' ? 'Çizgi Bölme' : 'Line Split', category: splitCategory },
+      { nick: `【${splitLine}】`, label: lang === 'tr' ? 'Çerçeveli Çizgi' : 'Framed Line', category: splitCategory },
+      { nick: splitSym, label: lang === 'tr' ? 'Sembol Bölme' : 'Symbol Split', category: splitCategory },
+      { nick: `꧁${splitSym}꧂`, label: lang === 'tr' ? 'Çerçeveli Sembol' : 'Framed Symbol', category: splitCategory },
+    )
+
+    // ─── 3. Small Caps & Superscript ───
+    const capsCategory = lang === 'tr' ? '👑 Küçük Büyük Harf' : '👑 Small Caps'
+    const sc = toSmallCaps(baseName)
+    const sup = toSuperscript(baseName)
+    dynamicNicks.push(
+      { nick: sc, label: lang === 'tr' ? 'Küçük Büyük' : 'Small Caps', category: capsCategory },
+      { nick: `${sc}⚔️`, label: lang === 'tr' ? 'Kılıçlı Küçük' : 'Small Caps + Sword', category: capsCategory },
+      { nick: `亗${sc}亗`, label: lang === 'tr' ? 'Sembol Küçük' : 'Symbol Small Caps', category: capsCategory },
+      { nick: `꧁${sc}꧂`, label: lang === 'tr' ? 'Çerçeveli Küçük' : 'Framed Small Caps', category: capsCategory },
+      { nick: sup, label: lang === 'tr' ? 'Üst Simge' : 'Superscript', category: capsCategory },
+      { nick: `${sup}⚔️`, label: lang === 'tr' ? 'Kılıçlı Üst' : 'Superscript + Sword', category: capsCategory },
+      { nick: `${sup}🔥`, label: lang === 'tr' ? 'Ateşli Üst' : 'Superscript + Fire', category: capsCategory },
+      { nick: `${sup}☠︎`, label: lang === 'tr' ? 'Korsanlı Üst' : 'Superscript + Skull', category: capsCategory },
+    )
+
+    // ─── 4. Weapon-Themed ───
+    const weaponCategory = lang === 'tr' ? '⚔️ Silah Temalı' : '⚔️ Weapon Style'
+    dynamicNicks.push(
+      { nick: `▄︻̷̿┻̿═━一${baseName}`, label: lang === 'tr' ? 'Sniper Tüfek' : 'Sniper Rifle', category: weaponCategory },
+      { nick: `︻デ═一${baseName}`, label: lang === 'tr' ? 'Tüfek Stili' : 'Rifle Style', category: weaponCategory },
+      { nick: `▄︻̷̿┻̿═━一${baseNameUpper}`, label: lang === 'tr' ? 'Büyük Sniper' : 'Upper Sniper', category: weaponCategory },
+      { nick: `▄︻̷̿┻̿═━一${toFullwidth(baseName)}`, label: lang === 'tr' ? 'Geniş Sniper' : 'Fullwidth Sniper', category: weaponCategory },
+      { nick: `︻デ═一${sc}`, label: lang === 'tr' ? 'Küçük Tüfek' : 'Small Caps Rifle', category: weaponCategory },
+    )
+
+    // ─── 5. Glitch / Hacker ───
+    const glitchCategory = lang === 'tr' ? '💀 Glitch / Hacker' : '💀 Glitch / Hacker'
+    const glitched = toGlitch(baseName)
+    const leeted = toLeetSpeak(baseName)
+    dynamicNicks.push(
+      { nick: glitched, label: lang === 'tr' ? 'Glitch Stili' : 'Glitch Style', category: glitchCategory },
+      { nick: `【${glitched}】`, label: lang === 'tr' ? 'Çerçeveli Glitch' : 'Framed Glitch', category: glitchCategory },
+      { nick: `亗${glitched}亗`, label: lang === 'tr' ? 'Sembol Glitch' : 'Symbol Glitch', category: glitchCategory },
+      { nick: leeted, label: lang === 'tr' ? 'Leet Speak' : 'Leet Speak', category: glitchCategory },
+      { nick: `꧁${leeted}꧂`, label: lang === 'tr' ? 'Çerçeveli Leet' : 'Framed Leet', category: glitchCategory },
+      { nick: `§${toGlitch(baseName).toUpperCase()}§`, label: lang === 'tr' ? 'Paragraf Glitch' : 'Section Glitch', category: glitchCategory },
+    )
+
+    // ─── 6. Cute + Deadly (Girl Stylish) ───
+    const cuteCategory = lang === 'tr' ? '🌸 Tatlı & Ölümcül' : '🌸 Cute & Deadly'
+    dynamicNicks.push(
+      { nick: `♡${baseName}♡`, label: lang === 'tr' ? 'Kalp Stili' : 'Heart Style', category: cuteCategory },
+      { nick: `✿${sc}✿`, label: lang === 'tr' ? 'Çiçek Küçük' : 'Flower Small Caps', category: cuteCategory },
+      { nick: `🌸${toFullwidth(baseName)}🌸`, label: lang === 'tr' ? 'Kiraz Çiçeği' : 'Cherry Blossom', category: cuteCategory },
+      { nick: `♡亗${baseName}亗♡`, label: lang === 'tr' ? 'Kalp Sembol' : 'Heart Symbol', category: cuteCategory },
+      { nick: `꧁♡${baseName}♡꧂`, label: lang === 'tr' ? 'Çerçeveli Kalp' : 'Framed Heart', category: cuteCategory },
+      { nick: `✿꧁${baseName}꧂✿`, label: lang === 'tr' ? 'Çiçek Çerçeve' : 'Flower Frame', category: cuteCategory },
+      { nick: `🦋${sc}🦋`, label: lang === 'tr' ? 'Kelebek Stili' : 'Butterfly Style', category: cuteCategory },
+    )
+
+    // ─── 7. Japanese + Katakana Mix ───
+    const japanCategory = lang === 'tr' ? '🎌 Japon Stili' : '🎌 Japanese Mix'
+    dynamicNicks.push(
+      { nick: `シ${baseName}シ`, label: lang === 'tr' ? 'Katakana Çerçeve' : 'Katakana Frame', category: japanCategory },
+      { nick: `乂${baseName}乂`, label: lang === 'tr' ? 'Japon Çarpı' : 'Japanese Cross', category: japanCategory },
+      { nick: `亗${baseName}亗`, label: lang === 'tr' ? 'Özel Sembol' : 'Special Symbol', category: japanCategory },
+      { nick: `影•${baseName}`, label: lang === 'tr' ? 'Gölge Japon' : 'Shadow Japanese', category: japanCategory },
+      { nick: `龍${baseName}龍`, label: lang === 'tr' ? 'Ejderha Stili' : 'Dragon Style', category: japanCategory },
+      { nick: `忍${sc}忍`, label: lang === 'tr' ? 'Ninja Stili' : 'Ninja Style', category: japanCategory },
+      { nick: `꧁シ${baseName}シ꧂`, label: lang === 'tr' ? 'Çerçeveli Katakana' : 'Framed Katakana', category: japanCategory },
+    )
+
+    // ─── 8. Fire / Toxic Unicode ───
+    const fireCategory = lang === 'tr' ? '🔥 Ateş / Toksik' : '🔥 Fire / Toxic'
+    const cursed = toCursedText(baseName)
+    const circled = toCircledText(baseName)
+    dynamicNicks.push(
+      { nick: cursed, label: lang === 'tr' ? 'Lanetli Metin' : 'Cursed Text', category: fireCategory },
+      { nick: `🔥${cursed}🔥`, label: lang === 'tr' ? 'Ateşli Lanetli' : 'Fire Cursed', category: fireCategory },
+      { nick: `꧁${cursed}꧂`, label: lang === 'tr' ? 'Çerçeveli Lanetli' : 'Framed Cursed', category: fireCategory },
+      { nick: circled, label: lang === 'tr' ? 'Yasaklı Metin' : 'Circled Text', category: fireCategory },
+      { nick: `☢️${circled}☢️`, label: lang === 'tr' ? 'Radyoaktif' : 'Radioactive', category: fireCategory },
+    )
+
+    // ─── 9. Mirror / Upside Down ───
+    const mirrorCategory = lang === 'tr' ? '🪞 Ayna / Ters' : '🪞 Mirror / Flip'
+    const mirrored = toMirror(baseName)
+    dynamicNicks.push(
+      { nick: mirrored, label: lang === 'tr' ? 'Ters Çevrilmiş' : 'Flipped', category: mirrorCategory },
+      { nick: `꧁${mirrored}꧂`, label: lang === 'tr' ? 'Çerçeveli Ters' : 'Framed Flip', category: mirrorCategory },
+      { nick: `【${mirrored}】`, label: lang === 'tr' ? 'Köşeli Ters' : 'Angular Flip', category: mirrorCategory },
+      { nick: `亗${mirrored}亗`, label: lang === 'tr' ? 'Sembol Ters' : 'Symbol Flip', category: mirrorCategory },
+    )
+
+    // ─── 10. Rank-Based ───
+    const rankCategory = lang === 'tr' ? '🏆 Rank Temalı' : '🏆 Rank Based'
+    dynamicNicks.push(
+      { nick: `🏆Conqueror亗${baseName}`, label: lang === 'tr' ? 'Conqueror' : 'Conqueror', category: rankCategory },
+      { nick: `👑Ace亗${baseName}`, label: lang === 'tr' ? 'Ace Rank' : 'Ace Rank', category: rankCategory },
+      { nick: `💎Diamond•${baseName}`, label: lang === 'tr' ? 'Elmas Rank' : 'Diamond Rank', category: rankCategory },
+      { nick: `🔥Crown•${baseName}`, label: lang === 'tr' ? 'Kral Rank' : 'Crown Rank', category: rankCategory },
+      { nick: `⭐Platinum•${baseName}`, label: lang === 'tr' ? 'Platin Rank' : 'Platinum Rank', category: rankCategory },
+      { nick: `🏆${sc}`, label: lang === 'tr' ? 'Küçük Conqueror' : 'Small Conqueror', category: rankCategory },
+      { nick: `👑${sup}`, label: lang === 'tr' ? 'Üst Ace' : 'Super Ace', category: rankCategory },
+    )
+
+    // ─── 11. Fullwidth (Wide Text) ───
+    const wideCategory = lang === 'tr' ? '📐 Geniş Yazı' : '📐 Fullwidth'
+    const fw = toFullwidth(baseName)
+    dynamicNicks.push(
+      { nick: fw, label: lang === 'tr' ? 'Geniş Metin' : 'Fullwidth', category: wideCategory },
+      { nick: `꧁${fw}꧂`, label: lang === 'tr' ? 'Çerçeveli Geniş' : 'Framed Wide', category: wideCategory },
+      { nick: `【${fw}】`, label: lang === 'tr' ? 'Köşeli Geniş' : 'Angular Wide', category: wideCategory },
+      { nick: `🔥${fw}🔥`, label: lang === 'tr' ? 'Ateşli Geniş' : 'Fire Wide', category: wideCategory },
+    )
+
     return dynamicNicks
-  }, [inputText, pubgPatterns])
+  }, [inputText, pubgPatterns, lang])
+
 
   // Scroll to category
   const scrollToCategory = (categoryId: string) => {
@@ -268,6 +515,19 @@ export default function PubgSekilliNickClient() {
       }
     }, 100)
   }
+  // Effect to handle scroll when mode changes
+  useEffect(() => {
+    if (activeMode === 'aliases') {
+      scrollToSection('ready-made-categories');
+    } else if (activeMode === 'converter') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [activeMode])
+
+  // Filter categories if selected
+  const filteredCategories = selectedCategory
+    ? nicknameCategories.filter(c => c.id === selectedCategory)
+    : nicknameCategories;
 
   // Add structured data for SEO
   useEffect(() => {
@@ -302,13 +562,8 @@ export default function PubgSekilliNickClient() {
     }
   }, [mounted, lang])
 
-  // Filter categories if selected
-  const filteredCategories = selectedCategory
-    ? nicknameCategories.filter(c => c.id === selectedCategory)
-    : nicknameCategories
-
   return (
-    <div className={mounted && darkMode ? 'dark' : ''}>
+    <div className={mounted && darkMode ? "dark" : ""}>
       {/* Header - Same as Homepage */}
       <header className="header">
         <div className="container">
@@ -334,6 +589,12 @@ export default function PubgSekilliNickClient() {
               </Link>
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
+              </Link>
+              <Link href="/sekilli-semboller" className="nav-link">
+                {t.common.nav.symbols}
+              </Link>
+              <Link href="/pubg-sekilli-nick" className="nav-link active">
+                {t.common.nav.pubg}
               </Link>
             </nav>
 
@@ -392,6 +653,12 @@ export default function PubgSekilliNickClient() {
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
+            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎨</span> {t.common.nav.symbols}
+            </Link>
+            <Link href="/pubg-sekilli-nick" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
+            </Link>
 
             {/* Mobile Language Switcher */}
             <div className="mobile-lang-switcher">
@@ -416,706 +683,447 @@ export default function PubgSekilliNickClient() {
       <main className="main">
         <div className="container">
 
-          {/* Hero Section */}
-          <div className="hero-section">
+          {/* Premium Hero Section */}
+          <div className="hero-section-fullscreen">
             {/* Animated Background */}
-            <div className="hero-bg">
-              <div className="hero-gradient"></div>
-              <div className="hero-particles">
-                <div className="particle particle-1">🎮</div>
-                <div className="particle particle-2">⚔️</div>
-                <div className="particle particle-3">🔥</div>
-                <div className="particle particle-4">💀</div>
-                <div className="particle particle-5">⚡</div>
-                <div className="particle particle-6">👑</div>
+            <div className="hero-bg-fullscreen">
+              <div className="hero-gradient-animated"></div>
+              <div className="hero-particles-animated">
+                <div className="particle">🎮</div>
+                <div className="particle">⚔️</div>
+                <div className="particle">🔥</div>
+                <div className="particle">💀</div>
+                <div className="particle">⚡</div>
+                <div className="particle">👑</div>
               </div>
-              <div className="hero-shapes">
+              <div className="hero-shapes-animated">
                 <div className="shape shape-1"></div>
                 <div className="shape shape-2"></div>
                 <div className="shape shape-3"></div>
+                <div className="shape shape-4"></div>
               </div>
             </div>
 
-            <div className="hero-content">
-              {/* Animated Title */}
-              <div className="hero-badge">
+            <div className="hero-content-fullscreen">
+              {/* Premium Badge */}
+              <div className="hero-badge-modern">
+                <div className="badge-pulse"></div>
                 <span className="badge-icon">🎮</span>
-                <span>{t.pubg.hero.badge}</span>
+                <span className="badge-text">{t.pubg.hero.badge}</span>
               </div>
 
-              <h1 className="hero-title">
-                <span className="title-line">
-                  <span className="title-word">{t.pubg.hero.title}</span>
-                  <span className="title-word highlight">{t.pubg.hero.titleHighlight}</span>
-                </span>
+              <h1 className="hero-title-fullscreen" style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>
+                <div className="title-line-animated">
+                  <span className="title-word-animated">{t.pubg.hero.title}</span>
+                  <span className="highlight-gradient">{t.pubg.hero.titleHighlight}</span>
+                </div>
               </h1>
 
-              <p className="hero-description">
+              <p className="hero-description-fullscreen">
                 {t.pubg.hero.description}
               </p>
 
+              {activeMode !== 'initial' && (
+                <button
+                  onClick={() => setActiveMode('initial')}
+                  className="back-btn-premium animate-fade-in-up"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                  </svg>
+                  {lang === 'tr' ? 'Seçeneklere Dön' : 'Back to Options'}
+                </button>
+              )}
+
               {/* Stats */}
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <span className="stat-number">{nicknameCategories.reduce((sum, cat) => sum + cat.nicknames.length, 0)}+</span>
-                  <span className="stat-label">{lang === 'tr' ? 'Hazır Nick' : 'Ready Nicks'}</span>
+              <div className="hero-stats-fullscreen">
+                <div className="stat-item-premium">
+                  <div className="stat-icon">🎮</div>
+                  <div className="stat-content">
+                    <span className="stat-number-premium">{nicknameCategories.reduce((sum, cat) => sum + cat.nicknames.length, 0)}+</span>
+                    <span className="stat-label-premium">{lang === 'tr' ? 'Hazır Nick' : 'Ready Nicks'}</span>
+                  </div>
                 </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">40+</span>
-                  <span className="stat-label">{lang === 'tr' ? 'Şekil Stili' : 'Style Patterns'}</span>
+                <div className="stat-divider-premium"></div>
+                <div className="stat-item-premium">
+                  <div className="stat-icon">✨</div>
+                  <div className="stat-content">
+                    <span className="stat-number-premium">40+</span>
+                    <span className="stat-label-premium">{lang === 'tr' ? 'Şekil Stili' : 'Style Patterns'}</span>
+                  </div>
                 </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">🇹🇷</span>
-                  <span className="stat-label">{lang === 'tr' ? 'Türkçe' : 'Turkish'}</span>
+                <div className="stat-divider-premium"></div>
+                <div className="stat-item-premium">
+                  <div className="stat-icon">🇹🇷</div>
+                  <div className="stat-content">
+                    <span className="stat-number-premium">TR</span>
+                    <span className="stat-label-premium">{lang === 'tr' ? 'Türkçe' : 'Turkish'}</span>
+                  </div>
                 </div>
+              </div>
+
+              {/* Generator Input - Premium Fullscreen Layout */}
+              {/* Selection Mode or Generator Input */}
+              <div className="hero-input-fullscreen">
+                {activeMode === 'initial' ? (
+                  <div className="font-grid animate-scale-in" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', maxWidth: '900px', margin: '0 auto' }}>
+                    {/* Name Converter Card */}
+                    <button
+                      onClick={() => setActiveMode('converter')}
+                      className="mode-card-premium mode-card-converter"
+                    >
+                      <div className="mode-card-icon">✨</div>
+                      <div className="mode-card-title" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff', marginBottom: '0.5rem' }}>
+                        {t.pubg.hero.inputTitle}
+                      </div>
+                      <p className="mode-card-desc">
+                        {lang === 'tr' ? 'İsmini yaz, havalı sembollerle süslenmiş onlarca seçenek gör.' : 'Type your name and get dozens of stylish options with symbols.'}
+                      </p>
+                    </button>
+
+                    {/* Ready-made Aliases Card */}
+                    <button
+                      onClick={() => setActiveMode('aliases')}
+                      className="mode-card-premium mode-card-aliases"
+                    >
+                      <div className="mode-card-icon">📋</div>
+                      <div className="mode-card-title" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#fff', marginBottom: '0.5rem' }}>
+                        {t.pubg.hero.readyNicks}
+                      </div>
+                      <p className="mode-card-desc">
+                        {lang === 'tr' ? 'En popüler, havalı ve profesyonel hazır nick listelerini incele.' : 'Browse the most popular, cool, and professional ready-made nick lists.'}
+                      </p>
+                    </button>
+                  </div>
+                ) : activeMode === 'converter' ? (
+                  <div className="input-container-glass animate-scale-in">
+                    <div className="input-header-premium">
+                      <div className="input-header-text-premium">
+                        <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>{t.pubg.hero.inputTitle}</div>
+                        <p>{lang === 'tr' ? 'PUBG uyumlu şekilli nickler otomatik oluşturulur' : 'Styled PUBG nicknames generated automatically'}</p>
+                      </div>
+                    </div>
+
+                    <div className="input-field-premium">
+                      <input
+                        type="text"
+                        className="text-input-premium"
+                        value={inputText}
+                        onChange={(e) => setInputText(e.target.value)}
+                        placeholder={lang === 'tr' ? 'İsminizi yazın (örnek: Ahmet)...' : 'Type your name (e.g. Ahmet)...'}
+                        maxLength={14}
+                      />
+                      {inputText && (
+                        <button
+                          className="clear-btn-premium"
+                          onClick={() => setInputText('')}
+                          aria-label="Clear input"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="input-footer-premium">
+                      <div className="turkish-chars-premium">
+                        <div className="chars-group">
+                          <span className="char-badge-premium">ç</span>
+                          <span className="char-badge-premium">ğ</span>
+                          <span className="char-badge-premium">ı</span>
+                          <span className="char-badge-premium">ö</span>
+                          <span className="char-badge-premium">ş</span>
+                          <span className="char-badge-premium">ü</span>
+                        </div>
+                        <span className="char-label-premium">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                          </svg>
+                          {lang === 'tr' ? 'desteklenir' : 'supported'}
+                        </span>
+                      </div>
+
+                      <div className={`char-counter-premium ${inputText.length > 12 ? 'warning' : ''} ${inputText.length > 13 ? 'danger' : ''}`}>
+                        <span className="counter-text">{inputText.length}</span>
+                        <span className="counter-sep">/</span>
+                        <span className="counter-max">14</span>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
 
-          {/* Option Selection Cards - Top of Page */}
-          <div style={{ margin: '3rem 0' }}>
-            <div className="font-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-              {/* Ready-made Option Card */}
-              <button
-                onClick={() => scrollToSection('ready-made-nicks')}
-                style={{
-                  cursor: 'pointer',
-                  background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
-                  border: '2px solid rgba(99, 102, 241, 0.3)',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: '2rem',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  textAlign: 'left',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  const target = e.currentTarget as HTMLButtonElement
-                  target.style.borderColor = 'rgba(99, 102, 241, 0.6)'
-                  target.style.transform = 'translateY(-8px) scale(1.02)'
-                  target.style.boxShadow = '0 20px 25px rgba(99, 102, 241, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1)'
-                }}
-                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  const target = e.currentTarget as HTMLButtonElement
-                  target.style.borderColor = 'rgba(99, 102, 241, 0.3)'
-                  target.style.transform = 'translateY(0) scale(1)'
-                  target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
-                }}
-              >
-                {/* Decorative background element */}
-                <div style={{
-                  position: 'absolute',
-                  top: '-50px',
-                  right: '-50px',
-                  width: '150px',
-                  height: '150px',
-                  background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
-                  borderRadius: '50%',
-                  pointerEvents: 'none'
-                }} />
 
-                {/* Icon */}
-                <div style={{
-                  width: '56px',
-                  height: '56px',
-                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                  borderRadius: 'var(--radius)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.75rem',
-                  marginBottom: '1.25rem',
-                  boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
-                }}>
-                  📋
-                </div>
+          {/* Dynamic Results Section - Only shows when in converter mode */}
+          {activeMode === 'converter' && (() => {
+            // Group nicks by category
+            const grouped = generateDynamicNicks.reduce((acc, item) => {
+              if (!acc[item.category]) acc[item.category] = []
+              acc[item.category].push(item)
+              return acc
+            }, {} as Record<string, typeof generateDynamicNicks>)
 
-                {/* Title */}
-                <h3 style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  margin: '0 0 0.75rem 0',
-                  lineHeight: 1.3
-                }}>
-                  Hazır PUBG Nickleri
-                </h3>
-
-                {/* Description */}
-                <div style={{
-                  background: 'rgba(99, 102, 241, 0.08)',
-                  borderRadius: 'var(--radius)',
-                  padding: '1rem 1.25rem',
-                  marginBottom: '1.5rem',
-                  border: '1px solid rgba(99, 102, 241, 0.15)'
-                }}>
-                  <p style={{
-                    margin: 0,
-                    fontSize: '1rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.5,
-                    fontWeight: 500
-                  }}>
-                    {nicknameCategories.reduce((sum, cat) => sum + cat.nicknames.length, 0)}+ hazır PUBG nick fikri
+            return (
+              <div id="custom-results" className="reveal active animate-fade-in-up" style={{ margin: '4rem 0' }}>
+                <div className="results-section-header">
+                  <div className="results-title" style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>
+                    {t.pubg.hero.readyNicks}
+                  </div>
+                  <p className="results-subtitle">
+                    {lang === 'tr'
+                      ? `${generateDynamicNicks.length} benzersiz stil oluşturuldu ✨`
+                      : `${generateDynamicNicks.length} unique styles generated ✨`}
                   </p>
                 </div>
 
-                {/* CTA */}
+                {/* Invisible Space Generator */}
                 <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  color: '#6366f1',
-                  fontWeight: 700,
-                  fontSize: '1rem',
-                  transition: 'gap 0.3s ease'
+                  display: 'flex', justifyContent: 'center', marginBottom: '2rem'
                 }}>
-                  <span>Hemen Kullan</span>
-                  <span style={{ fontSize: '1.25rem', transition: 'transform 0.3s ease' }}>→</span>
-                </div>
-              </button>
-
-              {/* Generator Option Card */}
-              <button
-                onClick={() => scrollToSection('nick-generator')}
-                style={{
-                  cursor: 'pointer',
-                  background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%)',
-                  border: '2px solid rgba(251, 191, 36, 0.3)',
-                  borderRadius: 'var(--radius-lg)',
-                  padding: '2rem',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  textAlign: 'left',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
-                }}
-                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  const target = e.currentTarget as HTMLButtonElement
-                  target.style.borderColor = 'rgba(251, 191, 36, 0.6)'
-                  target.style.transform = 'translateY(-8px) scale(1.02)'
-                  target.style.boxShadow = '0 20px 25px rgba(251, 191, 36, 0.2), 0 10px 10px rgba(0, 0, 0, 0.1)'
-                  const arrow = target.querySelector('.arrow-icon') as HTMLElement | null
-                  if (arrow) {
-                    arrow.style.transform = 'translateX(4px)'
-                  }
-                }}
-                onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  const target = e.currentTarget as HTMLButtonElement
-                  target.style.borderColor = 'rgba(251, 191, 36, 0.3)'
-                  target.style.transform = 'translateY(0) scale(1)'
-                  target.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)'
-                  const arrow = target.querySelector('.arrow-icon') as HTMLElement | null
-                  if (arrow) {
-                    arrow.style.transform = 'translateX(0)'
-                  }
-                }}
-              >
-                {/* Decorative background element */}
-                <div style={{
-                  position: 'absolute',
-                  top: '-50px',
-                  right: '-50px',
-                  width: '150px',
-                  height: '150px',
-                  background: 'radial-gradient(circle, rgba(251, 191, 36, 0.15) 0%, transparent 70%)',
-                  borderRadius: '50%',
-                  pointerEvents: 'none'
-                }} />
-
-                {/* Icon */}
-                <div style={{
-                  width: '56px',
-                  height: '56px',
-                  background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
-                  borderRadius: 'var(--radius)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.75rem',
-                  marginBottom: '1.25rem',
-                  boxShadow: '0 4px 12px rgba(251, 191, 36, 0.3)'
-                }}>
-                  ✨
+                  <button
+                    onClick={() => handleCopy('ㅤ')}
+                    className="back-btn-premium"
+                    style={{
+                      background: copiedNick === 'ㅤ' ? 'var(--success-color)' : 'rgba(255,255,255,0.08)',
+                      borderColor: copiedNick === 'ㅤ' ? 'var(--success-color)' : 'rgba(255,255,255,0.15)',
+                      color: '#fff',
+                      borderRadius: '12px',
+                      padding: '0.75rem 1.5rem',
+                      fontSize: '0.9rem',
+                    }}
+                  >
+                    {copiedNick === 'ㅤ' ? '✓ ' : '🫥 '}
+                    {lang === 'tr' ? 'Görünmez Boşluk Kopyala' : 'Copy Invisible Space'}
+                  </button>
                 </div>
 
-                {/* Title */}
-                <h3 style={{
-                  fontSize: '1.5rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  margin: '0 0 0.75rem 0',
-                  lineHeight: 1.3
-                }}>
-                  Kendi Nickini Oluştur
-                </h3>
+                {Object.entries(grouped).map(([category, nicks]) => (
+                  <div key={category} style={{ marginBottom: '2.5rem' }}>
+                    <div style={{
+                      fontSize: '1.15rem',
+                      fontWeight: 700,
+                      color: 'var(--text-primary)',
+                      marginBottom: '1rem',
+                      paddingBottom: '0.5rem',
+                      borderBottom: '1px solid rgba(255,255,255,0.08)',
+                    }}>
+                      {category}
+                    </div>
+                    <div className="nicknames-grid">
+                      {nicks.map(({ nick, label }, index) => {
+                        const isCopied = copiedNick === nick
+                        return (
+                          <div
+                            key={`${category}-${index}`}
+                            className={`ready-nick-card ${isCopied ? 'copied-success' : ''}`}
+                            onClick={() => handleCopy(nick)}
+                          >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                              <span style={{ fontSize: '0.75rem', color: isCopied ? 'rgba(255,255,255,0.8)' : 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase' }}>{label}</span>
+                              <span className="ready-nick-text">{nick}</span>
+                            </div>
+                            <div className="ready-nick-action">
+                              {isCopied ? (
+                                <span className="copied-badge">✓</span>
+                              ) : (
+                                <span className="copy-hint" style={{ fontSize: '1.2rem' }}>📋</span>
+                              )}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+          })()}
 
-                {/* Description */}
-                <div style={{
-                  background: 'rgba(251, 191, 36, 0.08)',
-                  borderRadius: 'var(--radius)',
-                  padding: '1rem 1.25rem',
-                  marginBottom: '1.5rem',
-                  border: '1px solid rgba(251, 191, 36, 0.15)'
-                }}>
-                  <p style={{
-                    margin: 0,
-                    fontSize: '1rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.5,
-                    fontWeight: 500
-                  }}>
-                    İsminle 40+ şekilli PUBG nicki oluştur
-                  </p>
-                </div>
-
-                {/* CTA */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  color: '#f59e0b',
-                  fontWeight: 700,
-                  fontSize: '1rem',
-                  transition: 'gap 0.3s ease'
-                }}>
-                  <span>Hemen Oluştur</span>
-                  <span className="arrow-icon" style={{ fontSize: '1.25rem', transition: 'transform 0.3s ease' }}>→</span>
-                </div>
-              </button>
-            </div>
-
-            {/* Helper Text */}
-            <div style={{
-              textAlign: 'center',
-              marginTop: '2rem',
-              color: 'var(--text-secondary)',
-              fontSize: '0.9375rem',
-              fontWeight: 500
-            }}>
-              İstediğin seçeneğe dokun, hemen kullan
-            </div>
-          </div>
 
           {/* Ready-Made PUBG Nicknames Section */}
-          <div id="ready-made-nicks" style={{ scrollMarginTop: '140px' }}>
-            {/* Ready-Made PUBG Nicknames Section Title */}
-            <div style={{
-              textAlign: 'center',
-              marginBottom: '2rem',
-              padding: '1.5rem 0'
-            }}>
-              <h2 style={{
-                margin: 0,
-                fontSize: '1.75rem',
-                fontWeight: 700,
-                color: 'var(--text-primary)',
-                lineHeight: 1.2
-              }}>
-                Hazır PUBG Nick Fikirleri
-              </h2>
-              <p style={{
-                margin: '0.75rem 0 0 0',
-                fontSize: '1rem',
-                color: 'var(--text-secondary)',
-                fontWeight: 400
-              }}>
-                Beğendiğin nicki tek tıkla kopyala ve PUBG'de kullan
+          <div id="ready-made-categories" style={{ scrollMarginTop: '140px' }} className={activeMode === 'aliases' ? 'animate-fade-in-up' : ''}>
+            <div className="results-section-header">
+              <div className="results-title" style={{ fontSize: '2rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>
+                Ready-made PUBG nickname ideas
+              </div>
+              <p className="results-subtitle">
+                {lang === 'tr' ? 'Beğendiğin nicki tek tıkla kopyala ve PUBG\'de kullan' : 'Copy your favorite nick with one click and use in PUBG'}
               </p>
             </div>
 
-            {/* Generator Tabs */}
-            <div className="generator-tabs reveal">
-              <button
-                className={`tab-btn ${!selectedCategory ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(null)}
-              >
-                <span className="tab-icon">✨</span>
-                <span className="tab-text">{t.pubg.hero.readyNicks}</span>
-              </button>
-              <button
-                className={`tab-btn ${selectedCategory === 'custom' ? 'active' : ''}`}
-                onClick={() => setSelectedCategory('custom')}
-              >
-                <span className="tab-icon">✏️</span>
-                <span className="tab-text">{t.pubg.hero.generatorTitle}</span>
-              </button>
-            </div>
-
-            <div className="section-divider"></div>
-
-            {/* Quick Category Navigation (If not in custom mode) */}
-            {selectedCategory !== 'custom' && (
-              <div className="category-nav reveal">
-                <div className="category-scroll">
-                  {nicknameCategories.map((category) => (
-                    <button
-                      key={category.id}
-                      className={`nav-pill ${selectedCategory === category.id ? 'active' : ''}`}
-                      onClick={() => scrollToCategory(category.id)}
-                    >
-                      <span className="pill-icon">{category.icon}</span>
-                      <span className="pill-text">{category.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Custom Generator Section */}
-            <div className={`generator-container reveal ${selectedCategory === 'custom' ? 'active' : ''}`}>
-              <div className="glass-card main-input-card">
-                <div className="input-header">
-                  <div className="input-title-group">
-                    <h2 className="input-title">{t.pubg.hero.inputTitle}</h2>
-                    <p className="input-subtitle">{t.pubg.hero.inputSub}</p>
-                  </div>
-                  {inputText && (
-                    <button
-                      className="clear-btn"
-                      onClick={() => setInputText('')}
-                      title={t.common.clear}
-                    >
-                      {t.common.clear} ✕
-                    </button>
-                  )}
-                </div>
-
-                <div className="input-wrapper">
-                  <div className="input-icon">🎮</div>
-                  <input
-                    type="text"
-                    className="main-input"
-                    placeholder={t.pubg.hero.inputPlaceholder}
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    maxLength={14}
-                  />
-                  <div className="input-progress" style={{ width: `${(inputText.length / 14) * 100}%` }}></div>
-                </div>
-
-                <div className="input-footer">
-                  <div className="char-count">
-                    <span className={inputText.length > 12 ? 'text-warning' : ''}>{inputText.length}</span>/14 {lang === 'tr' ? 'karakter' : 'characters'}
-                  </div>
-                  <div className="support-badge">
-                    <span className="support-icon">✅</span>
-                    <span>{t.common.charsSupported}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Generated Results */}
-              {inputText && (
-                <div className="results-grid reveal active">
-                  {generateDynamicNicks.map((item, index) => (
-                    <div key={index} className="nick-card-wrapper">
-                      <div className="nick-card" onClick={() => handleCopy(item.nick)}>
-                        <div className="nick-label">{item.label}</div>
-                        <div className="nick-content">{item.nick}</div>
-                        <div className="nick-action">
-                          {copiedNick === item.nick ? (
-                            <span className="copied-text">{t.common.copied}</span>
-                          ) : (
-                            <span className="copy-icon">📋</span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Ready-Made Categories Section */}
-            {(selectedCategory === null || nicknameCategories.some(c => c.id === selectedCategory)) && (
-              <div className="nick-categories-section">
-                {filteredCategories.map((category) => (
-                  <section
+            {/* Ready-made Navigation Pills */}
+            <div className="category-nav-premium reveal">
+              <div className="category-scroll">
+                {nicknameCategories.map((category) => (
+                  <button
                     key={category.id}
-                    className="nick-category reveal"
-                    data-category={category.id}
+                    className={`nav-pill ${selectedCategory === category.id ? 'active' : ''}`}
+                    onClick={() => scrollToCategory(category.id)}
                   >
-                    <div className="category-header">
-                      <div className="category-title-group">
-                        <span className="category-icon-large">{category.icon}</span>
-                        <h2 className="category-title">{category.name}</h2>
-                      </div>
-                      <div className="category-count">{category.nicknames.length} {lang === 'tr' ? 'Nick' : 'Nicks'}</div>
-                    </div>
+                    <span className="pill-icon">{category.icon}</span>
+                    <span className="pill-text">{category.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-                    <div className="nicknames-grid">
-                      {category.nicknames.map((nick, index) => (
+            {/* Ready-Made Categories List */}
+            <div className="nick-categories-section">
+              {filteredCategories.map((category) => (
+                <section
+                  key={category.id}
+                  className="nick-category reveal"
+                  data-category={category.id}
+                >
+                  <div className="category-header">
+                    <div className="category-title-group">
+                      <span className="category-icon-large">{category.icon}</span>
+                      <div className="category-title" style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>{category.name}</div>
+                    </div>
+                    <div className="category-count">{category.nicknames.length} {lang === 'tr' ? 'Nick' : 'Nicks'}</div>
+                  </div>
+
+                  <div className="nicknames-grid">
+                    {category.nicknames.map((nick, index) => {
+                      const isCopied = copiedNick === nick
+                      return (
                         <div
                           key={index}
-                          className="ready-nick-card"
+                          className={`ready-nick-card ${isCopied ? 'copied-success' : ''}`}
                           onClick={() => handleCopy(nick)}
                         >
                           <span className="ready-nick-text">{nick}</span>
                           <div className="ready-nick-action">
-                            {copiedNick === nick ? (
+                            {isCopied ? (
                               <span className="copied-badge">✓</span>
                             ) : (
-                              <span className="copy-hint">📋</span>
+                              <span className="copy-hint" style={{ fontSize: '1.2rem' }}>📋</span>
                             )}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                ))}
-              </div>
-            )}
-
-            {/* Input-Based Generator Section */}
-            <div id="nick-generator" style={{ scrollMarginTop: '140px', marginTop: '4rem' }}>
-              {/* Generator Section Title */}
-              <div style={{
-                textAlign: 'center',
-                marginBottom: '2rem',
-                padding: '1.5rem 0'
-              }}>
-                <h2 style={{
-                  margin: 0,
-                  fontSize: '1.75rem',
-                  fontWeight: 700,
-                  color: 'var(--text-primary)',
-                  lineHeight: 1.2
-                }}>
-                  Kendi Adınla PUBG Nick Oluştur
-                </h2>
-                <p style={{
-                  margin: '0.75rem 0 0 0',
-                  fontSize: '1rem',
-                  color: 'var(--text-secondary)',
-                  fontWeight: 400
-                }}>
-                  İsminizi yazın, 40+ şekilli PUBG nicki otomatik oluşturulur
-                </p>
-              </div>
-
-              {/* Input Section */}
-              <div className="hero-input-wrapper">
-                <div className="input-glow"></div>
-                <div className="modern-input-container">
-                  <div className="input-header-modern">
-                    <div className="input-icon-modern">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                    <div className="input-header-text">
-                      <h2>İsminizi Yazın</h2>
-                      <p>PUBG uyumlu şekilli nickler otomatik oluşturulur ✨</p>
-                    </div>
-                  </div>
-
-                  <div className="input-field-wrapper">
-                    <textarea
-                      id="text-input"
-                      className="modern-text-input"
-                      value={inputText}
-                      onChange={(e) => setInputText(e.target.value)}
-                      placeholder="İsminizi yazın (örnek: Ahmet)..."
-                      rows={2}
-                      maxLength={20}
-                    />
-                    <div className="input-actions">
-                      <button
-                        className="clear-input-btn"
-                        onClick={() => setInputText('')}
-                        style={{ opacity: inputText ? 1 : 0 }}
-                      >
-                        ✕ Temizle
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="input-footer-modern">
-                    <div className="turkish-chars">
-                      <span className="char-badge">ç</span>
-                      <span className="char-badge">ğ</span>
-                      <span className="char-badge">ı</span>
-                      <span className="char-badge">İ</span>
-                      <span className="char-badge">ö</span>
-                      <span className="char-badge">ş</span>
-                      <span className="char-badge">ü</span>
-                      <span className="char-label">desteklenir</span>
-                    </div>
-                    <div className={`char-counter ${inputText.length > 15 ? 'warning' : ''} ${inputText.length > 18 ? 'danger' : ''}`}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                        <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      </svg>
-                      <span>{inputText.length}</span>
-                      <span className="counter-max">/ 20</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Helper text below input */}
-                <div style={{
-                  textAlign: 'center',
-                  marginTop: '1.5rem',
-                  padding: '1rem',
-                  color: 'var(--text-primary)',
-                  fontSize: '0.9375rem',
-                  fontWeight: 500,
-                  background: 'var(--surface)',
-                  borderRadius: 'var(--radius)',
-                  border: '1px solid var(--border)'
-                }}>
-                  İstersen kendi adınla nick oluştur, istersen yukarıdan hazır PUBG nickleri kopyala
-                </div>
-              </div>
-
-              {/* Dynamic Nicknames Section (if input provided) */}
-              {inputText.trim() && generateDynamicNicks.length > 0 && (
-                <div className="category-section" data-category="dynamic" style={{ marginTop: '2rem' }}>
-                  <h2 className="category-header">
-                    {inputText} İçin PUBG Şekilli Nickler
-                    <span className="category-count">{generateDynamicNicks.length}</span>
-                  </h2>
-
-                  <div className="font-grid">
-                    {generateDynamicNicks.map(({ nick, label }, index) => {
-                      const isCopied = copiedNick === nick
-                      const uniqueId = `dynamic-${index}`
-
-                      return (
-                        <div key={uniqueId} className="font-card glass-card">
-                          <div className="font-card-header">
-                            <div className="font-card-title">
-                              <div className="font-name">
-                                {label}
-                              </div>
-                            </div>
-                          </div>
-
-                          <button
-                            className={`copy-button ${isCopied ? 'copied' : ''}`}
-                            onClick={() => handleCopy(nick)}
-                          >
-                            {isCopied ? t.common.copied : t.common.copy}
-                          </button>
                         </div>
                       )
                     })}
                   </div>
-                </div>
-              )}
-            </div>
-
-            {/* Dynamic Content Sections from Translations */}
-            <div className="content-sections">
-              {t.pubg.sections.map((section: any) => (
-                <section key={section.id} id={section.id} className="info-box reveal">
-                  <h2 className="section-main-title">{section.title}</h2>
-
-                  {section.type === 'text' && (
-                    <div className="content-intro">
-                      <p className="intro-text">{section.content}</p>
-                    </div>
-                  )}
-
-                  {section.type === 'steps' && (
-                    <div className="detailed-steps">
-                      {section.steps?.map((step: any, idx: number) => (
-                        <div key={idx} className="detailed-step">
-                          <div className="step-visual">
-                            <div className="step-number-large">{step.number}</div>
-                            <div className="step-icon-circle">{step.icon}</div>
-                          </div>
-                          <div className="step-details">
-                            <h3>{step.title}</h3>
-                            <p>{step.desc}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {section.type === 'features' && (
-                    <div className="tips-grid">
-                      {section.features?.map((feature: any, idx: number) => (
-                        <div key={idx} className="tip-card">
-                          <div className="tip-number">{idx < 9 ? `0${idx + 1}` : idx + 1}</div>
-                          <h3>{feature.title}</h3>
-                          <p>{feature.desc}</p>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {section.type === 'faq' && (
-                    <div className="faq-accordion">
-                      {section.faqs?.map((faq: any, idx: number) => (
-                        <div
-                          key={idx}
-                          className={`faq-item ${expandedFaq === idx ? 'expanded' : ''}`}
-                          onClick={() => toggleFaq(idx)}
-                        >
-                          <div className="faq-question">
-                            <span className="faq-icon">❓</span>
-                            <h3>{faq.q}</h3>
-                            <span className="faq-toggle">{expandedFaq === idx ? '−' : '+'}</span>
-                          </div>
-                          <div className="faq-answer">
-                            <p>{faq.a}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {section.type === 'featuresGrid' && (
-                    <div className="info-section">
-                      <div className="feature-banners-grid">
-                        {section.features?.map((feature: any, idx: number) => (
-                          <div key={idx} className={`feature-banner ${idx === 0 ? 'gradient-success' : idx === 1 ? 'gradient-security' : 'gradient-mobile'}`}>
-                            <div className="feature-banner-icon">{feature.icon}</div>
-                            <div className="feature-banner-content">
-                              <h3>{feature.title}</h3>
-                              <p>{feature.desc}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </section>
               ))}
             </div>
 
-            {/* Link back to other pages */}
-            <div className="back-link-section reveal">
-              <p>
-                {lang === 'tr' ? 'Daha fazla yazı stili mi arıyorsunuz?' : 'Looking for more font styles?'}
-                <Link href="/" className="homepage-link">
-                  {t.common.nav.home}
-                </Link>
-                ,
-                <Link href="/insta-yazi-tipi" className="homepage-link">
-                  {t.common.nav.insta}
-                </Link>
-                {' '}{lang === 'tr' ? 'sayfamıza göz atın.' : 'page.'}
-              </p>
-            </div>
+
+            {/* Information Sections */}
+            <article className="pubg-info-sections reveal active" style={{ marginTop: '4rem', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '3rem' }}>
+              {t.pubg.sections && t.pubg.sections.map((section: any, idx: number) => {
+                const HeadingTag = section.level === 3 ? 'h3' : (section.level === 2 ? 'h2' : 'div');
+
+                return (
+                  <section key={section.id || idx} id={section.id} style={{ marginBottom: '3rem' }}>
+                    {section.title && (
+                      <HeadingTag style={{
+                        fontWeight: 700,
+                        fontSize: section.level === 3 ? '1.3rem' : '1.5rem',
+                        color: 'var(--text-primary)',
+                        marginBottom: '1.25rem',
+                        lineHeight: 1.3
+                      }}>
+                        {section.title}
+                      </HeadingTag>
+                    )}
+
+                    {section.type === 'faq' ? (
+                      <div className="faq-grid" style={{ display: 'grid', gap: '1rem' }}>
+                        {section.faqs.map((faq: any, fIdx: number) => {
+                          const isExpanded = expandedFaq === fIdx;
+                          return (
+                            <div
+                              key={fIdx}
+                              className={`faq-item-glass ${isExpanded ? 'active' : ''}`}
+                              onClick={() => toggleFaq(fIdx)}
+                              style={{
+                                background: 'rgba(255, 255, 255, 0.03)',
+                                border: '1px solid rgba(255, 255, 255, 0.08)',
+                                borderRadius: '16px',
+                                padding: '1.25rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s ease'
+                              }}
+                            >
+                              <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                gap: '1rem'
+                              }}>
+                                <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '1.05rem' }}>{faq.q}</div>
+                                <span style={{
+                                  transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)',
+                                  transition: 'transform 0.3s ease',
+                                  color: 'var(--primary-color)',
+                                  fontSize: '0.8rem'
+                                }}>▼</span>
+                              </div>
+                              {isExpanded && (
+                                <div style={{
+                                  marginTop: '1rem',
+                                  color: 'var(--text-secondary)',
+                                  lineHeight: 1.6,
+                                  paddingTop: '1rem',
+                                  borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+                                  animation: 'fadeInUp 0.3s ease'
+                                }}>
+                                  {faq.a}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="section-content" style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontSize: '1rem' }}>
+                        {(section.content || '').split('\n\n').map((paragraph: string, pIdx: number) => (
+                          <p key={pIdx} style={{ marginBottom: '1rem' }}>
+                            {(paragraph || '').split(/(\{\{[^}]+\}\}|\*\*[^*]+\*\*)/g).map((part, pIdx2) => {
+                              const linkMatch = part.match(/^\{\{(.+)\}\}$/)
+                              const boldMatch = part.match(/^\*\*(.+)\*\*$/)
+
+                              if (linkMatch) {
+                                const [text, url] = linkMatch[1].split('|')
+                                const href = url || '/'
+                                const isExternal = href.startsWith('http')
+                                return (
+                                  <Link
+                                    key={pIdx2}
+                                    href={href}
+                                    style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}
+                                    {... (isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                  >
+                                    {text}
+                                  </Link>
+                                )
+                              } else if (boldMatch) {
+                                return <strong key={pIdx2} style={{ color: 'var(--text-primary)' }}>{boldMatch[1]}</strong>
+                              }
+                              return <span key={pIdx2}>{part}</span>
+                            })}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </section>
+                );
+              })}
+            </article>
           </div>
         </div>
-      </main >
+      </main>
 
-      {showToast && (
-        <div className="toast">
-          <span className="toast-icon">✓</span>
-          <span>{copiedNick ? t.common.copied : ''}</span>
-        </div>
-      )
+      {
+        showToast && (
+          <div className="toast">
+            <span className="toast-icon">✓</span>
+            <span>{copiedNick ? t.common.copied : ''}</span>
+          </div>
+        )
       }
 
       {/* Footer */}
@@ -1128,6 +1136,12 @@ export default function PubgSekilliNickClient() {
               </Link>
               <Link href="/insta-yazi-tipi" className="footer-link">
                 {t.common.footer.insta}
+              </Link>
+              <Link href="/sekilli-semboller" className="footer-link">
+                {t.common.nav.symbols}
+              </Link>
+              <Link href="/pubg-sekilli-nick" className="footer-link">
+                {t.common.nav.pubg}
               </Link>
               <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
               <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>
@@ -1146,30 +1160,186 @@ export default function PubgSekilliNickClient() {
           color: var(--primary-color);
           font-weight: 600;
         }
-        .back-link-section {
-          text-align: center;
-          margin-top: 4rem;
-          padding: 2.5rem;
-          background: var(--card-bg);
-          border-radius: var(--radius-lg);
-          border: 1px solid var(--border-color);
+
+        /* Animations */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
-        .back-link-section p {
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .animate-scale-in {
+          animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Premium Components */
+        .back-btn-premium {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 0.6rem 1.2rem;
+          borderRadius: 50px;
+          color: #fff;
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin: 0 auto 2rem auto;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+        }
+
+        .back-btn-premium:hover {
+          background: rgba(255, 255, 255, 0.2);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mode-card-premium {
+          cursor: pointer;
+          border-radius: 24px;
+          padding: 2.5rem 2rem;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          text-align: left;
+          position: relative;
+          overflow: hidden;
+          backdrop-filter: blur(12px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: column;
+          border: 2px solid transparent;
+        }
+
+        .mode-card-converter {
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.6) 0%, rgba(139, 92, 246, 0.6) 100%);
+          border-color: rgba(99, 102, 241, 0.8);
+        }
+
+        .mode-card-aliases {
+          background: linear-gradient(135deg, rgba(251, 191, 36, 0.6) 0%, rgba(245, 158, 11, 0.6) 100%);
+          border-color: rgba(251, 191, 36, 0.8);
+        }
+
+        .mode-card-premium:hover {
+          transform: translateY(-8px) scale(1.02);
+        }
+
+        .mode-card-converter:hover {
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.8) 0%, rgba(139, 92, 246, 0.8) 100%);
+          border-color: rgba(99, 102, 241, 1);
+          box-shadow: 0 20px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .mode-card-aliases:hover {
+          background: linear-gradient(135deg, rgba(251, 191, 36, 0.8) 0%, rgba(245, 158, 11, 0.8) 100%);
+          border-color: rgba(251, 191, 36, 1);
+          box-shadow: 0 20px 40px rgba(251, 191, 36, 0.4);
+        }
+
+        .mode-card-icon {
+          font-size: 3rem;
+          margin-bottom: 1.5rem;
+          transition: transform 0.3s ease;
+        }
+
+        .mode-card-premium:hover .mode-card-icon {
+          transform: scale(1.1) rotate(5deg);
+        }
+
+        .mode-card-title {
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: #fff;
+          margin-bottom: 0.75rem;
+        }
+
+        .mode-card-desc {
+          color: rgba(255, 255, 255, 0.7);
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+
+        /* Glassmorphism Results */
+        .results-section-header {
+          text-align: center;
+          margin-bottom: 3rem;
+          animation: fadeInUp 0.8s ease out;
+        }
+
+        .results-title {
+          font-size: 2.25rem;
+          font-weight: 800;
+          background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-color) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          margin-bottom: 0.5rem;
+        }
+
+        .results-subtitle {
           color: var(--text-secondary);
-          margin: 0;
           font-size: 1.1rem;
         }
-        .homepage-link {
-          color: var(--primary-color);
-          font-weight: 600;
-          text-decoration: none;
-          margin-left: 0.5rem;
-          margin-right: 0.5rem;
-          transition: all 0.2s;
+
+        .ready-nick-card {
+          backdrop-filter: blur(8px);
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .homepage-link:hover {
-          text-decoration: underline;
-          opacity: 0.8;
+
+        .dark .ready-nick-card {
+          background: rgba(0, 0, 0, 0.2);
+          border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .ready-nick-card:hover {
+          background: rgba(var(--primary-rgb), 0.1);
+          border-color: var(--primary-color);
+          transform: translateY(-4px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .copied-success {
+          background: var(--success-color) !important;
+          color: white !important;
+          border-color: var(--success-color) !important;
+        }
+
+        .category-nav-premium {
+          padding: 2rem 0;
+          background: rgba(255, 255, 255, 0.02);
+          backdrop-filter: blur(20px);
+          position: sticky;
+          top: 80px;
+          z-index: 40;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          margin-bottom: 2rem;
         }
       `}</style>
     </div >

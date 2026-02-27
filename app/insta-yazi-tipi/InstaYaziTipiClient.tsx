@@ -568,6 +568,12 @@ export default function InstaYaziTipiClient() {
               <Link href="/insta-yazi-tipi" className="nav-link active">
                 {t.common.nav.insta}
               </Link>
+              <Link href="/sekilli-semboller" className="nav-link">
+                {t.common.nav.symbols}
+              </Link>
+              <Link href="/pubg-sekilli-nick" className="nav-link">
+                {t.common.nav.pubg}
+              </Link>
             </nav>
 
             {/* Right Actions: Theme Toggle, Lang Toggle & Hamburger */}
@@ -613,6 +619,12 @@ export default function InstaYaziTipiClient() {
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
+            </Link>
+            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎨</span> {t.common.nav.symbols}
+            </Link>
+            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
             </Link>
             <div className="mobile-lang-switch">
               <button
@@ -890,7 +902,33 @@ export default function InstaYaziTipiClient() {
                   </div>
                   <div className="saas-text-block">
                     <div className="saas-text-content">
-                      <p>{section.content}</p>
+                      {(() => {
+                        const parts = section.content.split(/(\{\{[^}]+\}\})/g);
+                        return (
+                          <p>
+                            {parts.map((part: string, pIdx: number) => {
+                              const match = part.match(/^\{\{(.+)\}\}$/);
+                              if (match) {
+                                const [text, url] = match[1].split('|');
+                                const href = url || '/';
+                                const isExternal = href.startsWith('http');
+                                return (
+                                  <Link
+                                    key={pIdx}
+                                    href={href}
+                                    className="saas-text-link"
+                                    style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}
+                                    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                  >
+                                    {text}
+                                  </Link>
+                                );
+                              }
+                              return <span key={pIdx}>{part}</span>;
+                            })}
+                          </p>
+                        );
+                      })()}
                       <div className="saas-note saas-list-container" style={{ marginTop: '1.5rem', padding: '1.5rem' }}>
                         <p style={{ margin: 0, fontWeight: 500, color: 'var(--text-main)' }}>
                           {lang === 'tr' ?
@@ -914,7 +952,33 @@ export default function InstaYaziTipiClient() {
                     </div>
                     <div className="saas-feature-content">
                       <h3 className="saas-feature-title">{section.title}</h3>
-                      <p className="saas-feature-desc">{section.content}</p>
+                      {(() => {
+                        const parts = section.content.split(/(\{\{[^}]+\}\})/g);
+                        return (
+                          <p className="saas-feature-desc">
+                            {parts.map((part: string, pIdx: number) => {
+                              const match = part.match(/^\{\{(.+)\}\}$/);
+                              if (match) {
+                                const [text, url] = match[1].split('|');
+                                const href = url || '/';
+                                const isExternal = href.startsWith('http');
+                                return (
+                                  <Link
+                                    key={pIdx}
+                                    href={href}
+                                    className="saas-text-link"
+                                    style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}
+                                    {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                  >
+                                    {text}
+                                  </Link>
+                                );
+                              }
+                              return <span key={pIdx}>{part}</span>;
+                            })}
+                          </p>
+                        );
+                      })()}
                     </div>
                   </div>
                 ))}
@@ -950,7 +1014,33 @@ export default function InstaYaziTipiClient() {
                     <h2 id={section.id} className="saas-heading">{section.title}</h2>
                   </div>
                   <div className="saas-text-content">
-                    <p>{section.content}</p>
+                    {(() => {
+                      const parts = section.content.split(/(\{\{[^}]+\}\})/g);
+                      return (
+                        <p>
+                          {parts.map((part: string, pIdx: number) => {
+                            const match = part.match(/^\{\{(.+)\}\}$/);
+                            if (match) {
+                              const [text, url] = match[1].split('|');
+                              const href = url || '/';
+                              const isExternal = href.startsWith('http');
+                              return (
+                                <Link
+                                  key={pIdx}
+                                  href={href}
+                                  className="saas-text-link"
+                                  style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}
+                                  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                >
+                                  {text}
+                                </Link>
+                              );
+                            }
+                            return <span key={pIdx}>{part}</span>;
+                          })}
+                        </p>
+                      );
+                    })()}
                     {section.image && (
                       <div className="section-image-container reveal">
                         <NextImage
@@ -985,7 +1075,33 @@ export default function InstaYaziTipiClient() {
                 return section ? (
                   <div className="saas-feature-card reveal saas-text-content">
                     <h3 className="saas-heading" style={{ fontSize: '1.25rem' }}>{section.title}</h3>
-                    <p>{section.content}</p>
+                    {(() => {
+                      const parts = section.content.split(/(\{\{[^}]+\}\})/g);
+                      return (
+                        <p>
+                          {parts.map((part: string, pIdx: number) => {
+                            const match = part.match(/^\{\{(.+)\}\}$/);
+                            if (match) {
+                              const [text, url] = match[1].split('|');
+                              const href = url || '/';
+                              const isExternal = href.startsWith('http');
+                              return (
+                                <Link
+                                  key={pIdx}
+                                  href={href}
+                                  className="saas-text-link"
+                                  style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}
+                                  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                                >
+                                  {text}
+                                </Link>
+                              );
+                            }
+                            return <span key={pIdx}>{part}</span>;
+                          })}
+                        </p>
+                      );
+                    })()}
                   </div>
                 ) : null;
               })()}
@@ -1069,6 +1185,10 @@ export default function InstaYaziTipiClient() {
               <strong>Insta Yazı Tipi</strong>
               {lang === 'tr' ? ' seçenekleri mi arıyorsunuz?' : ' options?'} <br />
               <Link href="/" className="insta-homepage-link" style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}>{t.common.nav.home}</Link>
+              {' '} | {' '}
+              <Link href="/sekilli-semboller" className="insta-homepage-link" style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}>{t.common.nav.symbols}</Link>
+              {' '} | {' '}
+              <Link href="/pubg-sekilli-nick" className="insta-homepage-link" style={{ color: 'var(--primary-color)', fontWeight: 600, textDecoration: 'underline' }}>{t.common.nav.pubg}</Link>
             </p>
           </div>
 
@@ -1090,6 +1210,8 @@ export default function InstaYaziTipiClient() {
             <div className="footer-links">
               <Link href="/" className="footer-link">{t.common.nav.home}</Link>
               <Link href="/insta-yazi-tipi" className="footer-link">{t.common.nav.insta}</Link>
+              <Link href="/sekilli-semboller" className="footer-link">{t.common.nav.symbols}</Link>
+              <Link href="/pubg-sekilli-nick" className="footer-link">{t.common.nav.pubg}</Link>
               <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
               <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>
               <Link href="/hakkimizda" className="footer-link">Hakkımızda</Link>

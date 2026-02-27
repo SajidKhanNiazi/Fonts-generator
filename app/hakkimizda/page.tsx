@@ -26,6 +26,12 @@ export default function Hakkimizda() {
               <Link href="/insta-yazi-tipi" className="nav-link">
                 İnstagram Yazı Tipi
               </Link>
+              <Link href="/sekilli-semboller" className="nav-link">
+                Şekilli Semboller
+              </Link>
+              <Link href="/pubg-sekilli-nick" className="nav-link">
+                PUBG Şekilli Nick
+              </Link>
               <Link href="/hakkimizda" className="nav-link">
                 Hakkımızda
               </Link>
@@ -97,6 +103,12 @@ export default function Hakkimizda() {
               </Link>
               <Link href="/insta-yazi-tipi" className="footer-link">
                 İnstagram Yazı Tipi
+              </Link>
+              <Link href="/sekilli-semboller" className="footer-link">
+                Şekilli Semboller
+              </Link>
+              <Link href="/pubg-sekilli-nick" className="footer-link">
+                PUBG Şekilli Nick
               </Link>
               <Link href="/hakkimizda" className="footer-link">
                 Hakkımızda

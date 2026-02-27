@@ -210,7 +210,7 @@ export const translations: Record<Language, any> = {
                     id: 'stand-out',
                     title: 'Instagram\'da Nasıl Öne Çıkılır: Farklı Yazı Tiplerini Kullanma',
                     type: 'text',
-                    content: 'Instagram gibi tüm çevrimiçi platformlar, kullanıcılara metinlerini Şık Biyografi, Gönderi Taslağı ve Yorum olarak özelleştirme seçeneği sunar. Instagram metin dönüştürücü, yazı tipini Kalın, 3D, Estetik, El Yazısı ve süslü metin gibi farklı bir stile dönüştürmemize yardımcı olur.'
+                    content: 'Instagram gibi tüm çevrimiçi platformlar, kullanıcılara metinlerini Şık Biyografi, Gönderi Taslağı ve Yorum olarak özelleştirme seçeneği sunar. Instagram metin dönüştürücü, {{yazı stilleri}} ile yazı tipini Kalın, 3D, Estetik, El Yazısı ve süslü metin gibi farklı bir stile dönüştürmemize yardımcı olur.'
                 },
                 {
                     id: 'advantages',
@@ -299,13 +299,13 @@ export const translations: Record<Language, any> = {
         pubg: {
             hero: {
                 badge: 'PUBG İçin Özel',
-                title: 'PUBG',
+                title: 'Pubg',
                 titleHighlight: 'Şekilli Nick',
-                description: 'İstersen kendi adınla PUBG nick oluştur, istersen hazır PUBG nicklerini tek tıkla kopyala ve oyunda kullan.',
-                inputTitle: 'Kendi Nickini Oluştur',
-                inputSub: 'İsminle 40+ şekilli PUBG nicki oluştur ✨',
-                inputPlaceholder: 'İstediğin nicki buraya yaz...',
-                readyNicks: 'Hazır PUBG Nickleri',
+                description: '',
+                inputTitle: 'Create your own nickname',
+                inputSub: '',
+                inputPlaceholder: 'Type here...',
+                readyNicks: 'Ready-made PUBG nicknames',
                 readyNicksDesc: 'Beğendiğin nicki tek tıkla kopyala ve PUBG\'de kullan',
                 generatorTitle: 'Kendi Adınla PUBG Nick Oluştur',
                 howToUse: 'Hemen Oluştur',
@@ -313,56 +313,84 @@ export const translations: Record<Language, any> = {
                 clickToUse: 'İstediğin seçeneğe dokun, hemen kullan',
             },
             categories: {
-                havali: 'Havalı & Şekilli',
-                sekilli: 'Sembollü & Çerçeveli',
-                pro: 'Profesyonel Oyuncu',
-                clan: 'Klan & Takım',
-                agresif: 'Agresif & Savaşçı',
+                havali: 'Cool & Stylish',
+                sekilli: 'Symbolic & Framed',
+                pro: 'Professional Actor',
+                clan: 'Clan & Team',
+                agresif: 'Aggressive & Combative',
+                girl: 'Girl Shaped Nick',
+                japanese: 'Japanese Style',
             },
             sections: [
                 {
-                    id: 'what-is-pubg-nick',
-                    title: 'PUBG Şekilli Nick Nedir?',
+                    id: 'pubg-intro',
                     type: 'text',
-                    content: 'PUBG şekilli nick, oyuncuların oyun içinde kullandıkları isimleri semboller, emojiler ve farklı karakterlerle süsleyerek daha dikkat çekici hale getirmesidir. Bu nickler sizi oyunda diğerlerinden ayırır ve profesyonel bir görünüm kazandırır.'
+                    title: '',
+                    content: 'PUBG: Battlegrounds\'da, hızlı tempolu çok oyunculu, takım tabanlı ve aksiyon dolu bir nişancı oyununda kimliğiniz en az yetenekleriniz kadar önemlidir. Mobil ve PC\'de yüz binlerce oyuncunun şık, kısa, uzun veya estetik takma adlar seçtiğini gördüm; çünkü güçlü bir isim varlık oluşturur. PUBG ile Valorant ve Mobile Legends: Bang Bang gibi diğer oyunlarda, hesap isimleri üzerinde daha az kısıtlama olması bir avantaj sağlar. Birçok kullanıcı, en güzel PUBG isimleri ve net anlamlarla öne çıkmak için PUBG erkek isimleri, PUBG kadın isimleri, PUBG klan nickleri, Türkçe PUBG isimleri ve hatta 2025 trendlerini araştırıyor.\n\nDeneyimlerime göre, PUBG tarzı bir nick, standart alfabenin ötesindeki harflerle sembollerin karıştırılmasıyla, oyun geliştiricilerinin takma adları özelleştirmek için izin verdiği özel özellikler kullanıldığında en iyi sonucu verir. Platformdaki kullanıcı adınız herkes tarafından görülebildiği için, sıradan kullanıcı adları yerine yüksek kaliteli bir kullanıcı adı seçmek, onu daha akılda kalıcı ve avantajlı kılar.\n\nBenzersiz nick yöntemi, eşsiz bir kullanıcı adı oluşturmanıza yardımcı olur ve fikrinizi değiştirirseniz, hesabınızı güncellemek için envanterinizdeki isim değiştirme kartlarını veya bir değişim kartını kullanabilirsiniz. Sadece gözleri yoran veya daha az işlevsel hale gelen aşırı karmaşık bir stilden kaçının; günümüzde insanlar daha basit şeyleri tercih ediyor, bu nedenle "Basit PUBG kullanıcı adları" veya temiz {{şık yazı tipi|/}} PUBG nickleri gibi farklı ama basit bir kullanıcı adı, takım isimleri ve yaratıcı kullanıcı adları arasında her zaman güçlü kalacaktır.'
                 },
                 {
-                    id: 'how-to-change',
-                    title: 'PUBG\'de İsim Nasıl Değiştirilir?',
-                    type: 'steps',
-                    steps: [
-                        { number: 1, icon: '📋', title: 'Nickinizi Kopyalayın', desc: 'Hazır listemizden veya kendi isminizle oluşturduğunuz nicklerden birini seçip kopyala butonuna basın.' },
-                        { number: 2, icon: '🎮', title: 'PUBG\'yi Açın', desc: 'PUBG veya PUBG Mobile oyununu açın, envanterinize gidin ve İsim Yenileme Kartını (Rename Card) bulun.' },
-                        { number: 3, icon: '✨', title: 'Yapıştır ve Kaydet', desc: 'Yeni şekilli nickinizi isim değiştirme kutusuna yapıştırın ve kaydederek yeni görünümünüzü kullanmaya başlayın.' }
-                    ]
+                    id: 'how-to-write',
+                    type: 'text',
+                    level: 2,
+                    title: 'PUBG\'de Şık Nickler Nasıl Yazılır',
+                    content: 'PUBG\'de şık bir takma ad oluşturmak için genellikle bir PUBG tarzı nick oluşturucu aracı veya PUBG Şık İsim Yazma Aracı ile başlamanızı öneririm. "Stilize edilmiş metin yazmak için buraya yazın" yazan kutuya adınızı girin; PUBG Mobile ve hatta stilize metin kullanan diğer oyunlar veya sosyal medyalar için {{çeşitli sembollerle|/sekilli-semboller}} otomatik olarak oluşturulan harika stilize isimler göreceksiniz.\n\nÇevrimiçi siteler aracılığıyla şık PUBG nickleri oluşturmak son derece basit olsa da, mevcut kullanıcı adlarını aynen kopyalamaya güvenmemelisiniz. İlham kaynağı olarak çok güzel örnekler sunulsa da, seçtiğiniz kullanıcı adı benzersiz olmalı, tam bir kopya olmamalıdır; özellikle PUBG nickleri maksimum 14 karakterle sınırlı olduğu için "Karanlığın Koruyucusu", "Güçlü ve Zengin" veya "Cehennemin Gücü" gibi isimler uygun değildir.'
                 },
                 {
-                    id: 'tips',
-                    title: 'Popüler PUBG Nick Kategorileri ve Tavsiyeler',
-                    type: 'features',
-                    features: [
-                        { title: 'Havalı ve Şık Nickler', desc: 'PUBG\'de öne çıkmak sadece oynanışla değil, isminizle de ilgilidir. Şık bir nick, benzersiz bir kimlik oluşturmanıza ve özgüven kazanmanıza yardımcı olur.' },
-                        { title: 'Profesyonel ve KISA Nickler', desc: 'Birçok profesyonel oyuncu ve yayıncı kısa ve etkileyici isimler kullanır. Aracımız, hayranlarınız tarafından kolayca hatırlanacak yüzlerce pro seviyesinde isim sunar.' },
-                        { title: 'PUBG Klan Nickleri', desc: 'Bir takımla oynuyorsanız veya bir klan yönetiyorsanız, tutarlı bir nick stiline sahip olmak ekip ruhu ve tanınırlık için harikadır.' }
-                    ]
+                    id: 'simple-unique',
+                    type: 'text',
+                    level: 3,
+                    title: 'Basit Ama Benzersiz Tutun',
+                    content: 'PUBG oyunundaki deneyimlerime göre, {{şık yazı tipi|/}} veya şık bir PUBG nicki, çok karmaşık, çok uzun ve gereğinden fazla uzun olmadığında en iyi sonucu verir; çünkü aşırı karmaşık veya kafa karıştırıcı isimler kötü bir izlenim bırakır ve genellikle ağır düz metin veya aşırı karmaşık kullanıcı adları yerine daha basit bir görünümü tercih eden kullanıcılar tarafından sevilmez. PUBG kullanıcı adlarındaki özelleştirme sınırlı olduğundan, ister yeni bir hesap oluşturuyor olun ister zamanla envanterinize eklenen kullanıcı adı değiştirme kartlarını kullanıyor olun, bazen ödeme yapmanız bile gerekebilir.\n\nGerçekten güzel bir kullanıcı adı seçmek ve onu benzersiz bir şekilde düzenlemek akıllıcadır. Tüm karakterleri süslü yapmak yerine başına veya sonuna şık semboller ekleyin; bu etkili yöntem bir avantaj sağlar, daha fazla arkadaş edinmenize yardımcı olur ve akılda kalıcı kullanıcı adınızın öne çıkmasını sağlar, böylece arkadaşlarınız ve rakipleriniz oyuna girdiklerinde, sizi skor listesinde gördüklerinde ve hatta sizi takip ettiklerinde şaşırırlar.'
                 },
                 {
-                    id: 'faq',
-                    title: 'Sıkça Sorulan Sorular',
+                    id: 'tips-memorable',
+                    type: 'text',
+                    level: 3,
+                    title: 'Unutulmaz PUBG Tarzı Nickler Oluşturmak İçin İpuçları',
+                    content: 'Çevrimiçi araştırma yapın, kendi fikirlerinizi kullanın, dezavantaj getiren küçük değişikliklerden kaçının ve YouTube\'daki içerik üreticileri gibi izleyicileri tatmin edebilecek yaratıcı bir kullanıcı adına odaklanın; çünkü güçlü stilize edilmiş kullanıcı adları, PUBG tarzı nickler ve hatta PUBG temalı bir takma ad akılda kalıcılığın bir göstergesidir. İnsanlar görsel zekaya sözel zekadan daha fazla tepki verir, bu nedenle şekillerin, desenlerin ve temiz stilize edilmiş sembollerle yapılan hafif yaratıcılık süslemelerinin akıllıca kullanımı, şık nickler veya Şık PUBG Takma Adları\'ndan ilham alan yeni bir kullanıcı adı oluşturduğunuzda gerçek fayda ve yeni olasılıklar getirir.'
+                },
+                {
+                    id: 'pubg-guide',
+                    type: 'text',
+                    level: 2,
+                    title: 'PUBG İsimleri: Yaratıcı ve Etkili Oyuncu İsimleri Oluşturma Rehberi',
+                    content: '**1. Oyuncu İsimlerinin Önemi:** Milyonlarca oyuncu tarafından oynanan popüler battle royale oyunu PUBG\'de, oyuncu isminiz hem oyun içindeki hem de oyun dışındaki iletişimde sizi tanımlayan önemli faktörlerden biridir. Deneyimlerime göre, güçlü PUBG isimlerinin arkasındaki gerçek başarı, kişiliklerinizi nasıl yansıttıkları, oyun deneyiminizi nasıl şekillendirdikleri, takım arkadaşlarınızın sizi tanımasına nasıl yardımcı oldukları ve bazen rakiplerde korku veya saygı uyandırmalarıdır. İyi bir oyuncu ismi seçmek sosyal etkileşimi gerçekten artırabilir ve maçları daha keyiflü hale getirebilir; bu nedenle bu makale daha iyi isimler oluşturmak için pratik ipuçları ve öneriler paylaşıyor.\n\n**2. Yaratıcı ve Etkili Bir Oyuncu İsmi Seçin:** Farklı yaratıcı oyuncu isimleri arasından seçim yaparken, önce hedef kitlenizi ve yaratmak istediğiniz izlenimi düşünün. Eğlence amaçlı maçlar için mizahi isimler harikadır, ancak ciddi oyuncular daha profesyonel bir yaklaşımı tercih edebilir. Her zaman basit, yazması kolay ve hızlı yazarken zaman kazandıran Kısa, Akılda Kalıcı İsimler öneririm; çünkü uzun veya karmaşık isimler hatırlama güçlüğüne neden olur ve takım arkadaşlarınız sizi çağırmaya çalışırken yazma zamanı kaybettirebilir.\n\n**3. Size Uygun Bir Stil Seçin:** "Keskin Nişancı" veya "Ghillie Takımı" gibi askeri terimlerle bağlantılı veya "Çorba Parası" gibi oyun temasına bağlı {{Oyun Temalı İsimleri|https://www.thebump.com/b/video-game-baby-names}} keşfedebilirsiniz. Birçok oyuncu Kişisel İlgi Alanlarını da kullanır; bir futbol taraftarı bir takımın adını veya favori oyuncusunun adını ekleyebilirken, bir müzik hayranı favori şarkıcısının adını veya şarkı adını tercih edebilir. Önemli olan, ister çevrimiçi araştırma yaparak, ister arkadaşlarınızla fikir alışverişinde bulunarak, farklı diller kullanarak, yaratıcı imla veya farklı harfler kullanarak olsun, yanlış bir oyuncu isminden kaçınırken benzersiz ve orijinal hissettiren Benzersiz, Orijinal İsimler seçmektir.\n\n**4. Oyuncu İsmi Seçerken Dikkat Edilmesi Gerekenler:** Dikkat Edilmesi Gerekenler altında, olumsuz bir izlenim yarattıkları ve itibarınızı olumsuz etkileyebilecekleri için küfür veya aşağılayıcı içerik barındıran Ofansif İsimlerden her zaman kaçının. Ayrıca kullanımı zor hissettiren Uzun, Karmaşık İsimlerden de kaçının. Popüler Oyuncu İsimlerinden veya popüler aktör isimlerinden uzak durun; çünkü bunlar sıradan bir izlenim yaratır ve benzersizliğini kaybeder, bu da PUBG\'de öne çıkma amacına aykırıdır.'
+                },
+                {
+                    id: 'why-not-stylish',
+                    type: 'text',
+                    level: 2,
+                    title: 'PUBG nicklerim neden şık görünmüyor?',
+                    content: 'Birçok harika PUBG nicki başka sitelerde oluşturulur, ancak oyunda kullanılamazlar çünkü PUBG Mobile birçok Unicode karakterini tam olarak desteklemez. Gerçekten şık PUBG nickleri oluşturmak istiyorsanız, genellikle gerçekte kullanabileceğiniz iyi PUBG nickleri üretmenize yardımcı olan bir PUBG stilize nick oluşturucu aracılığıyla Çin veya Japon alfabeleri gibi farklı alfabelerden desteklenen stilize sembollere güvenmelisiniz.\n\n彡 ᴅᴇᴀᴅ ᴋɪʟʟᴇ r 彡 gibi bazı stilize nickler {{Instagram|/insta-yazi-tipi}}\'da veya diğer sosyal medya platformlarında havalı ve şık görünebilir ve başka bir oyunda çalışabilirler, ancak PUBG nick kuralları nedeniyle PUBG\'nin içinde farklı bir isme ihtiyacınız olabilir.'
+                },
+                {
+                    id: 'turkish-style',
+                    type: 'text',
+                    level: 2,
+                    title: 'Türkçe PUBG İsim Stilleri',
+                    content: '2025 yılında, Türkçe PUBG başlıkları öne çıkmak isteyen oyuncular için sert ve yaratıcı isimlerin bir karışımını sunuyor.\n\nAçılı Darbe, Ağır Darbe, Çaylak, Aşılmaz Engel ve Büyük Savaşçı gibi isimler güç gösterirken; Büyük Spoiler, Büyülü Okçu, Büyük Dolandırıcı ve Cehennemin Gücü stil ve kişilik katar.\n\nAyrıca cesur, stratejik veya saygın olmak isteyip istemediğinize bağlı olarak Cehennem Savaşçısı, Cesur Yürek, Çaylak, Doğan Şahin, Dünyayı Yöneten veya Efsanevi Ok\'u seçebilirsiniz. Fırtına Meleği, Gece Arzusu, Yıldız Grubu, Güçlü ve Zengin ve Baskın gibi diğer seçenekler güçlü bir varlık oluşturmaya yardımcı olurken; İzle ve Öğren, Karşı Konulmaz, Karanlığın Koruyucusu, Karanlık Günler, Seri Katil ve Kemik Kıran gibi isimler güçlü ve unutulmaz bir izremin bırakır.\n\nOyuncular ayrıca PUBG\'deki stillerine uyması için Korkusuz Oyun Yöneticisi, Oyunların Kralı, Ölümcül Direniş, Ölümcül Darbeci, Özgürlük İçin Savaş, Parasız Güçlü, Profesyonel Forvet, Son Tehlike, Son Saldırgan, Tehlikenin Kendisi, Uzman Katil, Yalnız Melek, Sadece Karanlık, Yaratık, Yenilmez Asker ve Zengin Savaşçı gibi rolleri de benimseyebilirler.'
+                },
+                {
+                    id: 'creative-stylish',
+                    type: 'text',
+                    level: 3,
+                    title: 'Yaratıcı ve Şık PUBG Takma Adları',
+                    content: 'Stil Sahibi PUBG İsimleri için; Adrenalin Sevgisi, Yalnız Melek, Ölüm Meleği, Böcek Kralı, Kara Ölüm, Kör Koruyucu, Kemik Kırıcı, Cesur Yürek, Şeker Kasabı veya Ölü Katil gibi yaratıcı ve benzersiz nicklerle geleneksel fikirlerin ötesine geçebilirsiniz.\n\nBazıları シ Elendil シ, Elf Dostu, Ölümsüz Türk, Ｊａｎｉｓｓａｒｙ, Yeniçeri, Şövalye Kral, ๛ Mr Crowley ๛, Mr Crowley, Veba Doktoru, Çürük Zombi, 〔Samurai〕, Samuray, ๏ Spartan ๏, Spartalı, T͜͡c Warrior, Savaşçı, 彡 Venom 彡, Zehir, ロ Viking ロ, Viking, × Warlord ×, Savaş Lordu gibi şıklık için özel karakterler kullanır. Deneyimlerime göre, bu şık nickler sadece profilinizi unutulmaz kılmakla kalmaz, aynı zamanda ister güçlü, ister gizemli, ister eğlenceli görünmek isteyin, PUBG\'de benzersiz bir kimlik oluşturmanıza yardımcı olur.'
+                },
+                {
+                    id: 'pubg-faq',
                     type: 'faq',
+                    level: 2,
+                    title: 'Sıkça Sorulan Sorular',
                     faqs: [
-                        { q: 'PUBG nickinde sembol kullanabilir miyim?', a: 'Evet, PUBG birçok Unicode sembolünü destekler. Aracımız, çoğu mobil ve PC sürümünde çalıştığı bilinen sembolleri kullanır.' },
-                        { q: 'PUBG ismi kaç karakter olabilir?', a: 'Genellikle PUBG Mobile isimleri 14 karakter sınırı ile sınırlıdır. Seçtiğiniz stilin bu sınıra uygun olduğundan emin olun.' }
-                    ]
-                },
-                {
-                    id: 'features',
-                    title: 'PUBG Nick Oluşturucunun Özellikleri',
-                    type: 'featuresGrid',
-                    features: [
-                        { icon: '🚀', title: 'Ücretsiz ve Hızlı', desc: 'Kayıt gerekmez, hazır PUBG nicklerini anında kopyalayın!' },
-                        { icon: '🔒', title: '%100 Güvenli', desc: 'Nickleriniz sunucuya gönderilmez, tarayıcınızda işlenir.' },
-                        { icon: '📱', title: 'Mobil Uyumlu', desc: 'Telefonunuzdan kolayca kullanın ve PUBG\'ye anında yapıştırın.' }
+                        { q: 'PUBG\'de oyuncu adımı nasıl değiştirebilirim?', a: 'Oyuna giriş yapabilir, Ayarlar\'a gidebilir, Profil\'e tıklayabilir ve Oyuncu Adı bölümünde yeni bir ad seçebilirsiniz.' },
+                        { q: 'Oyuncu adımı sık sık değiştirirsem ne olur?', a: 'Oyuncu adınızı sık sık değiştirmek, takım arkadaşlarınızın veya rakiplerinizin sizi tanımasını zorlaştırabilir ve oyun içi iletişimi olumsuz etkileyebilir.' },
+                        { q: 'İngilizce olmayan bir isim seçmek bir dezavantaj mıdır?', a: 'Hayır, İngilizce olmayan bir isim bir dezavantaj değildir. Anlam veya dil farklılıkları isminizi takım arkadaşlarınız veya rakipleriniz için daha çekici hale getirebilir.' },
+                        { q: 'İsmimi değiştirirsem önceki ismim hala görünür mü?', a: 'Hayır, önceki adınız artık görünmez, ancak takım arkadaşlarınız veya rakipleriniz yeni adınızı öğrenene kadar sizi eski adınızla çağırmaya devam edebilirler.' },
+                        { q: 'Oyuncu ismimi değiştirmek için ödeme yapmam gerekiyor mu?', a: 'Hayır, oyuncu adınızı değiştirmek ücretsizdir; sadece belirli aralıklarla sağlanan isim kartlarına ihtiyacınız vardır.' },
+                        { q: 'İsim kartlarını ne sıklıkla kullanabilirim?', a: 'Oyuncu adınızı güvenli bir şekilde değiştirmek için belirli aralıklarla isim kartlarını kullanabilirsiniz.' },
+                        { q: 'Sık sık yapılan değişiklikler takım arkadaşlarımın kafasını karıştırabilir mi?', a: 'Evet, oyuncu adınızı sık sık değiştirmek takım arkadaşlarınızın kafasını karıştırabilir ve sizi tanımalarını zorlaştırabilir.' },
+                        { q: 'İngilizce olmayan isimler üzerinde herhangi bir kısıtlama var mı?', a: 'İngilizce olmayan oyuncu isimlerine izin verilir. İsimlerin oyun içi iletişim için çekici kalması için anlam ve dil farklılıklarını göz önünde bulundurmanız yeterlidir.' }
                     ]
                 }
             ]
@@ -397,52 +425,111 @@ export const translations: Record<Language, any> = {
             },
             sections: [
                 {
-                    id: 'what-are-symbols',
-                    title: 'Havalı ve Şık Semboller Nedir?',
-                    type: 'text',
-                    content: 'Havalı semboller, sosyal medya platformlarında, oyun isimlerinde ve mesajlaşma uygulamalarında kullanabileceğiniz özel karakterler ve işaretlerdir. Bu şık semboller, metninizi göz alıcı hale getirmenize, profilinizi özelleştirmenize ve mesajlarınıza estetik bir dokunuş eklemenize yardımcı olur.'
-                },
-                {
-                    id: 'features',
-                    title: 'Sembol Oluşturucunun Özellikleri',
-                    type: 'features',
-                    features: [
-                        { title: 'Zengin Sembol Koleksiyonu', desc: 'Kalpler, yıldızlar, oklar, çerçeveler ve daha fazlası! 1000+ farklı şık sembol ile profilinizi öne çıkarın.' },
-                        { title: 'Tek Tıkla Kopyala', desc: 'İstediğiniz sembole tıklayın ve anında kopyalansın! Saniyeler içinde istediğiniz yere yapıştırın.' },
-                        { title: 'Tüm Platformlarda Çalışır', desc: 'Instagram, WhatsApp, TikTok ve Discord! Semboller Unicode tabanlıdır ve tüm cihazlarda doğru görünür.' },
-                        { title: 'Oyun İsimleri İçin', desc: 'Oyunlarınız için havalı kullanıcı adları ve klan etiketleri oluşturun!' }
+                    id: 'shaped-symbols-intro',
+                    title: 'Şekilli Semboller',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Bir Şekilli Semboller web sitesini ziyaret ettiğinizde, bu semboller ve {{yazı stilleri}} ile profilinizi veya blog metninizi nasıl havalı, benzersiz, estetik ve çekici gösterebileceğinizi hemen fark edersiniz. Bir Sembol aşığı olarak, Facebook, Twitter, Instagram ve WhatsApp gibi birçok web sitesinden ve sosyal medya platformundan yararlandım ve size en iyi sitenin Stilist Sembolleri kolayca kopyalayıp yapıştırmanıza ve kullanmanıza izin veren site olduğunu söyleyebilirim.' },
+                        { type: 'p', text: 'Bazı web sitelerinin arayüzleri karmaşık olabilir, ancak benim sevdiklerim basit, minimalist ve kullanımı kolaydır; bu da içerik oluştururken çok fazla zaman kazandırır. Herhangi bir sembolü tek bir tıklamayla seçebilme özelliği sayesinde, yeni başlayanlar bile web sitelerini veya oyun platformlarını etkileyici gösterebilir.' }
                     ]
                 },
                 {
-                    id: 'popular-categories',
-                    title: 'En Popüler Havalı Semboller',
-                    type: 'categoriesGrid',
-                    categories: [
-                        { icon: '❤️', title: 'Kalp Sembolleri', desc: 'Sevgi ve şefkat ifade etmek için en çok kullanılan semboller.', examples: ['♥', '❤', '💖', '💕'] },
-                        { icon: '⭐', title: 'Yıldız Sembolleri', desc: 'Parlaklık ve önem ifade etmek için kullanılır.', examples: ['★', '☆', '✨', '🌟'] },
-                        { icon: '🌸', title: 'Çiçek Sembolleri', desc: 'Doğa ve güzellik temalı süslemeler.', examples: ['❀', '✿', '🌸', '🌷'] },
-                        { icon: '🎮', title: 'Oyun Sembolleri', desc: 'Oyun isimleri ve klan etiketleri için havalı semboller.', examples: ['『', '』', '【', '】'] },
-                        { icon: '🇹🇷', title: 'Türk Kültürü', desc: 'Nazar boncuğu, ay-yıldız ve lale gibi kültürel semboller.', examples: ['🧿', '☪', '🌷', '☕'] },
-                        { icon: '✨', title: 'Dekoratif', desc: 'Metin süslemesi için özel dekoratif semboller.', examples: ['✦', '❖', '✪', '❋'] }
+                    id: 'usage-in-games',
+                    title: 'Sosyal Medya ve Oyunlarda Şekilli Semboller Kullanımı',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Şekilli semboller sadece sosyal medya platformları için değildir. Bunları aşağıdakiler dahil birçok alanda kullanabilirsiniz:' },
+                        { type: 'list', items: ['Instagram biyografileri', 'Steam kullanıcı adları', 'PUBG ve Mobile Legends gibi oyunlardaki oyun içi takma adlar'] },
+                        { type: 'p', text: 'Şık semboller kullanıcı adınıza ekstra bir etki katar ve diğer oyuncuların sizi daha hızlı hatırlamasına yardımcı olur. Doğru harfler, sayılar veya sembollerle oluşturulmuş benzersiz bir kullanıcı adı daha büyük bir etki yaratır, tamamen farklı biri olduğunuzun sinyalini verir ve hatta insanların görsel zekasını harekete geçirir. Karmaşık semboller yerine basit şekilli sembolleri tercih ederek, insanların gözlerini yormaktan kaçınır ve şık sembollerinizi daha etkili hale getirirsiniz.' },
+                        { type: 'p', text: 'Tüm Şekilli Sembollerden "Harfler" bölümüne kadar, her platformda keşfedilecek geniş bir takma ad, akılda kalıcı, etkileyici takma adlar ve izlenim yelpazesi vardır.' }
                     ]
                 },
                 {
-                    id: 'usage-tips',
-                    title: 'Şekilli Sembol Kullanım İpuçları',
-                    type: 'tips',
-                    tips: [
-                        { title: 'Aşırıya Kaçmayın', desc: 'Çok fazla sembol kullanmak okunabilirliği azaltır. Sadece vurgulamak istediğiniz yerlerde kullanın.' },
-                        { title: 'Simetrik Kullanım', desc: 'Metnin başına ve sonuna aynı sembolleri koyarak simetrik ve estetik bir görünüm elde edin.' },
-                        { title: 'Platform Uyumluluğu', desc: 'Bazı semboller bazı platformlarda farklı görünebilir, paylaşmadan önce test edin.' }
+                    id: 'not-on-keyboard',
+                    title: 'Klavyenizde Olmayan Semboller Oluşturma',
+                    level: 3,
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Klavyede bulunmayan stilize semboller oluşturmak istiyorsanız, en kolay yol stilize sembolleri, emojileri ve Unicode sembol tablolarını listeleyen bir sayfayı ziyaret etmektir.' },
+                        {
+                            type: 'list', items: [
+                                'Bu sembollere klavyenizden her zaman doğrudan erişilemez',
+                                'Her karaktere benzersiz bir numara atayan bir standart olan Unicode çok kullanışlıdır',
+                                'Farklı semboller oluşturmak için bir karakterın ALT kodunu kullanabilirsiniz (Örnek: ALT + 1 = ☺)',
+                                'Bu yaklaşım, stilize sembollerle yazılan metninizin tutarlı ve görsel olarak çekici görünmesini sağlar'
+                            ]
+                        },
+                        { type: 'p', text: 'Bu sembolleri kullanırken, uygunsuz içerikten veya çirkin bir görünümden kaçınmak için önlemlere uymak önemlidir. Sembolün işlevselliğinin tüm kullanıcılar için doğru çalışması için kaleminizin veya cihazınızın platformla uyumlu olduğundan emin olun.' },
+                        { type: 'p', text: 'Güvenilir web sitelerinden gelen yönergeler ve öneriler, uygun sembolleri seçmenize, hata yapmadan tıklamanıza, kopyalanıza ve yapıştırmanıza yardımcı olur. İç Bağlantıları, Şekilli Sembolleri ve PUBG veya diğer oyunlar için Şık Takma Adların nasıl oluşturulacağını anlayarak, metninizi veya kullanıcı adınızı renginiz ve şeklinizle uyumlu ve başkaları tarafından kolayca fark edilebilir hale getirmede avantaj elde edersiniz.' }
+                    ]
+                },
+                {
+                    id: 'beautify-text',
+                    title: 'Metninizi Güzelleştirmek İçin Sembolleri Kullanma',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Kullanıcı adınızın veya sosyal medya gönderinizin öne çıkmasını istiyorsanız:' },
+                        {
+                            type: 'list', items: [
+                                'Harf sembolleri ve havalı semboller metninizi güzelleştirmenin basit bir yoludur',
+                                'Bu stilize semboller, farklı dillerdeki insanlarla iletişim kurmanıza yardımcı olabilir',
+                                'Şekilli semboller sayfasındaki sağ tıklama ve kopyalama seçeneklerini kullanmak, bunları herhangi bir yere eklemeyi kolaylaştırır'
+                            ]
+                        },
+                        { type: 'p', text: 'Popüler özel semboller şunları içerir:' },
+                        {
+                            type: 'list', items: [
+                                'Kalp ❤️',
+                                'Gülen yüz ☺️',
+                                'Yıldız ✨',
+                                'Müzik notası ♫'
+                            ]
+                        },
+                        { type: 'p', text: 'Bu özel semboller kişiliğinizi ve tarzınızı vurgular ve çevrimiçi varlığınızı daha göz alıcı ve unutulmaz kılmak için bunları kullanıcı adlarına, takma adlara, gönderilere, durumlara, hikayelere, Instagram biyografilerine, Twitter (X) profillerine ve Facebook duvarlarına ekleyebilirsiniz.' },
+                        { type: 'image', src: '/symbols-enhance-text-tr.png', alt: 'Şekilli sembollerle metin güzelleştirme' }
+                    ]
+                },
+                {
+                    id: 'advanced-customization',
+                    title: 'Oyunlarda Semboller ve Gelişmiş Özelleştirme',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Sosyal medyanın ötesinde, semboller PUBG, Fortnite ve League of Legends gibi çevrimiçi oyunlarda kullanıcı adlarını çarpıcı kılmak için sayıların, harflerin ve sıra dışı takma adların kullanıldığı oyunlarda önemli bir rol oynar.' },
+                        { type: 'p', text: 'Klavye kısayollarını, alt kodlarını veya Unicode sembol tablolarını kullanarak, klavyenizden doğrudan erişilemeyen özel sembollere ve emojilere erişebilirsiniz. Bu, yazı tiplerini özelleştirmenize ve aşağıdakiler gibi estetik semboller eklemenize olanak tanır:' },
+                        {
+                            type: 'list', items: [
+                                '▂▃▅▆█▆▅▃▂',
+                                'Üçgen ▲',
+                                'Yıldız ❃ ✾ ✽ ✼ ❈',
+                                'Kalp 💔 (◍•ᴗ•◍)❤',
+                                'Müzik notası ♬ 🎧 🎶 🎻',
+                                'Teknik ⌛ ⌧ ⍋',
+                                'Korece ㄽㄸ',
+                                'Latince ą Ř ⒮ ⒴',
+                                'Yunanca β ψ ξ Π',
+                                'Japonca るザ',
+                                'Satranç ♖ ♠ ♥ ♢',
+                                'Daire ◒ ◐ 㶶 ☢',
+                                'Kare ❏ ▉',
+                                'Çince ㊎ ㊧',
+                                'Kesir ½ ⅕'
+                            ]
+                        },
+                        { type: 'p', text: 'Bu semboller başlıklarda, biyografilerde veya eğitim, eğlence veya günlük işler için kullanılabilir, içeriğinizi görsel olarak yaratıcı ve benzersiz kılar.' }
                     ]
                 },
                 {
                     id: 'faq',
-                    title: 'Sıkça Sorulan Sorular',
+                    title: 'SSS',
                     type: 'faq',
                     faqs: [
-                        { q: 'Şık semboller tüm cihazlarda çalışır mı?', a: 'Evet! Şık semboller Unicode karakter setini kullanır, bu yüzden iPhone, Android, Windows ve Mac dahil tüm modern cihazlarda görüntülenir.' },
-                        { q: 'Sembolleri kopyalamak için ücret ödemem gerekiyor mu?', a: 'Hayır, web sitemizdeki tüm semboller tamamen ücretsizdir ve tek tıkla kopyalanabilir.' }
+                        { q: 'Klavyemde olmayan Şekilli Sembolleri nasıl oluşturabilirim?', a: 'Unicode sembol tablolarını veya klavyenizden doğrudan erişilemeyen bir sembolü eklemek için ALT + 1 = ☺ gibi bir karakterin ALT kodunu kullanabilirsiniz. Kişisel olarak güvenilir bir Şekilli Semboller web sitesinden kopyalamayı tercih ediyorum çünkü zaman kazandırıyor ve yazılan metni temiz ve tutarlı tutuyor.' },
+                        { q: 'Şekilli sembolleri nerede kullanabilirim?', a: 'Şekilli sembolleri Instagram, Facebook, Twitter (X) ve WhatsApp gibi sosyal medya platformlarında veya PUBG, Fortnite ve League of Legends gibi oyunlarda kullanabilirsiniz. Instagram biyografilerinde, Steam kullanıcı adlarında, oyun içi takma adlarda ve hatta kendi web sitenizde iyi çalışırlar.' },
+                        { q: 'Şık semboller kullanıcı adlarını neden daha güçlü kılar?', a: 'Şık semboller, harfler ve sayılar içeren benzersiz bir kullanıcı adı, diğer oyuncular ve kullanıcılar üzerinde ekstra bir etki yaratır ve güçlü bir izlenim bırakır. Görsel zeka sayesinde insanlar çarpıcı isimleri daha hızlı hatırlayabilir.' },
+                        { q: 'Şekilli sembollerin her yerde kullanımı güvenli midir?', a: 'Evet, ancak önlemlere uymalısınız. Kaleminizin veya cihazınızın platformla uyumlu olduğundan emin olun ve çirkin bir görünüme neden olabilecek uygunsuz içeriklerden kaçının.' },
+                        { q: 'Deneyebileceğim bazı popüler özel semboller nelerdir?', a: 'Kişiliğinizi ve tarzınızı vurgulamak için kalp ❤️, gülen yüz ☺️, yıldız ✨ veya müzik notası ♫ kullanabilirsiniz. Bu özel semboller genellikle gönderileri, durumları, hikayeleri ve kullanıcı adlarını güzelleştirmek için kullanılır.' },
+                        { q: 'Şekilli sembolleri nasıl doğru kopyalayıp yapıştırırım?', a: '"Harfler" bölümünden veya Tüm Şekilli Semboller sayfasından sembole tıklamanız, kopyalanız ve yapıştırmanız yeterlidir. İyi yönergeler ve öneriler, renginiz ve şeklinizle uyumlu kalan uygun sembolleri seçmenize yardımcı olur.' },
+                        { q: 'Şekilli semboller çevrimiçi varlığımı iyileştirebilir mi?', a: 'Evet, ▂▃▅▆█▆▅▃▂, ▲, ❃ ✾ ✽ ✼ ❈, 💔 (◍•ᴗ•◍)❤, ♬ 🎧 🎶 🎻, ⌛ ⌧ ⍋, ㄽㄸ, ą Ř ⒮ ⒴, β ψ ξ Π, るザ, ♖ ♠ ♥ ♢, ◒ ◐ 㶶 ☢, ❏ ▉, ㊎ ㊧ ve ½ ⅕ gibi estetik semboller kullanmak, içeriğinizi görsel olarak yaratıcı ve her platformda daha göz alıcı hale getirebilir.' }
                     ]
                 }
             ]
@@ -746,11 +833,11 @@ export const translations: Record<Language, any> = {
         pubg: {
             hero: {
                 badge: 'Special for PUBG',
-                title: 'PUBG',
-                titleHighlight: 'Stylish Nickname',
+                title: 'Pubg',
+                titleHighlight: 'Şekilli Nick',
                 description: 'Create PUBG nicknames with your own name or copy ready-to-use PUBG nicknames with one click.',
                 inputTitle: 'Create Your Own Nickname',
-                inputSub: 'Generate 40+ stylish PUBG nicknames with your name ✨',
+                inputSub: 'Generate 100+ unique PUBG nicknames with your name ✨',
                 inputPlaceholder: 'Enter your nickname here...',
                 readyNicks: 'Ready-Made PUBG Nicknames',
                 readyNicksDesc: 'Copy your favorite nickname with one click and use it in PUBG',
@@ -768,48 +855,74 @@ export const translations: Record<Language, any> = {
             },
             sections: [
                 {
-                    id: 'what-is-pubg-nick',
-                    title: 'What is a PUBG Stylish Nickname?',
+                    id: 'pubg-intro',
                     type: 'text',
-                    content: 'A PUBG stylish nickname is an in-game name decorated with symbols, emojis, and unique characters to make it stand out. These nicknames distinguish you from other players and provide a professional look.'
+                    title: '',
+                    content: 'In PUBG: Battlegrounds, a fast-paced multiplayer, team-based, action, shooter, game, your identity matters just as much as your skills. I’ve seen hundreds of thousands of players on mobile and PC choose Nicknames that are stylish, short, long, or even beautiful, because a strong name builds presence. In PUBG and other games like Valorant and Mobile Legends: Bang Bang, there are fewer restrictions on account names, which gives an advantage. Many users explore PUBG male names, PUBG female names, PUBG clan nicknames, Turkish PUBG names, and even trends for 2025 to stand out with the most beautiful PUBG names and clear meanings.\n\nFrom my experience, a PUBG-style nickname works best when it mixes symbols with letters beyond the standard alphabet, using the special feature allowed by game developers to customize nicknames. Your username on the platform is visible to everyone, so picking a high-quality username instead of ordinary usernames makes it more memorable and advantageous.\n\nThe unique nickname method helps you create a unique username, and if you change your mind, you can use change cards or a change card from your inventory to update your account. Just avoid an overly complex style that feels tiring to the eyes or becomes a less functional username; today, people prefer simpler things, so a different but simple username like Simple PUBG usernames or clean {{stylish font|/}} PUBG nicknames will always stay strong among team names and creative usernames.'
                 },
                 {
-                    id: 'how-to-change',
-                    title: 'How to Change Name in PUBG?',
-                    type: 'steps',
-                    steps: [
-                        { number: 1, icon: '📋', title: 'Copy Your Nickname', desc: 'Choose a nickname from our ready list or one you created with your name and click the copy button.' },
-                        { number: 2, icon: '🎮', title: 'Open PUBG', desc: 'Launch PUBG or PUBG Mobile, go to your inventory and find the Rename Card.' },
-                        { number: 3, icon: '✨', title: 'Paste and Save', desc: 'Paste your new stylish nickname into the name change box and save to use your new look.' }
-                    ]
+                    id: 'how-to-write',
+                    type: 'text',
+                    level: 2,
+                    title: 'How to Write Stylish Nicknames in PUBG',
+                    content: 'To create a stylish nickname in PUBG, I generally recommend starting with a PUBG-style nickname generator tool or the PUBG Stylish Name Writer Tool. Enter your name in the box that says "Type here to write stylized text"; you\'ll see cool stylized names automatically generated with {{various symbols|/sekilli-semboller}} for PUBG Mobile and even other games or social media that use stylized text.\n\nWhile creating stylish PUBG nicknames is extremely simple through websites found online or on the internet, you should not rely on copying an exact copy from existing usernames. Many very nice ones are offered as inspiration, but your chosen username must be unique, not an exact duplicate, especially because PUBG nicknames are limited to a maximum of 14 characters, so names like Guardian of Darkness, Powerful and Rich, or Power of Hell are not suitable.'
                 },
                 {
-                    id: 'tips',
-                    title: 'Popular PUBG Nickname Categories and Advice',
-                    type: 'features',
-                    features: [
-                        { title: 'Cool and Stylish Nicknames', desc: 'Standing out in PUBG is not just about your gameplay, it’s also about your name. A stylish nick helps you build a unique identity and gain confidence.' },
-                        { title: 'Professional and SHORT Nicknames', desc: 'Many professional players and streamers use short and impactful names. Our tool offers hundreds of pro-level names that will be easily remembered by your fans.' },
-                        { title: 'PUBG Clan Nicknames', desc: 'If you are playing with a team or running a clan, having a consistent nickname style is great for team spirit and recognition.' }
-                    ]
+                    id: 'simple-unique',
+                    type: 'text',
+                    level: 3,
+                    title: 'Keep It Simple but Unique',
+                    content: 'Based on my experience in PUBG, a {{stylish font|/}} or PUBG nickname works best when it\'s not too complex, too long, or unnecessarily lengthy; overly complicated or confusing names leave a bad impression and are generally disliked by users who prefer a simpler look over heavy plain text or overly complex usernames. Because customization of PUBG usernames is limited, you may even need to pay sometimes, whether you\'re creating a new account or using username change cards added to your inventory over time.\n\nIt is smart to choose a really nice username and edit it in a unique way. Add stylish symbols at the beginning or end, instead of making all characters fancy; this effective method gives an advantage, helps in making more friends, and makes your memorable username stand out so friends and opponents feel surprised when they enter the game, see it on the kill list, and even follow you.'
                 },
                 {
-                    id: 'faq',
-                    title: 'Frequently Asked Questions',
+                    id: 'tips-memorable',
+                    type: 'text',
+                    level: 3,
+                    title: 'Tips for Creating Memorable PUBG-style Nicknames',
+                    content: 'Do some research online, use your own ideas, avoid small slight modifications that bring disadvantage, and focus on a creative username that can satisfy viewers like content creators on YouTube, because strong stylized usernames, PUBG-style nicknames, or even a PUBG-themed nickname act as an indicator of memorability. People respond more to visual intelligence than verbal intelligence, so smart use of shapes, patterns, and light embellishments of creativity with clean stylized symbols brings real benefit and new possibilities when you create stylish nicknames or a fresh new username inspired by Stylish Nicknames in PUBG.'
+                },
+                {
+                    id: 'pubg-guide',
+                    type: 'text',
+                    level: 2,
+                    title: 'PUBG Names: A Guide to Creating Creative and Effective Player Names',
+                    content: '**1. The Importance of Player Names:** In PlayerUnknown\'s Battlegrounds, known as PUBG, a popular battle royale game played by millions of players worldwide, your player name is one of the important factors for identifying you in both in-game and out-of-game communication. From my experience, the real success behind strong PUBG names is how they reflect your personalities, shape your gaming experience, help teammates recognize you, and sometimes even inspire fear or respect in opponents. Choosing a good player name can truly enhance social interaction and make matches more enjoyable, which is why this article shares practical tips and suggestions for creating better names.\n\n**2. Choose a Creative and Effective Player Name:** When you choose from different creative player names, first think about your target audience and the impression you want to create. For casual matches, humorous names are great for fun, but serious players may prefer a more professional approach. I always suggest Short, Memorable Names that are simple, easy to type, and help save time while typing quickly, because long names or complex ones cause difficulty remembering and can waste typing time when teammates try to call you.\n\n**3. Choose a Style That Suits You:** You can explore {{Game-themed Names|https://www.thebump.com/b/video-game-baby-names}} connected to the game theme, such as military terms like Sniper or Ghillie Suit, or gaming terms like Chicken Dinner. Many players also use Personal Interests—a football fan might add a team\'s name or favorite player\'s name, while a music fan may prefer a favorite singer\'s name or song title. The key is selecting Unique, Original Names that feel unique and original, whether by researching online, exchanging ideas with friends, using different languages, creative spelling, or different letters, while still avoiding a wrong player name.\n\n**4. Things to Consider When Choosing a Player Name:** Under Things to Consider, always avoid Offensive Names containing profanity or derogatory content, as they create a negative impression and can negatively impact your reputation. Also avoid Long, Complex Names that feel difficult to use. Stay away from Popular Player Names or popular actor names, as they create a commonplace impression and lose uniqueness, which defeats the purpose of standing out in PUBG.'
+                },
+                {
+                    id: 'why-not-stylish',
+                    type: 'text',
+                    level: 2,
+                    title: 'Why aren\'t my PUBG nicknames stylish?',
+                    content: 'Many cool PUBG nicknames are generated on other sites, but they cannot be used in the game because PUBG Mobile does not fully support many Unicode characters. If you want to create truly stylish PUBG nicknames, you must rely on supported stylized symbols from different alphabets, such as Chinese or Japanese alphabets, often through a PUBG stylized nickname generator that helps produce good PUBG nicknames you can actually use.\n\nSome stylized nicknames like 彡 ᴅᴇᴀᴅ ᴋɪʟʟᴇ r 彡 may look cool and stylish on {{Instagram|/insta-yazi-tipi}} or other social media platforms and they may work in another game, but due to PUBG nickname rules, you might need a different name inside PUBG itself.'
+                },
+                {
+                    id: 'turkish-style',
+                    type: 'text',
+                    level: 2,
+                    title: 'PUBG Names Style in Turkish',
+                    content: 'In 2025, Turkish PUBG titles offer a mix of fierce and creative names for players who want to stand out.\n\nNames like Painful Blow, Heavy Blow, Foolish Rookie, Insurmountable Obstacle, and Great Warrior show strength, while The Great Spoiler, Magical Archer, The Great Swindler, and The Power of Hell add flair and personality.\n\nYou can also pick Hell Warrior, Brave heart, Rookie, Dogan Sahin, Dominating the World, or Legendary Arrow depending on whether you want to be bold, strategic, or respected. Other options like Storm Angel, Night Desire, Star Group, Powerful and Rich, and Dominant help convey a powerful presence, while names such as Watch and learn, Irresistible, Guardian of Darkness, Dark Days, mass murderer, and Bonebreaker make a strong, memorable impression.\n\nPlayers can also adopt roles like Fearless Game Manager, King of Games, Deadly resistance, Deadly Coup Plotter, Fight for freedom, Powerful Without Money, Professional Striker, The Final Danger, The Last Striker, Danger Itself, Expert Killer, Lonely Angel, Only Darkness, Creature, Invincible Soldier, and Rich Warrior to fit their style in PUBG.'
+                },
+                {
+                    id: 'creative-stylish',
+                    type: 'text',
+                    level: 3,
+                    title: 'Creative and Stylish PUBG Nicknames',
+                    content: 'For PUBG Names in Style, you can go beyond traditional ideas with creative and unique nicknames such as Adrenaline Love, Alone Angel, Angel of Death, Beetle King, Black Death, Blind Guardian, Bone Crusher, Brave Heart, Candy Butcher, or Dead Killer.\n\nSome use special characters for flair, like シ Elendil シ, Elf-Friendly, Immortal Turk, Ｊａｎｉｓｓａｒｙ, Janissary, Knight King, ๛ Mr Crowley ๛, Mr Crowley, Plague Doctor, Rotten Zombie, 〔Samurai〕, Samurai, ๏ Spartan ๏, Spartan, T͜͡c Warrior, Warrior, 彡 Venom 彡, Poison, ロ Viking ロ, Viking, × Warlord ×, Warlord. From my experience, these stylish nicknames not only make your profile memorable but also help you create a unique identity in PUBG, whether you want to appear powerful, mysterious, or fun.'
+                },
+                {
+                    id: 'pubg-faq',
                     type: 'faq',
+                    level: 2,
+                    title: 'Frequently Asked Questions',
                     faqs: [
-                        { q: 'Can I use symbols in my PUBG nickname?', a: 'Yes, PUBG supports many Unicode symbols. Our generator uses symbols that are known to work on most mobile and PC versions.' },
-                        { q: 'How many characters can a PUBG name have?', a: 'Typically, PUBG Mobile names have a limit of 14 characters. Make sure your chosen style fits within this limit.' }
-                    ]
-                },
-                {
-                    id: 'features',
-                    title: 'Features of PUBG Nickname Generator',
-                    type: 'featuresGrid',
-                    features: [
-                        { icon: '🚀', title: 'Free and Fast', desc: 'No registration required, copy ready-made PUBG nicknames instantly!' },
-                        { icon: '🔒', title: '100% Safe', desc: 'Your nicknames are not sent to any server; they are processed in your browser.' },
-                        { icon: '📱', title: 'Mobile Friendly', desc: 'Use it easily from your phone and paste instantly into PUBG.' }
+                        { q: 'How do I change my player name in PUBG?', a: 'You can log into the game, go to Settings, click Profile, and choose a new name in the Player Name section.' },
+                        { q: 'What happens if I change my player name frequently?', a: 'Changing your player name frequently can make it difficult for teammates or opponents to recognize you and may negatively impact in-game communication.' },
+                        { q: 'Is choosing a non-English name a disadvantage?', a: 'No, a non-English name is not a disadvantage. The meaning or language differences may make your name more appealing to teammates or opponents.' },
+                        { q: 'Will my previous name still be visible if I change it?', a: 'No, your previous name is no longer visible, but teammates or opponents can still call you by your old name until they learn your new one.' },
+                        { q: 'Do I need to pay to change my player name?', a: 'No, changing your player name is free; you just need name cards provided at specific intervals.' },
+                        { q: 'How often can I use name cards?', a: 'You can use name cards at specific intervals to change your player name safely.' },
+                        { q: 'Can frequent changes confuse my teammates?', a: 'Yes, frequently changing your player name can confuse teammates and make it harder for them to recognize you.' },
+                        { q: 'Are there any restrictions on non-English names?', a: 'Non-English player names are allowed. Just consider meaning and language differences to keep names appealing for in-game communication.' }
                     ]
                 }
             ]
@@ -844,52 +957,111 @@ export const translations: Record<Language, any> = {
             },
             sections: [
                 {
-                    id: 'what-are-symbols',
-                    title: 'What are Cool and Stylish Symbols?',
-                    type: 'text',
-                    content: 'Cool symbols are special characters and signs that you can use on social media platforms, game names and messaging applications. These stylish symbols help you make your text eye-catching, customize your profile and add an aesthetic touch to your messages.'
-                },
-                {
-                    id: 'features',
-                    title: 'Symbol Generator Features',
-                    type: 'features',
-                    features: [
-                        { title: 'Rich Symbol Collection', desc: 'Hearts, stars, arrows, frames and more! Stand out with 1000+ different stylish symbols.' },
-                        { title: 'Click to Copy', desc: 'Click on any symbol and it will be copied instantly! Paste it anywhere in seconds.' },
-                        { title: 'Works on All Platforms', desc: 'Instagram, WhatsApp, TikTok and Discord! Symbols are Unicode-based and look correct on all devices.' },
-                        { title: 'For Game Names', desc: 'Create cool usernames and clan tags for your games!' }
+                    id: 'shaped-symbols-intro',
+                    title: 'Shaped Symbols',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'When you visit a Shaped Symbols website, you immediately notice how these shaped symbols can make your profile or blog text look cool, unique, aesthetic, and attractive. As a Symbol lover, I’ve tried many websites and social media platforms like Facebook, Twitter, Instagram, and WhatsApp, and I can tell you that the best site is one that lets you copy, paste, and use Stylist Symbols easily.' },
+                        { type: 'p', text: 'The interfaces of some websites can be complicated, but the ones I like are simple, minimalist, and easy to operate, which saves a lot of time when you’re creating content. With the ability to select any symbol with a single click, even beginners can make their website or gaming platforms look impressive.' }
                     ]
                 },
                 {
-                    id: 'popular-categories',
-                    title: 'Most Popular Cool Symbols',
-                    type: 'categoriesGrid',
-                    categories: [
-                        { icon: '❤️', title: 'Heart Symbols', desc: 'The most used symbols to express love and affection.', examples: ['♥', '❤', '💖', '💕'] },
-                        { icon: '⭐', title: 'Star Symbols', desc: 'Used to express brightness and importance.', examples: ['★', '☆', '✨', '🌟'] },
-                        { icon: '🌸', title: 'Flower Symbols', desc: 'Nature and beauty themed decorations.', examples: ['❀', '✿', '🌸', '🌷'] },
-                        { icon: '🎮', title: 'Game Symbols', desc: 'Cool symbols for game names and clan tags.', examples: ['『', '』', '【', '】'] },
-                        { icon: '🇹🇷', title: 'Turkish Culture', desc: 'Cultural symbols like evil eye bead, crescent and star.', examples: ['🧿', '☪', '🌷', '☕'] },
-                        { icon: '✨', title: 'Decorative', desc: 'Special decorative symbols for text decoration.', examples: ['✦', '❖', '✪', '❋'] }
+                    id: 'usage-in-games',
+                    title: 'Using Shaped Symbols in Social Media and Games',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Shaped symbols aren’t just for social media platforms. You can use them in many areas, including:' },
+                        { type: 'list', items: ['Instagram bios', 'Steam usernames', 'In-game nicknames in games like PUBG and Mobile Legends'] },
+                        { type: 'p', text: 'Stylish symbols add an extra impact to your username, helping other players remember you faster. A unique username with the right letters, numbers, or symbols creates a greater impact, signals that you are a completely different person, and even engages people’s visual intelligence. By choosing simple shaped symbols over complex ones, you avoid tiring people’s eyes, making your stylish symbols more effective.' },
+                        { type: 'p', text: 'From All Shaped Symbols to the "Letters" section, there’s a wide range of nicknames, memorable, impactful nicknames, and impressions to explore across every platform.' }
                     ]
                 },
                 {
-                    id: 'usage-tips',
-                    title: 'Shaped Symbol Usage Tips',
-                    type: 'tips',
-                    tips: [
-                        { title: 'Don\'t Overdo It', desc: 'Using too many symbols reduces readability. Use them only where you want to emphasize.' },
-                        { title: 'Symmetrical Use', desc: 'Place the same symbols at the beginning and end of the text for a symmetrical and aesthetic look.' },
-                        { title: 'Platform Compatibility', desc: 'Some symbols may look different on some platforms, test before sharing.' }
+                    id: 'not-on-keyboard',
+                    title: 'Creating Symbols Not on Your Keyboard',
+                    level: 3,
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'You can access special symbols and emojis that aren\'t directly accessible from your keyboard by using keyboard shortcuts, alt codes, or {{Unicode symbol tables|https://symbl.cc/en/unicode-table/}}. This allows you to customize fonts and add aesthetically pleasing symbols such as:' },
+                        {
+                            type: 'list', items: [
+                                'These symbols aren’t always accessible directly from your keyboard',
+                                'Unicode, a standard assigning a unique number to each character, is very useful',
+                                'You can use a character\'s ALT code to make different symbols (Example: ALT + 1 = ☺)',
+                                'This approach ensures your text written with stylized symbols looks consistent and visually appealing'
+                            ]
+                        },
+                        { type: 'p', text: 'When using these symbols, it’s important to follow precautions to avoid inappropriate content or unsightly appearance. Make sure your stylus or device is compatible with the platform, so the symbol\'s functionality works correctly for all users.' },
+                        { type: 'p', text: 'Guidelines and recommendations from trusted websites help you select suitable symbols, click, copy, and paste them without errors. By understanding Internal Connections, Shaped Symbols, and how to Create Stylish Nicknames for PUBG or other games, you gain an advantage in making your text or username unique, in harmony with your color and shape, and easy for others to recognize.' }
+                    ]
+                },
+                {
+                    id: 'beautify-text',
+                    title: 'Using Symbols to Enhance Your Text',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'If you want to make your username or social media post stand out:' },
+                        {
+                            type: 'list', items: [
+                                'Letter symbols and cool symbols are a simple way to beautify your text',
+                                'These stylized symbols can help you communicate with people across different languages',
+                                'Using the right click and copy options from a shaped symbols page makes it easy to add them anywhere'
+                            ]
+                        },
+                        { type: 'p', text: 'Popular custom symbols include:' },
+                        {
+                            type: 'list', items: [
+                                'Heart ❤️',
+                                'Smiley face ☺️',
+                                'Star ✨',
+                                'Musical note ♫'
+                            ]
+                        },
+                        { type: 'p', text: 'These special symbols highlight your personality and style, and you can add them to usernames, nicknames, posts, statuses, stories, Instagram bios, Twitter (X) profiles, and Facebook walls to make your online presence more eye-catching and memorable.' },
+                        { type: 'image', src: '/symbols-enhance-text-tr.png', alt: 'Enhancing text with shaped symbols' }
+                    ]
+                },
+                {
+                    id: 'advanced-customization',
+                    title: 'Symbols in Games and Advanced Customization',
+                    type: 'article',
+                    content: [
+                        { type: 'p', text: 'Beyond social media, symbols play an important role in games like PUBG, Fortnite, and League of Legends, where online games use numbers, letters, and unusual nicknames to make usernames striking.' },
+                        { type: 'p', text: 'By using keyboard shortcuts, alt codes, or Unicode symbol tables, you can access special symbols and emojis that are not accessible directly from your keyboard. This allows you to customize fonts and add aesthetic symbols like:' },
+                        {
+                            type: 'list', items: [
+                                '▂▃▅▆█▆▅▃▂',
+                                'Triangle ▲',
+                                'Star ❃ ✾ ✽ ✼ ❈',
+                                'Heart 💔 (◍•ᴗ•◍)❤',
+                                'Musical note ♬ 🎧 🎶 🎻',
+                                'Technical ⌛ ⌧ ⍋',
+                                'Korean ㄽㄸ',
+                                'Latin ą Ř ⒮ ⒴',
+                                'Greek β ψ ξ Π',
+                                'Japanese るザ',
+                                'Chess ♖ ♠ ♥ ♢',
+                                'Circle ◒ ◐ 㶶 ☢',
+                                'Square ❏ ▉',
+                                'Chinese ㊎ ㊧',
+                                'Fraction ½ ⅕'
+                            ]
+                        },
+                        { type: 'p', text: 'These symbols can be used in headlines, biographies, or for educational, entertainment, or everyday tasks, making your content visually creative and unique.' }
                     ]
                 },
                 {
                     id: 'faq',
-                    title: 'Frequently Asked Questions',
+                    title: 'FAQs',
                     type: 'faq',
                     faqs: [
-                        { q: 'Do stylish symbols work on all devices?', a: 'Yes! Stylish symbols use the Unicode character set, so they appear on all modern devices including iPhone, Android, Windows, and Mac.' },
-                        { q: 'Do I need to pay to copy symbols?', a: 'No, all symbols on our website are completely free and can be copied with one click.' }
+                        { q: 'How can I create Shaped Symbols that are not on my keyboard?', a: 'You can use Unicode symbol tables or a character\'s ALT code like ALT + 1 = ☺ to insert a symbol that is not directly accessible from your keyboard. I personally prefer copying from a trusted Shaped Symbols website because it saves time and keeps the text written clean and consistent.' },
+                        { q: 'Where can I use shaped symbols?', a: 'You can use shaped symbols on social media platforms such as Instagram, Facebook, Twitter (X), and WhatsApp, or in games like PUBG, Fortnite, and League of Legends. They work well in Instagram bios, Steam usernames, in-game nicknames, and even on your website.' },
+                        { q: 'Why do stylish symbols make usernames more powerful?', a: 'A unique username with stylish symbols, letters, and numbers creates an extra impact and leaves a strong impression on other players and users. Because of visual intelligence, people can remember striking names faster.' },
+                        { q: 'Are shaped symbols safe to use everywhere?', a: 'Yes, but you should follow precautions. Make sure your stylus or device is compatible with the platform, and avoid inappropriate content that may cause an unsightly appearance.' },
+                        { q: 'What are some popular custom symbols I can try?', a: 'You can use a heart ❤️, smiley face ☺️, star ✨, or musical note ♫ to highlight your personality and style. These special symbols are often used to beautify posts, statuses, stories, and usernames.' },
+                        { q: 'How do I copy and paste shaped symbols correctly?', a: 'Simply click, copy, and paste the symbol from the "Letters" section or All Shaped Symbols page. Good guidelines and recommendations help you select suitable symbols that stay in harmony with your color and shape.' },
+                        { q: 'Can shaped symbols improve my online presence?', a: 'Yes, using aesthetic symbols like ▂▃▅▆█▆▅▃▂, ▲, ❃ ✾ ✽ ✼ ❈, 💔 (◍•ᴗ•◍)❤, ♬ 🎧 🎶 🎻, ⌛ ⌧ ⍋, ㄽㄸ, ą Ř ⒮ ⒴, β ψ ξ Π, るザ, ♖ ♠ ♥ ♢, ◒ ◐ 㶶 ☢, ❏ ▉, ㊎ ㊧, and ½ ⅕ can make your content visually creative and more eye-catching across every platform.' }
                     ]
                 }
             ]

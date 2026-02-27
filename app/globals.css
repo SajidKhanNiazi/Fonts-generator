@@ -1582,6 +1582,25 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+.category-link-heading {
+  transition: all 0.3s ease;
+}
+
+.category-link-heading:hover {
+  color: var(--primary-color) !important;
+}
+
+.heading-link-icon {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0.5;
+}
+
+.category-link-heading:hover .heading-link-icon {
+  opacity: 1;
+  transform: translate(2px, -2px) scale(1.1);
+  color: var(--primary-color);
+}
+
 .category-count {
   background: var(--surface-elevated);
   border: 1px solid var(--border);
@@ -4687,10 +4706,237 @@ body {
   margin: 0;
 }
 
-.dark .faq-item-modern {
-  background: rgba(30, 41, 59, 0.4);
+
+/* ========== PREMIUM PUBG OVERHAUL STYLES ========== */
+
+.ready-nick-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
 }
 
-.dark .faq-item-modern.expanded {
-  background: rgba(30, 41, 59, 0.6);
+.ready-nick-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary-color);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ready-nick-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(79, 70, 229, 0.1);
+  background: var(--surface-elevated);
+}
+
+.ready-nick-card:hover::before {
+  opacity: 1;
+}
+
+.ready-nick-text {
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  letter-spacing: 0.01em;
+  word-break: break-word;
+}
+
+.ready-nick-action {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-light);
+  border-radius: 50%;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.ready-nick-card:hover .ready-nick-action {
+  background: var(--primary-color);
+  color: white;
+  transform: rotate(10deg);
+}
+
+.copied-badge {
+  font-weight: 800;
+  color: var(--success);
+}
+
+.ready-nick-card:hover .copied-badge {
+  color: white;
+}
+
+.nicknames-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 640px) {
+  .nicknames-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.category-nav {
+  position: sticky;
+  top: 80px;
+  z-index: 90;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  padding: 1rem 0;
+  margin: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.category-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0.5rem;
+  scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-pill:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background: var(--primary-light);
+}
+
+.nav-pill.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.pill-icon {
+  font-size: 1.1rem;
+}
+
+.nick-category {
+  margin-bottom: 4rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.category-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.category-icon-large {
+  font-size: 2rem;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.category-count {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--primary-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+/* Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Toast Polish */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--text-primary);
+  color: var(--surface);
+  padding: 1rem 2rem;
+  border-radius: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-xl);
+  z-index: 1000;
+  animation: toastIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes toastIn {
+  to {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.toast-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
 }
