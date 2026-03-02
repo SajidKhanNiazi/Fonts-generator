@@ -886,7 +886,7 @@ export default function InstaYaziTipiClient() {
                     <h2 id={section.id} className="saas-heading">{section.title}</h2>
                   </div>
                   <div className="saas-steps-container">
-                    {section.steps.map((step: string, idx: number) => (
+                    {(section.steps || []).map((step: string, idx: number) => (
                       <div key={idx} className="saas-step-card">
                         <span className="saas-step-number">{idx + 1}</span>
                         <h3 className="saas-step-title">{['Metni Girin', 'Stili Seçin', 'Kopyalayın'][idx] || `Adım ${idx + 1}`}</h3>
@@ -1000,7 +1000,7 @@ export default function InstaYaziTipiClient() {
                     <h2 id={section.id} className="saas-heading">{section.title}</h2>
                   </div>
                   <div className="saas-feature-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))' }}>
-                    {section.features.map((feat: any, idx: number) => (
+                    {(section.features || []).map((feat: any, idx: number) => (
                       <div key={idx} className="saas-feature-card">
                         <div className="saas-feature-icon">{feat.icon}</div>
                         <p className="saas-feature-desc" style={{ fontWeight: 500, color: 'var(--text-main)' }}>{feat.text}</p>
@@ -1062,7 +1062,7 @@ export default function InstaYaziTipiClient() {
                     )}
                   </div>
                   <div className="saas-example-grid">
-                    {section.examples.map((ex: any, idx: number) => (
+                    {(section.examples || []).map((ex: any, idx: number) => (
                       <div key={idx} className="saas-example-card">
                         <span className="saas-example-label">{ex.label}</span>
                         <span className="saas-example-text">{ex.text}</span>
@@ -1119,7 +1119,7 @@ export default function InstaYaziTipiClient() {
                   <div className="saas-list-container reveal" style={{ padding: '1.5rem' }}>
                     <h3 className="saas-heading" style={{ fontSize: '1.25rem' }}>{section.title}</h3>
                     <div className="saas-check-list" style={{ gridTemplateColumns: '1fr' }}>
-                      {section.items.map((item: string, idx: number) => (
+                      {(section.items || []).map((item: string, idx: number) => (
                         <div key={idx} className="saas-check-item">
                           <span className="saas-check-icon">✓</span>
                           <span>{item}</span>
@@ -1142,7 +1142,7 @@ export default function InstaYaziTipiClient() {
                     <h2 id={section.id} className="saas-heading">{section.title}</h2>
                   </div>
                   <div className="saas-feature-grid">
-                    {section.features.map((feat: any, idx: number) => (
+                    {(section.features || []).map((feat: any, idx: number) => (
                       <div key={idx} className="saas-feature-card">
                         <div className="saas-feature-icon">{feat.icon}</div>
                         <h3 className="saas-feature-title">{feat.title}</h3>
@@ -1163,7 +1163,7 @@ export default function InstaYaziTipiClient() {
                     <h2 id={section.id} className="saas-heading">{section.title}</h2>
                   </div>
                   <div className="faq-accordion" style={{ marginTop: '2rem' }}>
-                    {section.faqs.map((item: any, idx: number) => (
+                    {(section.faqs || []).map((item: any, idx: number) => (
                       <div key={idx} className={`faq-item-modern ${expandedFaq === idx ? 'expanded' : ''}`}>
                         <button
                           className="faq-question-btn"

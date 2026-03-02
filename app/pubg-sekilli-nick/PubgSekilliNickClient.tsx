@@ -1013,7 +1013,7 @@ export default function PubgSekilliNickClient() {
 
             {/* Information Sections */}
             <article className="pubg-info-sections reveal active" style={{ marginTop: '4rem', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '3rem' }}>
-              {t.pubg.sections && t.pubg.sections.map((section: any, idx: number) => {
+              {(t.pubg.sections || []).map((section: any, idx: number) => {
                 const HeadingTag = section.level === 3 ? 'h3' : (section.level === 2 ? 'h2' : 'div');
 
                 return (
@@ -1032,7 +1032,7 @@ export default function PubgSekilliNickClient() {
 
                     {section.type === 'faq' ? (
                       <div className="faq-grid" style={{ display: 'grid', gap: '1rem' }}>
-                        {section.faqs.map((faq: any, fIdx: number) => {
+                        {(section.faqs || []).map((faq: any, fIdx: number) => {
                           const isExpanded = expandedFaq === fIdx;
                           return (
                             <div
