@@ -568,6 +568,9 @@ export default function InstaYaziTipiClient() {
               <Link href="/insta-yazi-tipi" className="nav-link active">
                 {t.common.nav.insta}
               </Link>
+              <Link href="/tiktok-yazi-stilleri" className="nav-link">
+                TikTok Yazı Stilleri
+              </Link>
               <Link href="/sekilli-semboller" className="nav-link">
                 {t.common.nav.symbols}
               </Link>
@@ -619,6 +622,9 @@ export default function InstaYaziTipiClient() {
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
+            </Link>
+            <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎵</span> TikTok Yazı Stilleri
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">🎨</span> {t.common.nav.symbols}
@@ -1210,6 +1216,7 @@ export default function InstaYaziTipiClient() {
             <div className="footer-links">
               <Link href="/" className="footer-link">{t.common.nav.home}</Link>
               <Link href="/insta-yazi-tipi" className="footer-link">{t.common.nav.insta}</Link>
+              <Link href="/tiktok-yazi-stilleri" className="footer-link">TikTok Yazı Stilleri</Link>
               <Link href="/sekilli-semboller" className="footer-link">{t.common.nav.symbols}</Link>
               <Link href="/pubg-sekilli-nick" className="footer-link">{t.common.nav.pubg}</Link>
               <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>

@@ -1,10 +1,14 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import dynamic from 'next/dynamic'
 import { fontStyles } from '@/lib/fontStyles'
 import { translations, Language } from '@/lib/translations'
 import Link from 'next/link'
 import NextImage from 'next/image'
+
+const SeoSections = dynamic(() => import('./components/SeoSections'), { ssr: true })
+const FaqAccordion = dynamic(() => import('./components/FaqAccordion'), { ssr: true })
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('tr')
@@ -15,13 +19,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [darkMode, setDarkMode] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  // Toggle FAQ accordion
-  const toggleFaq = (index: number) => {
-    setExpandedFaq(expandedFaq === index ? null : index)
-  }
 
   // Mark component as mounted (client-side only)
   useEffect(() => {
@@ -75,10 +73,22 @@ export default function Home() {
       })
     }, observerOptions)
 
-    const revealElements = document.querySelectorAll('.reveal')
-    revealElements.forEach((el) => observer.observe(el))
+    // Re-run whenever the DOM might change
+    const updateObservers = () => {
+      const revealElements = document.querySelectorAll('.reveal')
+      revealElements.forEach((el) => observer.observe(el))
+    }
 
-    return () => observer.disconnect()
+    updateObservers()
+
+    // Mutation observer to handle dynamically added elements
+    const mutationObserver = new MutationObserver(updateObservers)
+    mutationObserver.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      observer.disconnect()
+      mutationObserver.disconnect()
+    }
   }, [mounted])
 
   // Save dark mode to localStorage and apply to document
@@ -197,6 +207,9 @@ export default function Home() {
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
               </Link>
+              <Link href="/tiktok-yazi-stilleri" className="nav-link">
+                TikTok Yazı Stilleri
+              </Link>
               <Link href="/sekilli-semboller" className="nav-link">
                 {t.common.nav.symbols}
               </Link>
@@ -248,6 +261,9 @@ export default function Home() {
           <nav className="mobile-nav">
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
+            </Link>
+            <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎵</span> TikTok Yazı Stilleri
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">🎨</span> {t.common.nav.symbols}
@@ -334,7 +350,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className="input-header-text-premium">
-                    <h2>{t.home.hero.inputTitle}</h2>
+                    <div className="input-title-simple">{t.home.hero.inputTitle}</div>
                     <p>{t.home.hero.inputSub}</p>
                   </div>
                 </div>
@@ -483,7 +499,7 @@ export default function Home() {
 
               return (
                 <div key={category} className="category-section" data-category={category}>
-                  <h2 className="category-header">
+                  <div className="category-header" data-category={category}>
                     {category === 'Instagram Yazı Stilleri' ? (
                       <Link
                         href="/insta-yazi-tipi"
@@ -508,7 +524,7 @@ export default function Home() {
                       category
                     )}
                     <span className="category-count">{categoryFonts.length}</span>
-                  </h2>
+                  </div>
                   <div className="font-grid">
                     {visibleFontsList.map((style) => {
                       const transformedText = style.transform(inputText)
@@ -542,113 +558,15 @@ export default function Home() {
           })()}
 
           {/* ============ COMPREHENSIVE SEO CONTENT SECTIONS ============ */}
-          {t.home.sections.map((section: any) => (
-            <div key={section.id} className="info-box reveal">
-              <h2 className="section-main-title">{section.title}</h2>
-              <div className="content-intro">
-                {section.type === 'text' && (
-                  <>
-                    <p className="intro-text" dangerouslySetInnerHTML={{ __html: section.content }} />
-                    {section.image && (
-                      <div className="section-image-container reveal">
-                        <NextImage
-                          src={section.image}
-                          alt={section.title}
-                          width={1000}
-                          height={600}
-                          sizes="(max-width: 768px) 100vw, 800px"
-                          style={{ width: '100%', height: 'auto' }}
-                          className="section-image"
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
+          <SeoSections sections={t.home.sections.filter((s: any) => s.type !== 'faq')} />
 
-                {section.type === 'features' && (
-                  <div className="feature-cards-grid">
-                    {section.features.map((feature: any, idx: number) => (
-                      <div key={idx} className="feature-card gradient-purple">
-                        <div className="feature-card-icon">{feature.icon}</div>
-                        <h3>{feature.title}</h3>
-                        <p>{feature.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.type === 'fontFeatures' && (
-                  <div className="feature-cards-grid">
-                    {section.features.map((feature: any, idx: number) => (
-                      <div key={idx} className={`feature-card ${feature.gradient}`}>
-                        <span className="example-text" style={{ fontSize: '1.25rem' }}>{feature.text}</span>
-                        <p>{feature.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.type === 'steps' && (
-                  <div className="detailed-steps">
-                    {section.steps.map((step: any, idx: number) => (
-                      <div key={idx} className="detailed-step">
-                        <div className="step-visual">
-                          <div className="step-number-large">{step.number}</div>
-                          <div className="step-icon-circle">{step.icon}</div>
-                        </div>
-                        <div className="step-details">
-                          <h3>{step.title}</h3>
-                          <p>{step.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.type === 'fontTypes' && (
-                  <div className="font-types-grid">
-                    {section.types.map((type: any, idx: number) => (
-                      <div key={idx} className="font-type-card glass-card-hover">
-                        <span className="font-type-icon">{type.icon}</span>
-                        <h3 className="font-type-title">{type.title}</h3>
-                        <p className="font-type-desc">{type.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.type === 'categoriesList' && (
-                  <div className="detailed-steps">
-                    {section.categories.map((cat: any, idx: number) => (
-                      <div key={idx} className="detailed-step" style={{ gridTemplateColumns: '1fr' }}>
-                        <p><strong>{cat.title}</strong> {cat.desc}</p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.type === 'faq' && mounted && (
-                  <div className="faq-accordion">
-                    {section.faqs.map((faq: any, idx: number) => (
-                      <div key={idx} className={`faq-item-modern ${expandedFaq === idx ? 'expanded' : ''}`}>
-                        <button
-                          className="faq-question-btn"
-                          onClick={() => toggleFaq(idx)}
-                          aria-expanded={expandedFaq === idx}
-                        >
-                          <span className="faq-q-text">{faq.q}</span>
-                          <span className="faq-q-icon">{expandedFaq === idx ? '−' : '+'}</span>
-                        </button>
-                        <div className="faq-answer-modern">
-                          <p>{faq.a}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
+          {/* ============ FAQ SECTION ============ */}
+          {t.home.sections.find((s: any) => s.type === 'faq') && (
+            <FaqAccordion
+              title={t.home.sections.find((s: any) => s.type === 'faq').title}
+              faqs={t.home.sections.find((s: any) => s.type === 'faq').faqs}
+            />
+          )}
 
         </div>
       </main>

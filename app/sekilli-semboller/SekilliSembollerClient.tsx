@@ -381,63 +381,76 @@ export default function SekilliSembollerClient() {
 
       {/* Main Content */}
       <main className="main">
-        <div className="container">
+        {/* Full-Screen Hero Section */}
+        <div className="hero-section-fullscreen">
+          <div className="hero-bg-fullscreen">
+            <div className="hero-gradient-animated"></div>
+            <div className="hero-particles-animated">
+              <div className="particle particle-1">✨</div>
+              <div className="particle particle-2">❤️</div>
+              <div className="particle particle-3">⭐</div>
+              <div className="particle particle-4">💫</div>
+              <div className="particle particle-5">🌟</div>
+              <div className="particle particle-6">✦</div>
+              <div className="particle particle-7">🎈</div>
+              <div className="particle particle-8">🎨</div>
+            </div>
+            <div className="hero-shapes-animated">
+              <div className="shape shape-1"></div>
+              <div className="shape shape-2"></div>
+              <div className="shape shape-3"></div>
+              <div className="shape shape-4"></div>
+            </div>
+          </div>
 
-          {/* Hero Section */}
-          <div className="hero-section">
-            <div className="hero-bg">
-              <div className="hero-gradient"></div>
-              <div className="hero-particles">
-                <div className="particle particle-1">✨</div>
-                <div className="particle particle-2">❤️</div>
-                <div className="particle particle-3">⭐</div>
-                <div className="particle particle-4">💫</div>
-                <div className="particle particle-5">🌟</div>
-                <div className="particle particle-6">✦</div>
-              </div>
-              <div className="hero-shapes">
-                <div className="shape shape-1"></div>
-                <div className="shape shape-2"></div>
-                <div className="shape shape-3"></div>
-              </div>
+          <div className="hero-content-fullscreen">
+            <div className="hero-badge-modern">
+              <span className="badge-pulse"></span>
+              <span className="badge-icon">🎨</span>
+              <span className="badge-text">{t.symbols.hero.badge}</span>
             </div>
 
-            <div className="hero-content">
-              <div className="hero-badge">
-                <span className="badge-icon">🎨</span>
-                <span>{t.symbols.hero.badge}</span>
+            <h1 className="hero-title-fullscreen">
+              <span className="title-line-animated">
+                <span className="title-word-animated">{t.symbols.hero.title}</span>
+                <span className="title-word-animated highlight-gradient">{t.symbols.hero.titleHighlight}</span>
+              </span>
+            </h1>
+
+            <p className="hero-description-fullscreen">
+              {t.symbols.hero.description}
+            </p>
+
+            {/* Stats */}
+            <div className="hero-stats-fullscreen">
+              <div className="stat-item-premium">
+                <span className="stat-icon">✨</span>
+                <div className="stat-content">
+                  <span className="stat-number-premium">{totalSymbols}+</span>
+                  <span className="stat-label-premium">{t.symbols.hero.stat1}</span>
+                </div>
               </div>
-
-              <h1 className="hero-title">
-                <span className="title-line">
-                  <span className="title-word">{t.symbols.hero.title}</span>
-                  <span className="title-word highlight">{t.symbols.hero.titleHighlight}</span>
-                </span>
-              </h1>
-
-              <p className="hero-description">
-                {t.symbols.hero.description}
-              </p>
-
-              {/* Stats */}
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <span className="stat-number">{totalSymbols}+</span>
-                  <span className="stat-label">{t.symbols.hero.stat1}</span>
+              <div className="stat-divider-premium"></div>
+              <div className="stat-item-premium">
+                <span className="stat-icon">📊</span>
+                <div className="stat-content">
+                  <span className="stat-number-premium">{symbolCategories.length}</span>
+                  <span className="stat-label-premium">{t.symbols.hero.stat2}</span>
                 </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">{symbolCategories.length}</span>
-                  <span className="stat-label">{t.symbols.hero.stat2}</span>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <span className="stat-number">🇹🇷</span>
-                  <span className="stat-label">{t.symbols.hero.stat3}</span>
+              </div>
+              <div className="stat-divider-premium"></div>
+              <div className="stat-item-premium">
+                <span className="stat-icon">🇹🇷</span>
+                <div className="stat-content">
+                  <span className="stat-number-premium">100%</span>
+                  <span className="stat-label-premium">{t.symbols.hero.stat3}</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="container">
 
           {/* Sticky Category Navigation */}
           <div className="sticky-category-nav">
