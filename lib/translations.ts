@@ -7,8 +7,11 @@ export const translations: Record<Language, any> = {
             nav: {
                 home: 'Ana Sayfa',
                 insta: 'Insta Yazı Tipi',
+                tiktok: 'TikTok Yazı Stilleri',
+                discord: 'Discord Yazı Stilleri',
                 symbols: 'Şekilli Semboller',
                 pubg: 'PUBG Şekilli Nick',
+                menu: 'Menü',
                 rights: 'Tüm hakları saklıdır.',
             },
             footer: {
@@ -533,7 +536,203 @@ export const translations: Record<Language, any> = {
                     ]
                 }
             ]
-        }
+        },
+        discord: {
+            hero: {
+                badge: 'Discord İçin Özel',
+                title: 'Discord',
+                titleHighlight: 'Yazı Stilleri',
+                description: 'Discord sohbetlerinizde, sunucu isimlerinizde ve biyografilerinizde fark yaratın. 50+ şık Unicode yazı stilini anında oluşturup kopyalayın.',
+                inputTitle: 'Metninizi Yazın',
+                inputSub: 'Anında 50+ Discord stile dönüştürün 🎮',
+                inputPlaceholder: 'Metninizi buraya yazın...',
+                stat1: 'Font Stili',
+                stat2: 'Discord',
+                stat3: 'Türkçe',
+            },
+            seo: {
+                name: 'Discord Yazı Stilleri',
+                description: 'Discord sohbetleri için şık Unicode yazı stilleri oluşturun.',
+            },
+            sections: [
+                {
+                    id: 'what-are-discord-styles',
+                    title: 'Discord Yazı Stilleri Nedir?',
+                    type: 'features',
+                    content: 'Discord yazı stilleri; Discord mesajları, kullanıcı adları, biyografileri ve sunucu isimleri gibi alanlarda metni biçimlendirmenin ve özelleştirmenin farklı yollarıdır.',
+                    features: [
+                        { icon: '📝', title: 'Markdown Biçimlendirme', desc: 'Temel stil işlemleri için yerleşik metin biçimlendirme sistemi.' },
+                        { icon: '✨', title: '<a href="/" class="internal-link">Unicode Şekilli Fontlar</a>', desc: 'Font gibi görünen, kopyala-yapıştır yapılabilen süslü karakterler.' },
+                        { icon: '💎', title: 'Discord Nitro Stilleri', desc: 'Resmi premium isim stilleri ve efektleri.' }
+                    ]
+                },
+                {
+                    id: 'how-discord-formatting-works',
+                    title: 'Discord Metin Biçimlendirme Nasıl Çalışır?',
+                    type: 'text',
+                    content: 'Discord, Microsoft Word gibi özel yazı tipi (font) yüklenmesine izin vermez. Bunun yerine şunları kullanır:',
+                    subsections: [
+                        {
+                            id: 'markdown-system',
+                            level: 3,
+                            title: 'Markdown Sistemi',
+                            content: 'Markdown, doğrudan Discord\'a entegre edilmiş bir biçimlendirme dilidir. Kullanıcıların metni kalın, italik, altı çizili veya üstü çizili yapmasına olanak tanır.'
+                        },
+                        {
+                            id: 'unicode-characters',
+                            level: 3,
+                            title: 'Unicode Karakterler',
+                            content: 'Unicode, küresel bir karakter sistemidir. Şekilli metin oluşturucular, normal harfleri şık fontlar gibi görünen özel Unicode sembollerine dönüştürür.'
+                        },
+                        {
+                            id: 'nitro-name-styles',
+                            level: 3,
+                            title: 'Nitro İsim Stilleri',
+                            content: 'Discord Nitro kullanıcıları; görünür isim stillerine, renklere ve özel efektlere resmi olarak erişebilirler.'
+                        }
+                    ]
+                },
+                {
+                    id: 'discord-markdown-examples-grid',
+                    title: 'Discord Markdown Biçimlendirme Örnekleri',
+                    type: 'features',
+                    content: 'Markdown, Discord için en güvenli ve en uyumlu stil yöntemidir.',
+                    features: [
+                        { icon: '𝐁', title: 'Kalın (Bold)', desc: 'Metni kalın yapmak için **metin** kullanın.' },
+                        { icon: '𝑰', title: 'İtalik', desc: 'Metni italik yapmak için *metin* kullanın.' },
+                        { icon: '𝚄', title: 'Altı Çizili', desc: 'Altını çizmek için __metin__ kullanın.' },
+                        { icon: 'Ｓ', title: 'Üstü Çizili', desc: 'Üstünü çizmek için ~~metin~~ kullanın.' },
+                        { icon: '⌨️', title: 'Kod Bloğu', desc: 'Kod stili için `metin` kullanın.' },
+                        { icon: '✨', title: 'Kombine', desc: 'Kalın ve italik için ***metin*** kullanın.' }
+                    ]
+                },
+                {
+                    id: 'unicode-discord-text-styles',
+                    title: 'Unicode Discord Yazı Stilleri (Kopyala & Yapıştır)',
+                    type: 'categoriesList',
+                    content: 'Unicode stilleri özel karakterler kullanılarak oluşturulur. Bu stiller şuralarda çalışır:',
+                    categories: [
+                        { title: 'Kullanıcı Adları', desc: 'Platform genelinde kimliğinizi özelleştirin.' },
+                        { title: 'Sunucu İsimleri', desc: 'Topluluğunuzun sunucu listesinde öne çıkmasını sağlayın.' },
+                        { title: 'Kanal İsimleri', desc: 'Sunucunuzu şık kanal başlıklarıyla düzenleyin.' },
+                        { title: 'Biyografiler', desc: 'Kişiliğinizi benzersiz yazı stilleriyle paylaşın.' },
+                        { title: 'Sohbet Mesajları', desc: 'Kendinizi dikkat çekici stillerle ifade edin.' }
+                    ],
+                    subsections: [
+                        {
+                            id: 'popular-unicode-styles',
+                            level: 3,
+                            title: 'Popular Unicode Styles',
+                            content: 'Bold Unicode: 𝗗𝗶𝘀𝗰𝗼𝗿𝗱<br>Italic Script: 𝒟𝒾𝓈𝒸𝑜𝓇𝒹<br>Small Caps: ᴅɪꜱᴄᴏʀᴅ<br>Bubble Text: Ⓓⓘⓢⓒⓞⓡⓓ<br>Monospace Style: 𝙳𝚒𝚜𝚌𝚘𝚛𝚍<br>Glitch/Zalgo: D̴i̴s̴c̴o̴r̴d̴<br><br>These are not real fonts — they are special characters.'
+                        }
+                    ]
+                },
+                {
+                    id: 'best-use-cases-for-discord-styles',
+                    title: 'Discord Yazı Stilleri İçin En İyi Kullanım Alanları',
+                    type: 'categoriesList',
+                    content: 'Doğru yerde doğru stili kullanmak, okunabilirliği ve estetiği artırır.',
+                    categories: [
+                        { title: 'Sunucu Duyuruları', desc: 'Önemli bilgileri vurgulamak için kalın ve altı çizili stilleri kullanın.' },
+                        { title: 'Takma Adlar (Nicknameler)', desc: 'Kişiselleştirilmiş bir görünüm için estetik veya el yazısı stillerini tercih edin.' },
+                        { title: 'Oyun Sunucuları', desc: 'Oyun temalı topluluklar için glitch veya gotik stiller popülerdir.' },
+                        { title: 'Kurallar Bölümü', desc: 'Temiz ve profesyonel bir yapı için Markdown biçimlendirmesini kullanın.' }
+                    ]
+                },
+                {
+                    id: 'discord-nitro-visible-name-styles',
+                    title: 'Discord Nitro Görünür İsim Stilleri',
+                    type: 'features',
+                    content: 'Discord Nitro, resmi özelleştirme özellikleri sunar.',
+                    features: [
+                        { icon: '🎨', title: 'Özel Renkler', desc: 'Daha iyi görünürlük için resmi isim renkleri.' },
+                        { icon: '🌈', title: 'Gradyan Efektleri', desc: 'İsminiz için güzel gradyan stilleri.' },
+                        { icon: '⭐', title: 'Animasyonlu Stiller', desc: 'Premium animasyonlu isim efektleri.' },
+                        { icon: '👤', title: 'Profil Özelleştirme', desc: 'Gelişmiş profil görünümü seçenekleri.' }
+                    ]
+                },
+                {
+                    id: 'difference-between-nitro-and-unicode',
+                    title: 'Nitro ve Unicode Arasındaki Fark',
+                    type: 'text',
+                    content: 'Unicode stilleri her yerde çalışır ancak resmi değildir. Nitro stilleri resmidir ve daha kararlıdır ancak abonelik gerektirir. Rekabetçi sunucuları hedefliyorsanız, Nitro stili premium bir görünüm kazandırır.'
+                },
+                {
+                    id: 'discord-font-generators-and-tools',
+                    title: 'Discord Font Oluşturucular ve Araçlar',
+                    type: 'categoriesList',
+                    content: 'Font oluşturucular, normal metni otomatik olarak Unicode stillerine dönüştürür.',
+                    categories: [
+                        { title: 'Çoklu Versiyonlar', desc: 'Metni yüzlerce süslü varyasyona dönüştürün.' },
+                        { title: 'Anında Kopyalama', desc: 'Tek tıkla kopyala-yapıştır işlevselliği.' },
+                        { title: 'Mobil Uyumlu', desc: 'Hem masaüstü hem de mobil cihazlar için optimize edilmiştir.' },
+                        { title: 'Temiz Çıktı', desc: 'Bozuk semboller veya okunmayan karakterler olmamasını sağlar.' }
+                    ]
+                },
+                {
+                    id: 'device-compatibility-and-limitations',
+                    title: 'Cihaz Uyumluluğu ve Sınırlamalar',
+                    type: 'categoriesList',
+                    content: 'Her Unicode stili tüm cihazlarda mükemmel görünmeyebilir.',
+                    categories: [
+                        { title: 'iOS Görünümü', desc: 'Bazı nadir karakterleri desteklemeyebilir.' },
+                        { title: 'Android Desteği', desc: 'Eski cihazlar harfler yerine kareler (kutu) gösterebilir.' },
+                        { title: 'Masaüstü Tarayıcılar', desc: 'Genellikle Unicode için en kararlı deneyimi sunar.' }
+                    ]
+                },
+                {
+                    id: 'seo-optimized-tips-for-using-discord-text-styles',
+                    title: 'Discord Yazı Stillerini Kullanmak İçin SEO İpuçları',
+                    type: 'categoriesList',
+                    content: 'İçerik oluşturuyorsanız veya halka açık bir sunucuyu yönetiyorsanız:',
+                    categories: [
+                        { title: 'Önce Okunabilirlik', desc: 'Ana başlıklarınızı temiz ve okunması kolay tutun.' },
+                        { title: 'Dengeli Semboller', desc: 'Metninizi çok fazla özel sembolle doldurmaktan kaçının.' },
+                        { title: 'Akıllı Kombinasyon', desc: 'En iyi estetik etki için Markdown ve Unicode\'u karıştırarak kullanın.' }
+                    ]
+                },
+                {
+                    id: 'frequently-asked-questions',
+                    title: 'Sıkça Sorulan Sorular',
+                    type: 'faq',
+                    faqs: [
+                        {
+                            q: 'Varsayılan Discord yazı tipini değiştirebilir miyim?',
+                            a: 'Hayır. Discord kullanıcıların özel font yüklemesine izin vermez. Markdown veya Unicode sembollerini kullanmalısınız.'
+                        },
+                        {
+                            q: 'Unicode stilleri güvenli mi?',
+                            a: 'Evet, kullanımları tamamen güvenlidir ancak bazı nadir karakterler eski cihazlarda doğru görünmeyebilir.'
+                        },
+                        {
+                            q: 'Şekilli yazı stilleri tüm kanallarda çalışır mı?',
+                            a: 'Çoğu Unicode stili kullanıcı adlarında ve mesajlarda çalışır, ancak bazı sunucular veya belirli kanallar özel karakterleri kısıtlayabilir.'
+                        },
+                        {
+                            q: 'Metin stillendirme için Discord Nitro gerekli mi?',
+                            a: 'Hayır. Markdown ve Unicode herkes için çalışır. Nitro sadece resmi isim renkleri ve animasyonlu efektler ekler.'
+                        },
+                        {
+                            q: 'Şekilli metnim neden bozuk görünüyor?',
+                            a: 'Bu durum genellikle kullanılan cihazın veya platformun o belirli Unicode karakterlerini desteklememesinden kaynaklanır.'
+                        }
+                    ]
+                }
+            ],
+            formatting: {
+                title: 'Discord Biçimlendirme Yardımcısı',
+                subtitle: "Discord'un dahili markdown biçimlendirme sözdizimini tek tıkla uygulayın",
+                formattedText: 'Biçimlendirilmiş Metin',
+                bold: 'Kalın',
+                italic: 'İtalik',
+                underline: 'Altı Çizili',
+                strikethrough: 'Üstü Çizili',
+                code: 'Kod',
+                codeblock: 'Kod Bloğu',
+                quote: 'Alıntı',
+                spoiler: 'Spoiler'
+            }
+        },
     },
     en: {
         common: {
@@ -541,8 +740,11 @@ export const translations: Record<Language, any> = {
             nav: {
                 home: 'Home',
                 insta: 'Insta Font',
+                tiktok: 'TikTok Font Styles',
+                discord: 'Discord Font Styles',
                 symbols: 'Shaped Symbols',
                 pubg: 'PUBG Stylish Nickname',
+                menu: 'Menu',
                 rights: 'All rights reserved.',
             },
             footer: {
@@ -1065,6 +1267,202 @@ export const translations: Record<Language, any> = {
                     ]
                 }
             ]
+        },
+        discord: {
+            hero: {
+                badge: 'Special for Discord',
+                title: 'Discord',
+                titleHighlight: 'Text Styles',
+                description: 'Stand out in your Discord chats, server names, and bios. Instantly create and copy 50+ stylish Unicode text styles.',
+                inputTitle: 'Enter Your Text',
+                inputSub: 'Instantly convert to 50+ Discord styles 🎮',
+                inputPlaceholder: 'Type your text here...',
+                stat1: 'Font Style',
+                stat2: 'Discord',
+                stat3: 'English',
+            },
+            seo: {
+                name: 'Discord Font Styles',
+                description: 'Create stylish Unicode font styles for Discord chats.',
+            },
+            sections: [
+                {
+                    id: 'what-are-discord-styles',
+                    title: 'What Are Discord Text Styles?',
+                    type: 'features',
+                    content: 'Discord text styles are different ways to format and customize text inside Discord messages, nicknames, bios, and server names.',
+                    features: [
+                        { icon: '📝', title: 'Markdown Formatting', desc: 'Built-in text formatting system for basic styling.' },
+                        { icon: '✨', title: '<a href="/" class="internal-link">Unicode Fancy Fonts</a>', desc: 'Copy-paste styled characters that look like fonts.' },
+                        { icon: '💎', title: 'Discord Nitro Styles', desc: 'Official premium name styles and effects.' }
+                    ]
+                },
+                {
+                    id: 'how-discord-formatting-works',
+                    title: 'How does Discord text formatting work?',
+                    type: 'text',
+                    content: 'Discord does not allow custom font installation like Microsoft Word. Instead, it uses:',
+                    subsections: [
+                        {
+                            id: 'markdown-system',
+                            level: 3,
+                            title: 'Markdown System',
+                            content: 'Markdown is a formatting language built directly into Discord. It allows users to make text bold, italic, underlined, or crossed out.'
+                        },
+                        {
+                            id: 'unicode-characters',
+                            level: 3,
+                            title: 'Unicode Characters',
+                            content: 'Unicode is a global character system. Fancy text generators convert normal letters into special Unicode symbols that look like stylish fonts.'
+                        },
+                        {
+                            id: 'nitro-name-styles',
+                            level: 3,
+                            title: 'Nitro Name Styles',
+                            content: 'Discord Nitro users can access official visible name styles, colors, and effects.'
+                        }
+                    ]
+                },
+                {
+                    id: 'discord-markdown-examples-grid',
+                    title: 'Discord Markdown Formatting Examples',
+                    type: 'features',
+                    content: 'Markdown is the safest and most compatible styling method for Discord.',
+                    features: [
+                        { icon: '𝐁', title: 'Bold', desc: 'Use **text** to make it bold.' },
+                        { icon: '𝑰', title: 'Italic', desc: 'Use *text* to make it italic.' },
+                        { icon: '𝚄', title: 'Underline', desc: 'Use __text__ to underline.' },
+                        { icon: 'Ｓ', title: 'Strikethrough', desc: 'Use ~~text~~ to cross out.' },
+                        { icon: '⌨️', title: 'Code Block', desc: 'Use `text` for code styling.' },
+                        { icon: '✨', title: 'Combined', desc: 'Use ***text*** for bold & italic.' }
+                    ]
+                },
+                {
+                    id: 'unicode-discord-text-styles',
+                    title: 'Unicode Discord Text Styles (Copy & Paste)',
+                    type: 'categoriesList',
+                    content: 'Unicode styles are created using special characters. These styles work in:',
+                    categories: [
+                        { title: 'Usernames', desc: 'Customize your identity across the platform.' },
+                        { title: 'Server names', desc: 'Make your community stand out in the server list.' },
+                        { title: 'Channel names', desc: 'Organize your server with stylish channel titles.' },
+                        { title: 'Bios', desc: 'Share your personality with unique text styles.' },
+                        { title: 'Chat messages', desc: 'Express yourself with attention-grabbing styles.' }
+                    ],
+                    subsections: [
+                        {
+                            id: 'popular-unicode-styles',
+                            level: 3,
+                            title: 'Popular Unicode Styles',
+                            content: 'Bold Unicode: 𝗗𝗶𝘀𝗰𝗼𝗿𝗱<br>Italic Script: 𝒟𝒾𝓈𝒸𝑜𝓇𝒹<br>Small Caps: ᴅɪꜱᴄᴏʀᴅ<br>Bubble Text: Ⓓⓘⓢⓒⓞⓡⓓ<br>Monospace Style: 𝙳𝚒𝚜𝚌𝚘𝚛𝚍<br>Glitch/Zalgo: D̴i̴s̴c̴o̴r̴d̴<br><br>These are not real fonts — they are special characters.'
+                        }
+                    ]
+                },
+                {
+                    id: 'best-use-cases-for-discord-styles',
+                    title: 'Best Use Cases for Discord Text Styles',
+                    type: 'categoriesList',
+                    content: 'Using the right style in the right place improves readability and aesthetics.',
+                    categories: [
+                        { title: 'Server Announcements', desc: 'Use bold and underline to highlight important information.' },
+                        { title: 'Nicknames', desc: 'Use aesthetic styles like script or small caps for a personalized look.' },
+                        { title: 'Gaming Servers', desc: 'Glitch or gothic styles are popular for gaming themed communities.' },
+                        { title: 'Rules Sections', desc: 'Use Markdown formatting for clean, professional structure.' }
+                    ]
+                },
+                {
+                    id: 'discord-nitro-visible-name-styles',
+                    title: 'Discord Nitro Visible Name Styles',
+                    type: 'features',
+                    content: 'Discord Nitro offers official customization features.',
+                    features: [
+                        { icon: '🎨', title: 'Custom Colors', desc: 'Official name colors for better visibility.' },
+                        { icon: '🌈', title: 'Gradient Effects', desc: 'Beautiful gradient styles for your name.' },
+                        { icon: '⭐', title: 'Animated Styles', desc: 'Premium animated name effects.' },
+                        { icon: '👤', title: 'Profile Customization', desc: 'Enhanced profile appearance options.' }
+                    ]
+                },
+                {
+                    id: 'difference-between-nitro-and-unicode',
+                    title: 'Difference Between Nitro and Unicode',
+                    type: 'text',
+                    content: 'Unicode styles work everywhere but are unofficial. Nitro styles are official and more stable but require subscription. If targeting competitive servers, Nitro styling gives a premium look.'
+                },
+                {
+                    id: 'discord-font-generators-and-tools',
+                    title: 'Discord Font Generators and Tools',
+                    type: 'categoriesList',
+                    content: 'Font generators convert normal text into Unicode styles automatically.',
+                    categories: [
+                        { title: 'Multiple Versions', desc: 'Convert text into hundreds of fancy variations.' },
+                        { title: 'Instant Copy', desc: 'One-click copy-paste functionality.' },
+                        { title: 'Mobile Friendly', desc: 'Optimized for both desktop and mobile devices.' },
+                        { title: 'Clean Output', desc: 'Ensures no broken symbols or unreadable characters.' }
+                    ]
+                },
+                {
+                    id: 'device-compatibility-and-limitations',
+                    title: 'Device Compatibility and Limitations',
+                    type: 'categoriesList',
+                    content: 'Not every Unicode style displays perfectly on all devices.',
+                    categories: [
+                        { title: 'iOS Display', desc: 'May not support some rare characters.' },
+                        { title: 'Android Support', desc: 'Older devices may show squares instead of letters.' },
+                        { title: 'Desktop Browsers', desc: 'Usually the most stable experience for Unicode.' }
+                    ]
+                },
+                {
+                    id: 'seo-optimized-tips-for-using-discord-text-styles',
+                    title: 'SEO-Optimized Tips for Using Discord Text Styles',
+                    type: 'categoriesList',
+                    content: 'If you are creating content or managing a public server:',
+                    categories: [
+                        { title: 'Readability First', desc: 'Keep your primary titles clean and easy to read.' },
+                        { title: 'Balanced Symbols', desc: 'Avoid cluttering your text with too many special symbols.' },
+                        { title: 'Smart Combination', desc: 'Mix Markdown and Unicode for the best aesthetic effect.' }
+                    ]
+                },
+                {
+                    id: 'frequently-asked-questions',
+                    title: 'Frequently Asked Questions',
+                    type: 'faq',
+                    faqs: [
+                        {
+                            q: 'Can I change the default Discord font?',
+                            a: 'No. Discord does not allow users to install custom fonts. You must use Markdown or Unicode symbols.'
+                        },
+                        {
+                            q: 'Are Unicode styles safe?',
+                            a: 'Yes, they are completely safe to use, but some rare characters may not display correctly on older devices.'
+                        },
+                        {
+                            q: 'Do fancy text styles work in all channels?',
+                            a: 'Most Unicode styles work in usernames and messages, but some servers or specific channels might restrict special characters.'
+                        },
+                        {
+                            q: 'Is Discord Nitro required for text styling?',
+                            a: 'No. Markdown and Unicode work for everyone. Nitro only adds official name colors and animated effects.'
+                        },
+                        {
+                            q: 'Why does my styled text look broken?',
+                            a: 'This usually happens because the device or platform being used does not support those specific Unicode characters.'
+                        }
+                    ]
+                }
+            ],
+            formatting: {
+                title: 'Discord Formatting Helper',
+                subtitle: "Apply Discord's built-in markdown formatting syntax with one click",
+                formattedText: 'Formatted Text',
+                bold: 'Bold',
+                italic: 'Italic',
+                underline: 'Underline',
+                strikethrough: 'Strikethrough',
+                code: 'Code',
+                codeblock: 'Code Block',
+                quote: 'Quote',
+                spoiler: 'Spoiler'
+            }
         }
     }
 };

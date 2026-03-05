@@ -590,6 +590,9 @@ export default function PubgSekilliNickClient() {
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
               </Link>
+              <Link href="/discord-yazi-stilleri" className="nav-link">
+                Discord Yazı Stilleri
+              </Link>
               <Link href="/sekilli-semboller" className="nav-link">
                 {t.common.nav.symbols}
               </Link>
@@ -653,11 +656,14 @@ export default function PubgSekilliNickClient() {
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
+            <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> Discord Yazı Stilleri
+            </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">🎨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
+              <span className="nav-icon">🎯</span> {t.common.nav.pubg}
             </Link>
 
             {/* Mobile Language Switcher */}
@@ -1136,6 +1142,12 @@ export default function PubgSekilliNickClient() {
               </Link>
               <Link href="/insta-yazi-tipi" className="footer-link">
                 {t.common.footer.insta}
+              </Link>
+              <Link href="/tiktok-yazi-stilleri" className="footer-link">
+                TikTok Yazı Stilleri
+              </Link>
+              <Link href="/discord-yazi-stilleri" className="footer-link">
+                Discord Yazı Stilleri
               </Link>
               <Link href="/sekilli-semboller" className="footer-link">
                 {t.common.nav.symbols}

@@ -1,0 +1,373 @@
+/* ============ DISCORD PAGE STYLES ============ */
+
+.page-discord {
+    --discord-blurple: #5865F2;
+    --discord-blurple-hover: #4752C4;
+    --discord-blurple-glow: rgba(88, 101, 242, 0.5);
+    --discord-fuchsia: #EB459E;
+    --discord-fuchsia-glow: rgba(235, 69, 158, 0.4);
+    --discord-green: #57F287;
+    --discord-bg-mesh: radial-gradient(at 0% 0%, rgba(88, 101, 242, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(235, 69, 158, 0.1) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(88, 101, 242, 0.1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(235, 69, 158, 0.15) 0px, transparent 50%);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-bright: rgba(255, 255, 255, 0.15);
+    --discord-card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* ===== Hero Section ===== */
+.page-discord .hero-section-fullscreen {
+    position: relative;
+    overflow: hidden;
+}
+
+.page-discord .hero-gradient-animated {
+    display: block;
+    /* Restore default animated gradient */
+}
+
+.page-discord .highlight-gradient {
+    background: var(--gradient-primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-shadow: none;
+}
+
+.page-discord .hero-badge-modern {
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+}
+
+.page-discord .input-container-glass {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: none;
+    box-shadow: var(--shadow-lg);
+}
+
+.page-discord .input-icon-premium svg path,
+.page-discord .input-icon-premium svg circle {
+    stroke: var(--primary-color);
+}
+
+.page-discord .stat-number-premium {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ===== Extra Buttons Bar ===== */
+.discord-extra-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.discord-extra-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(88, 101, 242, 0.3);
+    background: rgba(88, 101, 242, 0.08);
+    color: #b8bfff;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.discord-extra-btn:hover {
+    background: rgba(88, 101, 242, 0.2);
+    border-color: rgba(88, 101, 242, 0.5);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.discord-extra-btn:active {
+    transform: translateY(0);
+}
+
+/* ===== Discord Formatting Helper ===== */
+.discord-format-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.discord-format-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.discord-format-subtitle {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.discord-format-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.625rem;
+}
+
+.discord-format-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+}
+
+.discord-format-btn:hover {
+    border-color: var(--discord-blurple);
+    background: rgba(88, 101, 242, 0.06);
+    transform: translateY(-1px);
+}
+
+.discord-format-btn .format-label {
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+}
+
+.discord-format-btn .format-syntax {
+    color: #5865F2;
+    font-weight: 600;
+}
+
+.discord-format-output {
+    margin-top: 1rem;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    display: none;
+}
+
+.discord-format-output.visible {
+    display: block;
+}
+
+.discord-format-output-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.discord-format-output-text {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    word-break: break-all;
+    padding: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.discord-format-copy {
+    flex-shrink: 0;
+    padding: 0.375rem 0.75rem;
+    background: var(--discord-blurple);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.discord-format-copy:hover {
+    background: var(--discord-blurple-dark);
+}
+
+/* ===== Font Card Overrides for Discord ===== */
+.page-discord .font-card.glass-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    backdrop-filter: none;
+    transition: all 0.3s ease;
+}
+
+.page-discord .font-card.glass-card:hover {
+    background: var(--surface-elevated);
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.page-discord .font-card.popular {
+    border-color: var(--warning);
+    background: var(--category-popular);
+}
+
+.page-discord .font-card.popular:hover {
+    border-color: var(--warning);
+    box-shadow: var(--shadow-md);
+}
+
+.page-discord .copy-button {
+    background: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    width: 100%;
+    margin-top: auto;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.page-discord .copy-button:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    box-shadow: var(--shadow-md);
+}
+
+.page-discord .copy-button.copied {
+    background: var(--discord-green);
+    border-color: var(--discord-green);
+    color: #000;
+}
+
+/* ===== Hero Particles - Discord Themed ===== */
+.page-discord .particle {
+    color: rgba(88, 101, 242, 0.4);
+}
+
+.page-discord .shape {
+    background: var(--primary-light);
+}
+
+.page-discord .glow-blob {
+    display: none;
+}
+
+/* ===== Nav Active Pill ===== */
+.page-discord .nav-link {
+    position: relative;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.page-discord .nav-link.active {
+    color: var(--primary-color) !important;
+    background: transparent;
+    border: none;
+}
+
+.page-discord .active-pill {
+    position: absolute;
+    bottom: -2px;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: none;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+    .discord-format-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .discord-extra-buttons {
+        gap: 0.375rem;
+    }
+
+    .discord-extra-btn {
+        padding: 0.4375rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .discord-format-section {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .discord-format-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== SEO Sections Hierarchy ===== */
+.info-subsection {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.section-sub-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.dark .info-subsection {
+    border-top-color: var(--border);
+}
+
+/* ===== Dark Mode Overrides ===== */
+.dark .page-discord .discord-format-section,
+.page-discord.dark .discord-format-section {
+    background: var(--surface);
+    border-color: var(--border);
+}
+
+.dark .page-discord .discord-format-btn,
+.page-discord.dark .discord-format-btn {
+    background: var(--surface-elevated);
+    border-color: var(--border);
+}
+
+.dark .page-discord .font-card.popular,
+.page-discord.dark .font-card.popular {
+    background: var(--category-popular);
+    border-color: var(--warning);
+}
+
+.dark .page-discord .discord-format-output-text,
+.page-discord.dark .discord-format-output-text {
+    background: var(--surface-elevated);
+    border-color: var(--border);
+}

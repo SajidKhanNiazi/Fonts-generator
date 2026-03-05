@@ -356,6 +356,7 @@ export default function TikTokYaziStilleriClient() {
                         <nav className="nav desktop-nav">
                             <Link href="/insta-yazi-tipi" className="nav-link">{t.common.nav.insta}</Link>
                             <Link href="/tiktok-yazi-stilleri" className="nav-link active">TikTok Yazı Stilleri</Link>
+                            <Link href="/discord-yazi-stilleri" className="nav-link">Discord Yazı Stilleri</Link>
                             <Link href="/sekilli-semboller" className="nav-link">{t.common.nav.symbols}</Link>
                             <Link href="/pubg-sekilli-nick" className="nav-link">{t.common.nav.pubg}</Link>
                         </nav>
@@ -374,8 +375,9 @@ export default function TikTokYaziStilleriClient() {
                     <nav className="mobile-nav">
                         <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}><span className="nav-icon">📸</span> {t.common.nav.insta}</Link>
                         <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}><span className="nav-icon">🎵</span> TikTok Yazı Stilleri</Link>
+                        <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}><span className="nav-icon">🎮</span> Discord Yazı Stilleri</Link>
                         <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}><span className="nav-icon">🎨</span> {t.common.nav.symbols}</Link>
-                        <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}><span className="nav-icon">🎮</span> {t.common.nav.pubg}</Link>
+                        <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}><span className="nav-icon">🎯</span> {t.common.nav.pubg}</Link>
                         <div className="mobile-lang-switch">
                             <button className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`} onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}>TR</button>
                             <button className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}>EN</button>
@@ -620,6 +622,7 @@ export default function TikTokYaziStilleriClient() {
                             <Link href="/" className="footer-link">{t.common.nav.home}</Link>
                             <Link href="/insta-yazi-tipi" className="footer-link">{t.common.nav.insta}</Link>
                             <Link href="/tiktok-yazi-stilleri" className="footer-link">TikTok Yazı Stilleri</Link>
+                            <Link href="/discord-yazi-stilleri" className="footer-link">Discord Yazı Stilleri</Link>
                             <Link href="/sekilli-semboller" className="footer-link">{t.common.nav.symbols}</Link>
                             <Link href="/pubg-sekilli-nick" className="footer-link">{t.common.nav.pubg}</Link>
                             <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>

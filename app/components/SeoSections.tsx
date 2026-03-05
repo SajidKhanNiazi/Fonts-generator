@@ -12,11 +12,27 @@ const SeoSections: React.FC<SeoSectionsProps> = ({ sections }) => {
         <>
             {sections.map((section: any) => (
                 <div key={section.id} className="info-box">
-                    <div className="section-main-title">{section.title}</div>
+                    {section.level === 3 ? (
+                        <h3 className="section-sub-title">{section.title}</h3>
+                    ) : (
+                        <h2 className="section-main-title">{section.title}</h2>
+                    )}
                     <div className="content-intro">
                         {section.type === 'text' && (
                             <>
-                                <p className="intro-text" dangerouslySetInnerHTML={{ __html: section.content }} />
+                                {section.content && <p className="intro-text" dangerouslySetInnerHTML={{ __html: section.content }} />}
+
+                                {section.subsections && section.subsections.map((sub: any) => (
+                                    <div key={sub.id} className="info-subsection">
+                                        {sub.level === 3 ? (
+                                            <h3 className="section-sub-title">{sub.title}</h3>
+                                        ) : (
+                                            <h4 className="section-sub-title">{sub.title}</h4>
+                                        )}
+                                        <p className="intro-text" dangerouslySetInnerHTML={{ __html: sub.content }} />
+                                    </div>
+                                ))}
+
                                 {section.image && (
                                     <div className="section-image-container">
                                         <NextImage
@@ -38,7 +54,7 @@ const SeoSections: React.FC<SeoSectionsProps> = ({ sections }) => {
                                 {section.features.map((feature: any, idx: number) => (
                                     <div key={idx} className="feature-card gradient-purple">
                                         <div className="feature-card-icon">{feature.icon}</div>
-                                        <div className="feature-card-title-simple">{feature.title}</div>
+                                        <div className="feature-card-title-simple" dangerouslySetInnerHTML={{ __html: feature.title }} />
                                         <p>{feature.desc}</p>
                                     </div>
                                 ))}

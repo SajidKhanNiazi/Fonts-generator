@@ -292,6 +292,9 @@ export default function SekilliSembollerClient() {
               <Link href="/insta-yazi-tipi" className="nav-link">
                 {t.common.nav.insta}
               </Link>
+              <Link href="/discord-yazi-stilleri" className="nav-link">
+                Discord Yazı Stilleri
+              </Link>
               <Link href="/sekilli-semboller" className="nav-link active">
                 {t.common.nav.symbols}
               </Link>
@@ -369,11 +372,14 @@ export default function SekilliSembollerClient() {
             <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
+            <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> Discord Yazı Stilleri
+            </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">🎨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
+              <span className="nav-icon">🎯</span> {t.common.nav.pubg}
             </Link>
           </nav>
         </div>
@@ -641,6 +647,7 @@ export default function SekilliSembollerClient() {
                 <ul>
                   <li><Link href="/">{t.common.footer.home}</Link></li>
                   <li><Link href="/insta-yazi-tipi">{t.common.footer.insta}</Link></li>
+                  <li><Link href="/discord-yazi-stilleri">Discord Yazı Stilleri</Link></li>
                   <li><Link href="/sekilli-semboller">{t.common.nav.symbols}</Link></li>
                   <li><Link href="/pubg-sekilli-nick">{t.common.nav.pubg}</Link></li>
                   <li><Link href="/gizlilik-politikasi">Gizlilik Politikası</Link></li>

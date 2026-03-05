@@ -208,7 +208,10 @@ export default function Home() {
                 {t.common.nav.insta}
               </Link>
               <Link href="/tiktok-yazi-stilleri" className="nav-link">
-                TikTok Yazı Stilleri
+                {t.common.nav.tiktok}
+              </Link>
+              <Link href="/discord-yazi-stilleri" className="nav-link">
+                {t.common.nav.discord}
               </Link>
               <Link href="/sekilli-semboller" className="nav-link">
                 {t.common.nav.symbols}
@@ -263,13 +266,16 @@ export default function Home() {
               <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
             <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎵</span> TikTok Yazı Stilleri
+              <span className="nav-icon">🎵</span> {t.common.nav.tiktok}
+            </Link>
+            <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> {t.common.nav.discord}
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">🎨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
+              <span className="nav-icon">🎯</span> {t.common.nav.pubg}
             </Link>
             <div className="mobile-lang-switch">
               <button
@@ -587,6 +593,12 @@ export default function Home() {
               </Link>
               <Link href="/insta-yazi-tipi" className="footer-link">
                 İnstagram Yazı Tipi
+              </Link>
+              <Link href="/tiktok-yazi-stilleri" className="footer-link">
+                TikTok Yazı Stilleri
+              </Link>
+              <Link href="/discord-yazi-stilleri" className="footer-link">
+                Discord Yazı Stilleri
               </Link>
               <Link href="/sekilli-semboller" className="footer-link">
                 Şekilli Semboller

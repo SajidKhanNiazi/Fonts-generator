@@ -1,45 +1,88 @@
-import Link from 'next/link'
-import type { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-    title: 'Kullanım Koşulları - Stilleri Pro',
-    description: 'Stilleri Pro web sitesi kullanım koşulları ve yasal uyarılar. Hizmetlerimizi kullanırken uymanız gereken kurallar hakkında bilgi edinin.',
-    robots: {
-        index: true,
-        follow: true,
-    },
-}
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import NextImage from 'next/image'
+import { Language, translations } from '@/lib/translations'
 
 export default function KullanimKosullari() {
+    const [lang, setLang] = useState<Language>('tr')
+    const [darkMode, setDarkMode] = useState(false)
+    const [mounted, setMounted] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+        const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+        setDarkMode(savedDarkMode)
+    }, [])
+
+    useEffect(() => {
+        if (mounted) {
+            localStorage.setItem('darkMode', JSON.stringify(darkMode))
+            if (darkMode) document.documentElement.classList.add('dark')
+            else document.documentElement.classList.remove('dark')
+        }
+    }, [darkMode, mounted])
+
+    const t = translations[lang]
+
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className={mounted && darkMode ? 'dark' : ''}>
             <header className="header">
                 <div className="container">
                     <div className="header-content">
-                        <Link href="/" className="logo">
-                            ✨ Stilleri Pro
+                        <Link href="/" className="logo-container">
+                            <div className="logo-wrapper">
+                                <NextImage src="/logo.svg" alt={t.common.logoAlt || 'Stilleri Pro Logo'} width={180} height={40} className="logo-image" style={{ height: 'auto' }} priority />
+                            </div>
                         </Link>
-                        <nav className="nav">
-                            <Link href="/" className="nav-link">
-                                Ana Sayfa
-                            </Link>
-                            <Link href="/insta-yazi-tipi" className="nav-link">
-                                İnstagram Yazı Tipi
-                            </Link>
-                            <Link href="/sekilli-semboller" className="nav-link">
-                                Şekilli Semboller
-                            </Link>
-                            <Link href="/pubg-sekilli-nick" className="nav-link">
-                                PUBG Şekilli Nick
-                            </Link>
-                            <Link href="/hakkimizda" className="nav-link">
-                                Hakkımızda
-                            </Link>
-                            <Link href="/gizlilik-politikasi" className="nav-link">
-                                Gizlilik Politikası
-                            </Link>
+
+                        {/* Desktop Navigation */}
+                        <nav className="nav desktop-nav">
+                            <Link href="/" className="nav-link">{t.common.nav.home}</Link>
+                            <Link href="/insta-yazi-tipi" className="nav-link">{t.common.nav.insta}</Link>
+                            <Link href="/tiktok-yazi-stilleri" className="nav-link">{t.common.nav.tiktok}</Link>
+                            <Link href="/discord-yazi-stilleri" className="nav-link">{t.common.nav.discord}</Link>
+                            <Link href="/sekilli-semboller" className="nav-link">{t.common.nav.symbols}</Link>
+                            <Link href="/pubg-sekilli-nick" className="nav-link">{t.common.nav.pubg}</Link>
                         </nav>
+
+                        {/* Right Actions */}
+                        <div className="header-actions">
+                            <button className="lang-toggle-btn" onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')} aria-label={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'} title={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}>
+                                <span className="lang-icon">🌐</span><span className="lang-text">{lang === 'tr' ? 'EN' : 'TR'}</span>
+                            </button>
+                            <button className="dark-mode-toggle" onClick={() => setDarkMode(!darkMode)} aria-label="Toggle Dark Mode">{darkMode ? '☀️' : '🌙'}</button>
+                            <button className={`hamburger-btn ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} aria-label="Menu"><span></span><span></span><span></span></button>
+                        </div>
                     </div>
+                </div>
+
+                {/* Mobile Menu */}
+                <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+                <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+                    <div className="mobile-menu-header"><span className="mobile-menu-title">{t.common.nav.menu}</span><button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button></div>
+                    <nav className="mobile-nav">
+                        <Link href="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <span className="nav-icon">🏠</span> {t.common.nav.home}
+                        </Link>
+                        <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <span className="nav-icon">📸</span> {t.common.nav.insta}
+                        </Link>
+                        <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <span className="nav-icon">🎵</span> {t.common.nav.tiktok}
+                        </Link>
+                        <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <span className="nav-icon">🎮</span> {t.common.nav.discord}
+                        </Link>
+                        <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <span className="nav-icon">🎨</span> {t.common.nav.symbols}
+                        </Link>
+                        <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                            <span className="nav-icon">🎯</span> {t.common.nav.pubg}
+                        </Link>
+                    </nav>
                 </div>
             </header>
 
@@ -118,6 +161,8 @@ export default function KullanimKosullari() {
                         <div className="footer-links">
                             <Link href="/" className="footer-link">Ana Sayfa</Link>
                             <Link href="/insta-yazi-tipi" className="footer-link">İnstagram Yazı Tipi</Link>
+                            <Link href="/tiktok-yazi-stilleri" className="footer-link">TikTok Yazı Stilleri</Link>
+                            <Link href="/discord-yazi-stilleri" className="footer-link">Discord Yazı Stilleri</Link>
                             <Link href="/sekilli-semboller" className="footer-link">Şekilli Semboller</Link>
                             <Link href="/pubg-sekilli-nick" className="footer-link">PUBG Şekilli Nick</Link>
                             <Link href="/hakkimizda" className="footer-link">Hakkımızda</Link>

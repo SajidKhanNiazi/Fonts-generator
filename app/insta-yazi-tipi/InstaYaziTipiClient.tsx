@@ -565,11 +565,17 @@ export default function InstaYaziTipiClient() {
 
             {/* Desktop Navigation */}
             <nav className="nav desktop-nav">
+              <Link href="/" className="nav-link">
+                {t.common.nav.home}
+              </Link>
               <Link href="/insta-yazi-tipi" className="nav-link active">
                 {t.common.nav.insta}
               </Link>
               <Link href="/tiktok-yazi-stilleri" className="nav-link">
-                TikTok Yazı Stilleri
+                {t.common.nav.tiktok}
+              </Link>
+              <Link href="/discord-yazi-stilleri" className="nav-link">
+                {t.common.nav.discord}
               </Link>
               <Link href="/sekilli-semboller" className="nav-link">
                 {t.common.nav.symbols}
@@ -616,21 +622,27 @@ export default function InstaYaziTipiClient() {
         <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
         <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
           <div className="mobile-menu-header">
-            <span className="mobile-menu-title">Menu</span>
+            <span className="mobile-menu-title">{t.common.nav.menu}</span>
             <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
           </div>
           <nav className="mobile-nav">
+            <Link href="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🏠</span> {t.common.nav.home}
+            </Link>
             <Link href="/insta-yazi-tipi" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">📸</span> {t.common.nav.insta}
             </Link>
             <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎵</span> TikTok Yazı Stilleri
+              <span className="nav-icon">🎵</span> {t.common.nav.tiktok}
+            </Link>
+            <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              <span className="nav-icon">🎮</span> {t.common.nav.discord}
             </Link>
             <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
               <span className="nav-icon">🎨</span> {t.common.nav.symbols}
             </Link>
             <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.pubg}
+              <span className="nav-icon">🎯</span> {t.common.nav.pubg}
             </Link>
             <div className="mobile-lang-switch">
               <button
@@ -1217,6 +1229,7 @@ export default function InstaYaziTipiClient() {
               <Link href="/" className="footer-link">{t.common.nav.home}</Link>
               <Link href="/insta-yazi-tipi" className="footer-link">{t.common.nav.insta}</Link>
               <Link href="/tiktok-yazi-stilleri" className="footer-link">TikTok Yazı Stilleri</Link>
+              <Link href="/discord-yazi-stilleri" className="footer-link">Discord Yazı Stilleri</Link>
               <Link href="/sekilli-semboller" className="footer-link">{t.common.nav.symbols}</Link>
               <Link href="/pubg-sekilli-nick" className="footer-link">{t.common.nav.pubg}</Link>
               <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
