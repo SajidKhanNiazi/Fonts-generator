@@ -1,7 +1,7 @@
 {
   "name": "yazi-stilleri",
   "version": "1.0.0",
-  "description": "Yazı Stilleri - Türkçe Metin Stil Dönüştürücü Aracı",
+  "description": "Stylish text and font generator for Discord, Instagram, and social media. Create unique yazı stilleri easily.",
   "private": true,
   "scripts": {
     "dev": "next dev",

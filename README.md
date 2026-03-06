@@ -1,6 +1,9 @@
 # Yazı Stilleri - Türkçe Metin Stil Dönüştürücü
 
-Modern, SEO-optimized Next.js tabanlı yazı stil dönüştürücü aracı. Türkçe kullanıcılar için özel olarak tasarlanmıştır.
+Looking to stand out on social media? Use our stylish font generator to create unique **[yazı stilleri](https://xn--yaz-stilleripro-9kc.com.tr/)** for Discord, Instagram, and other platforms. This tool simplifies the process of generating eye-catching text for bios and captions. Perfect for anyone wanting a creative touch for their social media profile with fancy, custom fonts.
+
+Sosyal medyada dikkat çekmek mi istiyorsunuz? Discord, Instagram ve diğer platformlar için benzersiz **[yazı stilleri](https://xn--yaz-stilleripro-9kc.com.tr/)** oluşturmak için şık yazı tipi oluşturucumuzu kullanın. Bu araç, biyografiler ve açıklamalar için göz alıcı metinler oluşturma sürecini basitleştirir. Havalı ve özel yazı tipleriyle sosyal medya profiline yaratıcı bir dokunuş katmak isteyen herkes için mükemmeldir.
+
 
 ## 🎯 Özellikler
 
