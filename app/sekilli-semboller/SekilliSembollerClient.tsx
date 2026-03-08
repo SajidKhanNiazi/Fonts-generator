@@ -4,6 +4,8 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import NextImage from 'next/image'
 import { Language, translations } from '@/lib/translations'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 // ============ SYMBOL CATEGORIES DATA ============
 
@@ -267,123 +269,14 @@ export default function SekilliSembollerClient() {
   return (
     <div className={mounted && darkMode ? 'dark' : ''}>
       {/* Header */}
-      <header className="header">
-        <div className="container">
-          <div className="header-content">
-            <Link href="/" className="logo-container">
-              <div className="logo-wrapper">
-                <NextImage
-                  src="/logo.svg"
-                  alt={t.common.logoAlt || 'Stilleri Pro Logo'}
-                  width={180}
-                  height={40}
-                  className="logo-image"
-                  style={{ height: 'auto' }}
-                  priority
-                />
-              </div>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <nav className="nav desktop-nav">
-              <Link href="/" className="nav-link">
-                {t.common.nav.home}
-              </Link>
-              <Link href="/insta-yazi-tipi" className="nav-link">
-                {t.common.nav.insta}
-              </Link>
-              <Link href="/discord-yazi-stilleri" className="nav-link">
-                Discord Yazı Stilleri
-              </Link>
-              <Link href="/sekilli-semboller" className="nav-link active">
-                {t.common.nav.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="nav-link">
-                {t.common.nav.pubg}
-              </Link>
-            </nav>
-
-            {/* Right Actions: Language, Theme & Hamburger */}
-            <div className="header-actions">
-              {/* Language Switcher */}
-              <div className="lang-switcher">
-                <button
-                  className={`lang-btn ${lang === 'tr' ? 'active' : ''}`}
-                  onClick={() => setLang('tr')}
-                >
-                  TR
-                </button>
-                <button
-                  className={`lang-btn ${lang === 'en' ? 'active' : ''}`}
-                  onClick={() => setLang('en')}
-                >
-                  EN
-                </button>
-              </div>
-
-              <button
-                className="dark-mode-toggle"
-                onClick={() => setDarkMode(!darkMode)}
-                aria-label="Toggle Dark Mode"
-              >
-                {darkMode ? '☀️' : '🌙'}
-              </button>
-
-              <button
-                className={`hamburger-btn ${isMobileMenuOpen ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Menu"
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Drawer */}
-        <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
-        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-          <div className="mobile-menu-header">
-            <span className="mobile-menu-title">Menu</span>
-            <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
-          </div>
-          <nav className="mobile-nav">
-            {/* Language Switcher Mobile */}
-            <div className="mobile-lang-switcher">
-              <button
-                className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`}
-                onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}
-              >
-                Türkçe
-              </button>
-              <button
-                className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`}
-                onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}
-              >
-                English
-              </button>
-            </div>
-
-            <Link href="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🏠</span> {t.common.nav.home}
-            </Link>
-            <Link href="/insta-yazi-tipi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">📸</span> {t.common.nav.insta}
-            </Link>
-            <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> Discord Yazı Stilleri
-            </Link>
-            <Link href="/sekilli-semboller" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎨</span> {t.common.nav.symbols}
-            </Link>
-            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎯</span> {t.common.nav.pubg}
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header
+        lang={lang}
+        setLang={setLang}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
       {/* Main Content */}
       <main className="main">
@@ -628,40 +521,7 @@ export default function SekilliSembollerClient() {
       </main>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-logo">
-              <Link href="/" className="logo">
-                {t.common.logo}
-              </Link>
-              <p className="footer-tagline">
-                {lang === 'tr'
-                  ? 'Sosyal medya ve oyunlar için en havalı yazı tipleri ve semboller.'
-                  : 'Coolest fonts and symbols for social media and games.'}
-              </p>
-            </div>
-            <div className="footer-links-grid">
-              <div className="footer-links-col">
-                <h4>{lang === 'tr' ? 'Hızlı Bağlantılar' : 'Quick Links'}</h4>
-                <ul>
-                  <li><Link href="/">{t.common.footer.home}</Link></li>
-                  <li><Link href="/insta-yazi-tipi">{t.common.footer.insta}</Link></li>
-                  <li><Link href="/discord-yazi-stilleri">Discord Yazı Stilleri</Link></li>
-                  <li><Link href="/sekilli-semboller">{t.common.nav.symbols}</Link></li>
-                  <li><Link href="/pubg-sekilli-nick">{t.common.nav.pubg}</Link></li>
-                  <li><Link href="/gizlilik-politikasi">Gizlilik Politikası</Link></li>
-                  <li><Link href="/kullanim-kosullari">Kullanım Koşulları</Link></li>
-                  <li><Link href="/hakkimizda">Hakkımızda</Link></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <p>{t.common.footer.rights}</p>
-          </div>
-        </div>
-      </footer>
+      <Footer lang={lang} />
 
       {/* Copy Toast */}
       {showToast && (

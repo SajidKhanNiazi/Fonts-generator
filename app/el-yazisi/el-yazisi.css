@@ -1,0 +1,323 @@
+/* El Yazısı Font Preview Tool Styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;500;600&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Sacramento&family=Allura&family=Pinyon+Script&family=Alex+Brush&family=Italianno&family=Clicker+Script&family=Lovers+Quarrel&family=Caveat:wght@400;700&family=Patrick+Hand&family=Indie+Flower&family=Just+Me+Again+Down+Here&family=Shadows+Into+Light&family=Architects+Daughter&family=Parisienne&family=Monsieur+La+Doulaise&family=Ruthie&family=Euphoria+Script&family=Mrs+Saint+Delafield&family=Petit+Formal+Script&family=Kalam:wght@400;700&family=Handlee&family=Nanum+Pen+Script&family=Gochi+Hand&family=Leckerli+One&family=Permanent+Marker&family=Rock+Salt&family=Reenie+Beanie&family=Covered+By+Your+Grace&family=Give+You+Glory&family=Short+Stack&family=Zeyada&family=Neucha&family=Fuzzy+Bubbles&family=Delius&family=Mr+De+Haviland&family=Meie+Script&family=Herr+Von+Muellerhoff&family=Niconne&family=Tangerine:wght@400;700&family=Almendra&family=MedievalSharp&family=Stalemate&family=Satisfy&family=Yellowtail&family=Marck+Script&family=Bad+Script&family=Cookie&family=Amatic+SC:wght@400;700&family=Homemade+Apple&family=Nothing+You+Could+Do&family=La+Belle+Aurore&family=Over+the+Rainbow&family=Cedarville+Cursive&family=Sue+Ellen+Francisco&family=Dawning+of+a+New+Day&family=Waiting+for+the+Sunrise&display=swap');
+
+.ey-page {
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    background-color: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Old header styles removed - now using site Hero */
+
+.ey-grid-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 16px 140px;
+}
+
+.ey-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.ey-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 24px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(18px);
+    animation: eyCardIn 0.45s ease forwards;
+}
+
+.ey-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+@keyframes eyCardIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ey-preview {
+    font-size: 28px;
+    line-height: 1.4;
+    color: var(--text-primary);
+    word-break: break-word;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.ey-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px solid rgba(28, 28, 58, 0.06);
+    padding-top: 12px;
+}
+
+.ey-font-name {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(28, 28, 58, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ey-copy-btn {
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: var(--primary-light);
+    border: 1.5px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ey-copy-btn:hover {
+    background: #C9A84C;
+    color: #fff;
+    border-color: #C9A84C;
+}
+
+.ey-copy-btn.ey-copied {
+    background: #2a7d4f;
+    color: #fff;
+    border-color: #2a7d4f;
+}
+
+/* Old sticky input styles removed */
+
+@media (min-width: 540px) {
+    .ey-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .ey-header h1 {
+        font-size: 3rem;
+    }
+
+    .ey-header {
+        padding: 56px 24px 36px;
+    }
+
+    .ey-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .ey-preview {
+        font-size: 36px;
+    }
+
+    .ey-grid-container {
+        padding: 0 24px 160px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .ey-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Article Styling */
+.ey-article {
+    margin-top: 60px;
+    background: var(--surface-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-2xl);
+    padding: 40px;
+    color: var(--text-primary);
+}
+
+.ey-section {
+    margin-bottom: 48px;
+}
+
+.ey-section h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.ey-section h3 {
+    font-size: 1.4rem;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.ey-section p {
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.ey-link {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.ey-link:hover {
+    color: var(--primary-hover);
+}
+
+/* Table Styling */
+.table-responsive {
+    overflow-x: auto;
+    margin: 24px 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.ey-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.ey-table th,
+.ey-table td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.ey-table th {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.ey-table td {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.ey-tip {
+    background: rgba(139, 92, 246, 0.05);
+    border-left: 4px solid var(--primary-color);
+    padding: 16px;
+    border-radius: 4px 12px 12px 4px;
+    font-style: italic;
+}
+
+.ey-highlight-box {
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 32px;
+}
+
+.ey-highlight-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ey-highlight-box li {
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+}
+
+.ey-highlight-box li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* FAQ Styling */
+.ey-faq-section {
+    margin-top: 60px;
+    padding-top: 60px;
+    border-top: 1px solid var(--border);
+}
+
+.ey-faq-grid {
+    display: grid;
+    gap: 24px;
+}
+
+.ey-faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+.ey-faq-item:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.ey-faq-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.ey-faq-item p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+
+@media (max-width: 768px) {
+    .ey-article {
+        padding: 24px;
+    }
+
+    .ey-section h2 {
+        font-size: 1.6rem;
+    }
+}

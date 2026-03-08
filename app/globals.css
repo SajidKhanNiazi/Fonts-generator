@@ -289,10 +289,28 @@ body {
 }
 
 .logo-image {
-  height: 40px;
-  width: auto;
+  height: 40px !important;
+  width: auto !important;
   object-fit: contain;
   display: block;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.logo-container:hover {
+  transform: scale(1.02);
+}
+
+.logo-wrapper {
+  position: relative;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 /* Header Actions (Theme Toggle + Hamburger) */

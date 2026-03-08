@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import NextImage from 'next/image'
 import { translations, Language } from '@/lib/translations'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 import './insta-content.css'
 
 // ============ INSTAGRAM FONT TRANSFORMATIONS ============
@@ -546,117 +548,14 @@ export default function InstaYaziTipiClient() {
   return (
     <div className={`page-insta ${mounted && darkMode ? 'dark' : ''}`}>
       {/* Header - Same as Homepage */}
-      <header className="header">
-        <div className="container">
-          <div className="header-content">
-            <Link href="/" className="logo-container">
-              <div className="logo-wrapper">
-                <NextImage
-                  src="/logo.svg"
-                  alt={t.common.logoAlt || 'Yazı Stilleri Logo'}
-                  width={180}
-                  height={40}
-                  className="logo-image"
-                  style={{ height: 'auto' }}
-                  priority
-                />
-              </div>
-            </Link>
-
-            {/* Desktop Navigation */}
-            <nav className="nav desktop-nav">
-              <Link href="/" className="nav-link">
-                {t.common.nav.home}
-              </Link>
-              <Link href="/insta-yazi-tipi" className="nav-link active">
-                {t.common.nav.insta}
-              </Link>
-              <Link href="/tiktok-yazi-stilleri" className="nav-link">
-                {t.common.nav.tiktok}
-              </Link>
-              <Link href="/discord-yazi-stilleri" className="nav-link">
-                {t.common.nav.discord}
-              </Link>
-              <Link href="/sekilli-semboller" className="nav-link">
-                {t.common.nav.symbols}
-              </Link>
-              <Link href="/pubg-sekilli-nick" className="nav-link">
-                {t.common.nav.pubg}
-              </Link>
-            </nav>
-
-            {/* Right Actions: Theme Toggle, Lang Toggle & Hamburger */}
-            <div className="header-actions">
-              <button
-                className="lang-toggle-btn"
-                onClick={() => setLang(lang === 'tr' ? 'en' : 'tr')}
-                aria-label={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
-                title={lang === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
-              >
-                <span className="lang-icon">🌐</span>
-                <span className="lang-text">{lang === 'tr' ? 'EN' : 'TR'}</span>
-              </button>
-
-              <button
-                className="dark-mode-toggle"
-                onClick={() => setDarkMode(!darkMode)}
-                aria-label="Toggle Dark Mode"
-              >
-                {darkMode ? '☀️' : '🌙'}
-              </button>
-
-              <button
-                className={`hamburger-btn ${isMobileMenuOpen ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Menu"
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Drawer */}
-        <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
-        <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-          <div className="mobile-menu-header">
-            <span className="mobile-menu-title">{t.common.nav.menu}</span>
-            <button className="close-menu-btn" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
-          </div>
-          <nav className="mobile-nav">
-            <Link href="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🏠</span> {t.common.nav.home}
-            </Link>
-            <Link href="/insta-yazi-tipi" className="mobile-nav-link active" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">📸</span> {t.common.nav.insta}
-            </Link>
-            <Link href="/tiktok-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎵</span> {t.common.nav.tiktok}
-            </Link>
-            <Link href="/discord-yazi-stilleri" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎮</span> {t.common.nav.discord}
-            </Link>
-            <Link href="/sekilli-semboller" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎨</span> {t.common.nav.symbols}
-            </Link>
-            <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-              <span className="nav-icon">🎯</span> {t.common.nav.pubg}
-            </Link>
-            <div className="mobile-lang-switch">
-              <button
-                className={`mobile-lang-btn ${lang === 'tr' ? 'active' : ''}`}
-                onClick={() => { setLang('tr'); setIsMobileMenuOpen(false); }}
-              >TR</button>
-              <button
-                className={`mobile-lang-btn ${lang === 'en' ? 'active' : ''}`}
-                onClick={() => { setLang('en'); setIsMobileMenuOpen(false); }}
-              >EN</button>
-            </div>
-          </nav>
-        </div>
-      </header>
+      <Header
+        lang={lang}
+        setLang={setLang}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
       {/* Main Content */}
       <main className="main">
@@ -1222,26 +1121,7 @@ export default function InstaYaziTipiClient() {
       )}
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-content">
-            <div className="footer-links">
-              <Link href="/" className="footer-link">{t.common.nav.home}</Link>
-              <Link href="/insta-yazi-tipi" className="footer-link">{t.common.nav.insta}</Link>
-              <Link href="/tiktok-yazi-stilleri" className="footer-link">TikTok Yazı Stilleri</Link>
-              <Link href="/discord-yazi-stilleri" className="footer-link">Discord Yazı Stilleri</Link>
-              <Link href="/sekilli-semboller" className="footer-link">{t.common.nav.symbols}</Link>
-              <Link href="/pubg-sekilli-nick" className="footer-link">{t.common.nav.pubg}</Link>
-              <Link href="/gizlilik-politikasi" className="footer-link">Gizlilik Politikası</Link>
-              <Link href="/kullanim-kosullari" className="footer-link">Kullanım Koşulları</Link>
-              <Link href="/hakkimizda" className="footer-link">Hakkımızda</Link>
-            </div>
-            <div className="footer-text">
-              © 2026 {t.common.logo}. {t.common.nav.rights}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer lang={lang} />
 
       {/* Additional Styles */}
       <style jsx>{`

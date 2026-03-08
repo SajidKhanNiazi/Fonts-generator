@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Yazısı Fontları – 55+ Farklı Stil</title>
+<meta name="description" content="55+ farklı el yazısı fontu ile metninizi anında önizleyin. Klasik, zarif, eğlenceli ve dekoratif el yazısı stilleri.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;500;600&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Pacifico&family=Sacramento&family=Allura&family=Pinyon+Script&family=Alex+Brush&family=Italianno&family=Clicker+Script&family=Lovers+Quarrel&family=Caveat:wght@400;700&family=Patrick+Hand&family=Indie+Flower&family=Just+Me+Again+Down+Here&family=Shadows+Into+Light&family=Architects+Daughter&family=Parisienne&family=Monsieur+La+Doulaise&family=Ruthie&family=Euphoria+Script&family=Mrs+Saint+Delafield&family=Petit+Formal+Script&family=Kalam:wght@400;700&family=Handlee&family=Nanum+Pen+Script&family=Gochi+Hand&family=Leckerli+One&family=Permanent+Marker&family=Rock+Salt&family=Reenie+Beanie&family=Covered+By+Your+Grace&family=Give+You+Glory&family=Short+Stack&family=Zeyada&family=Neucha&family=Fuzzy+Bubbles&family=Delius&family=Mr+De+Haviland&family=Meie+Script&family=Herr+Von+Muellerhoff&family=Niconne&family=Tangerine:wght@400;700&family=Almendra&family=MedievalSharp&family=Stalemate&family=Satisfy&family=Yellowtail&family=Marck+Script&family=Bad+Script&family=Cookie&family=Amatic+SC:wght@400;700&family=Homemade+Apple&family=Nothing+You+Could+Do&family=La+Belle+Aurore&family=Over+the+Rainbow&family=Cedarville+Cursive&family=Sue+Ellen+Francisco&family=Dawning+of+a+New+Day&family=Waiting+for+the+Sunrise&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-cream: #FAF6F0;
+  --ink-navy: #1C1C3A;
+  --gold: #C9A84C;
+  --gold-hover: #B8942F;
+  --gold-light: rgba(201, 168, 76, 0.12);
+  --card-bg: #FFFFFF;
+  --card-border: rgba(28, 28, 58, 0.08);
+  --card-shadow: 0 2px 12px rgba(28, 28, 58, 0.06);
+  --card-shadow-hover: 0 8px 32px rgba(28, 28, 58, 0.12);
+  --radius: 14px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: var(--bg-cream);
+  color: var(--ink-navy);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Subtle paper texture */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  padding: 48px 20px 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--ink-navy);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-hover));
+  border-radius: 2px;
+  animation: underlineGrow 1.2s 0.5s ease forwards;
+}
+
+@keyframes underlineGrow {
+  to { width: 100%; }
+}
+
+.header .subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(28, 28, 58, 0.6);
+  font-weight: 400;
+  margin-top: 8px;
+}
+
+/* ===== FONT GRID ===== */
+.grid-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px 140px;
+}
+
+.font-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* ===== FONT CARD ===== */
+.font-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  padding: 24px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  opacity: 0;
+  transform: translateY(18px);
+  animation: cardFadeIn 0.45s ease forwards;
+}
+
+.font-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.font-card .preview-text {
+  font-size: 28px;
+  line-height: 1.4;
+  color: var(--ink-navy);
+  word-break: break-word;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.font-card .card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid rgba(28, 28, 58, 0.06);
+  padding-top: 12px;
+}
+
+.font-card .font-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(28, 28, 58, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.font-card .copy-btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-light);
+  border: 1.5px solid rgba(201, 168, 76, 0.25);
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.copy-btn:hover {
+  background: var(--gold);
+  color: #fff;
+  border-color: var(--gold);
+}
+
+.copy-btn.copied {
+  background: #2a7d4f;
+  color: #fff;
+  border-color: #2a7d4f;
+}
+
+/* ===== STICKY INPUT ===== */
+.sticky-input {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(28, 28, 58, 0.08);
+  padding: 16px 20px;
+  padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.input-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.input-wrapper label {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(28, 28, 58, 0.45);
+  margin-bottom: 8px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--ink-navy);
+  background: var(--bg-cream);
+  border: 2px solid rgba(28, 28, 58, 0.12);
+  border-radius: 12px;
+  padding: 14px 18px;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input-wrapper input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 168, 76, 0.15);
+}
+
+.input-wrapper input::placeholder {
+  color: rgba(28, 28, 58, 0.3);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 540px) {
+  .font-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .header h1 { font-size: 3rem; }
+  .header { padding: 56px 24px 36px; }
+
+  .font-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .font-card .preview-text {
+    font-size: 36px;
+  }
+
+  .grid-container {
+    padding: 0 24px 160px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .font-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ===== COUNTER BADGE ===== */
+.font-count {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold);
+  background: var(--gold-light);
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-top: 14px;
+  letter-spacing: 0.02em;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <h1>El Yazısı Fontları</h1>
+  <p class="subtitle">Metninizi yazın, 58 farklı el yazısı stilinde anında görün.</p>
+  <span class="font-count">58 Font Stili</span>
+</header>
+
+<!-- Font Grid -->
+<main class="grid-container">
+  <div class="font-grid" id="fontGrid"></div>
+</main>
+
+<!-- Sticky Input -->
+<div class="sticky-input">
+  <div class="input-wrapper">
+    <label for="textInput">Önizleme metniniz</label>
+    <input type="text" id="textInput" placeholder="Yazınızı buraya girin..." value="El Yazısı" autocomplete="off" spellcheck="false">
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var fonts = [
+    { family: 'Dancing Script', category: 'Klasik El Yazısı' },
+    { family: 'Great Vibes', category: 'Klasik El Yazısı' },
+    { family: 'Pacifico', category: 'Klasik El Yazısı' },
+    { family: 'Sacramento', category: 'Klasik El Yazısı' },
+    { family: 'Allura', category: 'Klasik El Yazısı' },
+    { family: 'Pinyon Script', category: 'Klasik El Yazısı' },
+    { family: 'Alex Brush', category: 'Klasik El Yazısı' },
+    { family: 'Italianno', category: 'Klasik El Yazısı' },
+    { family: 'Clicker Script', category: 'Klasik El Yazısı' },
+    { family: 'Lovers Quarrel', category: 'Klasik El Yazısı' },
+    { family: 'Caveat', category: 'Eğlenceli' },
+    { family: 'Patrick Hand', category: 'Eğlenceli' },
+    { family: 'Indie Flower', category: 'Eğlenceli' },
+    { family: 'Just Me Again Down Here', category: 'Eğlenceli' },
+    { family: 'Shadows Into Light', category: 'Eğlenceli' },
+    { family: 'Architects Daughter', category: 'Eğlenceli' },
+    { family: 'Parisienne', category: 'Zarif' },
+    { family: 'Monsieur La Doulaise', category: 'Zarif' },
+    { family: 'Ruthie', category: 'Zarif' },
+    { family: 'Euphoria Script', category: 'Zarif' },
+    { family: 'Mrs Saint Delafield', category: 'Zarif' },
+    { family: 'Petit Formal Script', category: 'Zarif' },
+    { family: 'Kalam', category: 'Modern' },
+    { family: 'Handlee', category: 'Modern' },
+    { family: 'Nanum Pen Script', category: 'Modern' },
+    { family: 'Gochi Hand', category: 'Modern' },
+    { family: 'Leckerli One', category: 'Modern' },
+    { family: 'Permanent Marker', category: 'Dolmakalem' },
+    { family: 'Rock Salt', category: 'Dolmakalem' },
+    { family: 'Reenie Beanie', category: 'Dolmakalem' },
+    { family: 'Covered By Your Grace', category: 'Dolmakalem' },
+    { family: 'Give You Glory', category: 'Dolmakalem' },
+    { family: 'Short Stack', category: 'Baskı El Yazısı' },
+    { family: 'Zeyada', category: 'Baskı El Yazısı' },
+    { family: 'Neucha', category: 'Baskı El Yazısı' },
+    { family: 'Fuzzy Bubbles', category: 'Baskı El Yazısı' },
+    { family: 'Delius', category: 'Baskı El Yazısı' },
+    { family: 'Mr De Haviland', category: 'Dekoratif İmza' },
+    { family: 'Meie Script', category: 'Dekoratif İmza' },
+    { family: 'Herr Von Muellerhoff', category: 'Dekoratif İmza' },
+    { family: 'Niconne', category: 'Dekoratif İmza' },
+    { family: 'Tangerine', category: 'Dekoratif İmza' },
+    { family: 'Almendra', category: 'Vintage' },
+    { family: 'MedievalSharp', category: 'Vintage' },
+    { family: 'Stalemate', category: 'Zarif' },
+    { family: 'Satisfy', category: 'Klasik El Yazısı' },
+    { family: 'Yellowtail', category: 'Klasik El Yazısı' },
+    { family: 'Marck Script', category: 'Modern' },
+    { family: 'Bad Script', category: 'Eğlenceli' },
+    { family: 'Cookie', category: 'Klasik El Yazısı' },
+    { family: 'Amatic SC', category: 'Eğlenceli' },
+    { family: 'Homemade Apple', category: 'Dolmakalem' },
+    { family: 'Nothing You Could Do', category: 'Baskı El Yazısı' },
+    { family: 'La Belle Aurore', category: 'Dekoratif İmza' },
+    { family: 'Over the Rainbow', category: 'Eğlenceli' },
+    { family: 'Cedarville Cursive', category: 'Klasik El Yazısı' },
+    { family: 'Sue Ellen Francisco', category: 'Baskı El Yazısı' },
+    { family: 'Dawning of a New Day', category: 'Modern' },
+    { family: 'Waiting for the Sunrise', category: 'Eğlenceli' }
+  ];
+
+  var grid = document.getElementById('fontGrid');
+  var input = document.getElementById('textInput');
+
+  // Build cards
+  var previewElements = [];
+
+  fonts.forEach(function(font, index) {
+    var card = document.createElement('div');
+    card.className = 'font-card';
+    card.style.animationDelay = (index * 10) + 'ms';
+
+    var preview = document.createElement('div');
+    preview.className = 'preview-text';
+    preview.style.fontFamily = "'" + font.family + "', cursive";
+    preview.textContent = input.value || 'El Yazısı';
+    previewElements.push(preview);
+
+    var footer = document.createElement('div');
+    footer.className = 'card-footer';
+
+    var name = document.createElement('span');
+    name.className = 'font-name';
+    name.textContent = font.family;
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Kopyala';
+    btn.setAttribute('aria-label', font.family + ' fontunu kopyala');
+    btn.addEventListener('click', function() {
+      copyFontName(font.family, btn);
+    });
+
+    footer.appendChild(name);
+    footer.appendChild(btn);
+    card.appendChild(preview);
+    card.appendChild(footer);
+    grid.appendChild(card);
+  });
+
+  // Real-time preview update
+  input.addEventListener('input', function() {
+    var text = input.value || 'El Yazısı';
+    for (var i = 0; i < previewElements.length; i++) {
+      previewElements[i].textContent = text;
+    }
+  });
+
+  // Copy function
+  function copyFontName(fontName, btn) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(fontName).then(function() {
+        showCopied(btn);
+      }).catch(function() {
+        fallbackCopy(fontName, btn);
+      });
+    } else {
+      fallbackCopy(fontName, btn);
+    }
+  }
+
+  function fallbackCopy(text, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showCopied(btn);
+    } catch(e) { /* silent */ }
+    document.body.removeChild(ta);
+  }
+
+  function showCopied(btn) {
+    btn.textContent = 'Kopyalandı ✓';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = 'Kopyala';
+      btn.classList.remove('copied');
+    }, 1500);
+  }
+
+  // Focus input on load for quick typing
+  input.focus();
+  input.setSelectionRange(input.value.length, input.value.length);
+})();
+</script>
+
+</body>
+</html>
