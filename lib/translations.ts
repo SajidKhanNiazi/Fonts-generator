@@ -735,6 +735,136 @@ export const translations: Record<Language, any> = {
                 spoiler: 'Spoiler'
             }
         },
+        italik: {
+            hero: {
+                badge: 'Popüler Araç',
+                title: 'İtalik Yazı (Eğik Yazı):',
+                titleHighlight: 'Nedir ve Nasıl Oluşturulur?',
+                description: 'Metninizi girin ve anında 20+ farklı italik, el yazısı ve eğik font stiline dönüştürün. Kopyala ve her yerde paylaş!',
+                inputTitle: 'Metninizi Yazın',
+                inputSub: 'Anında 20+ italik stile dönüştürün ✨',
+                inputPlaceholder: 'Buraya yazmaya başlayın...',
+                stat1: 'İtalik Stili',
+                stat2: 'Platform',
+                stat3: 'Türkçe',
+            },
+            seo: {
+                name: 'İtalik Yazı Oluşturucu Rehberi – Şık Eğik Metin Kopyala Yapıştır',
+                description: 'İtalik yazının ne olduğunu, nasıl şık eğik metinler oluşturulacağını ve Instagram, WhatsApp, Discord ve oyun kullanıcı adlarında nerede kullanılacağını öğrenin.',
+            },
+            sections: [
+                {
+                    id: 'italik-yazi-stili-nedir',
+                    title: 'İtalik Yazı Stili Nedir?',
+                    type: 'text',
+                    content: 'İtalik yazı, normal harflerin eğik versiyonudur. Karakterler hafifçe sağa yatar, bu da onları daha zarif ve etkileyici gösterir.<br><br>Geleneksel olarak italik stil şunlar için kullanılır:<br>• Kelimeleri vurgulamak<br>• Başlıkları öne çıkarmak<br>• Yazıda görsel çeşitlilik oluşturmak<br><br>Bununla birlikte, çevrimiçi italik oluşturucular genellikle gerçek yazı tipleri yerine Unicode karakterleri kullanarak metin oluşturur. Bu karakterleri resmi <a href="https://unicode.org/charts/nameslist/n_1D400.html">Unicode matematiksel alfasayısal semboller tablosunda</a> görebilirsiniz. Bu sayede, metni kopyalayıp farklı platformlara yapıştırdığınızda bile stilini korur.'
+                },
+                {
+                    id: 'italik-yazi-ne-icin-kullanilir',
+                    title: 'İtalik Yazı Ne İçin Kullanılır?',
+                    type: 'text',
+                    content: 'İtalik yazı birçok çevrimiçi platformda popülerdir.',
+                    subsections: [
+                        {
+                            id: 'sosyal-medya',
+                            level: 3,
+                            title: 'Sosyal Medya',
+                            content: 'Birçok kişi italik yazıyı Instagram biyografileri, TikTok açıklamaları, Twitter gönderileri ve profil isimleri için kullanır. Eğik stil, metnin daha çekici görünmesine yardımcı olur.'
+                        },
+                        {
+                            id: 'mesajlasma-uygulamalari',
+                            level: 3,
+                            title: 'Mesajlaşma Uygulamaları',
+                            content: 'İtalik yazı ayrıca WhatsApp durumları, Telegram mesajları ve Discord kullanıcı adlarında kullanılabilir. Kısa ifadeler genellikle italik formatta en iyi görünür.'
+                        },
+                        {
+                            id: 'oyun-takma-adlari',
+                            level: 3,
+                            title: 'Oyun Takma Adları',
+                            content: 'Oyuncular genellikle benzersiz kullanıcı adları oluşturmak için italik karakterler kullanır. Şık bir takma ad, bir profilin daha belirgin görünmesini sağlayabilir.'
+                        }
+                    ]
+                },
+                {
+                    id: 'italik-yazi-nasil-yazilir',
+                    title: 'İtalik Yazı Nasıl Yazılır?',
+                    type: 'text',
+                    content: 'Günümüzde italik yazı oluşturmak oldukça kolaydır.',
+                    subsections: [
+                        {
+                            id: 'temel-adimlar',
+                            level: 3,
+                            title: 'Temel Adımlar',
+                            content: '1. Normal metninizi yazın.<br>2. Bir italik yazı oluşturucu kullanın.<br>3. Beğendiğiniz stili seçin.<br>4. Oluşturulan metni kopyalayın.<br>5. Kullanmak istediğiniz yere yapıştırın.'
+                        }
+                    ]
+                },
+                {
+                    id: 'italik-yazi-olusturucular-nasil-calisir',
+                    title: 'İtalik Yazı Oluşturucular Nasıl Çalışır?',
+                    type: 'text',
+                    content: 'Birçok kişi bu araçların yazı tipini değiştirdiğini düşünür. Gerçekte ise Unicode sembollerini kullanırlar. Unicode, her karaktere benzersiz bir kod atayan küresel bir sistemdir. Bu karakterler normal harflerden farklı olduğu için, başka uygulamalara yapıştırıldığında bile görünümlerini korurlar.'
+                },
+                {
+                    id: 'italik-yazi-stili-turleri',
+                    title: 'İtalik Yazı Stili Türleri',
+                    type: 'fontTypes',
+                    types: [
+                        { icon: '✒️', title: 'Serif İtalik', desc: 'Klasik ve zarif - alıntılar ve başlıklar için.' },
+                        { icon: '📱', title: 'Sans Serif İtalik', desc: 'Temiz ve modern - sosyal medya biyografileri için.' },
+                        { icon: '<b>I</b>', title: 'Kalın İtalik', desc: 'Güçlü ve dikkat çekici - başlıklar ve isimler için.' },
+                        { icon: '✨', title: 'El Yazısı İtalik', desc: 'Dekoratif ve yumuşak - estetik gönderiler için.' }
+                    ]
+                },
+                {
+                    id: 'kalin-ve-italik-yazi-ne-zaman-kullanilmali',
+                    title: 'Kalın ve İtalik Yazı Ne Zaman Kullanılmalıdır?',
+                    type: 'text',
+                    content: 'İtalik yazı, belirli kelimeleri vurgulamak istediğinizde en iyi sonucu verir. Örneğin bir ifadeyi vurgulamak, <a href="/" class="text-blue-500 hover:underline">şık bir kullanıcı adı yazmak</a> veya kısa bir açıklamayı öne çıkarmak için idealdir. Ancak uzun paragraflarda italik kullanmaktan kaçının; çok fazla eğik metin okunabilirliği azaltabilir.'
+                },
+                {
+                    id: 'italik-yazi-kullanimi-icin-ipuclari',
+                    title: 'İtalik Yazı Kullanımı İçin İpuçları',
+                    type: 'text',
+                    content: 'En iyi sonuçları almak için bu basit ipuçlarını izleyin:<br><br>• <b>Kısa tutun:</b> Kısa isimler ve ifadeler italik stilde daha iyi görünür.<br>• <b>Okunabilir stiller seçin:</b> Aşırı dekoratif karakterler havalı görünebilir ancak anlaşılması zor olabilir.<br>• <b>Farklı platformlarda test edin:</b> Bazı uygulamalar belirli karakterleri farklı şekilde görüntüler.'
+                },
+                {
+                    id: 'sonuc',
+                    title: 'Sonuç',
+                    type: 'text',
+                    content: 'Deneyimlerime göre, italik yazı, yazılarınızı çevrimiçi ortamda öne çıkarmanın en kolay yollarından biridir. İster bir sosyal medya biyografisi oluşturuyor ister bir oyun takma adı tasarlıyor olun, basit bir eğik stil görsel çekiciliği anında artırabilir.'
+                },
+                {
+                    id: 'sss',
+                    title: 'Sıkça Sorulan Sorular',
+                    type: 'faq',
+                    faqs: [
+                        { q: 'İtalik yazı nedir?', a: 'İtalik yazı, harflerin sağa doğru eğildiği bir yazı stilidir. Genellikle vurgu veya dekoratif amaçlar için kullanılır.' },
+                        { q: 'İtalik yazı Instagram\'da çalışır mı?', a: 'Evet. Birçok Unicode italik stili kopyalanıp Instagram biyografilerine, açıklamalarına ve kullanıcı adlarına yapıştırılabilir.' },
+                        { q: 'İtalik yazı bir font mudur?', a: 'Bazen evet, ancak çoğu çevrimiçi oluşturucu gerçek yazı tipleri yerine Unicode karakterleri kullanır.' },
+                        { q: 'İtalik yazı neden bazı cihazlarda farklı görünüyor?', a: 'Farklı platformlar Unicode karakterlerini farklı şekilde destekler, bu nedenle belirli stiller biraz farklı görünebilir.' }
+                    ]
+                }
+            ]
+        },
+        bold: {
+            hero: {
+                badge: 'Popüler Araç',
+                title: 'Kalın Yazı',
+                titleHighlight: 'Stilleri',
+                description: 'Metninizi girin ve anında 50+ farklı kalın, estetik ve dikkat çekici bold font stiline dönüştürün. Kopyala ve her yerde paylaş!',
+                inputTitle: 'Metninizi Yazın',
+                inputSub: 'Anında 50+ kalın stile dönüştürün ✨',
+                inputPlaceholder: 'Buraya yazmaya başlayın...',
+                stat1: 'Kalın Stil',
+                stat2: 'Platform',
+                stat3: 'Türkçe',
+            },
+            seo: {
+                name: 'Kalın Yazı Yazma - Şekilli Bold Fontlar (Kopyala Yapıştır)',
+                description: 'Kalın yazı yazma aracı ile 50+ farklı bold ve şekilli font oluşturun. Instagram, WhatsApp ve TikTok için en iyi kalın yazı stilleri.',
+            },
+        },
     },
     en: {
         common: {
@@ -1466,7 +1596,137 @@ export const translations: Record<Language, any> = {
                 codeblock: 'Code Block',
                 quote: 'Quote',
                 spoiler: 'Spoiler'
-            }
-        }
+            },
+        },
+        italik: {
+            hero: {
+                badge: 'Popular Tool',
+                title: 'Italic Text (Slanted Writing):',
+                titleHighlight: 'What It Is and How to Generate It',
+                description: 'Enter your text and instantly convert to 20+ different italic, script and slanted font styles. Copy and share everywhere!',
+                inputTitle: 'Type Your Text',
+                inputSub: 'Instantly convert to 20+ italic styles ✨',
+                inputPlaceholder: 'Start typing here...',
+                stat1: 'Italic Styles',
+                stat2: 'Platform',
+                stat3: 'Turkish',
+            },
+            seo: {
+                name: 'Italic Text Generator Guide – Copy Paste Stylish Slanted Text',
+                description: 'Learn what italic text is, how to generate stylish slanted text, and where to use it on Instagram, WhatsApp, Discord, and gaming usernames.',
+            },
+            sections: [
+                {
+                    id: 'what-is-italic-text-style',
+                    title: 'What Is Italic Text Style?',
+                    type: 'text',
+                    content: 'Italic text is a slanted version of regular letters. The characters lean slightly to the right, which makes them look more elegant and expressive.<br><br>Traditionally, italic style is used to:<br>• emphasize words<br>• highlight titles<br>• create visual variety in writing<br><br>However, online italic generators often create text using Unicode characters rather than actual fonts. You can see these characters in the official <a href="https://unicode.org/charts/nameslist/n_1D400.html">Unicode mathematical alphanumeric symbols chart</a>. Because of this, the text keeps its style even when you copy and paste it across platforms.'
+                },
+                {
+                    id: 'what-is-italic-text-used-for',
+                    title: 'What Is Italic Text Used For?',
+                    type: 'text',
+                    content: 'Italic text is popular across many online platforms.',
+                    subsections: [
+                        {
+                            id: 'social-media',
+                            level: 3,
+                            title: 'Social Media',
+                            content: 'Many people use italic text for: Instagram bios, TikTok captions, Twitter posts, profile names. The slanted style helps the text look more attractive.'
+                        },
+                        {
+                            id: 'messaging-apps',
+                            level: 3,
+                            title: 'Messaging Apps',
+                            content: 'Italic text can also be used in: WhatsApp status, Telegram messages, Discord usernames. Short phrases usually look best in italic format.'
+                        },
+                        {
+                            id: 'gaming-nicknames',
+                            level: 3,
+                            title: 'Gaming Nicknames',
+                            content: 'Gamers often use italic characters to create unique usernames. A stylish nickname can make a profile look more distinctive.'
+                        }
+                    ]
+                },
+                {
+                    id: 'how-to-write-italic-text',
+                    title: 'How To Write Italic Text',
+                    type: 'text',
+                    content: 'Creating italic text today is very easy.',
+                    subsections: [
+                        {
+                            id: 'basic-steps',
+                            level: 3,
+                            title: 'Basic Steps',
+                            content: '1. Type your normal text.<br>2. Use an italic text generator.<br>3. Choose the style you like.<br>4. Copy the generated text.<br>5. Paste it where you want to use it.'
+                        }
+                    ]
+                },
+                {
+                    id: 'how-italic-text-generators-work',
+                    title: 'How Italic Text Generators Work',
+                    type: 'text',
+                    content: 'Many people think these tools change the font. In reality, they use Unicode symbols. Unicode is a global system that assigns a unique code to every character. Because these characters are different from normal letters, they keep their appearance even when pasted into other apps.'
+                },
+                {
+                    id: 'types-of-italic-text-styles',
+                    title: 'Types of Italic Text Styles',
+                    type: 'fontTypes',
+                    types: [
+                        { icon: '✒️', title: 'Serif Italic', desc: 'Classic and elegant - for quotes and titles.' },
+                        { icon: '📱', title: 'Sans Serif Italic', desc: 'Clean and modern - for social media bios.' },
+                        { icon: '<b>I</b>', title: 'Bold Italic', desc: 'Strong and noticeable - for headings and names.' },
+                        { icon: '✨', title: 'Script Italic', desc: 'Decorative and soft - for aesthetic posts.' }
+                    ]
+                },
+                {
+                    id: 'when-should-bold-and-italic-be-used',
+                    title: 'When Should Bold and Italic Text Be Used?',
+                    type: 'text',
+                    content: 'Italic text works best when you want to highlight specific words. For example: emphasizing a phrase, <a href="/" class="text-blue-500 hover:underline">writing a stylish username</a>, making a short caption stand out. However, avoid using italic style for long paragraphs. Too much slanted text can reduce readability.'
+                },
+                {
+                    id: 'tips-for-using-italic-text',
+                    title: 'Tips for Using Italic Text',
+                    type: 'text',
+                    content: 'To get the best results, follow these simple tips:<br><br>• <b>Keep it short:</b> Short names and phrases look better in italic style.<br>• <b>Choose readable styles:</b> Overly decorative characters may look cool but can be difficult to understand.<br>• <b>Test on different platforms:</b> Some apps display certain characters differently.'
+                },
+                {
+                    id: 'conclusion',
+                    title: 'Conclusion',
+                    type: 'text',
+                    content: 'From my experience, italic text is one of the easiest ways to make your writing stand out online. Whether you are creating a social media bio or designing a gaming nickname, a simple slanted style can instantly improve the visual appeal.'
+                },
+                {
+                    id: 'faq',
+                    title: 'FAQ',
+                    type: 'faq',
+                    faqs: [
+                        { q: 'What is italic text?', a: 'Italic text is a slanted style of writing where letters lean to the right. It is commonly used for emphasis or decorative purposes.' },
+                        { q: 'Can italic text work on Instagram?', a: 'Yes. Many Unicode italic styles can be copied and pasted into Instagram bios, captions, and usernames.' },
+                        { q: 'Is italic text a font?', a: 'Sometimes yes, but most online generators use Unicode characters, not actual fonts.' },
+                        { q: 'Why does italic text look different on some devices?', a: 'Different platforms support Unicode characters differently, so certain styles may appear slightly different.' }
+                    ]
+                }
+            ]
+        },
+        bold: {
+            hero: {
+                badge: 'Popular Tool',
+                title: 'Bold Text',
+                titleHighlight: 'Styles',
+                description: 'Enter your text and instantly convert to 50+ different bold, aesthetic and eye-catching font styles. Copy and share everywhere!',
+                inputTitle: 'Type Your Text',
+                inputSub: 'Instantly convert to 50+ bold styles ✨',
+                inputPlaceholder: 'Start typing here...',
+                stat1: 'Bold Styles',
+                stat2: 'Platform',
+                stat3: 'Turkish',
+            },
+            seo: {
+                name: 'Bold Text Generator - Stylish Bold Fonts (Copy & Paste)',
+                description: 'Create 50+ different bold and stylish fonts with the bold text generator. Best bold text styles for Instagram, WhatsApp, and TikTok.',
+            },
+        },
     }
 };

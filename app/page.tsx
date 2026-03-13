@@ -11,6 +11,7 @@ const SeoSections = dynamic(() => import('./components/SeoSections'), { ssr: tru
 const FaqAccordion = dynamic(() => import('./components/FaqAccordion'), { ssr: true })
 import Header from './components/Header'
 import Footer from './components/Footer'
+import RelatedTools from './components/RelatedTools'
 
 export default function Home() {
   const [lang, setLang] = useState<Language>('tr')
@@ -471,6 +472,9 @@ export default function Home() {
           {/* ============ COMPREHENSIVE SEO CONTENT SECTIONS ============ */}
           <SeoSections sections={t.home.sections.filter((s: any) => s.type !== 'faq')} />
 
+          {/* ============ RELATED TOOLS SECTION ============ */}
+          <RelatedTools />
+
           {/* ============ FAQ SECTION ============ */}
           {t.home.sections.find((s: any) => s.type === 'faq') && (
             <FaqAccordion
@@ -478,7 +482,6 @@ export default function Home() {
               faqs={t.home.sections.find((s: any) => s.type === 'faq').faqs}
             />
           )}
-
         </div>
       </main>
 

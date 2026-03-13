@@ -33,9 +33,6 @@ export default function Footer({ lang }: FooterProps) {
                         <Link href="/pubg-sekilli-nick" className="footer-link">
                             {t.common.nav.pubg}
                         </Link>
-                        <Link href="/el-yazisi" className="footer-link">
-                            {t.common.nav.elYazisi}
-                        </Link>
                         <Link href="/gizlilik-politikasi" className="footer-link">
                             {lang === 'tr' ? 'Gizlilik Politikası' : 'Privacy Policy'}
                         </Link>

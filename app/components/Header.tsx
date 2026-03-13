@@ -57,9 +57,6 @@ export default function Header({
                         <Link href="/pubg-sekilli-nick" className="nav-link">
                             {t.common.nav.pubg}
                         </Link>
-                        <Link href="/el-yazisi" className="nav-link">
-                            {t.common.nav.elYazisi}
-                        </Link>
                     </nav>
 
                     {/* Right Actions: Theme Toggle, Lang Toggle & Hamburger */}
@@ -117,9 +114,6 @@ export default function Header({
                     </Link>
                     <Link href="/pubg-sekilli-nick" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
                         <span className="nav-icon">🎯</span> {t.common.nav.pubg}
-                    </Link>
-                    <Link href="/el-yazisi" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                        <span className="nav-icon">✍️</span> {t.common.nav.elYazisi}
                     </Link>
                     <div className="mobile-lang-switch">
                         <button
